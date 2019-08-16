@@ -37,8 +37,9 @@
         margin: 0;
     }
     .menubtn{
-    	position:absolute;
+    	position:fixed;
     	left: 0px;
+    	top : 0px;
         width: 100%;
         height: 60px;
         z-index: 999;
@@ -61,7 +62,7 @@
    }
     .content {
     margin-left: 300px;
-    height: auto;
+    height: 2500px;
     width: auto;
     position: relative;
     background: gray;
@@ -71,7 +72,8 @@
     }
     .info {
     min-width: 720px;
-    height: 6000px;
+    height: 1080px;
+    background-color:gray;
     position: relative;
     background-size: 1440px;
         z-index: 2;
@@ -81,8 +83,10 @@
          margin-left: -300px;
        }
        .content {
-         padding-top: 60px;
          margin-left: 0px;
+       }
+       .info{
+       	 padding-top: 60px;
        }
        .menubtn{
             display: block;
@@ -107,8 +111,7 @@
 <div style="width: 100%; background-color: none;">
 	<button class="btn btn-default side-btn"><i class="fa fa-align-justify"></i></button>
 </div>
-
 </div>
 <div class="content">
-
+<div class="info">
 
