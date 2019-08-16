@@ -1,0 +1,18 @@
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 위까지 필요파일 -->
+<configuration>
+	<properties/>
+	
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+	</settings>
+
+	<typeAliases>
+		<!-- playerDto 클래스에 playerDto라는 별칭을 부여하겠다.
+        	하단 참고하여 작성-->
+	<!-- ex) <typeAlias type="spring.test.sts14.entity.PlayerDto" alias="playerDto"/> -->
+	</typeAliases>
+</configuration>
