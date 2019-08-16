@@ -3,8 +3,5 @@
 <div class="info">
 </div>
 </div>
-<div class="menubtn">
-<button class="btn btn-primary ">이미지가져오면되고</button>
-</div>
 </body>
 </html>
