@@ -50,7 +50,7 @@
 	    position: fixed;
 	    width: 300px;
 	    height: 100%;
-	    background-image: url(https://post-phinf.pstatic.net/MjAxODAxMjZfMjE4/MDAxNTE2OTUwMTA4NDQz.8H38FcR90M8nUx6MZwIEfEZI12zkxlbJy7UU7mgPL_cg.z_IrPLg-7iqQJCgI0w1ZFAu0tqDtqTDhe8dHaiXFaZIg.JPEG/iphone-wallpaper13.jpg);
+	    background-color : #f1e3c4;
 	    z-index: 999;
         transition: margin .3s ease-in;
     }
@@ -65,7 +65,7 @@
     height: 2500px;
     width: auto;
     position: relative;
-    background: gray;
+    background: white;
     overflow: auto;
         z-index: 1;
         transition: margin .3s ease-in;
@@ -73,7 +73,7 @@
     .info {
     min-width: 720px;
     height: 1080px;
-    background-color:gray;
+    background-color:white;
     position: relative;
     background-size: 1440px;
         z-index: 2;
