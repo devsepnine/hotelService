@@ -64,7 +64,7 @@
     height: auto;
     width: auto;
     position: relative;
-    background: #f00;
+    background: gray;
     overflow: auto;
         z-index: 1;
         transition: margin .3s ease-in;
@@ -104,7 +104,7 @@
 <h1>이곳이 메뉴입니다.</h1>
 </div>
 <div class="menubtn">
-<div style="width: 100%; background-color: black;">
+<div style="width: 100%; background-color: none;">
 	<button class="btn btn-default side-btn"><i class="fa fa-align-justify"></i></button>
 </div>
 
