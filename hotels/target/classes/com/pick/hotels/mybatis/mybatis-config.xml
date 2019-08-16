@@ -14,5 +14,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- playerDto 클래스에 playerDto라는 별칭을 부여하겠다.
         	하단 참고하여 작성-->
 	<!-- ex) <typeAlias type="spring.test.sts14.entity.PlayerDto" alias="playerDto"/> -->
+		<typeAlias type="com.pick.hotels.entity.SellerDto" alias="sellerDto"/>
 	</typeAliases>
 </configuration>
