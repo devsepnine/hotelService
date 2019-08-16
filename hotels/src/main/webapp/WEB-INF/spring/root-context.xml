@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${database.driver}"></property> <!-- 대부분 셋팅을 이걸로함 -->
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.username}"></property>
+		<property name="password" value="${database.password}"></property>
+		<property name="maxTotal" value="${database.dbcp.max-total}"></property> <!-- maxActive="20" context에선 -->
+		<property name="maxIdle" value="${database.dbcp.max-idle}"></property>
+		<property name="maxWaitMillis" value="${database.dbcp.max-wait-millis}"></property>
+	</bean>
+	<!-- myBatis에서 사용할 데이터 등록 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 설정할 데이터 dataSource , 설정파일 위치 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/com/pick/hotels/mybatis/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:/com/pick/hotels/mybatis/**/*-mapper.xml"></property>
+	</bean>
+	<!-- 그냥 autowired하면 안되기 때문에 연결해줌  -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSession"></constructor-arg>
+	</bean>
+	<context:property-placeholder location="classpath:property/*.properties"/>
+	
+	
+</beans>
