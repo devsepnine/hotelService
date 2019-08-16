@@ -38,30 +38,29 @@
     }
     .menubtn{
     	position:fixed;
-    	left: 0px;
     	top : 0px;
-        width: 100%;
-        height: 60px;
+		right:0px;
+        height: 100px;
         z-index: 999;
         display: none;
         transition: left .3s ease-in;
     }
     .sidebar {
 	    position: fixed;
-	    width: 300px;
+	    width: 200px;
 	    height: 100%;
 	    background-color : #f1e3c4;
 	    z-index: 999;
         transition: margin .3s ease-in;
     }
    .sidebar.active{
-       margin-left: -300px;
+       margin-left: -200px;
    }
    .content.active{
         margin-left: 0px;
    }
     .content {
-    margin-left: 300px;
+    margin-left: 200px;
     height: 2500px;
     width: auto;
     position: relative;
@@ -78,21 +77,29 @@
     background-size: 1440px;
         z-index: 2;
     }
+    .sidebar-list{
+    	margin-top: 60px;
+    }
+    .sidebar-list ul li{
+    	list-style: none;
+    	font-size: 30px;
+    	color: #81725f;
+    	font-weight: bold;
+    }
     @media (max-width:1224px) {
        .sidebar {
-         margin-left: -300px;
+         margin-left: -200px;
        }
        .content {
          margin-left: 0px;
        }
        .info{
-       	 padding-top: 60px;
        }
        .menubtn{
             display: block;
        }
        .menubtn.active{
-       		left: 300px; 
+       		right: 0px; 
        }
        .sidebar.active{
            margin-left: 0px;
@@ -105,11 +112,21 @@
 </head>
 <body>
 <div class="sidebar">
-<h1>이곳이 메뉴입니다.</h1>
+<div>
+<div class="sidebar-list">
+<ul>
+	<li>호텔 예약</li>
+	<li>호텔 검색</li>
+	<li>뭐넣지</li>
+	<li>회원가입</li>
+	<li>로그인</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
-	<button class="btn btn-default side-btn"><i class="fa fa-align-justify"></i></button>
+	<button class="btn btn-default side-btn"><i style="color: white;" class="fa fa-bars fa-3x"></i></button>
 </div>
 </div>
 <div class="content">
