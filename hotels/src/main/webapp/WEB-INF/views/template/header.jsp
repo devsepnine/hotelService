@@ -7,9 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/style/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+   	
   <script>
         $(function(){
             $(".side-btn").click(function(){

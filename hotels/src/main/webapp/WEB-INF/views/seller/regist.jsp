@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -74,5 +68,5 @@ ${sellerDto}
             </form>
         </div>
     </div>
-</body>
-</html>
+    
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
