@@ -15,5 +15,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         	하단 참고하여 작성-->
 	<!-- ex) <typeAlias type="spring.test.sts14.entity.PlayerDto" alias="playerDto"/> -->
 		<typeAlias type="com.pick.hotels.entity.SellerDto" alias="sellerDto"/>
+		<typeAlias type="com.pick.hotels.entity.MemberDto" alias="memberDto"/>
 	</typeAliases>
 </configuration>
