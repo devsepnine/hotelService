@@ -26,9 +26,11 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberDto get(String member_id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSession.selectOne("member.id_ckeck", member_id);
 	}
+
+
 	
 	
 	
