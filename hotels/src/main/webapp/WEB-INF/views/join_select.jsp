@@ -15,6 +15,6 @@
 
 <div class="join_select_wrap">
 	<a href="${pageContext.request.contextPath}/member/regist" class="btn btn-outline-info">일반 회원으로 가입하기</a>
-	<a class="btn btn-outline-danger">판매 회원으로 가입하기</a>
+	<a href="${pageContext.request.contextPath}/seller/lisence" class="btn btn-outline-danger">판매 회원으로 가입하기</a>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
