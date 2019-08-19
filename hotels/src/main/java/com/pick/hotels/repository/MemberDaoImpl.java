@@ -2,9 +2,11 @@ package com.pick.hotels.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.MemberDto;
 
+@Repository
 public class MemberDaoImpl implements MemberDao{
 
 	@Autowired
@@ -20,6 +22,12 @@ public class MemberDaoImpl implements MemberDao{
 			return false;
 			
 		}
+	}
+
+	@Override
+	public MemberDto get(String member_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
