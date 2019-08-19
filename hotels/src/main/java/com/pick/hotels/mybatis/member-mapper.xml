@@ -13,9 +13,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into member values(
 		member_seq.nextval, #{member_name}, #{member_phone},
 		#{member_zip_code}, #{member_basic_addr}, #{member_detail_addr},
-		#{member_class}, sysdate, #{member_email1}, #{member_email2},
+		'일반', sysdate, #{member_email1}, #{member_email2},
 		#{member_id}, #{member_pw}, #{member_birthday}
 		)
 	</insert>
+	
+	<select id="id_ckeck" parameterType="string" resultType="memberDto">
+		select * from member where member_id = #{member_id}
+	</select>
 
 </mapper>

@@ -5,8 +5,9 @@ import com.pick.hotels.entity.MemberDto;
 public interface MemberDao {
 
 	boolean regist(MemberDto memberDto);
-
 	MemberDto get(String member_id);
+
+	
 	
 
 }
