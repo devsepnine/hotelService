@@ -10,4 +10,9 @@ public class MainController {
 	public String main() {
 		return "main";
 	}
+	
+	@GetMapping("/join")
+	public String join() {
+		return "join_select";
+	}
 }
