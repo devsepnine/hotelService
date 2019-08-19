@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
    	
@@ -117,10 +117,11 @@
 <div>
 <div class="sidebar-list">
 <ul>
+	<li><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></li>
 	<li>호텔 예약</li>
 	<li>호텔 검색</li>
 	<li>뭐넣지</li>
-	<li>회원가입</li>
+	<li><a href="${pageContext.request.contextPath}/join">회원가입</a></li>
 	<li>로그인</li>
 </ul>
 </div>
