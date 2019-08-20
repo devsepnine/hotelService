@@ -7,10 +7,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,7 +101,7 @@ public class MemberController {
 		if(result!=null) {
 			if(BCrypt.checkpw(memberDto.getMember_pw(), result.getMember_pw())) {
 				session.setAttribute("ok", result.getMember_id());
-				session.setAttribute("auth", result.getMember_class());
+				session.setAttribute("auth", result.getMember_auth());
 				session.setAttribute("no", result.getMember_no());
 				
 				System.out.println("로그인 성공");
@@ -123,5 +123,16 @@ public class MemberController {
 			return "member/login_fail";
 		}
 	}
+	
+	@GetMapping("/info")
+	public String info(HttpSession session, Model model) {
+		String member_id = (String) session.getAttribute("ok");
+		MemberDto memberDto = memberDao.get(member_id);
+		model.addAttribute("mdto", memberDto);
+		return "member/info";
+	}
+	
+	
+	
 	
 }
