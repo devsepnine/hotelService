@@ -6,7 +6,9 @@ public interface MemberDao {
 
 	boolean regist(MemberDto memberDto);
 	MemberDto get(String member_id);
+	MemberDto login(MemberDto memberDto);
 	
-//	나연이가 만든거	
+	
+//	나연이가 만든거	      
 	MemberDto get(int notice_writer);
 }
