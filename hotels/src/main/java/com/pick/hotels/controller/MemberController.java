@@ -7,7 +7,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -123,14 +122,6 @@ public class MemberController {
 		else {
 			return "member/login_fail";
 		}
-	}
-	
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("ok");
-		session.removeAttribute("auth");
-		return "redirect:/";
 	}
 	
 	@GetMapping("/info")
