@@ -39,7 +39,7 @@
 
 
 <div style="width: 768px; margin: auto; text-align: center;">
-	<div style="width: 300px;display: inline-block;">
+	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
@@ -48,7 +48,7 @@
            </div>
 	</div>
 	
-	<div style="width: 300px;display: inline-block;">
+	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
@@ -56,7 +56,9 @@
                </div>
            </div>
        </div>
-<div>
+       
+   <input type="number">
+	
 <span style="font-size: 20px;" class="diff"></span>
 
 
@@ -95,6 +97,7 @@
 				$(".diff").text(diff);
 				if(diff>30){
 					alert("기간은 30일 이하로 선택해주세요.")
+					$("#datetimepicker2 input").val('');
 				}
 			}
 		};
