@@ -120,11 +120,12 @@
 <div class="sidebar-list">
 <ul>
 	<li><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></li>
+	<li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 	<li>호텔 예약</li>
 	<li>호텔 검색</li>
 	<li>뭐넣지</li>
 	<li><a href="${pageContext.request.contextPath}/join">회원가입</a></li>
-	<li>로그인</li>
+	<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
 </ul>
 </div>
 </div>
