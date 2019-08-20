@@ -45,10 +45,18 @@
 		padding: 20px 10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
 	}
+	
 	.td-line{
 		width: 950px;
 		text-align: right;
 	}
+	
+	.btn{
+		width: 50px;
+		height: 40px;
+		padding: 0px;
+	}
+	
 	@media (max-width:1224px) {
 		.td-line{
 			text-align: left;
@@ -56,8 +64,8 @@
 	}
 </style>
 
-<br><br><br>
 
+<div style="height: 100px;"></div>
 <div class="content-line">
 <div class="notice_wrap">
 <div class="headtit">
@@ -84,16 +92,12 @@
 		<tfoot>
 			<tr>
 				<td class="td-line" colspan="2">
-					<%-- if(관리자 일 때)--%>
-<%-- 					<c:if test="${mdto.member_auth == '관리자'}"> --%>
-					<a href="write">글쓰기</a>
-<%-- 					</c:if> --%>
 					<%-- if(내글일 때)--%>
 					<c:if test="${mdto.member_id == ok}">
-					<a href="edit?no=${ndto.notice_no}">수정</a>
-					<a href="delete?no=${ndto.notice_no}">삭제</a>
+					<a href ="edit?no=${ndto.notice_no}"><input type="button" value="수정" name="edit" class="btn btn-danger"></a>
+					<a href ="delete?no=${ndto.notice_no}"><input type="button" value="삭제" name="delete" class="btn btn-danger"></a>
 					</c:if>
-					<a href="list">목록</a>
+					<a href ="list"><input type="button" value="목록" name="list" class="btn btn-danger"></a>
 				</td>
 			</tr>
 		</tfoot>
