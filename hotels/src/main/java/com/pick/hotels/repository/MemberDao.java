@@ -13,4 +13,5 @@ public interface MemberDao {
 	
 //	나연이가 만든거	      
 	MemberDto get(int notice_writer);
+	void change(MemberDto memberDto);
 }

@@ -19,7 +19,7 @@ form h4 {
 	}
 	
 	.regist-wrap{
-		width: 800px;
+		width: 1000px;
 		margin: auto;
 	}
 	
@@ -275,21 +275,21 @@ $(function(){
 				<tr>
 							<td><label for="m_id">ID</label></td>
 							<td>
-								<input onblur="checkId();" type="text" name="member_id" id="m_id" pattern="^[a-z0-9]{8,15}$" required>
-								<input type="button" value="중복확인" name="id_check_btn">
+								<input class="form-control" onblur="checkId();" type="text" name="member_id" id="m_id" pattern="^[a-z0-9]{8,15}$" required>
+								<input class="btn btn-danger" type="button" value="중복확인" name="id_check_btn">
 								<div class="m_idD"></div>
 							</td>
 						</tr>
 				<tr>
 							<td><label for="m_pw">PASSWORD</label></td>
 							<td>
-								<input onblur="checkPw();" type="password" name="member_pw" id="m_pw" pattern="^[a-zA-Z0-9!@#$\-_]{8,15}$" required>
+								<input onblur="checkPw();" type="password" class="form-control" name="member_pw" id="m_pw" pattern="^[a-zA-Z0-9!@#$\-_]{8,15}$" required>
 								<div class="m_pwD"></div>
 							</td>
 						</tr>
 				<tr>
 					<td><label>PASSWORD CHECK</label></td>
-					<td><input type="password" id="chpass" name="pw_check"
+					<td><input class="form-control" type="password" id="chpass" name="pw_check"
 							placeholder="비밀번호 확인" required>
 							 <font name="check"	size="3" color="red"></font></td><br> 
 					
@@ -297,40 +297,40 @@ $(function(){
 				<tr> 
 							<td><label for="m_name">NAME</label></td>
 							<td>
-								<input onblur="checkName();" type="text" name="member_name" id="m_name" pattern="^[가-힣]{2,7}$" required>
+								<input class="form-control" onblur="checkName();" type="text" name="member_name" id="m_name" pattern="^[가-힣]{2,7}$" required>
 								<div class="m_nameD"></div>
 							</td>
 						</tr>
 						<tr>
 							<td><label for="m_addr">ADDRESS</label></td>
 							<td>
-								<input type="text" name="member_zip_code" placeholder="우편번호" required readonly ><br>
-									<input type="button" value="우편번호 찾기" name="postcode_find"><br>
-									<input type="text" name="member_basic_addr" placeholder="주소" required readonly ><br>
-									<input type="text" name="member_detail_addr" placeholder="상세주소" >
+								<input class="form-control" type="text" name="member_zip_code" placeholder="우편번호" required readonly ><br>
+									<input class="btn btn-danger"  type="button" value="우편번호 찾기" name="postcode_find"><br>
+									<input class="form-control" type="text" name="member_basic_addr" placeholder="주소" required readonly ><br>
+									<input class="form-control" type="text" name="member_detail_addr" placeholder="상세주소" >
 							</td>
 						</tr>
 				
 				<tr>
 							<td><label for="m_phone">PHONE</label></td>
 							<td>
-								<input onblur="checkPhone();" type="tel" name="member_phone" id="m_phone"  pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" required>
+								<input class="form-control" onblur="checkPhone();" type="tel" name="member_phone" id="m_phone"  pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" required>
 								<div class="m_phoneD"></div>
 							</td>
 						</tr>
 				<tr>
 							<td><label for="m_birth">BIRTH</label></td>
 							<td>
-								<input type="date" name="member_birthday" id="m_birth" value="2019-07-08" required>
+								<input class="form-control" type="date" name="member_birthday" id="m_birth" value="2019-07-08" required>
 							</td>
 						</tr>
 				<tr>
 							<td><label for="m_email">EMAIL</label></td>
 							<td>
-								<input onblur="checkEmail();" type="text" name="member_email1" id="m_email" pattern="^[a-z0-9]{8,15}$" required>
+								<input class="form-control" onblur="checkEmail();" type="text" name="member_email1" id="m_email" pattern="^[a-z0-9]{8,15}$" required>
 								
 									<span>@</span>
-									<input type="text" name="member_email2" id="m_email_address" pattern="^.*?\..*?$" required >
+									<input class="form-control" type="text" name="member_email2" id="m_email_address" pattern="^.*?\..*?$" required >
 									<select id="email_address">
 										<option value="">직접입력</option>
 										<option>nate.com</option>
