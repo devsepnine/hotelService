@@ -16,6 +16,7 @@
   		border-bottom: 3px solid #432c10;
    		border-left: none;
   		border-right: none;
+  		max-width: 1100px;
 	}
 	
 	.notice_wrap > .table_ny_one > thead > tr > th,
@@ -34,19 +35,39 @@
 		border-bottom: #432c10 solid 10px;
 		width:1100px;
 		margin:auto;
-		margin-top : 70px;
+	}
+	
+	.content-line{
+		margin-top:100px;
+		border: 5px solid white;
+		max-width: 1200px;
+		margin: auto;
+		padding: 20px 10px;
+		box-shadow: 2px 2px 10px #EAEAEA;
+	}
+	.td-line{
+		width: 950px;
+		text-align: right;
+	}
+	@media (max-width:1224px) {
+		.td-line{
+			text-align: left;
+		}
 	}
 </style>
 
+<br><br><br>
+
+<div class="content-line">
 <div class="notice_wrap">
 <div class="headtit">
 <h3>${ndto.notice_title}</h3>
 </div>
-	<table class="table_ny_one" width="1000" align="center" >
+	<table class="table_ny_one" align="center" >
 		<tbody class="text-left">
 			<tr>
-				<td align="right" width="800">
-					${mdto.member_id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${ndto.notice_when.substring(0,16)}
+				<td class="td-line" >
+					${mdto.member_id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${ndto.notice_when.substring(0,16)}
 				</td>
 			</tr>
 			<tr height="500">
@@ -62,7 +83,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td align="right" colspan="2">
+				<td class="td-line" colspan="2">
 					<%-- if(관리자 일 때)--%>
 <%-- 					<c:if test="${mdto.member_auth == '관리자'}"> --%>
 					<a href="write">글쓰기</a>
@@ -77,6 +98,7 @@
 			</tr>
 		</tfoot>
 	</table>
+</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
