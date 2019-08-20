@@ -63,32 +63,30 @@ input[name=m_id], input[name=m_pw]{
 					<tbody>
 						
 						<tr>
-							<td><label for="m_id">ID</label></td>
 							<td>
-								<input type="text" name="member_id" id="m_id" placeholder="ID를 입력하세요" value="${cookie.saveID.value}" required>
+								<label for="m_id">ID</label>
+								<input type="text" class="form-control" name="member_id" id="m_id" placeholder="ID를 입력하세요" value="${cookie.saveID.value}" required>
 							</td>
 						</tr>
 						<tr>
-							<td><label for="m_pw">PASSWORD</label></td>
 							<td>
-								<input type="password" name="member_pw" id="m_pw" placeholder="PASSWORD를 입력하세요" required>
-							</td>
-						</tr>
-						<tr align="right">
-							<td colspan="2">
-								<input type="checkbox" name="saveID" ${not empty cookie.saveID?"checked":""}>
-								<label for="saveID" style="margin-right:20px">아이디 저장하기</label>
+								<label for="m_pw">PASSWORD</label>
+								<input type="password" class="form-control" name="member_pw" id="m_pw" placeholder="PASSWORD를 입력하세요" required>
+								<div style="text-align: right;padding-top: 10px;">
+									<input type="checkbox" name="saveID" ${not empty cookie.saveID?"checked":""}>
+									<label for="saveID" style="margin-right:20px">아이디 저장하기</label>
+								</div>
 							</td>
 						</tr>
 						<tr align="center">
-							<td colspan="2">
+							<td>
 								<input class="btn btn-danger btn-block" style="padding:0.5rem 3rem;" type="submit" value="로그인">
 							</td>
 						</tr>
 						<tr>
 							<td colspan = "2" align = "center" >
-								<a href ="find_id"><input class="btn btn-danger btn-block" type="button" value="ID 찾기" name="find_id"></a>
-								<a href ="find_pw"><input class="btn btn-danger btn-block" type="button" value="PW 찾기" name="find_pw"></a>
+								<a href ="find_id"><input class="btn btn-danger" style="width: 100px;" type="button" value="ID 찾기" name="find_id"></a>
+								<a href ="find_pw"><input class="btn btn-danger" style="width: 100px;" type="button" value="PW 찾기" name="find_pw"></a>
 							</td>
 						</tr>
 					</tbody>
