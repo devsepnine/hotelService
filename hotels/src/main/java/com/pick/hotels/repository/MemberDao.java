@@ -7,6 +7,7 @@ public interface MemberDao {
 	boolean regist(MemberDto memberDto);
 	MemberDto get(String member_id);
 	MemberDto login(MemberDto memberDto);
+	void lasttime(String member_id);
 	
 	
 //	나연이가 만든거	      

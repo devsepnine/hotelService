@@ -106,6 +106,8 @@ public class MemberController {
 				
 				System.out.println("로그인 성공");
 				
+				memberDao.lasttime(memberDto.getMember_id());
+				
 				//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
 				Cookie c = new Cookie("saveId", memberDto.getMember_id());
 				if(remember == null)//체크 안했을때 
@@ -128,6 +130,7 @@ public class MemberController {
 	public String info(HttpSession session, Model model) {
 		String member_id = (String) session.getAttribute("ok");
 		MemberDto memberDto = memberDao.get(member_id);
+		System.out.println(memberDto);
 		model.addAttribute("mdto", memberDto);
 		return "member/info";
 	}

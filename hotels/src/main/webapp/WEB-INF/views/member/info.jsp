@@ -3,7 +3,7 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<h1>${mdto.name}님의 정보</h1>
+<h1>${mdto.member_name}님의 정보</h1>
 
 <table class="table table-hamburg table-stripe" width="500"> 
 	<tbody>
