@@ -5,6 +5,11 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
+	<%-- 
+		table_ny_one
+		 - 위아래는 두껍고 안에는 얇은 선
+		 - 좌우는 선 없음
+	--%>
 <style>
 	.notice_wrap > *{
 		color:black;
@@ -28,7 +33,7 @@
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
-  		padding:10px 0px;
+  		padding:10px 10px;
 	}
 	
 	.headtit{
