@@ -12,7 +12,7 @@ public interface NoticeDao {
 	void write(NoticeDto noticeDto);
 	NoticeDto get(int no);
 	void delete(int no);
-	List<NoticeDto> list(String type, String keyword);
+	List<NoticeDto> list(String type, String keyword, int start, int end);
 	void read(int no);
 	int count(String type, String keyword);
 	int getSequenceNumber();
