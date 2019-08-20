@@ -37,6 +37,7 @@
 	});
 </script>
 <style>
+
 textarea {
 	padding: 10px;
 }
@@ -45,7 +46,7 @@ textarea {
 </head>
 <body>
 
-
+<div style="width: 800px; margin: auto; text-align: center;">
 	<br>
 	<h1>이용약관</h1>
 	<textarea rows="30" cols="100" readonly>전자상거래(인터넷사이버몰) 표준약관
@@ -301,14 +302,14 @@ textarea {
 
 
 </textarea>
-	<form action="regist.jsp" method="POST"
+	<form action="regist" method="get"
 		onsubmit="return checkCheckBox(this)">
 
-		<br> <input type="checkbox" value="0" name="agree"> 동의합니다
-		<button disabled class="btn btn-primary">다음 단계로 이동</button>
+		<br> <input type="checkbox" value="agree" name="agree"> 동의합니다
+		<button disabled class="btn btn-danger btn-block">다음 단계로 이동</button>
 
 
 	</form>
-
+</div>
 </body>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

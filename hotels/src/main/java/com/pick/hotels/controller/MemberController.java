@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,19 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 	
+	@GetMapping("/agree")
+	public String agree() {
+		return "member/agree";
+	}
+	
 	@GetMapping("/regist")
-	public String regist() {
-		return "member/regist";
+	public String regist(@RequestParam(required = false, defaultValue = "no") String agree) {
+		if(agree.equals("no")) {
+			return "redirect:/member/agree";
+		}
+		else {
+			return "member/regist";
+		}
 	}
 	
 	@PostMapping("/regist")
