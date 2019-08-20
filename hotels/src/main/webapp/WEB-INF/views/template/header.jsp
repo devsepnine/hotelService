@@ -32,7 +32,9 @@
       
     </script>
    <style>
-       *{
+   		@font-face { font-family: 'KOMACON'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff'); font-weight: normal; font-style: normal; }
+      *{
+      		font-family:KOMACON;
            box-sizing: border-box;
        }
     body{
