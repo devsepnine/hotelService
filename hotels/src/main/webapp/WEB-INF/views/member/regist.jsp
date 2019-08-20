@@ -252,10 +252,15 @@ $(function(){
 		var pw = $("input[name=member_pw]").val();
 		var encPw = CryptoJS.SHA256(pw).toString();
 		
-		$("input[name=member_pw]").attr("name","");
-		var newInput = $("<input/>").attr("name","member_pw").val(encPw).attr("type","hidden");
+		var ck_pw = $("input[name=pw_check]").val();
 		
-		$(this).append(newInput);
+		$("input[name=member_pw]").attr("name","");
+		var newInput1 = $("<input/>").attr("name","member_pw").val(encPw).attr("type","hidden");
+		
+		$("input[name=pw_check]").attr("name","");
+		
+		
+		$(this).append(newInput1);
 		this.submit();
 	});
 });

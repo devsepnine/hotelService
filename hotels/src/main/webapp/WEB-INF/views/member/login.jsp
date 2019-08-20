@@ -28,8 +28,8 @@
 .form.form-label>fieldset {
 	width: 350px;
 	text-align: left;
-	margin-top : 100px;
-	margin-bottom : 100px;
+	margin-top : 20px;
+	margin-bottom : 20px;
 	padding : 10px;
 }
 
@@ -43,9 +43,19 @@ input[name=m_id], input[name=m_pw]{
 	text-align : center;
 }
 
-</style>
+	.content-line{
+		margin-top:100px;
+		border: 5px solid white;
+		max-width: 500px;
+		margin: auto;
+		margin-top: 50px;
+		
+		box-shadow: 2px 2px 10px #EAEAEA;
+	}
 
-<div align="center">
+</style>
+<div style="height: 100px"></div>
+<div align="center" class="content-line">
 	<form action="login" method="post" class="form form-label">
 		<fieldset>
 			<legend>LOGIN</legend>
@@ -72,13 +82,13 @@ input[name=m_id], input[name=m_pw]{
 						</tr>
 						<tr align="center">
 							<td colspan="2">
-								<input style="padding:0.5rem 3rem;" type="submit" value="로그인">
+								<input class="btn btn-danger btn-block" style="padding:0.5rem 3rem;" type="submit" value="로그인">
 							</td>
 						</tr>
 						<tr>
 							<td colspan = "2" align = "center" >
-								<a href ="find_id"><input type="button" value="ID 찾기" name="find_id"></a>
-								<a href ="find_pw"><input type="button" value="PW 찾기" name="find_pw"></a>
+								<a href ="find_id"><input class="btn btn-danger btn-block" type="button" value="ID 찾기" name="find_id"></a>
+								<a href ="find_pw"><input class="btn btn-danger btn-block" type="button" value="PW 찾기" name="find_pw"></a>
 							</td>
 						</tr>
 					</tbody>
