@@ -8,9 +8,7 @@ form h4 {
 	display: none
 	}
 	
-	*{
-	text-align: center;
-	}
+
 	
 	form label {
 	font-size: 20px;
@@ -246,8 +244,8 @@ $(function() {
 });
 </script>
 
+<div class="regist-wrap" align="center">
 <br><h1>가입 정보 입력</h1><br>
-<div class="regist-wrap">
 <form action="regist" method="post">
 	<div>
 		<table>
