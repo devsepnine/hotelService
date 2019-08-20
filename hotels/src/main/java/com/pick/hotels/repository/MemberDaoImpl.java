@@ -55,6 +55,12 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public void change(MemberDto memberDto) {
+		sqlSession.update("member.change", memberDto);
+		
+	}
+
 	
 	
 	

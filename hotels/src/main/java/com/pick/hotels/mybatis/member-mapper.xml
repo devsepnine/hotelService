@@ -46,4 +46,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete member where member_id = #{member_id}
 	</delete>
 	
+	<!-- 회원 정보 변경 -->
+	<update id="change" parameterType="memberDto">
+		update member
+			set
+				member_phone = #{member_phone},
+				member_zip_code = #{member_zip_code},
+				member_basic_addr = #{member_basic_addr},
+				member_detail_addr = #{member_detail_addr},
+				member_email1 = #{member_email1},
+				member_email2 = #{member_email2}
+			where
+				member_id = #{member_id}
+	</update>
+	
 </mapper>

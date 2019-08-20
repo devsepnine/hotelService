@@ -144,6 +144,21 @@ public class MemberController {
 		return "member/goodbye";
 	}
 	
+	@GetMapping("/change")
+	public String change(HttpSession session, Model model) {
+		String member_id = (String) session.getAttribute("ok");
+		MemberDto memberDto = memberDao.get(member_id);
+		model.addAttribute("mdto", memberDto);
+		return "member/change_info";
+	}
+	
+	@PostMapping("/change")
+	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
+		memberDto.setMember_id((String) session.getAttribute("ok"));
+		System.out.println(memberDto);
+		memberDao.change(memberDto);
+		return "redirect:info";
+	}
 	
 	
 	
