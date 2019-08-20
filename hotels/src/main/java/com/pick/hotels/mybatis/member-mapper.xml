@@ -21,5 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="id_ckeck" parameterType="string" resultType="memberDto">
 		select * from member where member_id = #{member_id}
 	</select>
+	
+	<!-- 회원정보 상세보기 -->
+	<select id="get" parameterType="int" resultType="memberDto">
+		select * from member where member_no = #{member_no}
+	</select>
 
 </mapper>

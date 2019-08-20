@@ -85,10 +85,10 @@ public class NoticeController {
 		}
 		
 		NoticeDto noticeDto = noticeDao.get(no);
-//		MemberDto memberDto = memberDao.get(noticeDto.getNotice_writer());
+		MemberDto memberDto = memberDao.get(noticeDto.getNotice_writer());
 		
 		model.addAttribute("noticeDto",noticeDto);
-//		model.addAttribute("memberDto",memberDto);
+		model.addAttribute("memberDto",memberDto);
 		
 		return "notice/content";
 		

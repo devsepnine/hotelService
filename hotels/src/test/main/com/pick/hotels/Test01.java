@@ -22,28 +22,28 @@ import com.pick.hotels.repository.NoticeDao;
 	}
 )
 public class Test01 {
-//	@Autowired
-//	private NoticeDao noticeDao;
-//	
-//	@Test
-//	public void test() {
-//		System.out.println(noticeDao);
-//		
-////		만들어야 하는 기능
-////		[1] 글 상세보기 기능			글번호 	--->	글정보
-//		int no = 1;
-//		NoticeDto noticeDto = noticeDao.get(no);
-////		[2] 회원정보 상세보기 기능						글정보(회원번호)	--->	회원정보
-//		
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	@Test
+	public void test() {
+		System.out.println(noticeDao);
+		
+//		만들어야 하는 기능
+//		[1] 글 상세보기 기능			글번호 	--->	글정보
+		int no = 1;
+		NoticeDto noticeDto = noticeDao.get(no);
+//		[2] 회원정보 상세보기 기능						글정보(회원번호)	--->	회원정보
+		
 //		MemberDto memberDto = memberDao.get(noticeDto.getNotice_writer());
-//		
-//		
-//		
-////		조인을 할 경우에는
-////		Dao, Dto가 따로 필요함(새로운 테이블에 맞게)
-////		[1] 글 정보 + 회원정보 불러오기	글번호 ---->	글정보+회원정보(번호)
-//		
-//		
-//	}
+		
+		
+		
+//		조인을 할 경우에는
+//		Dao, Dto가 따로 필요함(새로운 테이블에 맞게)
+//		[1] 글 정보 + 회원정보 불러오기	글번호 ---->	글정보+회원정보(번호)
+		
+		
+	}
 	
 }
