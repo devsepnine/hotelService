@@ -3,6 +3,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/core-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
+
 <style>
 form h4 {
 	display: none
@@ -241,6 +244,20 @@ $(function() {
 			$('font[name=check]').html("암호맞음");
 		}
 	}); //#chpass.keyup
+});
+$(function(){
+	$("form").submit(function(e){
+		e.preventDefault();	
+		
+		var pw = $("input[name=member_pw]").val();
+		var encPw = CryptoJS.SHA256(pw).toString();
+		
+		$("input[name=member_pw]").attr("name","");
+		var newInput = $("<input/>").attr("name","member_pw").val(encPw).attr("type","hidden");
+		
+		$(this).append(newInput);
+		this.submit();
+	});
 });
 </script>
 
