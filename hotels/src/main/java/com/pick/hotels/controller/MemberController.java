@@ -88,22 +88,28 @@ public class MemberController {
 //		암호화 적용 후
 //		1. DB에서 회원정보를 불러온다
 		MemberDto result = memberDao.get(memberDto.getMember_id());
+		System.out.println(result);
 //		2. BCrypt의 비교 명령을 이용하여 비교 후 처리
-		if(BCrypt.checkpw(memberDto.getMember_pw(), result.getMember_pw())) {
-			session.setAttribute("ok", result.getMember_id());
-			session.setAttribute("auth", result.getMember_class());
-			
-			System.out.println("로그인 성공");
-			
-			//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
-			Cookie c = new Cookie("saveId", memberDto.getMember_id());
-			if(remember == null)//체크 안했을때 
-				c.setMaxAge(0);
-			else //체크 했을때
-				c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
-			response.addCookie(c);
-			
-			return "redirect:/";
+		if(result!=null) {
+			if(BCrypt.checkpw(memberDto.getMember_pw(), result.getMember_pw())) {
+				session.setAttribute("ok", result.getMember_id());
+				session.setAttribute("auth", result.getMember_class());
+				session.setAttribute("no", result.getMember_no());
+				
+				System.out.println("로그인 성공");
+				
+				//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
+				Cookie c = new Cookie("saveId", memberDto.getMember_id());
+				if(remember == null)//체크 안했을때 
+					c.setMaxAge(0);
+				else //체크 했을때
+					c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
+				response.addCookie(c);
+				
+				return "redirect:/";
+			}else {
+				return "member/login_fail";
+			}
 		}
 		else {
 			return "member/login_fail";

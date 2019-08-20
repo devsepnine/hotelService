@@ -9,6 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <mapper namespace="member">
 	
+	<!-- 회원가입 -->
+	
 	<insert id="regist" parameterType="memberDto">
 		insert into member values(
 		member_seq.nextval, #{member_name}, #{member_phone},
@@ -18,13 +20,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- 아이디 중복검사 -->
+	
 	<select id="id_ckeck" parameterType="string" resultType="memberDto">
 		select * from member where member_id = #{member_id}
 	</select>
 	
-	<!-- 회원정보 상세보기 -->
+	<!-- 로그인 -->
+	<select id="login" parameterType="memberDto" resultType="memberDto">
+		select * from member where id = #{member_id} and pw = #{member_pw}
+	</select>
+
+	<!-- 회원정보 상세보기(나연) -->
 	<select id="get" parameterType="int" resultType="memberDto">
 		select * from member where member_no = #{member_no}
 	</select>
-
+	
 </mapper>
