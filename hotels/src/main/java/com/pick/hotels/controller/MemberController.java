@@ -11,6 +11,7 @@ import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -123,5 +124,24 @@ public class MemberController {
 			return "member/login_fail";
 		}
 	}
+	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("ok");
+		session.removeAttribute("auth");
+		return "redirect:/";
+	}
+	
+	@GetMapping("/info")
+	public String info(HttpSession session, Model model) {
+		String member_id = (String) session.getAttribute("ok");
+		MemberDto memberDto = memberDao.get(member_id);
+		model.addAttribute("mdto", memberDto);
+		return "member/info";
+	}
+	
+	
+	
 	
 }

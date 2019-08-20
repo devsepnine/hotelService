@@ -36,4 +36,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member where member_no = #{member_no}
 	</select>
 	
+	<!--  -->
 </mapper>
