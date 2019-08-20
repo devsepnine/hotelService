@@ -27,7 +27,6 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberDto get(String member_id) {
-		
 		return sqlSession.selectOne("member.id_ckeck", member_id);
 	}
 
@@ -41,6 +40,12 @@ public class MemberDaoImpl implements MemberDao{
 	public MemberDto login(MemberDto memberDto) {
 		MemberDto result = sqlSession.selectOne("member,login", memberDto);
 		return result;
+	}
+
+	@Override
+	public void lasttime(String member_id) {
+		sqlSession.update("member.lasttime", member_id);
+		
 	}
 
 	

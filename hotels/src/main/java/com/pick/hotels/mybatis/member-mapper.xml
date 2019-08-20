@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		member_seq.nextval, #{member_name}, #{member_phone},
 		#{member_zip_code}, #{member_basic_addr}, #{member_detail_addr},
 		'일반', sysdate, #{member_email1}, #{member_email2},
-		#{member_id}, #{member_pw}, #{member_birthday}
+		#{member_id}, #{member_pw}, #{member_birthday},sysdate
 		)
 	</insert>
 	
@@ -36,5 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member where member_no = #{member_no}
 	</select>
 	
-	<!--  -->
+	<!-- 최종접속시간 -->
+	<update id="lasttime" parameterType="memberDto">
+		update member set member_recent = sysdate where member_id = #{member_id}
+	</update>
 </mapper>
