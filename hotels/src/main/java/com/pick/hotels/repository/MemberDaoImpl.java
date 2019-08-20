@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.entity.NoticeDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -30,8 +31,12 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.id_ckeck", member_id);
 	}
 
-
 	
+	@Override
+	public MemberDto get(int notice_writer) {
+		return sqlSession.selectOne("member.get", notice_writer);
+	}
+
 	
 	
 	
