@@ -80,7 +80,7 @@
 		<tbody class="text-left">
 			<tr>
 				<td class="td-line" >
-					${mdto.member_id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${ndto.notice_when.substring(0,16)}
+					${mdto.member_id} &emsp;&emsp; ${ndto.notice_when.substring(0,16)}
 				</td>
 			</tr>
 			<tr height="500">

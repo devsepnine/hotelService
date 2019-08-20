@@ -36,8 +36,20 @@ public class NoticeDaoImpl implements NoticeDao{
 
 	//글 목록
 	@Override
-	public List<NoticeDto> list(String type, String keyword) {
-		return sqlSession.selectList("notice.list");
+	public List<NoticeDto> list(String type, String keyword, int start, int end) {
+		Map<String, Object> param = new HashMap<>();
+		
+//		검색일 떄 검색어를 mybatis에 전달
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);			
+		}
+		
+//		검색이든 목록이든 페이징 구간 전달
+		param.put("start", start);
+		param.put("end", end);
+		
+		return sqlSession.selectList("notice.list", param);
 	}
 
 	//글 조회수
@@ -69,5 +81,6 @@ public class NoticeDaoImpl implements NoticeDao{
 	public void edit(NoticeDto noticeDto) {
 		sqlSession.update("notice.edit", noticeDto);		
 	}
+
 	
 }
