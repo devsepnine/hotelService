@@ -1,6 +1,7 @@
 package com.pick.hotels.controller;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +46,8 @@ public class MemberController {
 	public String regist(@ModelAttribute MemberDto memberDto) {
 		System.out.println(memberDto);
 		String origin = memberDto.getMember_pw();
-		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
+		SecureRandom random = new SecureRandom();
+		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt(64, random));
 		memberDto.setMember_pw(encrypt);
 		System.out.println(encrypt);
 		boolean result = memberDao.regist(memberDto);
@@ -69,7 +71,13 @@ public class MemberController {
 		
 	}
 	
-	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("ok");
+		session.removeAttribute("no");
+		session.removeAttribute("auth");
+		return"redirect:/";
+	}
 	@GetMapping("/login")
 	public String login() {
 		return "member/login";
