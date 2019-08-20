@@ -8,6 +8,7 @@ public interface MemberDao {
 	MemberDto get(String member_id);
 	MemberDto login(MemberDto memberDto);
 	void lasttime(String member_id);
+	void delete(String member_id);
 	
 	
 //	나연이가 만든거	      

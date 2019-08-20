@@ -45,9 +45,9 @@ public class MemberController {
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute MemberDto memberDto) {
 		System.out.println(memberDto);
+	
 		String origin = memberDto.getMember_pw();
-		SecureRandom random = new SecureRandom();
-		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt(64, random));
+		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
 		memberDto.setMember_pw(encrypt);
 		System.out.println(encrypt);
 		boolean result = memberDao.regist(memberDto);
@@ -133,6 +133,15 @@ public class MemberController {
 		System.out.println(memberDto);
 		model.addAttribute("mdto", memberDto);
 		return "member/info";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(HttpSession session) {
+		String member_id = (String) session.getAttribute("ok");
+		memberDao.delete(member_id);
+		session.removeAttribute("ok");
+		session.removeAttribute("auth");
+		return "member/goodbye";
 	}
 	
 	

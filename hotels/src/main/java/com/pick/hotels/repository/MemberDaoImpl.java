@@ -20,6 +20,7 @@ public class MemberDaoImpl implements MemberDao{
 			return true;
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			return false;
 			
 		}
@@ -45,6 +46,12 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public void lasttime(String member_id) {
 		sqlSession.update("member.lasttime", member_id);
+		
+	}
+
+	@Override
+	public void delete(String member_id) {
+		sqlSession.delete("member.delete", member_id);
 		
 	}
 
