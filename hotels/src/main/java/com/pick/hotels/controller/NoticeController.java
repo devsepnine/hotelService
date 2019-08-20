@@ -35,6 +35,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+//	글 목록
 	@GetMapping("/list")
 	public String list(
 			Model model,
@@ -56,16 +57,18 @@ public class NoticeController {
 		if(endBlock > pageCount) {
 			endBlock = pageCount;
 		}
+		
 		model.addAttribute("page", page);
 		model.addAttribute("startBlock", startBlock);
 		model.addAttribute("endBlock", endBlock);
 		
 		List<NoticeDto> list = noticeDao.list(type, keyword);
 		model.addAttribute("list", list);
+		
 		return "notice/list";
 	}
 	
-	
+//	글 상세보기
 	@GetMapping("/content")
 	public String content(Model model, @RequestParam int no, HttpSession session) {
 //		조회수 중복 방지 처리
@@ -91,7 +94,6 @@ public class NoticeController {
 		model.addAttribute("memberDto",memberDto);
 		
 		return "notice/content";
-		
 	}
 	
 	
@@ -112,25 +114,27 @@ public class NoticeController {
 		return "redirect:content";
 	}
 	
-	// 글 수정
-		@GetMapping("/edit")
-		public String edit(Model model, @RequestParam int no) {
-			model.addAttribute("ndto", noticeDao.get(no));
-			return "notice/edit";
-		}
+	
+//	 글 수정
+	@GetMapping("/edit")
+	public String edit(Model model, @RequestParam int no) {
+		model.addAttribute("ndto", noticeDao.get(no));
+		return "notice/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute NoticeDto noticeDto, RedirectAttributes model) {
+		noticeDao.edit(noticeDto);
+		model.addAttribute("no", noticeDto.getNotice_no());
+		return "redirect:content";
+	}
 		
-		@PostMapping("/edit")
-		public String edit(@ModelAttribute NoticeDto noticeDto, RedirectAttributes model) {
-			noticeDao.edit(noticeDto);
-			model.addAttribute("no", noticeDto.getNotice_no());
-			return "redirect:content";
-		}
 		
+//	글 삭제
+	@GetMapping("/delete")
+	public String delete(@RequestParam int no) {
+		noticeDao.delete(no);
+		return "redirect:list";
+	}
 		
-//		글 삭제
-		@GetMapping("/delete")
-		public String delete(@RequestParam int no) {
-			noticeDao.delete(no);
-			return "redirect:list";
-		}
 }
