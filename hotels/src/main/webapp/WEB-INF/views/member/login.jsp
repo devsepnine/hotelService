@@ -2,9 +2,30 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/core-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/password-encoder.js"></script>
 
-
-
+<script>
+	$(function(){
+		$("form").submit(function(e){
+			e.preventDefault();	
+			
+			var pw = $("input[name=member_pw]").val();
+			var encPw = CryptoJS.SHA256(pw).toString();
+			
+			$("input[name=member_pw]").val(encPw);
+			$("input[name=member_pw]").attr("name","");
+			var newInput = $("<input/>").attr("name","member_pw").val(encPw).attr("type","hidden");
+			
+			$(this).append(newInput);
+			$(this).submit();
+			this.submit();
+		});
+	});
+	
+</script>
+	
 <style>
 
 .form.form-label>fieldset {
