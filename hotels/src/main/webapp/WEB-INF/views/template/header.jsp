@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Document</title>
-
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
@@ -32,7 +32,7 @@
       
     </script>
    <style>
-   		@font-face { font-family: 'KOMACON'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff'); font-weight: normal; font-style: normal; }
+   	@font-face { font-family: 'KOMACON'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff'); font-weight: normal; font-style: normal; }
       *{
       		font-family:KOMACON;
            box-sizing: border-box;
@@ -53,6 +53,7 @@
 	    position: fixed;
 	    width: 200px;
 	    height: 100%;
+	    min-height:1080px;
 	    background-color : #f1e3c4;
 	    z-index: 999;
         transition: margin .3s ease-in;
@@ -65,7 +66,7 @@
    }
     .content {
     margin-left: 200px;
-    height: 2500px;
+    min-height:1080px;
     width: auto;
     position: relative;
     background: white;
@@ -75,11 +76,10 @@
     }
     .info {
     min-width: 720px;
-    height: 1080px;
+    min-height:1080px;
     background-color:white;
     position: relative;
-    background-size: 1440px;
-        z-index: 2;
+    z-index: 2;
     }
     .sidebar-list{
     	margin-top: 60px;
@@ -125,7 +125,15 @@
 	<li>호텔 검색</li>
 	<li>뭐넣지</li>
 	<li><a href="${pageContext.request.contextPath}/join">회원가입</a></li>
-	<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+	<c:choose>
+		<c:when test="${empty sessionScope.ok}">
+			<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+		</c:otherwise>
+	</c:choose>
+	
 </ul>
 </div>
 </div>
