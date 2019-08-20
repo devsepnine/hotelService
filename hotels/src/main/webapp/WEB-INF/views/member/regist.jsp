@@ -17,9 +17,12 @@ form h4 {
 	/* 	background-color:yellow; */
 	}
 	
+	.regist-wrap{
+		width: 800px;
+		margin: auto;
+	}
 	
-	
-	
+
 
 </style>
 <script>
@@ -101,7 +104,7 @@ $(function() {
 				//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
 				else {
 					window.alert("사용 가능한 아이디입니다")
-					$("input[name=registbtn]").prop("disabled", false);
+					$("input[name=registbtn]").prop("disabled", false).css("background-color", "#726454");
 				}
 			}
 		});
@@ -242,8 +245,9 @@ $(function() {
 	}); //#chpass.keyup
 });
 </script>
-<body>
+
 <br><h1>가입 정보 입력</h1><br>
+<div class="regist-wrap">
 <form action="regist" method="post">
 	<div>
 		<table>
@@ -318,16 +322,13 @@ $(function() {
 							</td>
 				</tr>
 				<tr>
-					<td><input class="btn btn-danger" type="submit" value="가입하기" name = "registbtn"></td>
+					<td colspan="2"><input class="btn btn-danger btn-block"  type="submit" value="가입하기" name = "registbtn"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </form>
+</div>
 
-
-
-
-    
     
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
