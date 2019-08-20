@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 조회수 증가 -->
 	<update id="read" parameterType="int">
-		update notice set read = read+1 where notice_no = #{notice_no}
+		update notice set notice_read = notice_read+1 where notice_no = #{notice_no}
 	</update>
 	
 	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
