@@ -131,7 +131,7 @@
 </div>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
-	<button class="btn btn-default side-btn"><i style="color: white;" class="fa fa-bars fa-3x"></i></button>
+	<button class="btn btn-default side-btn"><i style="color: #f1e3c4;" class="fa fa-bars fa-3x"></i></button>
 </div>
 </div>
 <div class="content">
