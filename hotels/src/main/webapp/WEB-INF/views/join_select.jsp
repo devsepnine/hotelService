@@ -7,9 +7,11 @@
 		width: 768px;
 		margin-top: 200px;
 		text-align: center;
+		
 	}
 	.join_select_wrap a{
 		margin-left: 30px;
+		font-size: 20px;
 	}
 </style>
 

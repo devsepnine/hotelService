@@ -51,21 +51,22 @@
     }
     .sidebar {
 	    position: fixed;
-	    width: 200px;
+	    width: 250px;
 	    height: 100%;
 	    min-height:1080px;
 	    background-color : #f1e3c4;
+	   	box-shadow:2px 2px 5px #f5fff1;
 	    z-index: 999;
         transition: margin .3s ease-in;
     }
    .sidebar.active{
-       margin-left: -200px;
+       margin-left: -250px;
    }
    .content.active{
         margin-left: 0px;
    }
     .content {
-    margin-left: 200px;
+    margin-left: 250px;
     min-height:1080px;
     width: auto;
     position: relative;
@@ -84,15 +85,16 @@
     .sidebar-list{
     	margin-top: 60px;
     }
-    .sidebar-list ul li{
-    	list-style: none;
-    	font-size: 30px;
+    .sidebar-list{
+    	text-align: center;
+    }
+    .sidebar-list p a{
+    	font-size: 25px;
     	color: #81725f;
-    	font-weight: bold;
     }
     @media (max-width:1224px) {
        .sidebar {
-         margin-left: -200px;
+         margin-left: -250px;
        }
        .content {
          margin-left: 0px;
@@ -118,23 +120,21 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
-<ul>
-	<li><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></li>
-	<li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
-	<li>호텔 예약</li>
-	<li>호텔 검색</li>
-	<li>뭐넣지</li>
-	<li><a href="${pageContext.request.contextPath}/join">회원가입</a></li>
+	<p><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></p>
+	<br><br>
+	<p><a href="${pageContext.request.contextPath}/notice">공지사항</a></p>
+	<p>호텔 예약</p>
+	<p>호텔 검색</p>
+	<p>뭐넣지</p>
+	<p><a href="${pageContext.request.contextPath}/join">회원가입</a></p>
 	<c:choose>
 		<c:when test="${empty sessionScope.ok}">
-			<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+			<p><a href="${pageContext.request.contextPath}/member/login">로그인</a></p>
 		</c:when>
 		<c:otherwise>
-			<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+			<p><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></p>
 		</c:otherwise>
 	</c:choose>
-	
-</ul>
 </div>
 </div>
 </div>
