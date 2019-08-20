@@ -19,7 +19,7 @@
 		<p>copyright &copy;</p>
 		<p>회원 번호 : ${sessionScope.no}</p>
 		<p>회원 아이디 : ${sessionScope.ok}</p>
-		<p>회원 권한 : ${sessionScope.auth}</p>
+		<p>회원 권한 : ${auth}</p>
 	</div>
 </footer>
 

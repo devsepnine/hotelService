@@ -101,7 +101,7 @@ public class MemberController {
 		if(result!=null) {
 			if(BCrypt.checkpw(memberDto.getMember_pw(), result.getMember_pw())) {
 				session.setAttribute("ok", result.getMember_id());
-				session.setAttribute("auth", result.getMember_class());
+				session.setAttribute("auth", result.getMember_auth());
 				session.setAttribute("no", result.getMember_no());
 				
 				System.out.println("로그인 성공");
