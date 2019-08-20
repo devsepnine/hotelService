@@ -81,17 +81,17 @@ public class NoticeController {
 		session.setAttribute("read", set);
 		
 		if(first) { 
-			model.addAttribute("bdto", noticeService.read(no));
+			noticeService.read(no);
 		}
-		else { 
-			model.addAttribute("bdto", noticeDao.get(no));
-		}
+//		else { 
+//			model.addAttribute("ndto", noticeDao.get(no));
+//		}
 		
 		NoticeDto noticeDto = noticeDao.get(no);
 		MemberDto memberDto = memberDao.get(noticeDto.getNotice_writer());
 		
-		model.addAttribute("noticeDto",noticeDto);
-		model.addAttribute("memberDto",memberDto);
+		model.addAttribute("ndto",noticeDto);
+		model.addAttribute("mdto",memberDto);
 		
 		return "notice/content";
 	}
