@@ -32,15 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="list" parameterType="map" resultType="noticeDto">
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
-select *  from(
-    select rownum r, n.* from(select * from notice 
+		select *  from(
+    		select rownum r, n.* from(select * from notice 
 		]]>
-				<if test="type != null and keyword != null">
-				where
-					${type} like '%' || #{keyword} || '%'
-				</if>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
 		<![CDATA[
-		)n)  where r >= #{start} and r <= #{end}
+			)n)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	
