@@ -20,5 +20,4 @@ public class SellerDto {
 	private String seller_email_id;
 	private String seller_email_addr;
 	private String seller_regist;
-	private String seller_type;
 }
