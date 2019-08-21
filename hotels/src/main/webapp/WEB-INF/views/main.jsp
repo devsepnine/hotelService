@@ -67,6 +67,7 @@
 	    <option value="5">성인 5</option>
 	  </select>
 	</div>
+	<input class="btn btn-danger" type="submit" value="호텔 검색">
 	
 <span style="font-size: 20px;" class="diff"></span>
 
