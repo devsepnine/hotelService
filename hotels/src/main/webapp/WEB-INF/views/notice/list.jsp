@@ -126,35 +126,64 @@
 
 <ul class="navigator">
 	<%-- 이전 구간 링크 --%>
-	<c:if test="${not p.isFirstBlock()}">
-	<li><a href="list?${p.getPrevBlock()}">&lt;&lt;</a></li>
+	<c:if test="${startBlock > 1}">
+		<c:choose>
+			<c:when test="${param.type != null and param.keyword != null}">
+				<li><a href="list?page=?${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
+			</c:when>
+			<c:otherwise>
+				<li><a href="list?page=?${startBlock - 1}">&lt;&lt;</a></li>		
+			</c:otherwise>
+		</c:choose>
 	</c:if>
 	
 	<%-- 이전 페이지 링크(pno - 1) --%>
-	<c:if test="${not p.isFirstPage()}">
-	<li><a href="list?${p.getPrevPage()}">&lt;</a></li>
+	<c:if test="${page > 1}">
+		<c:choose>
+			<c:when test="${param.type != null and param.keyword != null}">
+				<li><a href="list?page=${page-1}&type=${param.type}&keyword=${param.keyword}">&lt;</a></li>		
+			</c:when>
+			<c:otherwise>
+				<li><a href="list?page=${page-1}">&lt;</a></li>		
+			</c:otherwise>
+		</c:choose>
 	</c:if>
 	
 	<%-- 페이지 출력 --%>
 	<c:forEach var="i" begin="${startBlock}" end="${endBlock}">
 		<c:choose>
-			<c:when test="${p.isCurrentPage(i)}">
-				<li class="active">${i}</li>
+			<c:when test="${param.type != null and param.keyword != null}">
+				<li><a href="list?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?${p.getPage(i)}">${i}</a></li>
+				<li><a href="list?page=${i}">${i}</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 	
 	<%-- 다음 페이지 링크(pno + 1) --%>
-	<c:if test="${not p.isLastPage()}">
-		<li><a href="list?${p.getNextPage()}">&gt;</a></li>
+	<c:if test="${page < pageCount}">
+		<c:choose>
+			<c:when test="${param.type != null and param.keyword != null}">
+				<li><a href="list?page=${page+1}&type=${param.type}&keyword=${param.keyword}">&gt;</a></li>		
+			</c:when>
+			<c:otherwise>
+				<li><a href="list?page=${page+1}">&gt;</a></li>	
+			</c:otherwise>
+		</c:choose>
+		
 	</c:if>
 	
 	<%-- 다음 구간 --%>
-	<c:if test="${not p.isLastBlock()}">
-		<li><a href="list?${p.getNextBlock()}">&gt;&gt;</a></li>
+	<c:if test="${endBlock < pageCount}">
+		<c:choose>
+			<c:when test="${param.type != null and param.keyword != null}">
+				<li><a href="list?page=${endBlock + 1}&type=${param.type}&keyword=${param.keyword}">&gt;&gt;</a></li>		
+			</c:when>
+			<c:otherwise>
+				<li><a href="list?page=${endBlock + 1}">&gt;&gt;</a></li>		
+			</c:otherwise>
+		</c:choose>
 	</c:if>
 </ul>
 
