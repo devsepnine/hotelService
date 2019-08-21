@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+<mapper namespace="member">
+	
+	<!-- 회원가입 -->
+	
+	<insert id="regist" parameterType="memberDto">
+		insert into member values(
+		member_seq.nextval, #{member_name}, #{member_phone},
+		#{member_zip_code}, #{member_basic_addr}, #{member_detail_addr},
+		'일반', sysdate, #{member_email1}, #{member_email2},
+		#{member_id}, #{member_pw}, #{member_birthday},sysdate
+		)
+	</insert>
+	
+	<!-- 아이디 중복검사 -->
+	
+	<select id="id_ckeck" parameterType="string" resultType="memberDto">
+		select * from member where member_id = #{member_id}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="memberDto" resultType="memberDto">
+		select * from member where id = #{member_id} and pw = #{member_pw}
+	</select>
+
+	<!-- 회원정보 상세보기(나연) -->
+	<select id="get" parameterType="int" resultType="memberDto">
+		select * from member where member_no = #{member_no}
+	</select>
+	
+	<!-- 최종접속시간 -->
+	<update id="lasttime" parameterType="memberDto">
+		update member set member_recent = sysdate where member_id = #{member_id}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delete" parameterType="string">
+		delete member where member_id = #{member_id}
+	</delete>
+	
+	<!-- 회원 정보 변경 -->
+	<update id="change" parameterType="memberDto">
+		update member
+			set
+				member_phone = #{member_phone},
+				member_zip_code = #{member_zip_code},
+				member_basic_addr = #{member_basic_addr},
+				member_detail_addr = #{member_detail_addr},
+				member_email1 = #{member_email1},
+				member_email2 = #{member_email2}
+			where
+				member_id = #{member_id}
+	</update>
+	
+	<!-- 비밀번호 회원 찾기 -->
+	<select id="find_pw" parameterType="memberDto" resultType="memberDto">
+		select * from member where member_id = #{member_id} and member_phone = #{member_phone} and member_birthday = to_date(#{member_birthday},'yyyy/mm/dd')
+	</select>
+	
+	<!-- 회원 비밀번호 변경 -->
+	
+	<update id="changePw" parameterType="memberDto">
+		update member
+			set
+				member_pw = #{member_pw}
+			where
+				member_no = #{member_no}
+	</update>
+	
+</mapper>
