@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+<mapper namespace="notice">
+
+	<!-- 게시판 글쓰기 -->
+	<insert id="write" parameterType="noticeDto">
+		insert into notice values(
+			#{notice_no}, #{notice_title}, #{notice_writer}, #{notice_content}, sysdate, 0,
+			#{notice_file_name}, #{notice_file_type}
+		)
+	</insert>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="get" parameterType="int" resultType="noticeDto">
+		select * from notice where notice_no = #{notice_no}
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete notice where notice_no = #{notice_no}
+	</delete>
+
+	<!-- 리스트 -->
+	<select id="list" parameterType="map" resultType="noticeDto">
+		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
+		<![CDATA[
+		select *  from(
+    		select rownum r, n.* from(select * from notice 
+		]]>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
+		<![CDATA[
+			)n)  where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="read" parameterType="int">
+		update notice set notice_read = notice_read+1 where notice_no = #{notice_no}
+	</update>
+	
+	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
+	<select id="count" parameterType="map" resultType="int">
+		select count(*) from notice
+		<if test="type != null and keyword != null">
+			where ${type} like '%' || #{keyword} || '%'		
+		</if>
+	</select>
+	
+	<!-- 시퀀스 번호 생성 -->
+	<select id="seq" resultType="int">
+		select notice_seq.nextval from dual
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="edit" parameterType="noticeDto">
+		update notice set notice_title=#{notice_title}, notice_content=#{notice_content} where notice_no = #{notice_no}
+	</update>
+	
+</mapper>
