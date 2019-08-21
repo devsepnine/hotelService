@@ -2,10 +2,12 @@ package com.pick.hotels.controller;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.SellerDto;
+import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.SellerDao;
+import com.pick.hotels.service.EmailService;
 
 @Controller
 @RequestMapping("/seller")
@@ -25,6 +29,8 @@ public class SellerController {
 	
 	@Autowired
 	private SellerDao sellerDao;
+	
+	@Autowired EmailService emailService;
 	
 	@GetMapping("/lisence")
 	public String lisence() {
@@ -166,4 +172,9 @@ public class SellerController {
 		sellerDao.change(sellerDto);
 		return "redirect:info";
 	}
+	
+	@GetMapping("/emailcert")
+	public void emailcert(@ModelAttribute SellerDto sdto, HttpServletResponse resp) throws IOException, MessagingException {
+			emailService.sendCertNo(sdto);
+		}
 }

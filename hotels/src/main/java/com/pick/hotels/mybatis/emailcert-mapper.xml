@@ -6,5 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 이파일은 sql 명령만 보관하는파일  -->
 <!-- 찾아올수 있도록 namespace 지정 -->
 <mapper namespace="emailcert">
-
+	<insert id="insert" parameterType="String">
+		insert into emailcert values(
+			email_cert_no = #{emailcert}, sysdate
+		)
+	</insert>
 </mapper>

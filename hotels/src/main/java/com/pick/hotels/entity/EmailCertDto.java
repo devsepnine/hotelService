@@ -6,6 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class EamilCertDto {
+public class EmailCertDto {
 	private String email_cert_no, email_cert_when;
 }
