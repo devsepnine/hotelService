@@ -48,10 +48,10 @@ public class SellerController {
 		String origin = sellerDto.getSeller_pw();
 		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
 		
-		System.out.println(sellerDto);
 		sellerDto.setSeller_lisence(sdto.getSeller_lisence());
 		sellerDto.setSeller_name(sdto.getSeller_name());
 		sellerDto.setSeller_pw(encrypt);
+		System.out.println(sellerDto);
 		
 		boolean result = sellerDao.regist(sellerDto);
 		session.removeAttribute("sellerDto");
