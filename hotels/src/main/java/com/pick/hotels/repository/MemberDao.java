@@ -10,7 +10,7 @@ public interface MemberDao {
 	void delete(String member_id);
 	void lasttime(String member_id);
 	void change(MemberDto memberDto);
-	boolean findPassword(MemberDto memberDto);
+	MemberDto findPassword(MemberDto memberDto);
 	
 	
 //	나연이가 만든거	      
