@@ -2,10 +2,12 @@ package com.pick.hotels.controller;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.SellerDto;
+import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.SellerDao;
+import com.pick.hotels.service.EmailService;
 
 @Controller
 @RequestMapping("/seller")
@@ -25,6 +29,8 @@ public class SellerController {
 	
 	@Autowired
 	private SellerDao sellerDao;
+	
+	@Autowired EmailService emailService;
 	
 	@GetMapping("/lisence")
 	public String lisence() {
@@ -65,8 +71,8 @@ public class SellerController {
 	@GetMapping("/id_check")
 	public void id_check(@RequestParam String seller_id, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/plain");
-		SellerDto mdto = sellerDao.get(seller_id);
-		if(mdto==null) {
+		SellerDto sdto = sellerDao.getId(seller_id);
+		if(sdto==null) {
 			resp.getWriter().print("Y");
 		}
 		else {
@@ -74,6 +80,20 @@ public class SellerController {
 		}
 			
 		
+	}
+	
+	@GetMapping("/lisence_check")
+	public void lisence_check(@RequestParam String seller_lisence, HttpServletResponse resp) throws IOException {
+		System.out.println(seller_lisence);
+		resp.setContentType("text/plain");
+		SellerDto sdto = sellerDao.getLisence(seller_lisence);
+		System.out.println(sdto);
+		if(sdto==null) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
 	}
 	
 	@GetMapping("/logout")
@@ -100,7 +120,7 @@ public class SellerController {
 		
 //		암호화 적용 후
 //		1. DB에서 회원정보를 불러온다
-		SellerDto result = sellerDao.get(sellerDto.getSeller_id());
+		SellerDto result = sellerDao.getId(sellerDto.getSeller_id());
 		System.out.println(result);
 //		2. BCrypt의 비교 명령을 이용하여 비교 후 처리
 		if(result!=null) {
@@ -122,7 +142,7 @@ public class SellerController {
 	@GetMapping("/info")
 	public String info(HttpSession session, Model model) {
 		String seller_id = (String) session.getAttribute("ok");
-		SellerDto sellerDto = sellerDao.get(seller_id);
+		SellerDto sellerDto = sellerDao.getId(seller_id);
 		System.out.println(sellerDto);
 		model.addAttribute("sdto", sellerDto);
 		return "seller/info";
@@ -140,7 +160,7 @@ public class SellerController {
 	@GetMapping("/change")
 	public String change(HttpSession session, Model model) {
 		String seller_id = (String) session.getAttribute("ok");
-		SellerDto sellerDto = sellerDao.get(seller_id);
+		SellerDto sellerDto = sellerDao.getId(seller_id);
 		model.addAttribute("sdto", sellerDto);
 		return "seller/change_info";
 	}
@@ -152,4 +172,9 @@ public class SellerController {
 		sellerDao.change(sellerDto);
 		return "redirect:info";
 	}
+	
+	@GetMapping("/emailcert")
+	public void emailcert(@ModelAttribute SellerDto sdto, HttpServletResponse resp) throws IOException, MessagingException {
+			emailService.sendCertNo(sdto);
+		}
 }

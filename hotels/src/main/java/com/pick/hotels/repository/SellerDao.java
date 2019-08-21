@@ -6,8 +6,7 @@ public interface SellerDao {
 
 	boolean regist(SellerDto sellerDto);
 
-	SellerDto get(String seller_id);
-
+	SellerDto getId(String seller_id);
 
 	void delete(String seller_id);
 
@@ -15,5 +14,5 @@ public interface SellerDao {
 	
 	SellerDto login(SellerDto sellerDto);
 
-
+	SellerDto getLisence(String seller_lisence);
 }

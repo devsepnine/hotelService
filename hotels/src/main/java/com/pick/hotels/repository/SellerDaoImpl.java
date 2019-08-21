@@ -26,7 +26,7 @@ public class SellerDaoImpl implements SellerDao{
 	}
 
 	@Override
-	public SellerDto get(String seller_id) {
+	public SellerDto getId(String seller_id) {
 		return sqlSession.selectOne("seller.id_ckeck", seller_id);
 	}
 
@@ -47,6 +47,11 @@ public class SellerDaoImpl implements SellerDao{
 	public SellerDto login(SellerDto sellerDto) {
 		SellerDto result = sqlSession.selectOne("seller,login", sellerDto);
 		return result;
+	}
+
+	@Override
+	public SellerDto getLisence(String seller_lisence) {
+		return sqlSession.selectOne("seller.lisence_ckeck", seller_lisence);
 	}
 
 }

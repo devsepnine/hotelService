@@ -244,6 +244,20 @@ form label {
 					this.submit();
 				});
 	});
+	
+	});
+	$(function(){
+		$(".btn-cert_no").click(
+			function(){
+				$.ajax({
+					url : "emailcert",
+					success:function(resp){
+						
+					}
+				});
+			}
+		});	
+	
 </script>
 
 <div class="regist-wrap" align="center">
@@ -272,8 +286,8 @@ form label {
 					<tr>
 						<td><label>PASSWORD CHECK</label></td>
 						<td><input class="form-control" type="password" id="chpass"
-							name="pw_check" placeholder="비밀번호 확인" required> <font
-							name="check" size="3" color="red"></font></td>
+							name="pw_check" placeholder="비밀번호 확인" required> 
+							<font name="check" size="3" color="red"></font></td>
 					</tr>
 					<tr>
 						<td><label for="s_addr">ADDRESS</label></td>
@@ -302,23 +316,26 @@ form label {
 					</tr>
 					<tr>
 						<td><label for="s_email">EMAIL</label></td>
-						<td><input class="form-control" onblur="checkEmail();"
-							type="text" name="seller_email_id" id="s_email"
-							pattern="^[a-z0-9]{8,15}$" required> <span>@</span> <input
-							class="form-control" type="text" name="seller_email_addr"
-							id="s_email_address" pattern="^.*?\..*?$" required> <select
-							id="email_address">
+						<td><input class="form-control" style=width:33%;display:inline-block; onblur="checkEmail();"
+								type="text" name="seller_email_id" id="s_email"
+										pattern="^[a-z0-9]{8,15}$" required> 
+							<span>@</span> 
+							<input class="form-control" style=width:32%;display:inline-block; type="text" name="seller_email_addr"
+										id="s_email_address" pattern="^.*?\..*?$" required> 
+							<select id="email_address" class="form-control" style=width:18%;display:inline-block;>
 								<option value="">직접입력</option>
 								<option>nate.com</option>
 								<option>naver.com</option>
 								<option>daum.net</option>
 								<option>gmail.com</option>
-						</select>
+							</select>
+							<input type="button" id="btn-cert_no" class="btn-light" value="인증번호">
+						
 							<div class="s_emailD"></div></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
-							type="submit" value="가입하기" name="registbtn"></td>
+							type="submit" style="margin-top: 30px;" value="가입하기" name="registbtn"></td>
 					</tr>
 				</tbody>
 			</table>
