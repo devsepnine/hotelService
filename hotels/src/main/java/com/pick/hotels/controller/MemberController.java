@@ -3,6 +3,7 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.security.SecureRandom;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.MemberDao;
+import com.pick.hotels.service.EmailService;
 
 @Controller
 @RequestMapping("/member")
@@ -26,6 +30,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping("/agree")
 	public String agree() {
@@ -160,6 +167,48 @@ public class MemberController {
 		return "redirect:info";
 	}
 	
+	@GetMapping("/find_pw")
+	public String findPassword() {
+		return "member/find_pw";
+	}
+	
+	@PostMapping("/find_pw")
+	public String findPassword(@ModelAttribute MemberDto memberDto) throws MessagingException {
+		boolean exist = memberDao.findPassword(memberDto);
+		if(exist) {
+			emailService.sendCertificertion(memberDto.getMember_email1(),memberDto.getMember_email2());
+			return "redirect:find_pw_result";
+		}
+		else {
+			return "redirect:find_pw?error";
+		}
+	}
+
+	
+	@Autowired
+	private CertDao certDao;
+	
+	@GetMapping("/new_pw")
+	public String newPassword(
+			@RequestParam String member_email,
+			@RequestParam String member_no,
+			HttpServletResponse response,
+			Model model) {
+		
+		CertDto certDto = CertDto.builder().cert_who(member_email).cert_no(member_no).build();
+		boolean result = certDao.validate(certDto);
+//		certDao.delete(certDto);
+		
+		if(result) {
+			model.addAttribute("member_email", member_email);
+			return "member/new_pw";
+		}
+		else {
+//			response.sendError(401);
+			return null;
+		}
+		
+	}
 	
 	
 }

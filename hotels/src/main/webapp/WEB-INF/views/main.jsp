@@ -57,7 +57,16 @@
            </div>
        </div>
        
-   <input type="number">
+    <div class="form-group" style="width: 150px;display: inline-block;">
+	  <select class="custom-select">
+	    <option selected="people">인원 선택</option>
+	    <option value="1">성인 1</option>
+	    <option value="2">성인 2</option>
+	    <option value="3">성인 3</option>
+	    <option value="4">성인 4</option>
+	    <option value="5">성인 5</option>
+	  </select>
+	</div>
 	
 <span style="font-size: 20px;" class="diff"></span>
 
