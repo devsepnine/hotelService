@@ -64,10 +64,9 @@ $(function(){
 	.info-wrap{
 		
 		padding: 100px;
-	}
-	.info-wrap{
 		min-width: 625px;
 	}
+
 </style>
 <div align="center" class="info-wrap">
 <h1>회원 정보 수정</h1>

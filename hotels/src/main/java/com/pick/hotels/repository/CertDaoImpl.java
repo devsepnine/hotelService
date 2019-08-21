@@ -24,5 +24,11 @@ public class CertDaoImpl implements CertDao{
 		return count > 0;
 	}
 
+	@Override
+	public void delete(CertDto certDto) {
+		sqlSession.delete("cert.delete", certDto);
+		
+	}
+
 
 }

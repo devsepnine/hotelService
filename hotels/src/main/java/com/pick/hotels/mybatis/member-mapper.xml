@@ -60,4 +60,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				member_id = #{member_id}
 	</update>
 	
+	<!-- 비밀번호 회원 찾기 -->
+	<select id="find_pw" parameterType="memberDto" resultType="memberDto">
+		select * from member where member_id = #{member_id} and member_phone = #{member_phone} and member_birthday = to_date(#{member_birthday},'yyyy/mm/dd')
+	</select>
+	
 </mapper>

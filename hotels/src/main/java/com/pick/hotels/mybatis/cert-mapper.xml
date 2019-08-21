@@ -7,4 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 찾아올수 있도록 namespace 지정 -->
 <mapper namespace="cert">
 
+	<insert id="insert" parameterType="certDto">
+		insert into cert values(#{cert_who}, #{cert_no}, sysdate)
+	</insert>
+	
 </mapper>

@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import javax.mail.Session;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,9 +64,8 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public boolean findPassword(MemberDto memberDto) {
-		// TODO Auto-generated method stub
-		return false;
+	public MemberDto findPassword(MemberDto memberDto) {
+		return sqlSession.selectOne("member.find_pw", memberDto);
 	}
 
 	
