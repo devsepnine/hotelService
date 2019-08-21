@@ -92,12 +92,12 @@
 		</c:forEach>
 	</tbody>
 	<%-- if(관리자 일 때)--%>
-	<c:if test="${mdto.member_auth == '관리자'}">
+	<c:if test="${sessionScope.auth == '관리자'}">
 		<!-- 글쓰기 버튼 -->
 		<tfoot>
 			<tr>
 				<td colspan="8" align="right">
-					<a href="write">글쓰기</a>
+					<a href="write" class="btn btn-danger">글쓰기</a>
 				</td>
 			</tr>
 		</tfoot>
@@ -129,10 +129,10 @@
 	<c:if test="${startBlock > 1}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=?${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
+				<li><a href="list?page=${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=?${startBlock - 1}">&lt;&lt;</a></li>		
+				<li><a href="list?page=${startBlock - 1}">&lt;&lt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>

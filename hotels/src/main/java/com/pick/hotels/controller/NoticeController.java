@@ -41,7 +41,8 @@ public class NoticeController {
 			Model model,
 			@RequestParam(required = false) String type,
 			@RequestParam(required = false) String keyword,
-			@RequestParam(required = false, defaultValue="1") int page
+			@RequestParam(required = false, defaultValue="1") int page,
+			HttpSession session
 			) {
 		int pagesize = 3;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);
@@ -65,6 +66,8 @@ public class NoticeController {
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
 		model.addAttribute("pageCount", pageCount);
+		
+		model.addAttribute("auth", (String) session.getAttribute("auth")); 
 		
 		List<NoticeDto> list = noticeDao.list(type, keyword, start, end);
 		
@@ -109,10 +112,12 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/write")
-	public String write(HttpSession session,@ModelAttribute NoticeDto noticeDto, Model model) {
-		int member_no = (int)session.getAttribute("member_no");
+	public String write(HttpSession session,
+			@ModelAttribute NoticeDto noticeDto,
+			Model model) {
+		int member_no = (int)session.getAttribute("no");
 		noticeDto.setNotice_writer(member_no);
-		
+				
 		int no = noticeService.write(noticeDto);
 		
 		model.addAttribute("no", no);

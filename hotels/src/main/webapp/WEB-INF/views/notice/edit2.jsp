@@ -1,15 +1,32 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="${pageContext.request.contextPath}/js/ckeditor/ckeditor.js"></script>
+<script>
+	$(function(){
+	    ClassicEditor
+	            .create( document.querySelector( 'textarea[name=notice_content]' ), {
+	            	removePlugins: [ 'ImageUpload' ] 	
+	            })
+	});
+</script>
 
-	<%-- 
+<%-- 
 		table_ny_one
 		 - 위아래는 두껍고 안에는 얇은 선
 		 - 좌우는 선 없음
 	--%>
+	
+<style>
+	.ck-editor__editable {
+		min-height:500px;
+		max-height:500px;
+	}
+</style>
+
 <style>
 	.notice_wrap > *{
 		color:black;
@@ -53,7 +70,7 @@
 	
 	.td-line{
 		width: 950px;
-		text-align: right;
+		text-align: left;
 	}
 	
 	.btn{
@@ -70,44 +87,44 @@
 </style>
 
 
+<form action="edit" method="post" >
+<input type="hidden" name="notice_no" value="${ndto.no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
 <div class="notice_wrap">
 <div class="headtit">
-<h3>${ndto.notice_title}</h3>
-</div>
-	<table class="table_ny_one" align="center" >
-		<tbody>
-			<tr>
-				<td class="td-line" >
-					${mdto.member_id} &emsp;&emsp; ${ndto.notice_when.substring(0,16)}
-				</td>
-			</tr>
-			<tr height="500">
-				<td valign="top" colspan="2">
-					${ndto.notice_content}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					조회수 ${ndto.notice_read}
-				</td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td class="td-line" colspan="2">
-					<%-- if(내글일 때)--%>
-					<c:if test="${mdto.member_id == ok}">
-					<a href ="edit?no=${ndto.notice_no}"><input type="button" value="수정" name="edit" class="btn btn-danger"></a>
-					<a href ="delete?no=${ndto.notice_no}"><input type="button" value="삭제" name="delete" class="btn btn-danger"></a>
-					</c:if>
-					<a href ="list"><input type="button" value="목록" name="list" class="btn btn-danger"></a>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</div>
+<h3>&emsp;</h3>
+	</div>
+		<table class="table_ny_one" align="center" >
+			<tbody>
+				<tr>
+					<td class="td-line">
+						<label>제목 &emsp; </label>
+						<input type="text" name="notice_title" value="${ndto.notice_title}" required>
+					</td>
+				</tr>
+				<tr height="500">
+					<td valign="top" colspan="2">
+						<textarea name="notice_content" value="${ndto.notice_content}"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="file" name="file">
+						<!-- 수정할때도 사진이 유지되어야됨 -->
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class="td-line" colspan="2">
+						<input type="submit" class="btn btn-danger" value="수정하기">
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+	</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
