@@ -61,6 +61,12 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public boolean findPassword(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 	
 	
