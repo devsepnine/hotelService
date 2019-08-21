@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.SellerDto;
 
 @Repository
@@ -22,6 +23,30 @@ public class SellerDaoImpl implements SellerDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public SellerDto get(String seller_id) {
+		return sqlSession.selectOne("seller.id_ckeck", seller_id);
+	}
+
+
+	@Override
+	public void delete(String seller_id) {
+		sqlSession.delete("seller.delete", seller_id);
+		
+	}
+
+	@Override
+	public void change(SellerDto sellerDto) {
+		sqlSession.update("seller.change", sellerDto);
+		
+	}
+
+	@Override
+	public SellerDto login(SellerDto sellerDto) {
+		SellerDto result = sqlSession.selectOne("seller,login", sellerDto);
+		return result;
 	}
 
 }
