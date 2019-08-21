@@ -14,7 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="write" parameterType="noticeDto">
 		insert into notice values(
 			#{notice_no}, #{notice_title}, #{notice_writer}, #{notice_content}, sysdate, 0,
-			#{notice_file_name}, #{notice_file_type}
+			<if test="notice_file_name == null or notice_file_type == null">
+				null, null
+			</if>
+			<if test="notice_file_name != null and notice_file_type !=null">
+				#{notice_file_name}, #{notice_file_type}
+			</if>
 		)
 	</insert>
 	
