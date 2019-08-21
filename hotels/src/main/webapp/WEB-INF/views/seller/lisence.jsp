@@ -3,6 +3,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script>
 $(function() {
+	$("input[name=lisencebtn]").prop("disabled", true).css(
+			"background-color", "lightgray");
+	
 	$("input[name=lisence_check_btn]").click(
 		function() {
 			$.ajax({
@@ -15,13 +18,14 @@ $(function() {
 					if (resp == "N") {
 						window.alert("이미 사용중인 사업자 번호입니다");
 						$("input[name=seller_lisence]").select();
+						$("input[name=lisencebtn]").prop("disabled", true).css(
+								"background-color", "lightgray");
 					}
 					//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
 					else {
 						window.alert("사용 가능한 사업자번호입니다")
-						$("input[name=lisencebtn]").prop("disabled",
-								false).css("background-color",
-								"#726454");
+						$("input[name=lisencebtn]").prop("disabled", false)
+													.css("background-color", "#726454");
 					}
 				}
 			});
@@ -53,7 +57,7 @@ $(function() {
             		<input type="button" name="lisence_check_btn" class="lisence_check_btn btn-primary" value="사업자번호 중복확인"><br>
             	</div>
             </div>
-            <input type="text" class="form-control" name="seller_name" placeholder="이름을 입력하세요"><br>
+            <input type="text" class="form-control" name="seller_name" placeholder="이름을 입력하세요" required><br>
             <input type="submit" class="btn btn-danger btn-block" name="lisencebtn" value="확인">
         </form>
 	</div>

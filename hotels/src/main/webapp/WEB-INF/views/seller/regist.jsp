@@ -244,6 +244,13 @@ form label {
 					this.submit();
 				});
 	});
+	
+	$(function(){
+		$(".cert_no").click(function(){
+			
+		});	
+	});
+	
 </script>
 
 <div class="regist-wrap" align="center">
@@ -272,8 +279,8 @@ form label {
 					<tr>
 						<td><label>PASSWORD CHECK</label></td>
 						<td><input class="form-control" type="password" id="chpass"
-							name="pw_check" placeholder="비밀번호 확인" required> <font
-							name="check" size="3" color="red"></font></td>
+							name="pw_check" placeholder="비밀번호 확인" required> 
+							<font name="check" size="3" color="red"></font></td>
 					</tr>
 					<tr>
 						<td><label for="s_addr">ADDRESS</label></td>
@@ -303,17 +310,19 @@ form label {
 					<tr>
 						<td><label for="s_email">EMAIL</label></td>
 						<td><input class="form-control" onblur="checkEmail();"
-							type="text" name="seller_email_id" id="s_email"
-							pattern="^[a-z0-9]{8,15}$" required> <span>@</span> <input
-							class="form-control" type="text" name="seller_email_addr"
-							id="s_email_address" pattern="^.*?\..*?$" required> <select
-							id="email_address">
+								type="text" name="seller_email_id" id="s_email"
+										pattern="^[a-z0-9]{8,15}$" required> 
+							<span>@</span> 
+							<input class="form-control" type="text" name="seller_email_addr"
+										id="s_email_address" pattern="^.*?\..*?$" required> 
+							<select id="email_address">
 								<option value="">직접입력</option>
 								<option>nate.com</option>
 								<option>naver.com</option>
 								<option>daum.net</option>
 								<option>gmail.com</option>
-						</select>
+							</select>
+							<input type="button" id="cert_no" class="btn-light" value="인증번호">
 							<div class="s_emailD"></div></td>
 					</tr>
 					<tr>
