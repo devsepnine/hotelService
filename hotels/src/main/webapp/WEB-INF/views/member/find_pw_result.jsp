@@ -4,9 +4,10 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<h2>작성하신 주소로 이메일이 발송되었습니다</h2>
-<p>확인해보세요^^</p>
-
+<div align="center" style="padding: 50px;">
+	<h2>작성하신 주소로 이메일이 발송되었습니다</h2>
+	<p>확인해보세요^^</p>
+</div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 

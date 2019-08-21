@@ -11,4 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into cert values(#{cert_who}, #{cert_no}, sysdate)
 	</insert>
 	
+	<select id="validate" parameterType="certDto" resultType="certDto">
+		select * from cert where cert_who = #{cert_who} and cert_no = #{cert_no}
+	</select>
+	
+	<delete id="delete" parameterType="certDto">
+		delete from cert where cert_who = #{cert_who} and cert_no = #{cert_no}
+	</delete>
 </mapper>

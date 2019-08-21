@@ -11,6 +11,7 @@ public interface MemberDao {
 	void lasttime(String member_id);
 	void change(MemberDto memberDto);
 	MemberDto findPassword(MemberDto memberDto);
+	void changePw(MemberDto memberDto);
 	
 	
 //	나연이가 만든거	      

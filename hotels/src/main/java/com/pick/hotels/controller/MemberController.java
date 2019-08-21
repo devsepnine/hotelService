@@ -185,34 +185,51 @@ public class MemberController {
 			return "redirect:find_pw?error";
 		}
 	}
-
+	
+	
+	@GetMapping("/find_pw_result")
+	public String findPasswordResult() {
+		return "member/find_pw_result";
+	}
+	
 	
 	@Autowired
 	private CertDao certDao;
 	
 	@GetMapping("/new_pw")
 	public String newPassword(
-			@RequestParam String member_email1,
-			@RequestParam String member_email2,
 			@RequestParam int member_no,
 			@RequestParam String no,
 			HttpServletResponse response,
 			Model model) throws IOException {
-		String email = member_email1+"@"+ member_email2;
 		CertDto certDto = CertDto.builder().cert_who(member_no).cert_no(no).build();
 		boolean result = certDao.validate(certDto);
+		System.out.println(result);
 		certDao.delete(certDto);
-		
-		if(result) {
-			model.addAttribute("member_email", email);
+		MemberDto mdto = memberDao.get(member_no);
+		if(result && mdto != null) {
+			model.addAttribute("member_no", member_no);
 			return "member/new_pw";
 		}
 		else {
-			response.sendError(401);
-			return null;
+			return "redirect:/member/find_pw";
 		}
 		
 	}
+	
+	@PostMapping("/new_pw")
+	public String newPassword(@ModelAttribute MemberDto memberDto) {
+		String origin = memberDto.getMember_pw();
+		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
+		memberDto.setMember_pw(encrypt);
+		
+		
+		
+		memberDao.changePw(memberDto);
+		System.out.println(memberDto);
+		return "member/new_pw_result";
+	}
+	
 	
 	
 }

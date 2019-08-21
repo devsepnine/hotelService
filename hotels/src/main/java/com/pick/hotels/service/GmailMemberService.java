@@ -51,7 +51,7 @@ public class GmailMemberService implements EmailService{
 													.queryParam("member_no", mdto.getMember_no())
 													.queryParam("no", no)
 													.toUriString();
-		helper.setText("<h3><a href = '"+address+"'이곳을 눌러 인증을 완료하세요", true);
+		helper.setText("<h3><a href = '"+address+"'>이곳을 눌러 인증을 완료하세요</a></h3>", true);
 		sender.send(mail);
 		
 	}

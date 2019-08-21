@@ -65,4 +65,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member where member_id = #{member_id} and member_phone = #{member_phone} and member_birthday = to_date(#{member_birthday},'yyyy/mm/dd')
 	</select>
 	
+	<!-- 회원 비밀번호 변경 -->
+	
+	<update id="changePw" parameterType="memberDto">
+		update member
+			set
+				member_pw = #{member_pw}
+			where
+				member_no = #{member_no}
+	</update>
+	
 </mapper>
