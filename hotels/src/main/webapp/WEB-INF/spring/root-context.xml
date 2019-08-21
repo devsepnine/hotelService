@@ -28,5 +28,21 @@
 	</bean>
 	<context:property-placeholder location="classpath:property/*.properties"/>
 	
+<!-- 	이메일 sender autowired 생성 -->
+	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="${email.google.username}"/>
+		<property name="password" value="${email.google.password}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transpot.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	
+	</bean>
 	
 </beans>
