@@ -330,7 +330,7 @@ form label {
 								<option>gmail.com</option>
 							</select>
 							<input type="button" id="btn-cert_no" class="btn-light" value="인증번호">
-							
+						
 							<div class="s_emailD"></div></td>
 					</tr>
 					<tr>
