@@ -6,6 +6,7 @@ public interface CertDao {
 
 	void insert(CertDto certDto);
 	boolean validate(CertDto certDto);
+	void delete(CertDto certDto);
 
 
 }

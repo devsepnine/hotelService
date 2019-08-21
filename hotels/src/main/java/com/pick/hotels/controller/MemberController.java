@@ -174,9 +174,11 @@ public class MemberController {
 	
 	@PostMapping("/find_pw")
 	public String findPassword(@ModelAttribute MemberDto memberDto) throws MessagingException {
-		boolean exist = memberDao.findPassword(memberDto);
-		if(exist) {
-			emailService.sendCertificertion(memberDto.getMember_email1(),memberDto.getMember_email2());
+		System.out.println(memberDto);
+		MemberDto mdto = memberDao.findPassword(memberDto);
+		System.out.println("mdto : " + mdto);
+		if(mdto != null) {
+			emailService.find_pw(mdto);
 			return "redirect:find_pw_result";
 		}
 		else {
@@ -190,21 +192,23 @@ public class MemberController {
 	
 	@GetMapping("/new_pw")
 	public String newPassword(
-			@RequestParam String member_email,
-			@RequestParam String member_no,
+			@RequestParam String member_email1,
+			@RequestParam String member_email2,
+			@RequestParam int member_no,
+			@RequestParam String no,
 			HttpServletResponse response,
-			Model model) {
-		
-		CertDto certDto = CertDto.builder().cert_who(member_email).cert_no(member_no).build();
+			Model model) throws IOException {
+		String email = member_email1+"@"+ member_email2;
+		CertDto certDto = CertDto.builder().cert_who(member_no).cert_no(no).build();
 		boolean result = certDao.validate(certDto);
-//		certDao.delete(certDto);
+		certDao.delete(certDto);
 		
 		if(result) {
-			model.addAttribute("member_email", member_email);
+			model.addAttribute("member_email", email);
 			return "member/new_pw";
 		}
 		else {
-//			response.sendError(401);
+			response.sendError(401);
 			return null;
 		}
 		

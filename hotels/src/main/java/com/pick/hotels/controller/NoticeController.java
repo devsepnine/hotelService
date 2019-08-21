@@ -43,7 +43,7 @@ public class NoticeController {
 			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue="1") int page
 			) {
-		int pagesize = 1;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 3;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
@@ -61,8 +61,10 @@ public class NoticeController {
 		model.addAttribute("page", page);
 		model.addAttribute("startBlock", startBlock);
 		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
 		
 		List<NoticeDto> list = noticeDao.list(type, keyword, start, end);
 		
