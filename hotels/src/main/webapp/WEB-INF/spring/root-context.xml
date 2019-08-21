@@ -42,7 +42,6 @@
 				<prop key="mail.smtp.starttls.enable">true</prop>
 			</props>
 		</property>
-	
 	</bean>
 	
 </beans>
