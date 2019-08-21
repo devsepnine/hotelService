@@ -105,7 +105,7 @@
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea name="notice_content" value="${ndto.notice_content}"></textarea>
+						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>
 					</td>
 				</tr>
 				<tr>
