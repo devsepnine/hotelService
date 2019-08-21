@@ -86,7 +86,7 @@
 				</a>
 				
 			</td>
-			<td>${ndto.notice_when}</td>
+			<td>${ndto.notice_when.substring(0,16)}</td>
 			<td>${ndto.notice_read}</td>
 		</tr>
 		</c:forEach>
@@ -114,7 +114,7 @@
 
 <select name="type">
 	<option value="notice_title">제목</option>
-	<option value="notice_writer">작성자</option>
+	<option value="notice_content">내용</option>
 </select>
 
 <input type="search" name="keyword" placeholder="검색어" required value="${param.keyword}">
