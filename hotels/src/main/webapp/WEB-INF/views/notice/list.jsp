@@ -98,8 +98,19 @@
 		margin: auto;
 		padding: 20px 10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
-	}
 	
+	}
+	.custom-select{
+		display:inline-block;
+		width:100px;
+	}
+	input[name=keyword]{
+		display:inline-block;
+		max-width: 200px;
+	}
+	.btn-danger{
+		height: 45px;
+	}
 </style>
 
 <div style="height: 100px;"></div>
@@ -162,9 +173,9 @@
 	<option value="notice_content">내용</option>
 </select>
 
-<input type="search" name="keyword" placeholder="검색어를 입력하세요" required value="${param.keyword}">
+<input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">
 
-<input type="submit" value="검색">
+<input type="submit" class="btn btn-danger" value="검색">
 </form>
 
 <div class="empty"></div>

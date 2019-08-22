@@ -2550,6 +2550,7 @@ textarea.form-control {
 }
 
 .btn {
+  height:45px;
   display: inline-block;
   font-weight: 600;
   color: #919aa1;

@@ -71,7 +71,7 @@
     .content {
     margin-left: 250px;
     min-height:1080px;
-    width: auto;
+    min-width:360px;
     position: relative;
     background: white;
     overflow: auto;
@@ -79,7 +79,7 @@
         transition: margin .3s ease-in;
     }
     .info {
-    min-width: 720px;
+    min-width: 355px;
     min-height:1080px;
     background-color:white;
     position: relative;
@@ -95,7 +95,7 @@
     	font-size: 25px;
     	color: #81725f;
     }
-    @media (max-width:1224px) {
+    @media (max-width:1250px) {
        .sidebar {
          margin-left: -250px;
        }
@@ -137,6 +137,8 @@
 			<p><a href="${pageContext.request.contextPath}/member/login">로그인</a></p>
 		</c:when>
 		<c:otherwise>
+			
+			<p><a href="${pageContext.request.contextPath}/member/info">내 정보</a></p>
 			<p><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></p>
 		</c:otherwise>
 	</c:choose>

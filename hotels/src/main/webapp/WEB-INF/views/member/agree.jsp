@@ -49,7 +49,7 @@ textarea {
 <div style="width: 800px; margin: auto; text-align: center;">
 	<br>
 	<h1>이용약관</h1>
-	<textarea rows="30" cols="100" readonly>전자상거래(인터넷사이버몰) 표준약관
+	<textarea rows="30" cols="100" style="max-width: 790px; max-height: 600px; min-height: 600px;" readonly>전자상거래(인터넷사이버몰) 표준약관
 
 
 

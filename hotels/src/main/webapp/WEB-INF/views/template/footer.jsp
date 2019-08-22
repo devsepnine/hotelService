@@ -23,8 +23,6 @@
 	}
 </style>
 </div>
-</div>
-
 <footer>
 	<div class="footer-info">
 		<p>copyright &copy;</p>
@@ -41,6 +39,9 @@
 		</ul>
 	</div>
 </footer>
+</div>
+
+
 
 </body>
 </html>

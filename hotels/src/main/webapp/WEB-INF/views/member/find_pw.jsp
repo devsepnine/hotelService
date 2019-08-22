@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<td><label>생년월일</label></td>
-					<td><input class="form-control" display: inline-block;" type="date" name="member_birthday" placeholder="생년월일" required autocomplete="off"></td>
+					<td><input class="form-control" display: inline-block;" type="date" max="2999-12-31" name="member_birthday" placeholder="생년월일" required autocomplete="off"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input class="btn btn-danger btn-block" type="submit" value="찾기"></td>

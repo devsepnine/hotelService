@@ -38,7 +38,7 @@
 </div>
 
 
-<div style="width: 768px; margin: auto; text-align: center;">
+<div style="max-width: 768px;min-width:355px ;margin: auto; text-align: center;">
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>

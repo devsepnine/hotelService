@@ -99,11 +99,9 @@ public class MemberController {
 //		암호화 적용 전
 //		MemberDto result = memberDao.login(memberDto);
 //		if(result != null) {
-		
 //		암호화 적용 후
 //		1. DB에서 회원정보를 불러온다
 		MemberDto result = memberDao.get(memberDto.getMember_id());
-		System.out.println(result);
 //		2. BCrypt의 비교 명령을 이용하여 비교 후 처리
 		if(result!=null) {
 			if(BCrypt.checkpw(memberDto.getMember_pw(), result.getMember_pw())) {
@@ -111,7 +109,7 @@ public class MemberController {
 				session.setAttribute("auth", result.getMember_auth());
 				session.setAttribute("no", result.getMember_no());
 				
-				System.out.println("로그인 성공");
+//				System.out.println("로그인 성공");
 				
 				memberDao.lasttime(memberDto.getMember_id());
 				
@@ -224,8 +222,6 @@ public class MemberController {
 		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
 		memberDto.setMember_pw(encrypt);
 		
-		
-		
 		memberDao.changePw(memberDto);
 		System.out.println(memberDto);
 		return "member/new_pw_result";
@@ -261,11 +257,10 @@ public class MemberController {
 		memberDto.setMember_id((String) session.getAttribute("ok"));				
 //		기존 비밀번호와 새로운 비밀번호가 들어옴
 //		[1] 기존 비밀번호가 맞는지 확인
-//		[1-1]  기존 입력 패스워드+new password 암호화
-		String new_origin = BCrypt.hashpw(memberDto.getMember_pw(), BCrypt.gensalt());
+//		[1-1] new password 암호화
+		
 		String new_pw = BCrypt.hashpw(new_member_pw, BCrypt.gensalt());
 		
-		memberDto.setMember_pw(new_origin);
 		
 		System.out.println(memberDto);
 		
@@ -273,11 +268,9 @@ public class MemberController {
 		MemberDto check = memberDao.get((String) session.getAttribute("ok"));
 	
 		System.out.println("check"+ check.getMember_pw());
-		System.out.println("new"+new_origin);
 		//기존 비밀번호와 입력 비밀번호를 비교하여 확인
-		boolean result = BCrypt.checkpw(new_origin, check.getMember_pw());
+		boolean result = BCrypt.checkpw(memberDto.getMember_pw(), check.getMember_pw());
 		
-		System.out.println("비교결과" + result);
 		
 		if(result) {
 //		[2] 비밀번호가 맞으면 새로운 비밀번호로 변경

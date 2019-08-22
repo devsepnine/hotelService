@@ -9,7 +9,7 @@
 	$(function(){
 	    ClassicEditor
 	            .create( document.querySelector( 'textarea[name=notice_content]' ), {
-	            	removePlugins: [ 'ImageUpload' ] 	
+	            	removePlugins: [ 'ImageUpload', 'MediaEmbed' ]
 	            })
 	});
 </script>
