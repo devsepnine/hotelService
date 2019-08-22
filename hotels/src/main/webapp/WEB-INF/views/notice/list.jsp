@@ -64,13 +64,13 @@
 	
 	.headtit{
 		border-bottom: #432c10 solid 10px;
-		width:1100px;
+		max-width:1100px;
 		margin:auto;
 		text-align: left;
 		margin-bottom: 50px;
 	}
 	
-	.list_wrap > .table_ny_two {
+	.list_wrap > .table-box > .table_ny_two {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -79,12 +79,12 @@
   		max-width: 1100px;
 	}
 	
-	.list_wrap > .table_ny_two > thead > tr > th,
-	.list_wrap > .table_ny_two > thead > tr > td,
-	.list_wrap > .table_ny_two > tbody > tr > th,
-	.list_wrap > .table_ny_two > tbody > tr > td,
-	.list_wrap > .table_ny_two > tfoot > tr > th,
-	.list_wrap > .table_ny_two > tfoot > tr > td {
+	.list_wrap > .table-box > .table_ny_two > thead > tr > th,
+	.list_wrap > .table-box > .table_ny_two > thead > tr > td,
+	.list_wrap > .table-box > .table_ny_two > tbody > tr > th,
+	.list_wrap > .table-box > .table_ny_two > tbody > tr > td,
+	.list_wrap > .table-box > .table_ny_two > tfoot > tr > th,
+	.list_wrap > .table-box > .table_ny_two > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -99,6 +99,15 @@
 		padding: 20px 10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
 	
+	}
+	.table-box{
+		max-width: 1000px;
+		margin: auto;
+	}
+	.table_ny_two{
+		width:100%;
+		text-align: center;
+		margin: auto;
 	}
 	.custom-select{
 		display:inline-block;
@@ -119,7 +128,8 @@
 <div class="headtit">
 <h3>공지사항</h3>
 </div>
-<table class="table_ny_two" width="1000" border="1" align="center">
+<div class="table-box">
+<table class="table_ny_two" border="1" >
 	<!-- 제목 -->
 	<thead>
 		<tr>
@@ -159,12 +169,12 @@
 		</tfoot>
 	</c:if>
 </table>
-
+</div>
 <!-- 네비게이션 + 검색창 -->
 
 <div class="empty"></div>
 
-<form class="form" action="list" method="get" align="center">
+<form class="form" action="list" method="get">
 
 <input type="hidden" name="page" value="1">
 
@@ -243,7 +253,6 @@
 	</c:if>
 </ul>
 
-</div>
 </div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
