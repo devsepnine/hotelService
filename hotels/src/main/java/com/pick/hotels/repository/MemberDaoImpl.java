@@ -74,6 +74,11 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public MemberDto findId(MemberDto memberDto) {
+		return sqlSession.selectOne("member.find_id", memberDto);
+	}
+
 	
 	
 	

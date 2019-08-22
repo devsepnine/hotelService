@@ -75,4 +75,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				member_no = #{member_no}
 	</update>
 	
+	<!-- 회원 아이디 찾기 -->
+	<select id="find_id" parameterType="memberDto" resultType="memberDto">
+		select * from member
+			where
+				member_name = #{member_name} and member_phone = #{member_phone} and member_birthday = to_date(#{member_birthday},'yyyy/mm/dd')
+	</select>
+	
 </mapper>

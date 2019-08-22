@@ -230,6 +230,26 @@ public class MemberController {
 		return "member/new_pw_result";
 	}
 	
+	@GetMapping("/find_id")
+	public String findId() {
+		return "member/find_id";
+	}
+	
+	@PostMapping("find_id")
+	public String findId(@ModelAttribute MemberDto memberDto, Model model) {
+		System.out.println(memberDto);
+		MemberDto mdto = memberDao.findId(memberDto);
+		model.addAttribute("member_id",mdto.getMember_id());
+		if(mdto != null) {
+			return "member/find_id_result";
+		}
+		else {
+			return "redirect:find_id?error";
+		}
+	}
+	
+
+	
 	
 	
 }
