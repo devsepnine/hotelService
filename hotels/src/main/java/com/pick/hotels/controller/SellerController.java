@@ -3,11 +3,9 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.SellerDao;
@@ -31,6 +30,9 @@ public class SellerController {
 	private SellerDao sellerDao;
 	
 	@Autowired EmailService emailService;
+	
+	@Autowired
+	private EmailCertDao emailcertDao;
 	
 	@GetMapping("/lisence")
 	public String lisence() {
@@ -84,10 +86,8 @@ public class SellerController {
 	
 	@GetMapping("/lisence_check")
 	public void lisence_check(@RequestParam String seller_lisence, HttpServletResponse resp) throws IOException {
-		System.out.println(seller_lisence);
 		resp.setContentType("text/plain");
 		SellerDto sdto = sellerDao.getLisence(seller_lisence);
-		System.out.println(sdto);
 		if(sdto==null) {
 			resp.getWriter().print("Y");
 		}
@@ -174,7 +174,25 @@ public class SellerController {
 	}
 	
 	@GetMapping("/emailcert")
-	public void emailcert(@ModelAttribute SellerDto sdto, HttpServletResponse resp) throws IOException, MessagingException {
-			emailService.sendCertNo(sdto);
+	public void emailcert(@RequestParam String seller_email_id, @RequestParam String seller_email_addr, HttpServletResponse resp) throws IOException, MessagingException {
+			boolean result = emailService.sendCertNo(seller_email_id,seller_email_addr);
+			if(result) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
 		}
+	
+	@GetMapping("/email_cert_check")
+	public void email_cert_check(@RequestParam String seller_email_cert, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		EmailCertDto ecdto = emailcertDao.get(seller_email_cert);
+		if(ecdto==null) {
+			resp.getWriter().print("N");
+		}
+		else {
+			resp.getWriter().print("Y");
+		}
+	}
 }

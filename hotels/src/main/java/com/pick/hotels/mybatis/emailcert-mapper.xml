@@ -8,7 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="emailcert">
 	<insert id="insert" parameterType="String">
 		insert into emailcert values(
-			email_cert_no = #{emailcert}, sysdate
+			emailcert_seq.nextval , #{emailcert} , sysdate
 		)
 	</insert>
+	
+	<select id="get" parameterType="String" resultType="EmailCertDto">
+		select * from emailcert where seller_email_cert = #{email_cert_no}
+	</select>
 </mapper>

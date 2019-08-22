@@ -19,8 +19,12 @@ form label {
 }
 
 .regist-wrap {
-	width: 1000px;
+	width: 800px;
 	margin: auto;
+}
+
+.cert_check{
+ 	display: none; 
 }
 </style>
 <script>
@@ -35,7 +39,7 @@ form label {
 		$("input[name=postcode_find]").click(findAddress);
 	});
 
-	function findAddress() {
+	function findAddress() { 
 		new daum.Postcode({
 			oncomplete : function(data) {
 				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -101,10 +105,7 @@ form label {
 							}
 							//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
 							else {
-								window.alert("사용 가능한 아이디입니다")
-								$("input[name=registbtn]").prop("disabled",
-										false).css("background-color",
-										"#726454");
+								window.alert("사용 가능한 아이디입니다");
 							}
 						}
 					});
@@ -243,7 +244,6 @@ form label {
 					$(this).append(newInput1);
 					this.submit();
 				});
-	});
 	
 	});
 	$(function(){
@@ -251,12 +251,44 @@ form label {
 			function(){
 				$.ajax({
 					url : "emailcert",
+					data : {
+						seller_email_id : $("input[name=seller_email_id]").val(),
+						seller_email_addr : $("input[name=seller_email_addr]").val()
+					},
 					success:function(resp){
-						
+						if (resp == "Y") {
+							$(".cert_check").css("display","inline-block");
+						}
 					}
 				});
-			}
-		});	
+			});
+		});
+	
+	$(function() {
+		$(".btn-cert_no_check").click(
+				function() {
+					$.ajax({
+						url : "email_cert_check",
+						data : {
+							seller_email_cert : $("input[name=seller_email_cert]").val()
+						},
+						dataType : "text",
+						success : function(resp) {
+							if (resp == "Y") {
+								window.alert("올바른 인증번호 입니다");
+								$("input[name=registbtn]").prop("disabled",
+										false).css("background-color",
+										"#726454");
+							}
+							else {
+								window.alert("인증번호가 올바르지 않습니다")
+								$("input[name=seller_email_cert]").select();
+							}
+						}
+					});
+				});
+	});
+	
 	
 </script>
 
@@ -270,35 +302,40 @@ form label {
 				<tbody>
 					<tr>
 						<td><label for="s_id">ID</label></td>
-						<td><input class="form-control" onblur="checkId();"
-							type="text" name="seller_id" id="s_id" pattern="^[a-z0-9]{8,15}$"
-							required> <input class="btn btn-danger" type="button"
-							value="중복확인" name="id_check_btn">
-							<div class="s_idD"></div></td>
+						<td>
+							<input class="form-control" style="display: inline-block;width: 40%" onblur="checkId();"
+							type="text" name="seller_id" id="s_id" pattern="^[a-z0-9]{8,15}$" required> 
+							<input class="btn btn-danger" type="button" value="중복확인" name="id_check_btn">
+							<div class="s_idD"></div>
+						</td>
 					</tr>
 					<tr>
 						<td><label for="s_pw">PASSWORD</label></td>
+						
 						<td><input onblur="checkPw();" type="password"
 							class="form-control" name="seller_pw" id="s_pw"
 							pattern="^[a-zA-Z0-9!@#$\-_]{8,15}$" required>
-							<div class="s_pwD"></div></td>
+							<div class="s_pwD"></div>
+						</td>
 					</tr>
 					<tr>
 						<td><label>PASSWORD CHECK</label></td>
 						<td><input class="form-control" type="password" id="chpass"
 							name="pw_check" placeholder="비밀번호 확인" required> 
-							<font name="check" size="3" color="red"></font></td>
+							<font name="check" size="3" color="red"></font>
+						</td>
 					</tr>
 					<tr>
 						<td><label for="s_addr">ADDRESS</label></td>
-						<td><input class="form-control" type="text"
-								name="seller_zip_code" placeholder="우편번호" required readonly><br>
+						<td><input class="form-control" type="text" style="display: inline-block;width: 40%"
+								name="seller_zip_code" placeholder="우편번호" required readonly>
 							<input class="btn btn-danger" type="button" value="우편번호 찾기"
-								name="postcode_find"><br> <input
-							class="form-control" type="text" name="seller_basic_addr"
-								placeholder="주소" required readonly><br> <input
-							class="form-control" type="text" name="seller_detail_addr"
-								placeholder="상세주소"></td>
+								name="postcode_find"><br> 
+							<input class="form-control" type="text" name="seller_basic_addr"
+								placeholder="주소" required readonly>
+							<input class="form-control" type="text" name="seller_detail_addr"
+								placeholder="상세주소">
+						</td>
 					</tr>
 
 					<tr>
@@ -329,9 +366,12 @@ form label {
 								<option>daum.net</option>
 								<option>gmail.com</option>
 							</select>
-							<input type="button" id="btn-cert_no" class="btn-light" value="인증번호">
-						
-							<div class="s_emailD"></div></td>
+							<input type="button" id="btn-cert_no" class="btn-light btn-cert_no" value="인증번호">
+							<input class="form-control cert_check" style=width:20%; type="text" name="seller_email_cert"
+									id="seller_email_cert" required>
+							<input type="button" id="btn-cert_no_check" class="btn-light cert_check btn-cert_no_check" value="인증번호확인">
+							<div class="s_emailD"></div>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
