@@ -90,25 +90,28 @@ form label {
 	}
 
 	$(function() {
-		$("input[name=id_check_btn]").click(
+		$("input[name=seller_id]").blur(
 				function() {
-					$.ajax({
-						url : "id_check",
-						data : {
-							seller_id : $("input[name=seller_id]").val()
-						},
-						dataType : "text",
-						success : function(resp) {
-							if (resp == "N") {
-								window.alert("이미 사용중인 아이디입니다");
-								$("input[name=seller_id]").select();
+					if($("input[name=seller_id]").val().length>0){
+						$.ajax({
+							url : "id_check",
+							data : {
+								seller_id : $("input[name=seller_id]").val()
+							},
+							dataType : "text",
+							success : function(resp) {
+								if (resp == "N") {
+									window.alert("이미 사용중인 아이디입니다");
+									$("input[name=seller_id]").val('');
+									$("input[name=seller_id]").select();
+								}
+								//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
+								else {
+									window.alert("사용 가능한 아이디입니다");
+								}
 							}
-							//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
-							else {
-								window.alert("사용 가능한 아이디입니다");
-							}
-						}
-					});
+						});
+					}
 				});
 
 		//이메일주소 옵션에서 선택했을때 왼쪽 입력창에 value 표시
@@ -164,7 +167,7 @@ form label {
 			div.innerHTML = ""
 		}
 
-		//m_pw가 형식에 맞지 않으면 메세지 춮력
+		//m_pw가 형식에 맞지 않으면 메세지 출 력
 		else {
 			div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 대소문자, 숫자, 특수문자(!@#$-_)로 입력해주세요</font>"
 
@@ -303,9 +306,8 @@ form label {
 					<tr>
 						<td><label for="s_id">ID</label></td>
 						<td>
-							<input class="form-control" style="display: inline-block;width: 40%" onblur="checkId();"
+							<input class="form-control" onblur="checkId();"
 							type="text" name="seller_id" id="s_id" pattern="^[a-z0-9]{8,15}$" required> 
-							<input class="btn btn-danger" type="button" value="중복확인" name="id_check_btn">
 							<div class="s_idD"></div>
 						</td>
 					</tr>

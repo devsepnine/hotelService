@@ -193,6 +193,7 @@ public class SellerController {
 		}
 		else {
 			resp.getWriter().print("Y");
+			emailcertDao.delete(seller_email_cert);
 		}
 	}
 }
