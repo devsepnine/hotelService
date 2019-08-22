@@ -13,6 +13,7 @@ public interface MemberDao {
 	MemberDto findPassword(MemberDto memberDto);
 	void changePw(MemberDto memberDto);
 	MemberDto findId(MemberDto memberDto);
+	MemberDto checkPw(MemberDto memberDto);
 	
 	
 //	나연이가 만든거	      

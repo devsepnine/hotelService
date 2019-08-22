@@ -12,14 +12,14 @@
 </style>
 
 <%-- error 파라미터 유무에 따라 오류메시지를 출력 --%>
-<c:if test="${not empty param.error}">
+<div align="center" class="find_pw-wrap">
+<c:if test="${param.error eq 'error'}">
 	<h4>
 		<font color="red">
 			입력하신 정보에 해당하는 회원이 존재하지 않습니다	
 		</font>
 	</h4>
 </c:if>
-<div align="center" class="find_pw-wrap">
 	<h2>아이디 찾기</h2>
 		<form class="form form-vertical-line" action="find_id" method="post">
 			<table>

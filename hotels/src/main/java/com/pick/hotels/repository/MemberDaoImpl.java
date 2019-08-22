@@ -79,6 +79,11 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.find_id", memberDto);
 	}
 
+	@Override
+	public MemberDto checkPw(MemberDto memberDto) {
+		return sqlSession.selectOne("member.check_pw", memberDto);
+	}
+
 	
 	
 	
