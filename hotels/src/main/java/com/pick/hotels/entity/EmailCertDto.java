@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class EmailCertDto {
-	private String email_cert_no, email_cert_when;
+	private int seller_email_cert_no;
+	private String seller_email_cert, seller_email_when;
 }
