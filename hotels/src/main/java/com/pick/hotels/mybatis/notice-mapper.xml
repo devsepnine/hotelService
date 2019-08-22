@@ -69,7 +69,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 글 수정 -->
 	<update id="edit" parameterType="noticeDto">
-		update notice set notice_title=#{notice_title}, notice_content=#{notice_content} where notice_no = #{notice_no}
+		update notice 
+			set notice_title=#{notice_title}, notice_content=#{notice_content}
+			<if test="notice_file_type != null">
+				,notice_file_name = #{notice_file_name}, notice_file_type=#{notice_file_type} 
+			</if>
+		where notice_no = #{notice_no}
 	</update>
 	
 </mapper>

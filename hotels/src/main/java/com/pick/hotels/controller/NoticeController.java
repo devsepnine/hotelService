@@ -1,5 +1,7 @@
 package com.pick.hotels.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.NoticeDto;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.NoticeDao;
+import com.pick.hotels.service.FileService;
 import com.pick.hotels.service.NoticeService;
 
 @Controller
@@ -34,6 +38,9 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private FileService fileService;
 	
 //	글 목록
 	@GetMapping("/list")
@@ -114,13 +121,24 @@ public class NoticeController {
 	@PostMapping("/write")
 	public String write(HttpSession session,
 			@ModelAttribute NoticeDto noticeDto,
-			Model model) {
+			Model model,
+			@RequestParam MultipartFile file
+			) throws IllegalStateException, IOException {
 		int member_no = (int)session.getAttribute("no");
 		noticeDto.setNotice_writer(member_no);
-				
+		
+		boolean fileexist = !(file.getOriginalFilename().length()==0);
+		if(fileexist) {
+			NoticeDto ndto =  fileService.save(file);
+			noticeDto.setNotice_file_name(ndto.getNotice_file_name());
+			noticeDto.setNotice_file_type(ndto.getNotice_file_type());
+		}
+		
 		int no = noticeService.write(noticeDto);
 		
 		model.addAttribute("no", no);
+		
+		
 		return "redirect:content";
 	}
 	
@@ -133,7 +151,20 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/edit")
-	public String edit(@ModelAttribute NoticeDto noticeDto, RedirectAttributes model) {
+	public String edit(@ModelAttribute NoticeDto noticeDto, RedirectAttributes model,
+						@RequestParam MultipartFile file,
+						@RequestParam String delete_file) throws IllegalStateException, IOException {
+		
+		boolean fileexist = !(file.getOriginalFilename().length()==0);
+//		추가 업로드된 파일이 있으면 기존파일과 변경
+		if(fileexist) {
+			NoticeDto ndto =  fileService.save(file);
+			noticeDto.setNotice_file_name(ndto.getNotice_file_name());
+			noticeDto.setNotice_file_type(ndto.getNotice_file_type());
+//		기존에 있는 파일을 제거
+			fileService.delete(delete_file);
+		}
+		
 		noticeDao.edit(noticeDto);
 		model.addAttribute("no", noticeDto.getNotice_no());
 		return "redirect:content";
