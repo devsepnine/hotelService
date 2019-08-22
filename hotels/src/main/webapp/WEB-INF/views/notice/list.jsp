@@ -33,6 +33,10 @@
 </script>
 
 <style>
+	.list_wrap > *{
+		color:black;
+	}
+	
 	.empty {
 		height:50px;
 	}
@@ -56,21 +60,62 @@
 	
 	.list_wrap {
 		text-align: center;
-		margin-top: 50px;
 	}
-
+	
+	.headtit{
+		border-bottom: #432c10 solid 10px;
+		width:1100px;
+		margin:auto;
+		text-align: left;
+		margin-bottom: 50px;
+	}
+	
+	.list_wrap > .table_ny_two {
+		margin-top : 50px;
+		border-top: 3px solid #432c10;
+  		border-bottom: 3px solid #432c10;
+   		border-left: none;
+  		border-right: none;
+  		max-width: 1100px;
+	}
+	
+	.list_wrap > .table_ny_two > thead > tr > th,
+	.list_wrap > .table_ny_two > thead > tr > td,
+	.list_wrap > .table_ny_two > tbody > tr > th,
+	.list_wrap > .table_ny_two > tbody > tr > td,
+	.list_wrap > .table_ny_two > tfoot > tr > th,
+	.list_wrap > .table_ny_two > tfoot > tr > td {
+		border: 1px solid #432c10;
+		border-left: none;
+  		border-right: none;
+  		padding:10px 10px;
+	}
+	
+	.content-line{
+		margin-top:10px;
+		border: 5px solid white;
+		max-width: 1200px;
+		margin: auto;
+		padding: 20px 10px;
+		box-shadow: 2px 2px 10px #EAEAEA;
+	}
+	
 </style>
 
+<div style="height: 100px;"></div>
+<div class="content-line">
 <div class="list_wrap">
-<!-- 표 -->
+<div class="headtit">
+<h3>공지사항</h3>
+</div>
 <table class="table_ny_two" width="1000" border="1" align="center">
 	<!-- 제목 -->
 	<thead>
 		<tr>
-			<th>번호</th>
-			<th width="40%">제목</th>
-			<th>작성일</th>
-			<th>조회수</th>
+			<th width="13%">번호</th>
+			<th width="47%">제목</th>
+			<th width="25%">작성일</th>
+			<th width="15%">조회수</th>
 		</tr>
 	</thead>
 	<!-- 게시글 -->
@@ -96,7 +141,7 @@
 		<!-- 글쓰기 버튼 -->
 		<tfoot>
 			<tr>
-				<td colspan="8" align="right">
+				<td colspan="8" align="right" >
 					<a href="write" class="btn btn-danger">글쓰기</a>
 				</td>
 			</tr>
@@ -112,12 +157,12 @@
 
 <input type="hidden" name="page" value="1">
 
-<select name="type">
+<select name="type" class="custom-select">
 	<option value="notice_title">제목</option>
 	<option value="notice_content">내용</option>
 </select>
 
-<input type="search" name="keyword" placeholder="검색어" required value="${param.keyword}">
+<input type="search" name="keyword" placeholder="검색어를 입력하세요" required value="${param.keyword}">
 
 <input type="submit" value="검색">
 </form>
@@ -187,5 +232,7 @@
 	</c:if>
 </ul>
 
+</div>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

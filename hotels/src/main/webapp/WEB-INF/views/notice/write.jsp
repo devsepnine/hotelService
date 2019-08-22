@@ -99,12 +99,12 @@
 				<tr>
 					<td class="td-line">
 						<label>제목 &emsp; </label>
-						<input type="text" name="notice_title" placeholder="제목" required>
+						<input type="text" name="notice_title" placeholder="제목을 입력하세요" required>
 					</td>
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea name="notice_content" placeholder="내용"></textarea>
+						<textarea name="notice_content" placeholder="내용을 입력하세요]"></textarea>
 					</td>
 				</tr>
 				<tr>
