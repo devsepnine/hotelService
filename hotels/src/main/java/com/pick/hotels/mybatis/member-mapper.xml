@@ -82,4 +82,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				member_name = #{member_name} and member_phone = #{member_phone} and member_birthday = to_date(#{member_birthday},'yyyy/mm/dd')
 	</select>
 	
+	<!-- 회원변경 비밀번호 찾기 -->
+	<select id="check_pw" parameterType="memberDto" resultType="memberDto">
+		select * from member
+			where
+				member_id = #{member_id} and member_pw = #{member_pw}
+	</select>
+	
+	<!-- 로그인 회원 비밀번호 변경 -->
+	<update id="change_pw">
+		update member
+			set
+				member_pw = #{member_pw}
+			where
+				member_no = #{member_no}
+	</update>
+	
+	
+	
+	
 </mapper>

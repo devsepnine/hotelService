@@ -37,9 +37,9 @@
 <h1>비밀번호 변경</h1>
 <form class="form" action="new_pw" method="post">
 	<%-- hidden은 사용자에게 표시되지 않으면서 전송이 가능 --%>
-	<input type="hidden" name="member_no" value="${member_no}">
-	<input type="password" name="member_pw" placeholder="신규 비밀번호" required>
-	<input type="submit" value="변경하기">
+	<input class="form-control"  type="hidden" name="member_no" value="${member_no}">
+	<input class="form-control"  type="password" name="member_pw" placeholder="신규 비밀번호" required>
+	<input class="btn btn-danger btn-block" type="submit" value="변경하기">
 </form>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

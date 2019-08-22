@@ -59,7 +59,7 @@
 		</tbody>
 	</table>
 	<%-- 회원이 이용할 수 있는 기능들을 링크로 제공 --%>
-	<h3><a href="#">비밀번호 변경</a></h3>
+	<h3><a href="change_pw">비밀번호 변경</a></h3>
 	<h3><a href="change">개인정보 변경</a></h3>
 	<h3><a href="delete">회원 탈퇴</a></h3>
 </div>

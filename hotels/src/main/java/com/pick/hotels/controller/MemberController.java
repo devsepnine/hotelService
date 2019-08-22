@@ -173,7 +173,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/find_pw")
-	public String findPassword(@ModelAttribute MemberDto memberDto) throws MessagingException {
+	public String findPassword(@ModelAttribute MemberDto memberDto,Model model) throws MessagingException {
 		System.out.println(memberDto);
 		MemberDto mdto = memberDao.findPassword(memberDto);
 		System.out.println("mdto : " + mdto);
@@ -182,7 +182,8 @@ public class MemberController {
 			return "redirect:find_pw_result";
 		}
 		else {
-			return "redirect:find_pw?error";
+			model.addAttribute("error", "error");
+			return "redirect:find_pw?";
 		}
 	}
 	
@@ -237,14 +238,58 @@ public class MemberController {
 	
 	@PostMapping("find_id")
 	public String findId(@ModelAttribute MemberDto memberDto, Model model) {
+		
 		System.out.println(memberDto);
 		MemberDto mdto = memberDao.findId(memberDto);
-		model.addAttribute("member_id",mdto.getMember_id());
 		if(mdto != null) {
+			model.addAttribute("member_id",mdto.getMember_id());
 			return "member/find_id_result";
+		}else{
+			model.addAttribute("error", "error");
+			return "redirect:find_id?";
 		}
+	}
+	
+	@GetMapping("/change_pw")
+	public String checkPw() {
+		return "member/change_pw";
+	}
+	
+	@PostMapping("/change_pw")
+	public String checkPw(HttpSession session, @ModelAttribute MemberDto memberDto, Model model, @RequestParam String new_member_pw) {
+		//memberDto 에 아이디 입력
+		memberDto.setMember_id((String) session.getAttribute("ok"));				
+//		기존 비밀번호와 새로운 비밀번호가 들어옴
+//		[1] 기존 비밀번호가 맞는지 확인
+//		[1-1]  기존 입력 패스워드+new password 암호화
+		String new_origin = BCrypt.hashpw(memberDto.getMember_pw(), BCrypt.gensalt());
+		String new_pw = BCrypt.hashpw(new_member_pw, BCrypt.gensalt());
+		
+		memberDto.setMember_pw(new_origin);
+		
+		System.out.println(memberDto);
+		
+		//먼저 세션에 있는 계정 정보를 가져옴
+		MemberDto check = memberDao.get((String) session.getAttribute("ok"));
+	
+		System.out.println("check"+ check.getMember_pw());
+		System.out.println("new"+new_origin);
+		//기존 비밀번호와 입력 비밀번호를 비교하여 확인
+		boolean result = BCrypt.checkpw(new_origin, check.getMember_pw());
+		
+		System.out.println("비교결과" + result);
+		
+		if(result) {
+//		[2] 비밀번호가 맞으면 새로운 비밀번호로 변경
+			memberDto.setMember_pw(new_pw);
+			
+			memberDao.changePw(memberDto);
+			
+			return "member/new_pw_resutl";
+		}
+//		[3] 비밀번호가 다르면 비밀번호 변경 실패 안내
 		else {
-			return "redirect:find_id?error";
+			return "redirect:new_change_pw?error";
 		}
 	}
 	
