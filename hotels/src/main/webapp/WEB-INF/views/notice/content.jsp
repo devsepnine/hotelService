@@ -85,6 +85,9 @@
 			</tr>
 			<tr height="500">
 				<td valign="top" colspan="2">
+				<c:if test="${not empty ndto.notice_file_name}">
+					<img src="${pageContext.request.contextPath }/imgsrc?notice_file_name=${ndto.notice_file_name }">
+				</c:if>
 					${ndto.notice_content}
 				</td>
 			</tr>

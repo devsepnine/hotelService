@@ -87,7 +87,7 @@
 </style>
 
 
-<form action="write" method="post" >
+<form action="write" method="post" enctype="multipart/form-data">
 <div style="height: 100px;"></div>
 <div class="content-line">
 <div class="notice_wrap">
@@ -109,7 +109,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file">
+						<input type="file" name="file" multiple accept = ".jpg, .png, .gif">
 					</td>
 				</tr>
 			</tbody>

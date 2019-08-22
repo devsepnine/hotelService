@@ -87,7 +87,7 @@
 </style>
 
 
-<form action="edit" method="post" >
+<form action="edit" method="post" enctype="multipart/form-data">
 <input type="hidden" name="notice_no" value="${ndto.notice_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
@@ -106,18 +106,22 @@
 				<tr height="500">
 					<td valign="top" colspan="2">
 						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>
+						<div style="height: 10px;"></div>
+						<c:if test="${not empty ndto.notice_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/imgsrc?notice_file_name=${ndto.notice_file_name }">
+						</c:if>					
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file">
-						<!-- 수정할때도 사진이 유지되어야됨 -->
+						<input type="file" name="file"  multiple accept = ".jpg, .png, .gif">
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2">
+						<input type="hidden" value="${ndto.notice_file_name}" name="delete_file">
 						<input type="submit" class="btn btn-danger" value="수정하기">
 					</td>
 				</tr>
