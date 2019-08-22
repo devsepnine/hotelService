@@ -15,4 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get" parameterType="String" resultType="EmailCertDto">
 		select * from emailcert where seller_email_cert = #{email_cert_no}
 	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete emailcert where seller_email_cert = #{email_cert_no}
+	</delete>
+	
+	<delete id="clear">
+		<![CDATA[
+			delete emailcert
+				where seller_email_when < sysdate - 5 / 24 / 60
+		]]>
+	</delete>
 </mapper>

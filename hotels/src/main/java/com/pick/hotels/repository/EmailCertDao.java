@@ -8,6 +8,11 @@ public interface EmailCertDao {
 
 	EmailCertDto get(String seller_email_cert);
 
+	void delete(String seller_email_cert);
+
+	void clear();
+
+
 
 
 }
