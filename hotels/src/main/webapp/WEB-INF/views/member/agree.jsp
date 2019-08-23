@@ -32,7 +32,7 @@
 			// location.href ="http://www.google.com";
 
 			// jQuery라면
-			$(location).attr("href", "regist.do");
+			$(location).attr("href", "regist");
 		});
 	});
 </script>
