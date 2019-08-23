@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				${type} like '%' || #{keyword} || '%'
 			</if>
 		<![CDATA[
-			)n)  where r >= #{start} and r <= #{end}
+			 order by notice_no desc )n)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	
