@@ -115,7 +115,7 @@ public class GmailMemberService implements EmailService{
 			e.printStackTrace();
 			return false;
 		}
-
+	}
 
 	public void find_pw(SellerDto sdto) throws MessagingException {
 //		인증번호 생성

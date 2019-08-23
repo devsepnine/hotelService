@@ -125,7 +125,6 @@ $(function(){
 						<td><input class="form-control" type="password" id="chpass"
 							name="pw_check" placeholder="비밀번호 확인" required> <font
 							name="check" size="3" color="red"></font></td>
-						<br>
 
 					</tr>
 					<tr>
@@ -137,6 +136,5 @@ $(function(){
 		</fieldset>
 	</form>
 </div>
-</form>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
