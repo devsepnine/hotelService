@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.CertDto;
+import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.repository.CertDao;
+import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.service.EmailService;
 
@@ -32,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private EmailCertDao emailcertDao;
 	
 	@GetMapping("/agree")
 	public String agree() {
@@ -269,12 +274,36 @@ public class MemberController {
 		}
 //		[3] 비밀번호가 다르면 비밀번호 변경 실패 안내
 		else {
-			return "redirect:new_change_pw?error";
+			model.addAttribute("error", "error");
+			return "redirect:change_pw?";
 		}
 	}
 	
 
 	
+	@GetMapping("/emailcert")
+	public void emailcert(@RequestParam String member_email1, @RequestParam String member_email2, HttpServletResponse resp) throws IOException, MessagingException {
+			boolean result = emailService.sendCertNo_member(member_email1,member_email2);
+			if(result) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
+		}
+	
+	@GetMapping("/email_cert_check")
+	public void email_cert_check(@RequestParam String member_email_cert, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		EmailCertDto ecdto = emailcertDao.get(member_email_cert);
+		if(ecdto==null) {
+			resp.getWriter().print("N");
+		}
+		else {
+			resp.getWriter().print("Y");
+			emailcertDao.delete(member_email_cert);
+		}
+	}
 	
 	
 }

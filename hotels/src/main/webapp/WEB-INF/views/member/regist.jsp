@@ -22,7 +22,9 @@ form h4 {
 		width: 1000px;
 		margin: auto;
 	}
-	
+	.cert_check{
+ 	display: none; 
+}
 
 
 </style>
@@ -90,26 +92,30 @@ function findAddress() {
 }
 
 $(function() {
-	$("input[name=id_check_btn]").click(function() {
-		$.ajax({
-			url : "id_check",
-			data : {
-				member_id : $("input[name=member_id]").val()
-			},
-			dataType : "text",
-			success : function(resp) {
-				if (resp == "N") {
-					window.alert("이미 사용중인 아이디입니다");
-					$("input[name=member_id]").select();
+	$("input[name=member_id]").blur(
+			function() {
+				if($("input[name=member_id]").val().length>0){
+					$.ajax({
+						url : "id_check",
+						data : {
+							member_id : $("input[name=member_id]").val()
+						},
+						dataType : "text",
+						success : function(resp) {
+							if (resp == "N") {
+								window.alert("이미 사용중인 아이디입니다");
+								$("input[name=member_id]").val('');
+								$("input[name=member_id]").select();
+							}
+							//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
+							else {
+								window.alert("사용 가능한 아이디입니다");
+							}
+						}
+					});
 				}
-				//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
-				else {
-					window.alert("사용 가능한 아이디입니다")
-					$("input[name=registbtn]").prop("disabled", false).css("background-color", "#726454");
-				}
-			}
-		});
-	});
+			});
+
 	
 	//이메일주소 옵션에서 선택했을때 왼쪽 입력창에 value 표시
 	$("#email_address").change(function(){
@@ -128,26 +134,26 @@ $(function() {
 });
 
 //아이디 검사 후 형식에 안맞을시 보조메세지 출력
-function checkId(){
-    var m_id = document.querySelector("#m_id").value;
-    var regex = /^[a-z0-9]{8,15}$/;
-    
-  //정규표현식으로 m_id값 검사
-    var result = regex.test(m_id);
-    
-    var div = document.querySelector(".m_idD");
-	
-    //형식에 맞으면 중복확인 버튼 활성화
-    if(result) {
-        div.innerHTML = ""
-        $("input[name=id_check_btn]").prop("disabled", false);
-    }
-    //형식에 안맞으면 메세지 출력, 중복확인 버튼 비활성화
-    else {
-        div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
-        $("input[name=id_check_btn]").prop("disabled", true)
-        								.css("background-color", "lightgray");
-    }
+function checkId() {
+	var s_id = document.querySelector("#m_id").value;
+	var regex = /^[a-z0-9]{8,15}$/;
+
+	//정규표현식으로 m_id값 검사
+	var result = regex.test(s_id);
+
+	var div = document.querySelector(".m_idD");
+
+	//형식에 맞으면 중복확인 버튼 활성화
+	if (result) {
+		div.innerHTML = ""
+		$("input[name=id_check_btn]").prop("disabled", false);
+	}
+	//형식에 안맞으면 메세지 출력, 중복확인 버튼 비활성화
+	else {
+		div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
+		$("input[name=id_check_btn]").prop("disabled", true).css(
+				"background-color", "lightgray");
+	}
 }
 
 //비밀번호 검사 후 형식에 안맞을시 보조메세지 출력	
@@ -264,6 +270,49 @@ $(function(){
 		this.submit();
 	});
 });
+
+$(function(){
+	$(".btn-cert_no").click(
+		function(){
+			$.ajax({
+				url : "emailcert",
+				data : {
+					member_email1 : $("input[name=member_email1]").val(),
+					member_email2 : $("input[name=member_email2]").val()
+				},
+				success:function(resp){
+					if (resp == "Y") {
+						$(".cert_check").css("display","inline-block");
+					}
+				}
+			});
+		});
+	});
+
+$(function() {
+	$(".btn-cert_no_check").click(
+			function() {
+				$.ajax({
+					url : "email_cert_check",
+					data : {
+						member_email_cert : $("input[name=member_email_cert]").val()
+					},
+					dataType : "text",
+					success : function(resp) {
+						if (resp == "Y") {
+							window.alert("올바른 인증번호 입니다");
+							$("input[name=registbtn]").prop("disabled",
+									false).css("background-color",
+									"#726454");
+						}
+						else {
+							window.alert("인증번호가 올바르지 않습니다")
+							$("input[name=member_email_cert]").select();
+						}
+					}
+				});
+			});
+});
 </script>
 
 <div class="regist-wrap" align="center">
@@ -272,14 +321,14 @@ $(function(){
 	<div>
 		<table>
 			<tbody>
-				<tr>
-							<td><label for="m_id">ID</label></td>
-							<td>
-								<input class="form-control" onblur="checkId();" type="text" name="member_id" id="m_id" pattern="^[a-z0-9]{8,15}$" required>
-								<input class="btn btn-danger" type="button" value="중복확인" name="id_check_btn">
-								<div class="m_idD"></div>
-							</td>
-						</tr>
+					<tr>
+						<td><label for="m_id">ID</label></td>
+						<td>
+							<input class="form-control" onblur="checkId();"
+							type="text" name="member_id" id="m_id" pattern="^[a-z0-9]{8,15}$" required> 
+							<div class="m_idD"></div>
+						</td>
+					</tr>
 				<tr>
 							<td><label for="m_pw">PASSWORD</label></td>
 							<td>
@@ -325,22 +374,27 @@ $(function(){
 							</td>
 						</tr>
 				<tr>
-							<td><label for="m_email">EMAIL</label></td>
-							<td>
-								<input class="form-control" onblur="checkEmail();" type="text" name="member_email1" id="m_email" pattern="^[a-z0-9]{8,15}$" required>
-								
-									<span>@</span>
-									<input class="form-control" type="text" name="member_email2" id="m_email_address" pattern="^.*?\..*?$" required >
-									<select id="email_address">
-										<option value="">직접입력</option>
-										<option>nate.com</option>
-										<option>naver.com</option>
-										<option>daum.net</option>
-										<option>gmail.com</option>
-									</select>
-								<div class="m_emailD"></div>
-							</td>
-				</tr>
+						<td><label for="s_email">EMAIL</label></td>
+						<td><input class="form-control" style=width:33%;display:inline-block; onblur="checkEmail();"
+								type="text" name="member_email1" id="s_email"
+										pattern="^[a-z0-9]{8,15}$" required> 
+							<span>@</span> 
+							<input class="form-control" style=width:32%;display:inline-block; type="text" name="member_email2"
+										id="m_email_address" pattern="^.*?\..*?$" required> 
+							<select id="email_address" class="form-control" style=width:18%;display:inline-block;>
+								<option value="">직접입력</option>
+								<option>nate.com</option>
+								<option>naver.com</option>
+								<option>daum.net</option>
+								<option>gmail.com</option>
+							</select>
+							<input type="button" id="btn-cert_no" class="bbtn btn-danger btn-cert_no" value="인증하기">
+							<input class="form-control cert_check" style=width:20%; type="text" name="member_email_cert"
+									id="member_email_cert" required>
+							<input type="button" id="btn-cert_no_check" class="btn btn-danger cert_check btn-cert_no_check" value="인증번호확인">
+							<div class="m_emailD"></div>
+						</td>
+					</tr>
 				<tr>
 					<td colspan="2"><input class="btn btn-danger btn-block"  type="submit" value="가입하기" name = "registbtn"></td>
 				</tr>

@@ -11,6 +11,7 @@ public interface EmailService {
 	
 	boolean sendCertNo(String seller_email_id, String seller_email_addr);
 
-	void find_pw(SellerDto sdto) throws MessagingException;
+	boolean sendCertNo_member(String member_email1, String member_email2);
 
+	void find_pw(SellerDto sdto) throws MessagingException;
 }
