@@ -2,43 +2,77 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- date picker 소스파일 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 <!-- 	date picker width 버그 수정 -->
 	<style>
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
-		}		
+		}
+/*  		swipe 스타일 */
+		.swiper-container {
+			width:100%;
+			padding:30px 0;
+			border:5px solid silver;
+			border-radius:7px;
+			box-shadow:0 0 20px #ccc inset;
+		}
+		.swiper-slide {
+			text-align:center;
+			display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+			align-items:center; /* 위아래 기준 중앙정렬 */
+			justify-content:center; /* 좌우 기준 중앙정렬 */
+		}
+		.swiper-slide img {
+			box-shadow:0 0 5px #555;
+		}
 	</style>	
 
 	
-<!-- 	슬라이더 소스파일 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<!-- 	swiper 소스파일 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/swiper/swiper.css">
+<script src="${pageContext.request.contextPath}/js/swiper/swiper.js"></script>
 
 <!-- 슬라이더 스크립트 -->
 <script>
-	$(function() {
-		var bxsilder = $('.slider').bxSlider({
-			mode:'fade',
-			auto : true,
-			pager : false,
-			controls : false,
-			slideWidth: 0
-		});
-	});
+	$(function(){
+		var mySwiper = new Swiper ('.swiper-container', {
+				autoHeight : true,
+				loop : true,
+				resizeReInit: true,
+				effect: 'fade',
+				autoResize: true
+
+		    })
+	})
 </script>
-<!-- 슬라이더 메인 -->
-<div class="slider">
-   <div><img src="img/1.jpg"></div>
-   <div><img src="img/2.jpg"></div>
-   <div><img src="img/3.jpg"></div>
+<!-- Slider main container -->
+<div class="swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/1.jpg"></div>
+        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/2.jpg"></div>
+        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/3.jpg"></div>
+        ...
+    </div>
 </div>
 
 
+<div style="height: 20px;"></div>
+
+
 <div style="max-width: 768px;min-width:355px ;margin: auto; text-align: center;">
+	<div class="form-group" style="width: 150px;display: inline-block;">
+		<input type="text" placeholder="지역 선택" name="region" list="browser" class="form-control">
+		<datalist id="browser">
+			<option value="서우">
+			<option value="우리집">
+			<option value="너네집">
+		</datalist>
+	</div>
+	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
@@ -70,7 +104,7 @@
 	<input class="btn btn-danger" type="submit" value="호텔 검색">
 	
 <span style="font-size: 20px;" class="diff"></span>
-
+</div>
 
 
 <script type="text/javascript">
@@ -126,9 +160,7 @@
 		}
     });
 </script>
-
-
-<div>
+<div style="text-align: center;">
 <span> 여기에 메인 내용을 넣으시면 됩니다.</span>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

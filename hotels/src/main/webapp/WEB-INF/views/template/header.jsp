@@ -55,7 +55,7 @@
 	    height: 100%;
 	    min-height:1080px;
 /* 	    background-color : #f1e3c4; */
-		background-image : url("${pageContext.request.contextPath}/img/ocean2.jpg");
+		background-image : url("${pageContext.request.contextPath}/img/see.jpg");
 		background-repeat:no-repeat;
 		background-size:auto 100%;
 	   	box-shadow:2px 2px 5px #f5fff1;
@@ -126,9 +126,9 @@
 	<p><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></p>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></p>
-	<p>호텔 예약</p>
-	<p>호텔 검색</p>
-	<p>뭐넣지</p>
+	<p><a href="${pageContext.request.contextPath}/hotel/search">호텔 찾기</a></p>
+	<p><a href="${pageContext.request.contextPath}/attraction">관광지</a></p>
+	<p><a href="${pageContext.request.contextPath}/restaurant">레스토랑</a></p>
 	<c:if test="${empty sessionScope.ok}">
 	<p><a href="${pageContext.request.contextPath}/join">회원가입</a></p>
 	</c:if>
