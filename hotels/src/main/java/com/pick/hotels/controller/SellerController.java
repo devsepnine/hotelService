@@ -3,6 +3,7 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -117,17 +118,23 @@ public class SellerController {
 //		암호화 적용 전
 //		MemberDto result = memberDao.login(memberDto);
 //		if(result != null) {
-		
 //		암호화 적용 후
 //		1. DB에서 회원정보를 불러온다
 		SellerDto result = sellerDao.getId(sellerDto.getSeller_id());
-		System.out.println(result);
 //		2. BCrypt의 비교 명령을 이용하여 비교 후 처리
 		if(result!=null) {
-			if(BCrypt.checkpw(sellerDto.getSeller_pw(), result.getSeller_pw())) {
-				session.setAttribute("ok", result.getSeller_id());
+			if(BCrypt.checkpw(sellerDto.getSeller_pw(),result.getSeller_pw())) {
+				session.setAttribute("s_ok", result.getSeller_id());
+				session.setAttribute("s_no", result.getSeller_no());
 				
-				System.out.println("로그인 성공");
+				
+				//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
+				Cookie c = new Cookie("saveId", sellerDto.getSeller_id());
+				if(remember == null)//체크 안했을때 
+					c.setMaxAge(0);
+				else //체크 했을때
+					c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
+				response.addCookie(c);
 				
 				return "redirect:/";
 			}else {
