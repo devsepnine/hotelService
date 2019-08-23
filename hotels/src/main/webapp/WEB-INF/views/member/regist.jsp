@@ -94,7 +94,15 @@ function findAddress() {
 $(function() {
 	$("input[name=member_id]").blur(
 			function() {
+				var m_id = $("#m_id").val();
+				var regex = /^[a-z0-9]{8,15}$/;
+
+				//정규표현식으로 m_id값 검사
+				var result = regex.test(m_id);
+			
 				if($("input[name=member_id]").val().length>0){
+					if(result){	
+				
 					$.ajax({
 						url : "id_check",
 						data : {
@@ -113,7 +121,11 @@ $(function() {
 							}
 						}
 					});
-				}
+					}else{
+						window.alert("8~15자의 영문 소문자, 숫자로 입력해주세요");
+						}
+					}
+
 			});
 
 	
@@ -134,27 +146,7 @@ $(function() {
 });
 
 //아이디 검사 후 형식에 안맞을시 보조메세지 출력
-function checkId() {
-	var s_id = document.querySelector("#m_id").value;
-	var regex = /^[a-z0-9]{8,15}$/;
 
-	//정규표현식으로 m_id값 검사
-	var result = regex.test(s_id);
-
-	var div = document.querySelector(".m_idD");
-
-	//형식에 맞으면 중복확인 버튼 활성화
-	if (result) {
-		div.innerHTML = ""
-		$("input[name=id_check_btn]").prop("disabled", false);
-	}
-	//형식에 안맞으면 메세지 출력, 중복확인 버튼 비활성화
-	else {
-		div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
-		$("input[name=id_check_btn]").prop("disabled", true).css(
-				"background-color", "lightgray");
-	}
-}
 
 //비밀번호 검사 후 형식에 안맞을시 보조메세지 출력	
 function checkPw(){
@@ -244,10 +236,10 @@ $(function() {
 	$('#chpass').keyup(function() {
 		if ($('#m_pw').val() != $('#chpass').val()) {
 			$('font[name=check]').text('');
-			$('font[name=check]').html("암호틀림");
+			$('font[name=check]').html("암호가 일치하지 않습니다");
 		} else {
 			$('font[name=check]').text('');
-			$('font[name=check]').html("암호맞음");
+			$('font[name=check]').html("암호가 일치 합니다");
 		}
 	}); //#chpass.keyup
 });
@@ -375,13 +367,13 @@ $(function() {
 						</tr>
 				<tr>
 						<td><label for="s_email">EMAIL</label></td>
-						<td><input class="form-control" style=width:33%;display:inline-block; onblur="checkEmail();"
+						<td><input class="form-control" style=width:30%;display:inline-block; onblur="checkEmail();"
 								type="text" name="member_email1" id="s_email"
 										pattern="^[a-z0-9]{8,15}$" required> 
 							<span>@</span> 
-							<input class="form-control" style=width:32%;display:inline-block; type="text" name="member_email2"
+							<input class="form-control" style=width:30%;display:inline-block; type="text" name="member_email2"
 										id="m_email_address" pattern="^.*?\..*?$" required> 
-							<select id="email_address" class="form-control" style=width:18%;display:inline-block;>
+							<select id="email_address" class="form-control" style=width:22%;display:inline-block;>
 								<option value="">직접입력</option>
 								<option>nate.com</option>
 								<option>naver.com</option>
