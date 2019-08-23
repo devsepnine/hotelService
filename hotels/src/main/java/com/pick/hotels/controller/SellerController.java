@@ -37,6 +37,11 @@ public class SellerController {
 	@Autowired
 	private EmailCertDao emailcertDao;
 	
+	@GetMapping("/main")
+	public String main() {
+		return "seller/main";
+	}
+	
 	@GetMapping("/lisence")
 	public String lisence() {
 		return "seller/lisence";
