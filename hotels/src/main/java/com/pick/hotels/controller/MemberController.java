@@ -107,9 +107,9 @@ public class MemberController {
 				session.setAttribute("no", result.getMember_no());
 				
 //				System.out.println("로그인 성공");
-				
+//				최종접속시간 저장
 				memberDao.lasttime(memberDto.getMember_id());
-				
+				System.out.println("저장여부" + remember);
 				//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
 				Cookie c = new Cookie("saveId", memberDto.getMember_id());
 				if(remember == null)//체크 안했을때 
