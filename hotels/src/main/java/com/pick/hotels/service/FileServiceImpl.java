@@ -36,6 +36,7 @@ public class FileServiceImpl implements FileService{
 	public void delete(String delete_file) {
 
 		File dir = new File("D:/upload/notice", delete_file);
+		dir.delete();
 	}
 
 }
