@@ -81,9 +81,10 @@
 	
 	@media (max-width:1224px) {
 		.td-line{
-			text-align: left;
+			text-align: left !important;
 		}
 	}
+	
 </style>
 
 
@@ -100,7 +101,7 @@
 				<tr>
 					<td class="td-line">
 						<label>제목 &emsp; </label>
-						<input type="text" name="notice_title" value="${ndto.notice_title}" required>
+						<input type="text" style="width:400px;" name="notice_title" value="${ndto.notice_title}" required>
 					</td>
 				</tr>
 				<tr height="500">
@@ -120,7 +121,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="td-line" colspan="2">
+					<td class="td-line" colspan="2" style="text-align: right;">
 						<input type="hidden" value="${ndto.notice_file_name}" name="delete_file">
 						<input type="submit" class="btn btn-danger" value="수정하기">
 					</td>
