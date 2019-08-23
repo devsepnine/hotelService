@@ -92,6 +92,31 @@ public class GmailMemberService implements EmailService{
 	}
 
 	@Override
+
+	public boolean sendCertNo_member(String member_email1, String member_email2) {
+		try {
+			String emailcert = certNo.Certnumber(6, 1);
+			emailcertDao.insert(emailcert);
+			System.out.println(member_email1);
+			System.out.println(member_email2);
+			String email = member_email1+"@"+member_email2;
+			MimeMessage mail = sender.createMimeMessage();
+			MimeMessageHelper helper = 
+					new MimeMessageHelper(mail, false, "UTF-8");
+			
+			helper.setFrom("HOTEL");
+			helper.setTo(email);
+			helper.setSubject("인증번호 메일 입니다.");
+			helper.setText("귀하의 인증번호는 "+emailcert+" 입니다");
+			
+			sender.send(mail);
+			return true;
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+
 	public void find_pw(SellerDto sdto) throws MessagingException {
 //		인증번호 생성
 		String no = randomStringService.generate(128);
@@ -119,6 +144,7 @@ public class GmailMemberService implements EmailService{
 													.toUriString();
 		helper.setText("<h3><a href = '"+address+"'>이곳을 눌러 인증을 완료하세요</a></h3>", true);
 		sender.send(mail);
+
 	}
 	
 	
