@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 로그인 회원 비밀번호 변경 -->
-	<update id="change_pw">
+	<update id="change_pw" parameterType="memberDto">
 		update member
 			set
 				member_pw = #{member_pw}

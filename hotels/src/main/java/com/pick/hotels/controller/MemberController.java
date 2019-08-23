@@ -1,7 +1,6 @@
 package com.pick.hotels.controller;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -51,12 +50,10 @@ public class MemberController {
 	
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute MemberDto memberDto) {
-		System.out.println(memberDto);
 	
 		String origin = memberDto.getMember_pw();
 		String encrypt = BCrypt.hashpw(origin, BCrypt.gensalt());
 		memberDto.setMember_pw(encrypt);
-		System.out.println(encrypt);
 		boolean result = memberDao.regist(memberDto);
 		if(result)
 			return "member/regist_result";
@@ -135,7 +132,6 @@ public class MemberController {
 	public String info(HttpSession session, Model model) {
 		String member_id = (String) session.getAttribute("ok");
 		MemberDto memberDto = memberDao.get(member_id);
-		System.out.println(memberDto);
 		model.addAttribute("mdto", memberDto);
 		return "member/info";
 	}
@@ -160,7 +156,6 @@ public class MemberController {
 	@PostMapping("/change")
 	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		memberDto.setMember_id((String) session.getAttribute("ok"));
-		System.out.println(memberDto);
 		memberDao.change(memberDto);
 		return "redirect:info";
 	}
@@ -172,9 +167,7 @@ public class MemberController {
 	
 	@PostMapping("/find_pw")
 	public String findPassword(@ModelAttribute MemberDto memberDto,Model model) throws MessagingException {
-		System.out.println(memberDto);
 		MemberDto mdto = memberDao.findPassword(memberDto);
-		System.out.println("mdto : " + mdto);
 		if(mdto != null) {
 			emailService.find_pw(mdto);
 			return "redirect:find_pw_result";
@@ -203,7 +196,6 @@ public class MemberController {
 			Model model) throws IOException {
 		CertDto certDto = CertDto.builder().cert_who(member_no).cert_no(no).build();
 		boolean result = certDao.validate(certDto);
-		System.out.println(result);
 		certDao.delete(certDto);
 		MemberDto mdto = memberDao.get(member_no);
 		if(result && mdto != null) {
@@ -223,7 +215,6 @@ public class MemberController {
 		memberDto.setMember_pw(encrypt);
 		
 		memberDao.changePw(memberDto);
-		System.out.println(memberDto);
 		return "member/new_pw_result";
 	}
 	
@@ -235,7 +226,6 @@ public class MemberController {
 	@PostMapping("find_id")
 	public String findId(@ModelAttribute MemberDto memberDto, Model model) {
 		
-		System.out.println(memberDto);
 		MemberDto mdto = memberDao.findId(memberDto);
 		if(mdto != null) {
 			model.addAttribute("member_id",mdto.getMember_id());
@@ -262,23 +252,20 @@ public class MemberController {
 		String new_pw = BCrypt.hashpw(new_member_pw, BCrypt.gensalt());
 		
 		
-		System.out.println(memberDto);
 		
 		//먼저 세션에 있는 계정 정보를 가져옴
 		MemberDto check = memberDao.get((String) session.getAttribute("ok"));
-	
-		System.out.println("check"+ check.getMember_pw());
+
 		//기존 비밀번호와 입력 비밀번호를 비교하여 확인
 		boolean result = BCrypt.checkpw(memberDto.getMember_pw(), check.getMember_pw());
-		
-		
 		if(result) {
 //		[2] 비밀번호가 맞으면 새로운 비밀번호로 변경
+			memberDto.setMember_no((int) session.getAttribute("no"));
 			memberDto.setMember_pw(new_pw);
 			
 			memberDao.changePw(memberDto);
 			
-			return "member/new_pw_resutl";
+			return "member/change_pw_result";
 		}
 //		[3] 비밀번호가 다르면 비밀번호 변경 실패 안내
 		else {
