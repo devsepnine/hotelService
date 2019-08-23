@@ -90,6 +90,36 @@ public class GmailMemberService implements EmailService{
 		}
 		
 	}
+
+	@Override
+	public void find_pw(SellerDto sdto) throws MessagingException {
+//		인증번호 생성
+		String no = randomStringService.generate(128);
+		String email = sdto.getSeller_email_id()+"@"+sdto.getSeller_email_addr();
+		
+		System.out.println(email);
+		System.out.println(no);
+		CertDto cdto = CertDto.builder().cert_who(sdto.getSeller_no()).cert_no(no).build();
+		System.out.println(cdto);
+		certDao.insert(cdto);
+		
+		MimeMessage mail = sender.createMimeMessage();
+		MimeMessageHelper helper = 
+				new MimeMessageHelper(mail, false, "UTF-8");
+		
+		helper.setFrom("HOTEL");
+		helper.setTo(email);
+		helper.setSubject("[] 비밀번호 변경 메일 입니다");
+		String address = ServletUriComponentsBuilder
+													.fromCurrentContextPath()
+													.port(8080)
+													.path("/seller/new_pw")
+													.queryParam("seller_no", sdto.getSeller_no())
+													.queryParam("no", no)
+													.toUriString();
+		helper.setText("<h3><a href = '"+address+"'>이곳을 눌러 인증을 완료하세요</a></h3>", true);
+		sender.send(mail);
+	}
 	
 	
 	
