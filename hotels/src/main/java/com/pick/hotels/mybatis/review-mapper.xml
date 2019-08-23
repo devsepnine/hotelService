@@ -8,5 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
  
 <mapper namespace="review">
-
+	<insert id="write" parameterType="reviewDto">
+		insert into review values(
+		review_seq, #{review_name}, #{review_content},
+		 #{review_hotel}, #{review_score}, sysdate)
+	</insert>
 </mapper>
