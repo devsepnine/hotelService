@@ -85,9 +85,6 @@
 		}
 	}
 	
-	.notice_edit_btn {
-		align:right important;
-	}
 </style>
 
 
