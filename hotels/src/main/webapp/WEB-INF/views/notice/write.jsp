@@ -13,6 +13,18 @@
 	            })
 	});
 </script>
+<script>
+	$(function(){
+		$("form").submit(function(e){
+	    	e.preventDefault();
+	    	if($(".ck-editor__editable").children("p").text().length==0){
+	    		alert("내용을 입력하세요.")
+	    	}else{
+	    		this.submit();
+	    	}
+	    });
+	});
+</script>
 
 <%-- 
 		table_ny_one
@@ -104,7 +116,7 @@
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea name="notice_content" placeholder="내용을 입력하세요" required></textarea>
+						<textarea name="notice_content" placeholder="내용을 입력하세요"></textarea>
 					</td>
 				</tr>
 				<tr>
