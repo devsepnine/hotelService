@@ -1,13 +1,10 @@
 package com.pick.hotels.repository;
 
-import javax.mail.Session;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.MemberDto;
-import com.pick.hotels.entity.NoticeDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{

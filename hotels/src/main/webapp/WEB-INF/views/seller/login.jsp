@@ -65,7 +65,7 @@ input[name=s_id], input[name=s_pw]{
 						<tr>
 							<td>
 								<label for="s_id">ID</label>
-								<input type="text" class="form-control" name="seller_id" id="s_id" placeholder="ID를 입력하세요" value="${cookie.saveID.value}" required>
+								<input type="text" class="form-control" name="seller_id" id="s_id" placeholder="ID를 입력하세요" value="${cookie.saveId.value}" required>
 							</td>
 						</tr>
 						<tr>
@@ -73,8 +73,8 @@ input[name=s_id], input[name=s_pw]{
 								<label for="s_pw">PASSWORD</label>
 								<input type="password" class="form-control" name="seller_pw" id="s_pw" placeholder="PASSWORD를 입력하세요" required>
 								<div style="text-align: right;padding-top: 10px;">
-									<input type="checkbox" name="saveID" ${not empty cookie.saveID?"checked":""}>
-									<label for="saveID" style="margin-right:20px">아이디 저장하기</label>
+									<input type="checkbox" name="remember" ${not empty cookie.saveId?"checked":""}>
+									<label for="remember" style="margin-right:20px">아이디 저장하기</label>
 								</div>
 							</td>
 						</tr>
