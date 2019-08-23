@@ -99,7 +99,7 @@
 				<tr>
 					<td class="td-line">
 						<label>제목 &emsp; </label>
-						<input type="text" name="notice_title" placeholder="제목을 입력하세요" required>
+						<input type="text" style="width:400px;" name="notice_title" placeholder="제목을 입력하세요" required>
 					</td>
 				</tr>
 				<tr height="500">
@@ -115,7 +115,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="td-line" colspan="2">
+					<td class="td-line" colspan="2"  style="text-align: right;">
 						<input type="submit" class="btn btn-danger" value="글 등록">
 					</td>
 				</tr>
