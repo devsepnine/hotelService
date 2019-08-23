@@ -106,7 +106,7 @@
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>
+						<textarea id="editor1" name="notice_content" required>${ndto.notice_content}</textarea>
 						<div style="height: 10px;"></div>
 						<c:if test="${not empty ndto.notice_file_name}">
 							<img height="100px;" src="${pageContext.request.contextPath}/imgsrc?notice_file_name=${ndto.notice_file_name }">

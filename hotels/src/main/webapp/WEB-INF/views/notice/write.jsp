@@ -104,7 +104,7 @@
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea name="notice_content" placeholder="내용을 입력하세요]"></textarea>
+						<textarea name="notice_content" placeholder="내용을 입력하세요" required></textarea>
 					</td>
 				</tr>
 				<tr>
