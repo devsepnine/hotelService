@@ -5,6 +5,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
+
+<!-- jquery ui -->
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
 <!-- 	date picker width 버그 수정 -->
 	<style>
 		.bootstrap-datetimepicker-widget.dropdown-menu{
@@ -62,15 +67,32 @@
 
 <div style="height: 20px;"></div>
 
-
-<div style="max-width: 768px;min-width:355px ;margin: auto; text-align: center;">
+<!-- 자동완성 스크립트 -->
+<script>
+$(function(){
+	var region_list = new Array;
+	$.ajax({
+		type:'post',
+		url : "${pageContext.request.contextPath}/region",
+		dataType:"json",
+		success: function(data){
+			console.log(data[1].region_kor_name);
+			var size = Object.keys(data).length;
+			console.log(size);
+			for(var i=0; i<size; i++){
+				region_list.push(data[i].region_kor_name);
+				region_list.push(data[i].region_eng_name);
+			}
+		}
+	})
+    $("input[name=region]").autocomplete({
+   	source : region_list
+    });
+})
+</script>
+<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" list="browser" class="form-control">
-		<datalist id="browser">
-			<option value="서우">
-			<option value="우리집">
-			<option value="너네집">
-		</datalist>
+		<input type="text" placeholder="지역 선택" name="region" class="form-control">
 	</div>
 	
 	<div style="width: 200px;display: inline-block;">
@@ -92,13 +114,12 @@
        </div>
        
     <div class="form-group" style="width: 150px;display: inline-block;">
-	  <select class="custom-select">
-	    <option selected="people">인원 선택</option>
-	    <option value="1">성인 1</option>
-	    <option value="2">성인 2</option>
-	    <option value="3">성인 3</option>
-	    <option value="4">성인 4</option>
-	    <option value="5">성인 5</option>
+	  <select class="custom-select" name="people">
+	    <option value="1">총 인원 1</option>
+	    <option value="2">총 인원 2</option>
+	    <option value="3">총 인원 3</option>
+	    <option value="4">총 인원 4</option>
+	    <option value="5">총 인원 5</option>
 	  </select>
 	</div>
 	<input class="btn btn-danger" type="submit" value="호텔 검색">

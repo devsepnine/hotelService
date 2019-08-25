@@ -21,5 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.EmailCertDto" alias="emailcertDto"/>
 		<typeAlias type="com.pick.hotels.entity.ReviewDto" alias="reviewDto"/>
 		<typeAlias type="com.pick.hotels.entity.HotelDto" alias="hotelDto"/>
+		<typeAlias type="com.pick.hotels.entity.RegionDto" alias="regionDto"/>
+		
 	</typeAliases>
 </configuration>
