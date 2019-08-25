@@ -7,3 +7,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	이 파일은 SQL 명령만 보관하는 파일
 	따라서 외부에서 접근할 수 있도록 namespace를 지정
  -->
+ 
+ <mapper namespace="attraction">
+ </mapper>
