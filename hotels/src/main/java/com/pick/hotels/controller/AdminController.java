@@ -1,13 +1,35 @@
 package com.pick.hotels.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
 //	관광지 추가("/attraction/regist")
+	@GetMapping("/attraction/regist")
+	public String regist() {
+		return "attraction/regist";
+	}
+	
+	@PostMapping("/attraction/regist")
+	public String regist(@RequestParam MultipartFile file
+			) {
+		
+		return "redirect:attraction/list";
+	}
 //	광광지 수정("/attraction/edit")
 //	관광지 삭제("/attraction/exit")
 //	관광지 전체리스트  + 검색("/attraction/list")
