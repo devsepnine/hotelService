@@ -37,6 +37,11 @@ public class SellerController {
 	@Autowired
 	private EmailCertDao emailcertDao;
 	
+	@GetMapping("/main")
+	public String main() {
+		return "seller/main";
+	}
+	
 	@GetMapping("/lisence")
 	public String lisence() {
 		return "seller/lisence";
@@ -62,7 +67,6 @@ public class SellerController {
 		sellerDto.setSeller_lisence(sdto.getSeller_lisence());
 		sellerDto.setSeller_name(sdto.getSeller_name());
 		sellerDto.setSeller_pw(encrypt);
-		System.out.println(sellerDto);
 		
 		boolean result = sellerDao.regist(sellerDto);
 		session.removeAttribute("sellerDto");

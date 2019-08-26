@@ -36,6 +36,12 @@
         <beans:property name="maxUploadSizePerFile" value="10485760"></beans:property>
     </beans:bean>
     
+    <interceptors>
+    	<interceptor>
+    		<mapping path="/*/"/>
+    		<beans:bean class="com.pick.hotels.interceptor.ProtectInterceptor"></beans:bean>
+    	</interceptor>
+    </interceptors>
     
 	
 	

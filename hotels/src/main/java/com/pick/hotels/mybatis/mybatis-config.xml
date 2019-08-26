@@ -20,5 +20,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.CertDto" alias="certDto"/>
 		<typeAlias type="com.pick.hotels.entity.EmailCertDto" alias="emailcertDto"/>
 		<typeAlias type="com.pick.hotels.entity.ReviewDto" alias="reviewDto"/>
+		<typeAlias type="com.pick.hotels.entity.HotelDto" alias="hotelDto"/>
+		<typeAlias type="com.pick.hotels.entity.RegionDto" alias="regionDto"/>
+		<typeAlias type="com.pick.hotels.entity.AttractionDto" alias="attractionDto"/>
+		<typeAlias type="com.pick.hotels.entity.AttractionFileDto" alias="attractionFileDto"/>
+		<typeAlias type="com.pick.hotels.entity.RestaurantDto" alias="restaurantDto"/>
+		<typeAlias type="com.pick.hotels.entity.RestaurantFileDto" alias="restaurantFileDto"/>
+		<typeAlias type="com.pick.hotels.entity.CouponDto" alias="couponDto"/>
+		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponHistoryDto"/>
+		
 	</typeAliases>
 </configuration>

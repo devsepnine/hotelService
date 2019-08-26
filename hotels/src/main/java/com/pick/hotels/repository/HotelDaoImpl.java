@@ -4,18 +4,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pick.hotels.entity.ReviewDto;
+import com.pick.hotels.entity.HotelDto;
 
 @Repository
-public class ReviewDaoImpl implements ReviewDao{
+public class HotelDaoImpl implements HotelDao{
 	
 	@Autowired
 	private SqlSession sqlSession;
 
 	@Override
-	public boolean write(ReviewDto reviewDto) {
-		sqlSession.insert("review.write", reviewDto);
-		return true;
+	public boolean regist(HotelDto hotelDto) {
+		try {
+			sqlSession.insert("hotel.regist", hotelDto);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
