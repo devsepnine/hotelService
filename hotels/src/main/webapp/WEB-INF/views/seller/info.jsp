@@ -8,12 +8,15 @@
 		
 		padding: 100px;
 	}
+	.seller_info{
+		width:700px;
+	}
 </style>
 
 <div align="center" class="info-wrap">
 	<h1>${sdto.seller_name}님의 정보</h1>
 	<br>
-	<table class="table table-hamburg table-stripe" width="500"> 
+	<table class="table table-hamburg table-stripe seller_info"> 
 		<tbody>
 			
 			<tr>

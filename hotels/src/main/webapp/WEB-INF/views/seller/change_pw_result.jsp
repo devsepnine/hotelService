@@ -8,6 +8,6 @@
 	<h2>비밀번호 변경이 완료되었습니다</h2>
 	<p>확인해보세요^^</p>
 </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>
 
 

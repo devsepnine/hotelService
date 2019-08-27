@@ -66,13 +66,16 @@ $(function(){
 		padding: 100px;
 		min-width: 625px;
 	}
+	.seller_info_change{
+		width: 700px;
+	}
 
 </style>
 <div align="center" class="info-wrap">
 <h1>회원 정보 수정</h1>
 
 	<form action="change" method="post">
-		<table  class="table table-hamburg table-stripe"  width="400">
+		<table class="table table-hamburg table-stripe seller_info_change">
 			<tbody>
 				
 				<tr>
@@ -126,4 +129,4 @@ $(function(){
 	</form>
 </div>
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>

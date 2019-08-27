@@ -34,7 +34,7 @@ $(function(){
 		    var s_pw = document.querySelector("#sell_pw").value;
 		    var regex = /^[a-zA-Z0-9!@#$\-_]{8,15}$/;
 	    
-		  //정규표현식으로 m_pw값 검사
+		  //정규표현식으로 s_pw값 검사
 		    var result = regex.test(s_pw);
 		    
 		    var div = document.querySelector(".s_pwD");
@@ -43,7 +43,7 @@ $(function(){
 		        div.innerHTML = ""
 		    }
 		    
-			//m_pw가 형식에 맞지 않으면 메세지 춮력
+			//s_pw가 형식에 맞지 않으면 메세지 출력
 		    else {
 		        div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 대소문자, 숫자, 특수문자(!@#$-_)로 입력해주세요</font>"
 	        
@@ -125,6 +125,7 @@ $(function(){
 						<td><input class="form-control" type="password" id="chpass"
 							name="pw_check" placeholder="비밀번호 확인" required> <font
 							name="check" size="3" color="red"></font></td>
+
 					</tr>
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
@@ -135,6 +136,5 @@ $(function(){
 		</fieldset>
 	</form>
 </div>
-
 
 <jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>
