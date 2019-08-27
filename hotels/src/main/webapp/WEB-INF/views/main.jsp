@@ -32,6 +32,13 @@
 		.swiper-slide img {
 			box-shadow:0 0 5px #555;
 		}
+		
+		.ui-autocomplete
+	    {
+	        max-height: 140px;
+	        overflow-y: hidden; /* prevent horizontal scrollbar */
+	        overflow-x: hidden;
+	    }
 	</style>	
 
 	
@@ -70,7 +77,7 @@
 <!-- 자동완성 스크립트 -->
 <script>
 $(function(){
-	var region_list = new Array;
+	var region_list = [];
 	$.ajax({
 		type:'post',
 		url : "${pageContext.request.contextPath}/region",
@@ -85,8 +92,9 @@ $(function(){
 			}
 		}
 	})
+	
     $("input[name=region]").autocomplete({
-   	source : region_list
+   		source : region_list
     });
 })
 </script>

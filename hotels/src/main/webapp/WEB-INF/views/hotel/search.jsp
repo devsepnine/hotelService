@@ -13,6 +13,12 @@
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
 		}
+		.ui-autocomplete
+	    {
+	        max-height: 140px;
+	        overflow-y: hidden; /* prevent horizontal scrollbar */
+	        overflow-x: hidden;
+	    }
 	</style>
 <!-- 자동완성 스크립트 -->
 <script>
@@ -75,7 +81,6 @@ $(function(){
 <span style="font-size: 20px;" class="diff"></span>
 </div>
 
-
 <script type="text/javascript">
     $(function () {
     	var now = new Date();
@@ -130,6 +135,46 @@ $(function(){
     });
 </script>
 
+<div class="keyWord clearfix" id="keywordArea" style="width: 900px;text-align: center;">
+  				<div>
+						<span>
+							<input type="checkbox" id="MBR" name="keyword" class="css-checkbox checkbox" value="MBR" onclick="fncKeywordOn('MBR');" autocomplete="off">
+							<label for="MBR" class="css-label" style="background-position: 0px 0px;">
+								멤버십</label>
+		  				</span>
+		  				<span>
+		  						<input type="checkbox" id="27" name="keyword" class="css-checkbox checkbox" value="27" onclick="fncKeywordOn('27');" autocomplete="off">
+		  						<label for="27" class="css-label" style="background-position: 0px 0px;">야외수영장</label>
+	  						</span>
+		  				<span>
+		  						<input type="checkbox" id="28" name="keyword" class="css-checkbox checkbox" value="28" onclick="fncKeywordOn('28');" autocomplete="off">
+		  						<label for="28" class="css-label" style="background-position: 0px 0px;">조식</label>
+	  						</span>
+		  				<span>
+		  						<input type="checkbox" id="29" name="keyword" class="css-checkbox checkbox" value="29" onclick="fncKeywordOn('29');" autocomplete="off">
+		  						<label for="29" class="css-label" style="background-position: 0px 0px;">와이너리</label>
+	  						</span>
+		  				<span>
+		  						<input type="checkbox" id="30" name="keyword" class="css-checkbox checkbox" value="30" onclick="fncKeywordOn('30');" autocomplete="off">
+		  						<label for="30" class="css-label" style="background-position: 0px 0px;">스파</label>
+	  						</span>
+		  				<span>
+		  						<input type="checkbox" id="481" name="keyword" class="css-checkbox checkbox" value="481" onclick="fncKeywordOn('481');" autocomplete="off">
+		  						<label for="481" class="css-label" style="background-position: 0px 0px;">라운지 혜택</label>
+	  						</span>
+		  				<span>
+		  						<input type="checkbox" id="489" name="keyword" class="css-checkbox checkbox" value="489" onclick="fncKeywordOn('489');" autocomplete="off">
+		  						<label for="489" class="css-label" style="background-position: 0px 0px;">엑스트라 베드</label>
+	  						</span>
+		  				<span>
+		  					<a href="#none" onclick="fncKeywordReset();" class="keywordReset">
+		  						선택해제<!-- 선택해제 -->
+		  					</a>
+		  				</span>
+	  				</div>
+	  				<a href="#none" class="btnKeySrch" onclick="fncSearchResvList();">
+	  					키워드 검색</a>
+  				</div>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

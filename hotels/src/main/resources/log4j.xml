@@ -18,23 +18,24 @@
 		</layout>
 	</appender>
 	
-	<appender class="org.apache.log4j.DailyRollingFileAppender" name="daily">
+	<!-- Appenders -->
+	<appender name="daily" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- 위치 -->
-		<param name="file" value="log/daily.log"/>
+		<param name="file" value="D:/log/daily.log"/>
 		<!-- 덧붙임 여부 -->
 		<param name="Append" value="true"/>
 		<!-- 파일에 추가할 날짜 패턴 -->
 		<param name="DatePattern" value="'.'yyMMdd"/>
 		<!-- 롤링을 사용할 용량 설정(1개 파일 크기) - RollingFileAppender 전용, KB, MB 등 사용 가능 -->
-		<!-- <param name="MaxFileSize" value="1MB"></param> -->
+		<param name="MaxFileSize" value="1MB"></param>
 		<!-- 로그 패턴 -->
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%p] [%c] - %m [%d{yyyy-MM-dd HH:mm:ss}]%n"/>
+			<param name="ConversionPattern" value="[%-5p] %c - %m[%d]%n" />
 		</layout>
 	</appender>
 
 	<!-- Application Loggers -->
-	<logger name="spring.test.sts12">
+	<logger name="hotels" additivity="false">
 		<level value="debug" />
 	</logger>
 	
@@ -58,7 +59,7 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="debug" />
-		<appender-ref ref="xml" />
+<!-- 		<appender-ref ref="xml" /> -->
 		<appender-ref ref="console" />
 		<apeender-ref ref="daily" />
 	</root>
