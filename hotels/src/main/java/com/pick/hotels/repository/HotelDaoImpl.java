@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,11 @@ public class HotelDaoImpl implements HotelDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<HotelDto> list(String seller_id) {
+		return sqlSession.selectList("hotel.list",seller_id);
 	}
 
 }

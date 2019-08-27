@@ -17,4 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{hotel_internet}, #{region_no}
 		)
 	</insert>
+	
+	<select id="list" parameterType="String" resultType="hotelDto">
+		select * from hotel where seller_id = #{seller_id}
+	</select>
+	
 </mapper>

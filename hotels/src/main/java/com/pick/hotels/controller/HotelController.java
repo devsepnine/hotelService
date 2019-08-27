@@ -1,9 +1,12 @@
 package com.pick.hotels.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +37,15 @@ public class HotelController {
 		hotelDto.setSeller_id(seller_id);
 		boolean result = hotelDao.regist(hotelDto);
 		if(result)
-			return "seller/regist_result";
+			return "hotel/regist_result";
 		else
-			return "seller/regist_fail";
+			return "hotel/regist_fail";
+	}
+	@GetMapping("/list")
+	public String list(@ModelAttribute HotelDto hotelDto, Model model, HttpSession session) {
+		String seller_id = (String) session.getAttribute("s_ok");
+		List<HotelDto> list = hotelDao.list(seller_id);
+		return null;
 	}
 
 }

@@ -142,7 +142,7 @@ public class SellerController {
 					c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
 				response.addCookie(c);
 				
-				return "redirect:/";
+				return "redirect:/seller/main";
 			}else {
 				return "seller/login_fail";
 			}
@@ -154,7 +154,7 @@ public class SellerController {
 	
 	@GetMapping("/info")
 	public String info(HttpSession session, Model model) {
-		String seller_id = (String) session.getAttribute("ok");
+		String seller_id = (String) session.getAttribute("s_ok");
 		SellerDto sellerDto = sellerDao.getId(seller_id);
 		System.out.println(sellerDto);
 		model.addAttribute("sdto", sellerDto);
@@ -163,7 +163,7 @@ public class SellerController {
 	
 	@GetMapping("/delete")
 	public String delete(HttpSession session) {
-		String seller_id = (String) session.getAttribute("ok");
+		String seller_id = (String) session.getAttribute("s_ok");
 		sellerDao.delete(seller_id);
 		session.removeAttribute("ok");
 		session.removeAttribute("auth");
@@ -172,7 +172,7 @@ public class SellerController {
 	
 	@GetMapping("/change")
 	public String change(HttpSession session, Model model) {
-		String seller_id = (String) session.getAttribute("ok");
+		String seller_id = (String) session.getAttribute("s_ok");
 		SellerDto sellerDto = sellerDao.getId(seller_id);
 		model.addAttribute("sdto", sellerDto);
 		return "seller/change_info";
@@ -180,7 +180,7 @@ public class SellerController {
 	
 	@PostMapping("/change")
 	public String change(@ModelAttribute SellerDto sellerDto, HttpSession session) {
-		sellerDto.setSeller_id((String) session.getAttribute("ok"));
+		sellerDto.setSeller_id((String) session.getAttribute("s_ok"));
 		System.out.println(sellerDto);
 		sellerDao.change(sellerDto);
 		return "redirect:info";
