@@ -26,10 +26,24 @@
 	    	border: 1px solid #e3d6c6;
 	    	padding: 20px 10px;
 	    	vertical-align: middle;
+	    	display: table;
 	    }
 	    .keywordArea>div>.custom-control{
 	    	display: inline-block;
 	    	width: 100px;
+	    }
+	    .resdesc-wrap{
+	    	border-top: 1px solid #e6e5de;
+	    	border-bottom: 1px solid #e6e5de;
+	    	height: 500px;
+	    }
+	    .resdesc-wrap>.resdesc{
+	    	width: 500px;
+	    	margin: auto;
+	    	text-align: center;
+	    	margin: 175px auto;
+	    	font-size: 25px;
+	    	color: #101010;
 	    }
 	</style>
 <!-- 자동완성 스크립트 -->
@@ -56,7 +70,7 @@ $(function(){
 })
 </script>
 <div style="height: 50px;"></div>
-<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #fbf5ec; vertical-align: middle;">
+<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
 		<input type="text" placeholder="지역 선택" name="region" class="form-control">
 	</div>
@@ -147,56 +161,59 @@ $(function(){
     });
 </script>
 
-				<div style="height: 20px;"></div>
-				<div class="keywordArea">
-  					<div style="width: 600px;display: inline-block;text-align: left;vertical-align: ">
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="parking">
-					      <label class="custom-control-label" for="parking">주차장</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="fitness">
-					      <label class="custom-control-label" for="fitness">피트니스</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="pool">
-					      <label class="custom-control-label" for="pool">수영장</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="sauna">
-					      <label class="custom-control-label" for="sauna">사우나</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="lounge">
-					      <label class="custom-control-label" for="lounge">라운지</label>
-					    </div>
-					    <div style="display: block;height: 15px;"></div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="BBQ">
-					      <label class="custom-control-label" for="BBQ">바베큐장</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="cafe">
-					      <label class="custom-control-label" for="cafe">카페</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="conveni">
-					      <label class="custom-control-label" for="conveni">편의점</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="karaoke">
-					      <label class="custom-control-label" for="karaoke">노래방</label>
-					    </div>
-					    <div class="custom-control custom-checkbox">
-					      <input type="checkbox" class="custom-control-input" id="internet">
-					      <label class="custom-control-label" for="internet">인터넷</label>
-					    </div>
-	  				</div>
-	  				<div style="vertical-align:middle; display:inline-block;">
-	  					<a href="#none" class="keywordreset" style="margin-right: 20px;"><i style="color: #f1e3c4;" class="fa fa-history fa-2x"></i><font style="display: inline-block;"></font></a>
-	  					<a href="#none" class="btn btn-danger">키워드 검색</a>
-	  				</div>					
-  				</div>
-
+<div style="height: 20px;"></div>
+<div class="keywordArea">
+	<div style="width: 520px;text-align: left; display: table-cell;">
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="parking">
+	      <label class="custom-control-label" for="parking">주차장</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="fitness">
+	      <label class="custom-control-label" for="fitness">피트니스</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="pool">
+	      <label class="custom-control-label" for="pool">수영장</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="sauna">
+	      <label class="custom-control-label" for="sauna">사우나</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="lounge">
+	      <label class="custom-control-label" for="lounge">라운지</label>
+	    </div>
+	    <div style="display: block;height: 15px;"></div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="BBQ">
+	      <label class="custom-control-label" for="BBQ">바베큐장</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="cafe">
+	      <label class="custom-control-label" for="cafe">카페</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="conveni">
+	      <label class="custom-control-label" for="conveni">편의점</label>
+	    </div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="karaoke">
+	      <label class="custom-control-label" for="karaoke">노래방</label>
+    	</div>
+	    <div class="custom-control custom-checkbox">
+	      <input type="checkbox" class="custom-control-input" id="internet">
+	      <label class="custom-control-label" for="internet">인터넷</label>
+	    </div>
+	</div>
+	<div style="vertical-align:middle; display:table-cell;text-align: left">
+		<a href="#none" class="keywordreset" style="margin-right: 40%;"><i style="color: #f1e3c4;height: 100%;" class="fa fa-history fa-2x"></i><font style="display: inline-block;"></font></a>
+		<a href="#none" class="btn btn-danger">키워드 검색</a>
+	</div>					
+</div>
+<br>
+<div class="resdesc-wrap">
+<div class="resdesc">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
+</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
