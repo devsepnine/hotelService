@@ -28,12 +28,7 @@ form label {
 }
 </style>
 <script>
-	$(function() {
-		$("input[name=registbtn]").prop("disabled", true).css(
-				"background-color", "lightgray");
-		$("input[name=id_check_btn]").prop("disabled", true).css(
-				"background-color", "lightgray");
-	});
+
 
 	$(function() {
 		$("input[name=postcode_find]").click(findAddress);
@@ -82,97 +77,22 @@ form label {
 				// document.querySelector("input[name=detailaddr]").focus();
 
 				// 이 코드는 jquery.js 를 먼저 불러온 경우만 사용 가능
-				$("input[name=seller_zip_code]").val(data.zonecode);
-				$("input[name=seller_basic_addr]").val(addr);
-				$("input[name=seller_detail_addr]").focus();
+				$("input[name=hotel_zip_code]").val(data.zonecode);
+				$("input[name=hotel_basic_addr]").val(addr);
+				$("input[name=hotel_detail_addr]").focus();
 			}
 		}).open();
 	}
 
-	$(function() {
-		$("input[name=seller_id]").blur(
-				function() {
-					var s_id = $("#s_id").val();
-					var regex = /^[a-z0-9]{8,15}$/;
-
-					//정규표현식으로 m_id값 검사
-					var result = regex.test(s_id);
-					
-					if($("input[name=seller_id]").val().length>0){
-						if(result){	
-					
-							$.ajax({
-								url : "id_check",
-								data : {
-									seller_id : $("input[name=seller_id]").val()
-								},
-								dataType : "text",
-								success : function(resp) {
-									if (resp == "N") {
-										window.alert("이미 사용중인 아이디입니다");
-										$("input[name=seller_id]").val('');
-										$("input[name=seller_id]").select();
-									}
-									//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
-									else {
-										window.alert("사용 가능한 아이디입니다");
-									}
-								}
-							});
-						}
-						else{
-							window.alert("8~15자의 영문 소문자, 숫자로 입력해주세요");
-						}
-					}
-				});
-
-		//이메일주소 옵션에서 선택했을때 왼쪽 입력창에 value 표시
-		$("#email_address").change(function() {
-			$("#s_email_address").val($(this).val())
-
-			//if($(this).val() == ""){
-			//선책 옵션에서 직접입력을 선택하면 입력창 활성화시켜서 직접 입력받고
-			if (!$(this).val()) {
-				$(this).prev().prop("readonly", false);
-			}
-			//선택 옵션에서 직접입력 제외하고 선택하면 입력창에 value값 찍어주고 수정못하게 비활성화
-			else {
-				$(this).prev().prop("readonly", true);
-			}
-		});
-	});
-
-
-	//비밀번호 검사 후 형식에 안맞을시 보조메세지 출력	
-	function checkPw() {
-		var s_pw = document.querySelector("#s_pw").value;
-		var regex = /^[a-zA-Z0-9!@#$\-_]{8,15}$/;
-
-		//정규표현식으로 m_pw값 검사
-		var result = regex.test(s_pw);
-
-		var div = document.querySelector(".s_pwD");
-
-		if (result) {
-			div.innerHTML = ""
-		}
-
-		//m_pw가 형식에 맞지 않으면 메세지 출 력
-		else {
-			div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 대소문자, 숫자, 특수문자(!@#$-_)로 입력해주세요</font>"
-
-		}
-	}
-
 	//전화 번호 검사 후 형식에 안맞을시 보조메세지 출력
 	function checkPhone() {
-		var s_phone = document.querySelector("#s_phone").value;
-		var regex = /^0[0-9]-[0-9]{3,4}-[0-9]{4}$/;
+		var h_tel = document.querySelector("#h_tel").value;
+		var regex = /^0[0-9][0-9][0-9]{3,4}[0-9]{4}$/;
 
-		//정규표현식으로 m_phone값 검사
-		var result = regex.test(s_phone);
+		//정규표현식으로 h_tel값 검사
+		var result = regex.test(h_tel);
 
-		var div = document.querySelector(".s_phoneD");
+		var div = document.querySelector(".h_telD");
 
 		if (result) {
 			div.innerHTML = ""
@@ -184,105 +104,47 @@ form label {
 
 		}
 	}
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6ca8a4b84494275f396f0639bedc57f&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
-	//이메일 검사 후 형식에 안맞을시 보조메세지 출력
-	function checkEmail() {
-		var s_email = document.querySelector("#s_email").value;
-		var regex = /^[a-z0-9]{8,15}$/;
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-		//정규표현식으로 m_email값 검사
-		var result = regex.test(s_email);
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
 
-		var div = document.querySelector(".s_emailD");
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
 
-		if (result) {
-			div.innerHTML = ""
-		}
-		//s_email이 형식에 맞지 않으면 메세지 춮력
-		else {
-			div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
-		}
-	}
-	$(function() {
-		$('#s_pw').keyup(function() {
-			$('font[name=check]').text('');
-		}); //#user_pass.keyup
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
 
-		$('#chpass').keyup(function() {
-			if ($('#s_pw').val() != $('#chpass').val()) {
-				$('font[name=check]').text('');
-				$('font[name=check]').html("암호틀림");
-			} else {
-				$('font[name=check]').text('');
-				$('font[name=check]').html("암호맞음");
-			}
-		}); //#chpass.keyup
-	});
-	$(function() {
-		$("form").submit(
-				function(e) {
-					e.preventDefault();
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        var longitude = result[0].y;
+        var latitue = result[0].x;
 
-					var pw = $("input[name=seller_pw]").val();
-					var encPw = CryptoJS.SHA256(pw).toString();
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+                           
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
 
-					var ck_pw = $("input[name=pw_check]").val();
-
-					$("input[name=seller_pw]").attr("name", "");
-					var newInput1 = $("<input/>").attr("name", "seller_pw")
-							.val(encPw).attr("type", "hidden");
-
-					$("input[name=pw_check]").attr("name", "");
-
-					$(this).append(newInput1);
-					this.submit();
-				});
-	
-	});
-	$(function(){
-		$(".btn-cert_no").click(
-			function(){
-				$.ajax({
-					url : "emailcert",
-					data : {
-						seller_email_id : $("input[name=seller_email_id]").val(),
-						seller_email_addr : $("input[name=seller_email_addr]").val()
-					},
-					success:function(resp){
-						if (resp == "Y") {
-							$(".cert_check").css("display","inline-block");
-						}
-					}
-				});
-			});
-		});
-	
-	$(function() {
-		$(".btn-cert_no_check").click(
-				function() {
-					$.ajax({
-						url : "email_cert_check",
-						data : {
-							seller_email_cert : $("input[name=seller_email_cert]").val()
-						},
-						dataType : "text",
-						success : function(resp) {
-							if (resp == "Y") {
-								window.alert("올바른 인증번호 입니다");
-								$("input[name=registbtn]").prop("disabled",
-										false).css("background-color",
-										"#726454");
-							}
-							else {
-								window.alert("인증번호가 올바르지 않습니다")
-								$("input[name=seller_email_cert]").select();
-							}
-						}
-					});
-				});
-	});
-	
-	
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
 </script>
 
 <div class="regist-wrap" align="center">
@@ -294,80 +156,61 @@ form label {
 			<table>
 				<tbody>
 					<tr>
-						<td><label for="s_id">ID</label></td>
+						<td><label for="s_id">호텔 이름</label></td>
 						<td>
-							<input class="form-control" onblur="checkId();"
-							type="text" name="seller_id" id="s_id" pattern="^[a-z0-9]{8,15}$" required> 
-							<div class="s_idD"></div>
+							<input class="form-control" type="text" name="hotel_name" 
+							id="h_name" required> 
 						</td>
 					</tr>
 					<tr>
-						<td><label for="s_pw">PASSWORD</label></td>
-						
-						<td><input onblur="checkPw();" type="password"
-							class="form-control" name="seller_pw" id="s_pw"
-							pattern="^[a-zA-Z0-9!@#$\-_]{8,15}$" required>
-							<div class="s_pwD"></div>
-						</td>
-					</tr>
-					<tr>
-						<td><label>PASSWORD CHECK</label></td>
-						<td><input class="form-control" type="password" id="chpass"
-							name="pw_check" placeholder="비밀번호 확인" required> 
-							<font name="check" size="3" color="red"></font>
-						</td>
-					</tr>
-					<tr>
-						<td><label for="s_addr">ADDRESS</label></td>
+						<td><label for="h_addr">ADDRESS</label></td>
 						<td><input class="form-control" type="text" style="display: inline-block;width: 40%"
-								name="seller_zip_code" placeholder="우편번호" required readonly>
+								name="hotel_zip_code" placeholder="우편번호" required readonly>
 							<input class="btn btn-danger" type="button" value="우편번호 찾기"
 								name="postcode_find"><br> 
-							<input class="form-control" type="text" name="seller_basic_addr"
+							<input class="form-control" type="text" name="hotel_basic_addr"
 								placeholder="주소" required readonly>
-							<input class="form-control" type="text" name="seller_detail_addr"
+							<input class="form-control" type="text" name="hotel_detail_addr"
 								placeholder="상세주소">
 						</td>
 					</tr>
-
 					<tr>
-						<td><label for="s_phone">PHONE</label></td>
-						<td><input class="form-control" onblur="checkPhone();"
-							type="tel" placeholder="-없이 번호만 입력하세요" name="seller_phone" id="m_phone "
-							pattern="^01[016-9][0-9]{3,4}[0-9]{4}$" required>
-							<div class="s_phoneD"></div></td>
+						<td>소개</td>
+						<td><textarea class="form-control" 
+							placeholder="호텔 소개글을 입력하세요" name="hotel_content" id="h_content">
+							</textarea></td>
 					</tr>
 					<tr>
-						<td><label for="s_birth">BIRTH</label></td>
-						<td><input class="form-control" type="date"
-							name="seller_birth" id="s_birth" value="2019-07-08" required>
+						<td>호텔 성급</td>
+						<td>
+							<select class="form-control" name="hotel_star" id="h_star" required>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
 						</td>
 					</tr>
+					
 					<tr>
-						<td><label for="s_email">EMAIL</label></td>
-						<td><input class="form-control" style=width:30%;display:inline-block; onblur="checkEmail();"
-								type="text" name="seller_email_id" id="s_email"
-										pattern="^[a-z0-9]{8,15}$" required> 
-							<span>@</span> 
-							<input class="form-control" style=width:30%;display:inline-block; type="text" name="seller_email_addr"
-										id="s_email_address" pattern="^.*?\..*?$" required> 
-							<select id="email_address" class="form-control" style=width:22%;display:inline-block;>
-								<option value="">직접입력</option>
-								<option>nate.com</option>
-								<option>naver.com</option>
-								<option>daum.net</option>
-								<option>gmail.com</option>
-							</select>
-							<input type="button" id="btn-cert_no" class="btn-light btn-cert_no" value="인증번호">
-							<input class="form-control cert_check" style=width:20%; type="text" name="seller_email_cert"
-									id="seller_email_cert" required>
-							<input type="button" id="btn-cert_no_check" class="btn-light cert_check btn-cert_no_check" value="인증번호확인">
-							<div class="s_emailD"></div>
+						<td>옵션사항</td>
+						<td>
+							<input type="checkbox" name="parking">주차가능<br>
+							<input type="checkbox" name="fitness">헬스장<br>
+							<input type="checkbox" name="pool">수영장<br>
+							<input type="checkbox" name="sauna">사우나<br>
+							<input type="checkbox" name="lounge">라운지<br>
+							<input type="checkbox" name="bbq">바베큐<br>
+							<input type="checkbox" name="cafe">카페<br>
+							<input type="checkbox" name="convenience_store">편의점<br>
+							<input type="checkbox" name="karaoke">노래방<br>
+							<input type="checkbox" name="internet">와이파이
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
-							type="submit" style="margin-top: 30px;" value="가입하기" name="registbtn"></td>
+							type="submit" style="margin-top: 30px;" value="등록하기" name="registbtn"></td>
 					</tr>
 				</tbody>
 			</table>
