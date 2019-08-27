@@ -3762,7 +3762,7 @@ input[type="button"].btn-block {
 
 .custom-control {
   position: relative;
-  display: block;
+  display: inline-block;
   min-height: 1.3125rem;
   padding-left: 1.5rem;
 }

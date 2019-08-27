@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
 <!-- jquery ui -->
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<!-- <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link> -->
+<!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
 
 <!-- 	date picker width 버그 수정 -->
 	<style>

@@ -44,17 +44,20 @@ input[name=m_id], input[name=m_pw]{
 }
 
 	.content-line{
-		margin-top:100px;
 		border: 5px solid white;
 		max-width: 500px;
 		margin: auto;
-		margin-top: 50px;
-		
+		margin-top:10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
 	}
 
 </style>
+
 <div style="height: 100px"></div>
+<div style="width: 510px;margin: auto;">
+	<a href="${pageContext.request.contextPath}/member/login"><span style="width: 250px;" class="btn btn-outline-secondary">회원</span></a>
+	<a href="${pageContext.request.contextPath}/seller/login"><span style="width: 250px;" class="btn btn-outline-info">호텔매니저</span></a>
+</div>
 <div align="center" class="content-line">
 	<form action="login" method="post" class="form form-label">
 		<fieldset>
