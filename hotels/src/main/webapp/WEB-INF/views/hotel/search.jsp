@@ -19,6 +19,18 @@
 	        overflow-y: hidden; /* prevent horizontal scrollbar */
 	        overflow-x: hidden;
 	    }
+	    .keywordArea{
+	    	margin: auto;
+	    	width: 950px;
+	    	text-align: center;
+	    	border: 1px solid #e3d6c6;
+	    	padding: 20px 10px;
+	    	vertical-align: middle;
+	    }
+	    .keywordArea>div>.custom-control{
+	    	display: inline-block;
+	    	width: 100px;
+	    }
 	</style>
 <!-- 자동완성 스크립트 -->
 <script>
@@ -44,7 +56,7 @@ $(function(){
 })
 </script>
 <div style="height: 50px;"></div>
-<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;">
+<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #fbf5ec; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
 		<input type="text" placeholder="지역 선택" name="region" class="form-control">
 	</div>
@@ -135,45 +147,55 @@ $(function(){
     });
 </script>
 
-<div class="keyWord clearfix" id="keywordArea" style="width: 900px;text-align: center;">
-  				<div>
-						<span>
-							<input type="checkbox" id="MBR" name="keyword" class="css-checkbox checkbox" value="MBR" onclick="fncKeywordOn('MBR');" autocomplete="off">
-							<label for="MBR" class="css-label" style="background-position: 0px 0px;">
-								멤버십</label>
-		  				</span>
-		  				<span>
-		  						<input type="checkbox" id="27" name="keyword" class="css-checkbox checkbox" value="27" onclick="fncKeywordOn('27');" autocomplete="off">
-		  						<label for="27" class="css-label" style="background-position: 0px 0px;">야외수영장</label>
-	  						</span>
-		  				<span>
-		  						<input type="checkbox" id="28" name="keyword" class="css-checkbox checkbox" value="28" onclick="fncKeywordOn('28');" autocomplete="off">
-		  						<label for="28" class="css-label" style="background-position: 0px 0px;">조식</label>
-	  						</span>
-		  				<span>
-		  						<input type="checkbox" id="29" name="keyword" class="css-checkbox checkbox" value="29" onclick="fncKeywordOn('29');" autocomplete="off">
-		  						<label for="29" class="css-label" style="background-position: 0px 0px;">와이너리</label>
-	  						</span>
-		  				<span>
-		  						<input type="checkbox" id="30" name="keyword" class="css-checkbox checkbox" value="30" onclick="fncKeywordOn('30');" autocomplete="off">
-		  						<label for="30" class="css-label" style="background-position: 0px 0px;">스파</label>
-	  						</span>
-		  				<span>
-		  						<input type="checkbox" id="481" name="keyword" class="css-checkbox checkbox" value="481" onclick="fncKeywordOn('481');" autocomplete="off">
-		  						<label for="481" class="css-label" style="background-position: 0px 0px;">라운지 혜택</label>
-	  						</span>
-		  				<span>
-		  						<input type="checkbox" id="489" name="keyword" class="css-checkbox checkbox" value="489" onclick="fncKeywordOn('489');" autocomplete="off">
-		  						<label for="489" class="css-label" style="background-position: 0px 0px;">엑스트라 베드</label>
-	  						</span>
-		  				<span>
-		  					<a href="#none" onclick="fncKeywordReset();" class="keywordReset">
-		  						선택해제<!-- 선택해제 -->
-		  					</a>
-		  				</span>
+				<div style="height: 20px;"></div>
+				<div class="keywordArea">
+  					<div style="width: 600px;display: inline-block;text-align: left;vertical-align: ">
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="parking">
+					      <label class="custom-control-label" for="parking">주차장</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="fitness">
+					      <label class="custom-control-label" for="fitness">피트니스</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="pool">
+					      <label class="custom-control-label" for="pool">수영장</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="sauna">
+					      <label class="custom-control-label" for="sauna">사우나</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="lounge">
+					      <label class="custom-control-label" for="lounge">라운지</label>
+					    </div>
+					    <div style="display: block;height: 15px;"></div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="BBQ">
+					      <label class="custom-control-label" for="BBQ">바베큐장</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="cafe">
+					      <label class="custom-control-label" for="cafe">카페</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="conveni">
+					      <label class="custom-control-label" for="conveni">편의점</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="karaoke">
+					      <label class="custom-control-label" for="karaoke">노래방</label>
+					    </div>
+					    <div class="custom-control custom-checkbox">
+					      <input type="checkbox" class="custom-control-input" id="internet">
+					      <label class="custom-control-label" for="internet">인터넷</label>
+					    </div>
 	  				</div>
-	  				<a href="#none" class="btnKeySrch" onclick="fncSearchResvList();">
-	  					키워드 검색</a>
+	  				<div style="vertical-align:middle; display:inline-block;">
+	  					<a href="#none" class="keywordreset" style="margin-right: 20px;"><i style="color: #f1e3c4;" class="fa fa-history fa-2x"></i><font style="display: inline-block;"></font></a>
+	  					<a href="#none" class="btn btn-danger">키워드 검색</a>
+	  				</div>					
   				</div>
 
 
