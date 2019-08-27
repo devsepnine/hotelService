@@ -54,7 +54,7 @@
 	    width: 250px;
 	    height: 100%;
 	    min-height:1080px;
- 	    background-color : #f1e3c4; 
+ 	    background-color : #3e2b2c; 
 		background-repeat:no-repeat;
 		background-size:auto 100%;
 	   	box-shadow:2px 2px 5px #f5fff1;
@@ -92,7 +92,7 @@
     }
     .sidebar-list p a{
     	font-size: 25px;
-    	color: #81725f;
+    	color: #f1ebd6;
     }
     @media (max-width:1250px) {
        .sidebar {
