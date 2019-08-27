@@ -37,9 +37,9 @@ public class SellerController {
 	@Autowired
 	private EmailCertDao emailcertDao;
 	
-	@GetMapping("/main")
+	@GetMapping("/")
 	public String main() {
-		return "seller/main";
+		return "seller/";
 	}
 	
 	@GetMapping("/lisence")
@@ -142,7 +142,7 @@ public class SellerController {
 					c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
 				response.addCookie(c);
 				
-				return "redirect:/seller/main";
+				return "redirect:/seller/";
 			}else {
 				return "seller/login_fail";
 			}
@@ -320,7 +320,8 @@ public class SellerController {
 		}
 //		[3] 비밀번호가 다르면 비밀번호 변경 실패 안내
 		else {
-			return "redirect:new_change_pw?error";
+			model.addAttribute("error", "error");
+			return "redirect:/seller/change_pw?";
 		}
 	}
 }
