@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="regist" parameterType="reserveDto">
 		insert into reserve values(
 		reserve_seq.nextval, #{reserve_member_no}, #{reserve_hotel_no},
-		#{reserve_when}, #{reserve_cansel}, #{reserve_in}, #{reserve_out},
-		#{reserve_ok}
+		#{reserve_when},#{reserve_name},#{reserve_phone},sysdate, #{reserve_cansel}, #{reserve_in}, #{reserve_out},
+		#{reserve_visit}, #{reserve_ok}
 		)
 	</insert>
 	

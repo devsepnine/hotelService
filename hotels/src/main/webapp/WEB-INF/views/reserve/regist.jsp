@@ -99,7 +99,7 @@
 				<td colspan="2"><input class="form-control" style="width: 45%;" type="text" name="member_phone" placeholder="-포함 입력"></td>
 			</tr>
 			<tr>
-				<td>방문방법</td> 
+				<td>방문상태</td> 
 				<td class="choice">  <div class="custom-control custom-radio">
 					      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked>
 					      <label class="custom-control-label" for="customRadio1">도보</label>
