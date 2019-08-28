@@ -8,13 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="hotel">
 	<insert id="regist" parameterType="hotelDto">
 		insert into hotel values(
-			#{seller_no} , hotel_seq.nextval, #{hotel_name}, #{hotel_tel},
-			#{hotel_zip_code}, #{hotel_basic_addr}, #{hotel_detail_addr},
-			#{hotel_longitude}, #{hotel_latitude}, #{hotel_content}, #{hotel_star},
-			#{hotel_parking}, #{hotel_ballet}, #{hotel_fitness}, #{hotel_Storage},
-			#{hotel_pool}, #{hotel_sauna}, #{hotel_lounge}, #{hotel_bbq},
-			#{hotel_cafe}, #{hotel_convenience_store}, #{hotel_karaoke}, 
-			#{hotel_internet}, #{region_no}
+			hotel_seq.nextval, #{hotel_name}, #{hotel_tel}, #{hotel_zip_code}, 
+			#{hotel_basic_addr}, #{hotel_detail_addr},#{hotel_longitude}, 
+			#{hotel_latitude}, #{hotel_content}, #{hotel_star}, #{hotel_parking}, 
+			#{hotel_fitness},#{hotel_pool}, #{hotel_sauna}, #{hotel_lounge}, 
+			#{hotel_bbq},#{hotel_cafe}, #{hotel_convenience_store}, 
+			#{hotel_karaoke}, #{hotel_internet},#{seller_no}, #{hotel_title}
 		)
 	</insert>
 	

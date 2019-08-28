@@ -44,11 +44,10 @@ input[name=s_id], input[name=s_pw]{
 }
 
 	.content-line{
-		margin-top:100px;
 		border: 5px solid white;
 		max-width: 500px;
 		margin: auto;
-		margin-top: 50px;
+		margin-top: 10px;
 		
 		box-shadow: 2px 2px 10px #EAEAEA;
 	}

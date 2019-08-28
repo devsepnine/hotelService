@@ -27,6 +27,7 @@ form label {
  	display: none; 
 }
 </style>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
 
 
@@ -79,15 +80,52 @@ form label {
 				// 이 코드는 jquery.js 를 먼저 불러온 경우만 사용 가능
 				$("input[name=hotel_zip_code]").val(data.zonecode);
 				$("input[name=hotel_basic_addr]").val(addr);
+				var addr = $("input[name=hotel_basic_addr]").val();
+				  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = {
+				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				        level: 3 // 지도의 확대 레벨
+				    };  
+
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+			
+					// 주소로 좌표를 검색합니다
+						geocoder.addressSearch(addr, function(result, status) {
+				
+						    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+			
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					        var longitude = result[0].y;
+					        var latitude = result[0].x;
+					        $("#h_longitude").val(longitude);
+					        $("#h_latitude").val(latitude);
+			
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: coords
+					        });
+			
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.setCenter(coords);
+					    } 
+					});
+
+				
 				$("input[name=hotel_detail_addr]").focus();
 			}
 		}).open();
 	}
 
 	//전화 번호 검사 후 형식에 안맞을시 보조메세지 출력
-	function checkPhone() {
+	function checkTel() {
 		var h_tel = document.querySelector("#h_tel").value;
-		var regex = /^0[0-9][0-9][0-9]{3,4}[0-9]{4}$/;
+		var regex = /^0[0-9]{1,2}[0-9]{3,4}[0-9]{4}$/;
 
 		//정규표현식으로 h_tel값 검사
 		var result = regex.test(h_tel);
@@ -98,54 +136,15 @@ form label {
 			div.innerHTML = ""
 		}
 
-		//m_phone이 형식에 맞지 않으면 메세지 춮력
+		//h_tel이 형식에 맞지 않으면 메세지 출력
 		else {
-			div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
+			div.innerHTML = "<font color = 'gray' size = '2'> 숫자로 입력해주세요</font>"
 
 		}
 	}
 </script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6ca8a4b84494275f396f0639bedc57f&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        var longitude = result[0].y;
-        var latitue = result[0].x;
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-                           
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
-</script>
 
 <div class="regist-wrap" align="center">
 	<br>
@@ -163,6 +162,13 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 						</td>
 					</tr>
 					<tr>
+						<td><label for="h_tel">호텔 번호</label></td>
+						<td><input class="form-control" onblur="checkTel();"
+							type="tel" placeholder="-없이 번호만 입력하세요" name="hotel_tel" id="h_tel"
+							pattern="^0[0-9]{1,2}[0-9]{3,4}[0-9]{4}$" required>
+							<div class="h_telD"></div></td>
+					</tr>
+					<tr>
 						<td><label for="h_addr">ADDRESS</label></td>
 						<td><input class="form-control" type="text" style="display: inline-block;width: 40%"
 								name="hotel_zip_code" placeholder="우편번호" required readonly>
@@ -176,9 +182,10 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 					</tr>
 					<tr>
 						<td>소개</td>
-						<td><textarea class="form-control" 
-							placeholder="호텔 소개글을 입력하세요" name="hotel_content" id="h_content">
-							</textarea></td>
+						<td>
+							<textarea class="form-control" placeholder="호텔 소개글을 입력하세요" 
+							name="hotel_content" id="h_content"></textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>호텔 성급</td>
@@ -196,18 +203,30 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 					<tr>
 						<td>옵션사항</td>
 						<td>
-							<input type="checkbox" name="parking">주차가능<br>
-							<input type="checkbox" name="fitness">헬스장<br>
-							<input type="checkbox" name="pool">수영장<br>
-							<input type="checkbox" name="sauna">사우나<br>
-							<input type="checkbox" name="lounge">라운지<br>
-							<input type="checkbox" name="bbq">바베큐<br>
-							<input type="checkbox" name="cafe">카페<br>
-							<input type="checkbox" name="convenience_store">편의점<br>
-							<input type="checkbox" name="karaoke">노래방<br>
-							<input type="checkbox" name="internet">와이파이
+							<input type="checkbox" name="hotel_parking" value="Y">주차가능<br>
+							<input type="checkbox" name="hotel_fitness" value="Y">헬스장<br>
+							<input type="checkbox" name="hotel_pool" value="Y">수영장<br>
+							<input type="checkbox" name="hotel_sauna" value="Y">사우나<br>
+							<input type="checkbox" name="hotel_lounge" value="Y">라운지<br>
+							<input type="checkbox" name="hotel_bbq" value="Y">바베큐<br>
+							<input type="checkbox" name="hotel_cafe" value="Y">카페<br>
+							<input type="checkbox" name="hotel_convenience_store" value="Y">편의점<br>
+							<input type="checkbox" name="hotel_karaoke" value="Y">노래방<br>
+							<input type="checkbox" name="hotel_internet" value="Y">와이파이
 						</td>
 					</tr>
+					<tr>
+						<td colspan="2"><div id="map" style="width:100%;height:300px;"></div>
+							<input type="hidden" id="h_longitude" name="hotel_longitude" value="">
+							<input type="hidden" id="h_latitude" name="hotel_latitude" value="">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="file" name="hotel_title">
+						</td>
+					</tr>
+					
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
 							type="submit" style="margin-top: 30px;" value="등록하기" name="registbtn"></td>
@@ -215,6 +234,7 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 				</tbody>
 			</table>
 		</div>
+		
 	</form>
 </div>
 
