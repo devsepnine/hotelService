@@ -3,10 +3,11 @@ package com.pick.hotels.repository;
 import java.util.List;
 
 import com.pick.hotels.entity.WishDto;
+import com.pick.hotels.entity.WishListVO;
 
 public interface WishDao {
 
-	List<WishDto> list(int member_no);
+	List<WishListVO> list(int member_no);
 
 	
 

@@ -9,8 +9,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <mapper namespace="wish">
 	<!-- 리스트 -->
-	<select id="list" parameterType="int" resultType="wishDto">
-		select * from wish where wish_member_no = #{member_no}
+	<select id="list" parameterType="int" resultType="wishListVO">
+		select *
+		from member M
+		inner join wish W on
+		M.member_no = w.wish_member_no
+		inner join hotel H on
+		W.wish_hotel_no = H.hotel_no
+		where M.member_no = ${member_no}
 	</select>	
 	
 </mapper>

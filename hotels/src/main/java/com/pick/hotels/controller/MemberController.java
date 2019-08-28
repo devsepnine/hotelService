@@ -23,9 +23,9 @@ import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.WishDto;
+import com.pick.hotels.entity.WishListVO;
 import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.EmailCertDao;
-import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.WishDao;
 import com.pick.hotels.service.EmailService;
@@ -46,8 +46,7 @@ public class MemberController {
 	@Autowired
 	private EmailCertDao emailcertDao;
 	
-	@Autowired
-	private HotelDao hotelDao;
+	
 	
 	@GetMapping("/agree")
 	public String agree() {
@@ -320,8 +319,8 @@ public class MemberController {
 	public String wish_list(Model model, HttpSession session, @ModelAttribute HotelDto hotelDto, @ModelAttribute WishDto wishDto) {
 		int member_no = (int) session.getAttribute("no");
 		
-		List<WishDto> list = wishDao.list(member_no);
-	
+		List<WishListVO> list = wishDao.list(member_no);
+		System.out.println(list);
 		
 		model.addAttribute("wdto", list);
 		return "member/wish_list";
