@@ -21,16 +21,20 @@
 	    }
 	    .keywordArea{
 	    	margin: auto;
-	    	width: 950px;
-	    	text-align: center;
+	    	width: 1000px;
+	    	
 	    	border: 1px solid #e3d6c6;
 	    	padding: 20px 10px;
 	    	vertical-align: middle;
 	    	display: table;
 	    }
-	    .keywordArea>div>.custom-control{
+	    .keywordArea .keywordArea_key>.custom-control{
 	    	display: inline-block;
 	    	width: 100px;
+	    }
+	    .key_wrap{
+	    	width: 910px;
+	    	margin: auto;
 	    }
 	    .resdesc-wrap{
 	    	border-top: 1px solid #e6e5de;
@@ -47,6 +51,12 @@
 	    }
 	    .room_area{
 	    	text-align: center;
+	    }
+	    .hotel_list{
+	    	list-style: none;
+	    }
+	    .hotel_list li{
+	    	width: 1000px;
 	    }
 	</style>
 <script>
@@ -187,7 +197,8 @@ $(function(){
 
 <div style="height: 20px;"></div>
 <div class="keywordArea">
-	<div style="width: 520px;text-align: left; display: table-cell;">
+	<div class="key_wrap">
+	<div class="keywordArea_key" style="width: 520px;text-align: left; display: table-cell;">
 	    <div class="custom-control custom-checkbox">
 	      <input type="checkbox" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
 	      <label class="custom-control-label" for="parking">주차장</label>
@@ -233,6 +244,7 @@ $(function(){
 	<div style="vertical-align:middle; display:table-cell;text-align: center; width: 280px;">
 		<a href="#none" class="keywordreset btn btn-danger" style="margin-left: 40px;">선택 해제</a>
 		<input type="submit" class="btn btn-danger" style="width: 130px;" value="키워드 검색"/>
+	</div>
 	</div>					
 </div>
 </form>
@@ -242,7 +254,13 @@ $(function(){
 </div>
 
 <div class="room_area">
-	<div>넘 ㅜ 열씸히 하는 중입닏
+	<div class="pick_hotel">
+		<ul class="hotel_list">
+			<li>
+				<span><img alt="" src="http://placehold.it/150"></span>
+				<span><i class="fa fa-car fa-2x"></i></span>
+			</li>
+		</ul>
 	</div>
 </div>
 

@@ -27,12 +27,6 @@ public class HotelController {
 	public String search() {
 		return "hotel/search";
 	}
-	@PostMapping("/search")
-	public String search() {
-		
-		return "hotel/search";
-		
-	}
 	
 	@GetMapping("/regist")
 	public String regist() {
