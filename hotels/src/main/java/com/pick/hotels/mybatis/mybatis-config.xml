@@ -28,6 +28,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.RestaurantFileDto" alias="restaurantFileDto"/>
 		<typeAlias type="com.pick.hotels.entity.CouponDto" alias="couponDto"/>
 		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponHistoryDto"/>
-		
+		<typeAlias type="com.pick.hotels.entity.ReserveDto" alias="reserveDto"/>
 	</typeAliases>
 </configuration>
