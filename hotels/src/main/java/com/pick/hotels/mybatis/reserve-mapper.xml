@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+<mapper namespace="reserve">
+
+	<!-- 예약하기 -->
+	<insert id="regist" parameterType="reserveDto">
+		insert into reserve values(
+		reserve_seq.nextval, #{reserve_member_no}, #{reserve_hotel_no},
+		#{reserve_when}, #{reserve_cansel}, #{reserve_in}, #{reserve_out},
+		#{reserve_ok}
+		)
+	</insert>
+	
+	
+	
+</mapper>
