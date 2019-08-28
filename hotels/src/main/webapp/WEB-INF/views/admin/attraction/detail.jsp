@@ -69,6 +69,33 @@
 	}
 </style>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
+
+<script>
+        $(function(){
+        	var markerPosition  = new kakao.maps.LatLng(${adto.attraction_lat}, ${adto.attraction_lng}); 
+
+        	// 이미지 지도에 표시할 마커입니다
+        	// 이미지 지도에 표시할 마커는 Object 형태입니다
+        	var marker = {
+        	    position: markerPosition
+        	};
+
+        	var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
+        	    staticMapOption = { 
+        	        center: new kakao.maps.LatLng(${adto.attraction_lat}, ${adto.attraction_lng}), // 이미지 지도의 중심좌표
+        	        level: 3, // 이미지 지도의 확대 레벨
+        	        marker: marker // 이미지 지도에 표시할 마커 
+        	    };    
+
+        	// 이미지 지도를 생성합니다
+        	var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+        });
+        
+        
+    </script>
+    
+
 <c:forEach var="afdto" items="${afdtolist}" varStatus="status">
 	<input type="hidden" name="attraction_file_no${status.count}" value="${afdto.attraction_file_no}">
 </c:forEach>
@@ -82,17 +109,7 @@
 		<tbody>
 			<tr>
 				<td colspan="2">
-					주소 ${adto.attraction_addr}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div style="width: 400px; display: inline-block;">
-						위도&emsp;${adto.attraction_lat}
-					</div>
-					<div style="width: 400px;display: inline-block;">
-						경도&emsp;${adto.attraction_lng}
-					</div>
+					주소&emsp; ${adto.attraction_addr1} ${adto.attraction_addr2}
 				</td>
 			</tr>
 			<tr height="500">
@@ -107,6 +124,13 @@
 					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[2].attraction_file_name}">
 				</c:if>
 					${adto.attraction_info}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="staticMap" style="width:100%;height:300px;"></div>
+					<input type="hidden" id="attraction_lng" name="attraction_lng" value="">
+					<input type="hidden" id="attraction_lat" name="attraction_lat" value="">
 				</td>
 			</tr>
 		</tbody>

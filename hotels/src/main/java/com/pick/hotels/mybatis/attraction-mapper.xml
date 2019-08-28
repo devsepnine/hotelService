@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  	<!-- 관광지 등록하기 -->
  	<insert id="regist" parameterType="attractionDto">
- 		insert into attraction values(#{attraction_no}, #{attraction_name}, #{attraction_addr}, #{attraction_lat}, #{attraction_lng}, #{attraction_info})
+ 		insert into attraction values(#{attraction_no}, #{attraction_name}, #{attraction_postcode}, #{attraction_addr1}, #{attraction_addr2}, #{attraction_lat}, #{attraction_lng}, #{attraction_info})
  	</insert>
  	
  	<!-- 관광지 상세보기 -->
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 관광지 수정 -->
 	<update id="edit" parameterType="attractionDto">
 		update attraction 
-			set attraction_name = #{attraction_name}, attraction_addr = #{attraction_addr}, attraction_lat = #{attraction_lat}, attraction_lng = #{attraction_lng}, attraction_info = #{attraction_info}
+			set attraction_name = #{attraction_name}, attraction_postcode = #{attraction_postcode}, attraction_addr1 = #{attraction_addr1}, attraction_addr2 = #{attraction_addr2}, attraction_lat = #{attraction_lat}, attraction_lng = #{attraction_lng}, attraction_info = #{attraction_info}
 		where attraction_no = #{attraction_no}
 	</update>
  	                                                                                

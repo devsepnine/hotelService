@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class AttractionDto {
-	private int attraction_no, attraction_addr;
-	private String attraction_name,attraction_info;
-	private double attraction_lat, attraction_lng;
+	private int attraction_no, attraction_postcode;
+	private String attraction_name,attraction_info, attraction_addr1, attraction_addr2;
+	private float attraction_lat, attraction_lng;
 }

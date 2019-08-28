@@ -151,7 +151,7 @@
 				</a>
 				
 			</td>
-			<td>${adto.attraction_addr}</td>
+			<td>${adto.attraction_addr1} ${adto.attraction_addr2}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
