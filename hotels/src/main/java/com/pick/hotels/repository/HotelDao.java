@@ -6,7 +6,7 @@ import com.pick.hotels.entity.HotelDto;
 
 public interface HotelDao {
 
-	boolean regist(HotelDto hotelDto);
+	public void regist(HotelDto hotelDto);
 
 	List<HotelDto> list(String seller_id);
 
