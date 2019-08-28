@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 public class AttractionDto {
 	private int attraction_no, attraction_addr;
 	private String attraction_name,attraction_info;
-	private float attraction_lat, attraction_lng;
+	private double attraction_lat, attraction_lng;
 }
