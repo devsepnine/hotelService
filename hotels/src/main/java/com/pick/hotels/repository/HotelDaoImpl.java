@@ -33,4 +33,6 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectList("hotel.list",seller_id);
 	}
 
+	
+
 }

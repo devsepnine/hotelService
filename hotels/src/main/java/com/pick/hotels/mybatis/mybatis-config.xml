@@ -29,5 +29,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.CouponDto" alias="couponDto"/>
 		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponHistoryDto"/>
 		<typeAlias type="com.pick.hotels.entity.ReserveDto" alias="reserveDto"/>
+		<typeAlias type="com.pick.hotels.entity.WishDto" alias="wishDto"/>
 	</typeAliases>
 </configuration>

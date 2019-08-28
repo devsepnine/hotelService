@@ -10,4 +10,6 @@ public interface HotelDao {
 
 	List<HotelDto> list(String seller_id);
 
+
+
 }
