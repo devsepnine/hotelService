@@ -98,14 +98,16 @@ $(function(){
     });
 })
 </script>
+
+<form action="${pageContext.request.contextPath }/hotel/search">
 <div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control">
+		<input type="text" placeholder="지역 선택" name="region" class="form-control" required>
 	</div>
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="date1" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -114,7 +116,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" name="date2" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -122,7 +124,7 @@ $(function(){
        </div>
        
     <div class="form-group" style="width: 150px;display: inline-block;">
-	  <select class="custom-select" name="people">
+	  <select class="custom-select" name="people" required>
 	    <option value="1">총 인원 1</option>
 	    <option value="2">총 인원 2</option>
 	    <option value="3">총 인원 3</option>
@@ -134,7 +136,7 @@ $(function(){
 	
 <span style="font-size: 20px;" class="diff"></span>
 </div>
-
+</form>
 
 <script type="text/javascript">
     $(function () {
@@ -190,6 +192,7 @@ $(function(){
     });
 </script>
 <div style="text-align: center;">
+
 <span> 여기에 메인 내용을 넣으시면 됩니다.</span>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

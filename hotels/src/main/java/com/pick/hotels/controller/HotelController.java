@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.pick.hotels.entity.HotelDto;
+import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.repository.HotelDao;
 
 @Controller
@@ -24,7 +25,9 @@ public class HotelController {
 	private HotelDao hotelDao;
 	
 	@GetMapping("/search")
-	public String search() {
+	public String search(Model model) {
+		List<HotelListVo> h_list = hotelDao.get_h_list();
+		model.addAttribute("h_list",h_list);
 		return "hotel/search";
 	}
 	
