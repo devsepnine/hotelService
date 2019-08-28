@@ -155,6 +155,7 @@ public class NoticeController {
 						@RequestParam MultipartFile file,
 						@RequestParam String delete_file) throws IllegalStateException, IOException {
 		
+		
 		boolean fileexist = !(file.getOriginalFilename().length()==0);
 //		추가 업로드된 파일이 있으면 기존파일과 변경
 		if(fileexist) {

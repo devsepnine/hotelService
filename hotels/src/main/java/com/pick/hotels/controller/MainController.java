@@ -41,10 +41,10 @@ public class MainController {
 		return "join_select";
 	}
 	
-   @GetMapping("/imgsrc")
-   public ResponseEntity<ByteArrayResource> imgsrc(@RequestParam String notice_file_name) throws IOException{
+   @GetMapping("/ntimg")
+   public ResponseEntity<ByteArrayResource> ntimg(@RequestParam String notice_file_name) throws IOException{
 	  
-      File target = new File("D:/upload/notice", notice_file_name);
+      File target = new File("D:/upload/kh16/notice", notice_file_name);
       
       byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
                   //ok가 성공 notfound 실패
@@ -55,6 +55,23 @@ public class MainController {
 					                 .contentType(MediaType.IMAGE_PNG) //전송타입
 					                 .contentLength(data.length)
 					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(notice_file_name,"utf-8"))
+					                 .body(resource);
+   }
+   
+   @GetMapping("/atimg")
+   public ResponseEntity<ByteArrayResource> atimg(@RequestParam String attraction_file_name) throws IOException{
+	  
+      File target = new File("D:/upload/kh16/attraction", attraction_file_name);
+      
+      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
+                  //ok가 성공 notfound 실패
+      
+      ByteArrayResource resource = new ByteArrayResource(data);
+      
+      return ResponseEntity.ok()
+					                 .contentType(MediaType.IMAGE_PNG) //전송타입
+					                 .contentLength(data.length)
+					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(attraction_file_name,"utf-8"))
 					                 .body(resource);
    }
    

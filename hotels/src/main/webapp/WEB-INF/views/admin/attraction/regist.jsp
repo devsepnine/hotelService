@@ -8,7 +8,7 @@
 <script>
 	$(function(){
 	    ClassicEditor
-	            .create( document.querySelector( 'textarea[name=notice_content]' ), {
+	            .create( document.querySelector( 'textarea[name=attraction_info]' ), {
 	            	removePlugins: [ 'ImageUpload', 'MediaEmbed' ]
 	            })
 	});
@@ -18,7 +18,7 @@
 		$("form").submit(function(e){
 	    	e.preventDefault();
 	    	if($(".ck-editor__editable").children("p").text().length==0){
-	    		alert("내용을 입력하세요.");
+	    		alert("관광지 설명을 입력하세요.")
 	    	}else{
 	    		this.submit();
 	    	}
@@ -40,11 +40,11 @@
 </style>
 
 <style>
-	.notice_wrap > *{
+	.attraction_wrap > *{
 		color:black;
 	}
 	
-	.notice_wrap > .table_ny_one {
+	.attraction_wrap > .table_ny_one {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -53,12 +53,12 @@
   		max-width: 1100px;
 	}
 	
-	.notice_wrap > .table_ny_one > thead > tr > th,
-	.notice_wrap > .table_ny_one > thead > tr > td,
-	.notice_wrap > .table_ny_one > tbody > tr > th,
-	.notice_wrap > .table_ny_one > tbody > tr > td,
-	.notice_wrap > .table_ny_one > tfoot > tr > th,
-	.notice_wrap > .table_ny_one > tfoot > tr > td {
+	.attraction_wrap > .table_ny_one > thead > tr > th,
+	.attraction_wrap > .table_ny_one > thead > tr > td,
+	.attraction_wrap > .table_ny_one > tbody > tr > th,
+	.attraction_wrap > .table_ny_one > tbody > tr > td,
+	.attraction_wrap > .table_ny_one > tfoot > tr > th,
+	.attraction_wrap > .table_ny_one > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -99,36 +99,64 @@
 </style>
 
 
-<form action="write" method="post" enctype="multipart/form-data">
+<form action="regist" method="post" enctype="multipart/form-data">
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="notice_wrap">
+<div class="attraction_wrap">
 <div class="headtit">
-<h3>&emsp;</h3>
+<h3>관광지 추가</h3>
 </div>
 		<table class="table_ny_one" align="center" >
 			<tbody>
 				<tr>
 					<td class="td-line">
-						<label>제목 &emsp; </label>
-						<input type="text" style="width:400px;" name="notice_title" placeholder="제목을 입력하세요" required>
-					</td>
-				</tr>
-				<tr height="500">
-					<td valign="top" colspan="2">
-						<textarea name="notice_content" placeholder="내용을 입력하세요"></textarea>
+						<label>이름&emsp;</label>
+						<input type="text" style="width:300px;" name="attraction_name" placeholder="관광지 이름을 입력하세요" required>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file" accept = ".jpg, .png, .gif">
+						<label>주소&emsp;</label>
+						<input type="text" name="attraction_addr" style="width:200px;" placeholder="주소">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="width: 400px; display: inline-block;">
+							<label>위도&emsp;</label>
+							<input  type="text" style="width:200px;" name="attraction_lat" placeholder="관광지 위도" required>
+						</div>
+						<div style="width: 400px;display: inline-block;">
+						<label>경도&emsp;</label>
+						<input type="text" style="width:200px;" name="attraction_lng" placeholder="관광지 경도" required>
+						</div>
+					</td>
+				</tr>
+				<tr height="500">
+					<td valign="top" colspan="2">
+						<textarea name="attraction_info" placeholder="관광지 설명을 입력하세요"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="file" name="file2" accept = ".jpg, .png, .gif">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="file" name="file3" accept = ".jpg, .png, .gif">
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2"  style="text-align: right;">
-						<input type="submit" class="btn btn-danger" value="글 등록">
+						<input type="submit" style="width:70px" class="btn btn-danger" value="관광지 등록">
 					</td>
 				</tr>
 			</tfoot>

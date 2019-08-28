@@ -9,5 +9,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
  
  <mapper namespace="attraction">
+ 
+ 	<!-- 관광지 등록하기 -->
+ 	<insert id="regist" parameterType="attractionDto">
+ 		insert into attraction values(#{attraction_no}, #{attraction_name}, #{attraction_addr}, #{attraction_lat}, #{attraction_lng}, #{attraction_info})
+ 	</insert>
+ 	
+ 	<!-- 관광지 상세보기 -->
+ 	<select id="get" parameterType="int" resultType="attractionDto">
+		select * from attraction where attraction_no = #{attraction_no}
+ 	</select>
+ 	
+ 	<!-- 관광지 삭제 -->
+ 	<delete id="exit" parameterType="int">
+ 		delete attraction where attraction_no = #{attraction_no}
+ 	</delete>
+ 	
+ 	<!-- 관광지 리스트 -->
+	<select id="list" parameterType="map" resultType="attractionDto">
+		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
+		<![CDATA[
+		select *  from(
+    		select rownum r, a.* from(select * from attraction 
+		]]>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
+		<![CDATA[
+			 order by attraction_no desc )a)  where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	
+	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
+	<select id="count" parameterType="map" resultType="int">
+		select count(*) from attraction
+		<if test="type != null and keyword != null">
+			where ${type} like '%' || #{keyword} || '%'		
+		</if>
+	</select>
+	
+	<!-- 시퀀스 번호 -->
+	<select id="seq" resultType="int">
+		select attraction_seq.nextval from dual
+	</select>
+	
+	<!-- 관광지 수정 -->
+	<update id="edit" parameterType="attractionDto">
+		update attraction 
+			set attraction_name = #{attraction_name}, attraction_addr = #{attraction_addr}, attraction_lat = #{attraction_lat}, attraction_lng = #{attraction_lng}, attraction_info = #{attraction_info}
+		where attraction_no = #{attraction_no}
+	</update>
  	                                                                                
  </mapper>

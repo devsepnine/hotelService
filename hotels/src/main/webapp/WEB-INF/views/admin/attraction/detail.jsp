@@ -11,11 +11,11 @@
 		 - 좌우는 선 없음
 	--%>
 <style>
-	.notice_wrap > *{
+	.detail_wrap > *{
 		color:black;
 	}
 	
-	.notice_wrap > .table_ny_one {
+	.detail_wrap > .table_ny_one {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -24,12 +24,12 @@
   		max-width: 1100px;
 	}
 	
-	.notice_wrap > .table_ny_one > thead > tr > th,
-	.notice_wrap > .table_ny_one > thead > tr > td,
-	.notice_wrap > .table_ny_one > tbody > tr > th,
-	.notice_wrap > .table_ny_one > tbody > tr > td,
-	.notice_wrap > .table_ny_one > tfoot > tr > th,
-	.notice_wrap > .table_ny_one > tfoot > tr > td {
+	.detail_wrap > .table_ny_one > thead > tr > th,
+	.detail_wrap > .table_ny_one > thead > tr > td,
+	.detail_wrap > .table_ny_one > tbody > tr > th,
+	.detail_wrap > .table_ny_one > tbody > tr > td,
+	.detail_wrap > .table_ny_one > tfoot > tr > th,
+	.detail_wrap > .table_ny_one > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -69,42 +69,52 @@
 	}
 </style>
 
-
+<c:forEach var="afdto" items="${afdtolist}" varStatus="status">
+	<input type="hidden" name="attraction_file_no${status.count}" value="${afdto.attraction_file_no}">
+</c:forEach>
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="notice_wrap">
+<div class="detail_wrap">
 <div class="headtit">
-<h3>${ndto.notice_title}</h3>
+<h3>${adto.attraction_name}</h3>
 </div>
 	<table class="table_ny_one" align="center" >
 		<tbody>
 			<tr>
-				<td class="td-line" >
-					${mdto.member_id} &emsp;&emsp; ${ndto.notice_when.substring(0,16)}
-				</td>
-			</tr>
-			<tr height="500">
-				<td valign="top" colspan="2">
-				<c:if test="${not empty ndto.notice_file_name}">
-					<img src="${pageContext.request.contextPath }/ntimg?notice_file_name=${ndto.notice_file_name }">
-				</c:if>
-					${ndto.notice_content}
+				<td colspan="2">
+					주소 ${adto.attraction_addr}
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					조회수 ${ndto.notice_read}
+					<div style="width: 400px; display: inline-block;">
+						위도&emsp;${adto.attraction_lat}
+					</div>
+					<div style="width: 400px;display: inline-block;">
+						경도&emsp;${adto.attraction_lng}
+					</div>
+				</td>
+			</tr>
+			<tr height="500">
+				<td valign="top" colspan="2">
+				<c:if test="${not empty afdtolist[0]}">
+					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[0].attraction_file_name}">
+				</c:if>
+				<c:if test="${not empty afdtolist[1]}">
+					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[1].attraction_file_name}">
+				</c:if>
+				<c:if test="${not empty afdtolist[2]}">
+					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[2].attraction_file_name}">
+				</c:if>
+					${adto.attraction_info}
 				</td>
 			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td class="td-line" colspan="2">
-					<%-- if(내글일 때)--%>
-					<c:if test="${mdto.member_id == ok}">
-					<a href ="edit?no=${ndto.notice_no}"><input type="button" value="수정" name="edit" class="btn btn-danger"></a>
-					<a href ="delete?no=${ndto.notice_no}"><input type="button" value="삭제" name="delete" class="btn btn-danger"></a>
-					</c:if>
+					<a href ="edit?no=${adto.attraction_no}"><input type="button" value="수정" name="edit" class="btn btn-danger"></a>
+					<a href ="exit?no=${adto.attraction_no}"><input type="button" value="삭제" name="exit" class="btn btn-danger"></a>
 					<a href ="list"><input type="button" value="목록" name="list" class="btn btn-danger"></a>
 				</td>
 			</tr>

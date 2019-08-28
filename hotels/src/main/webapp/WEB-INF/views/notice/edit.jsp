@@ -11,9 +11,7 @@
 	            .create( document.querySelector( 'textarea[name=notice_content]' ), {
 	            	removePlugins: [ 'ImageUpload', 'MediaEmbed' ]
 	            })
-	});
-	
-	
+	});	
 </script>
 <script>
 	$(function(){
@@ -120,16 +118,15 @@
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>
-						<div style="height: 10px;"></div>
-						<c:if test="${not empty ndto.notice_file_name}">
-							<img height="100px;" src="${pageContext.request.contextPath}/imgsrc?notice_file_name=${ndto.notice_file_name }">
-						</c:if>					
+						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>				
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="file" name="file"  multiple accept = ".jpg, .png, .gif">
+						<c:if test="${not empty ndto.notice_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/ntimg?notice_file_name=${ndto.notice_file_name}">
+						</c:if>	
 					</td>
 				</tr>
 			</tbody>

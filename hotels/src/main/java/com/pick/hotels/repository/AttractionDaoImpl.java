@@ -8,35 +8,35 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pick.hotels.entity.NoticeDto;
+import com.pick.hotels.entity.AttractionDto;
 
 @Repository
-public class NoticeDaoImpl implements NoticeDao{
+public class AttractionDaoImpl implements AttractionDao{
 
 	@Autowired
 	private SqlSession sqlSession;
 	
-	//글쓰기
+//	관광지 등록
 	@Override
-	public void write(NoticeDto noticeDto) {
-		sqlSession.insert("notice.write", noticeDto);
+	public void regist(AttractionDto adto) {
+		sqlSession.insert("attraction.regist", adto);
 	}
 
-	//글정보 가져오기
+//	관광지 정보
 	@Override
-	public NoticeDto get(int no) {
-		return sqlSession.selectOne("notice.get", no);
+	public AttractionDto get(int no) {
+		return sqlSession.selectOne("attraction.get", no);
 	}
 
-	//글 삭제
+//	관광지 삭제
 	@Override
-	public void delete(int no) {
-		sqlSession.delete("notice.delete", no);
+	public void exit(int no) {
+		sqlSession.delete("attraction.exit", no);
 	}
 
-	//글 목록
+//	관광지 목록
 	@Override
-	public List<NoticeDto> list(String type, String keyword, int start, int end) {
+	public List<AttractionDto> list(String type, String keyword, int start, int end) {
 		Map<String, Object> param = new HashMap<>();
 		
 //		검색일 떄 검색어를 mybatis에 전달
@@ -49,16 +49,10 @@ public class NoticeDaoImpl implements NoticeDao{
 		param.put("start", start);
 		param.put("end", end);
 		
-		return sqlSession.selectList("notice.list", param);
+		return sqlSession.selectList("attraction.list", param);
 	}
 
-	//글 조회수
-	@Override
-	public void read(int no) {
-		sqlSession.update("notice.read", no);
-	}
-
-	//글 목록/검색일때 각각의 게시글 수 구하기
+//	관광지 게시글 수 구하기
 	@Override
 	public int count(String type, String keyword) {
 		Map<String, String> param = new HashMap<>();
@@ -67,20 +61,21 @@ public class NoticeDaoImpl implements NoticeDao{
 			param.put("type", type.replace("+", "||"));
 			param.put("keyword", keyword);
 		}
-		return sqlSession.selectOne("notice.count", param);
+		
+		return sqlSession.selectOne("attraction.count", param);
 	}
-//	
-	//시퀀스 번호 생성
+
+//	시퀀스 번호 구하기
 	@Override
 	public int getSequenceNumber() {
-		return sqlSession.selectOne("notice.seq");
+		return sqlSession.selectOne("attraction.seq");
 	}
-
-	//글 수정
-	@Override
-	public void edit(NoticeDto noticeDto) {
-		sqlSession.update("notice.edit", noticeDto);		
-	}
-
 	
+//	관광지 수정
+	@Override
+	public void edit(AttractionDto atdo) {
+		sqlSession.update("attraction.edit", atdo);
+	}
+	
+
 }
