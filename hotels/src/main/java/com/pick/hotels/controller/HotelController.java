@@ -30,6 +30,11 @@ public class HotelController {
 		return "hotel/search";
 	}
 	
+	@GetMapping("/view")
+	public String view() {
+		return "hotel/view";
+	}
+	
 	@GetMapping("/regist")
 	public String regist() {
 		return "hotel/regist";
