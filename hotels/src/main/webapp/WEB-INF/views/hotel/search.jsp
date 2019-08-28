@@ -35,20 +35,23 @@
 	    .resdesc-wrap{
 	    	border-top: 1px solid #e6e5de;
 	    	border-bottom: 1px solid #e6e5de;
-	    	height: 500px;
+	    	height: 300px;
 	    }
 	    .resdesc-wrap>.resdesc{
 	    	width: 500px;
 	    	margin: auto;
 	    	text-align: center;
-	    	margin: 175px auto;
+	    	margin: 100px auto;
 	    	font-size: 25px;
-	    	color: #101010;
+	    	color: #62523f;
+	    }
+	    .room_area{
+	    	text-align: center;
 	    }
 	</style>
-<!-- 자동완성 스크립트 -->
 <script>
 $(function(){
+<!-- 자동완성 스크립트 -->
 	var region_list = new Array;
 	$.ajax({
 		type:'post',
@@ -67,17 +70,22 @@ $(function(){
     $("input[name=region]").autocomplete({
    	source : region_list
     });
+// 	키워드 리셋
+	$(".keywordreset").click(function(){
+		$("input[type=checkbox]").prop("checked", false);
+	})
 })
 </script>
+<form action="search">
 <div style="height: 50px;"></div>
-<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
+<div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control">
+		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
 	</div>
 	
 	<div style="width: 200px;display: inline-block;">
-          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+          <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
+               <input type="text" name="date1" class="form-control datetimepicker-input" value="${param.date1}" data-target="#datetimepicker1" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -86,7 +94,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+               <input type="text" name="date2" class="form-control datetimepicker-input" value="${param.date2}" data-target="#datetimepicker2" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -109,9 +117,25 @@ $(function(){
 
 <script type="text/javascript">
     $(function () {
-    	var now = new Date();
-    	now.setDate(now.getDate()+1);
-    	var startday = now;
+    	var map = new URLSearchParams(window.location.search);
+    	if(!map.get('date2')){
+    		$(".keywordArea").css("display","none");
+    		$(".room_area").css("display","none");
+    		$(".resdesc-wrap").css("display","block");
+    	}else{
+    		$(".keywordArea").css("display","block");
+    		$(".room_area").css("display","block");
+    		$(".resdesc-wrap").css("display","none");
+    	}
+    	var startday = null;
+    	if(!map.get('date1')){
+	    	var now = new Date();
+	    	now.setDate(now.getDate()+1);
+	    	startday = now;
+    	}else{
+    		startday = map.get('date1');
+    	}
+    	
     	var lastday = null;
     	
         $('#datetimepicker1').datetimepicker({
@@ -165,55 +189,61 @@ $(function(){
 <div class="keywordArea">
 	<div style="width: 520px;text-align: left; display: table-cell;">
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="parking">
+	      <input type="checkbox" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
 	      <label class="custom-control-label" for="parking">주차장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="fitness">
+	      <input type="checkbox" class="custom-control-input" id="fitness" name="fitness" ${not empty param.fitness?"checked":""}>
 	      <label class="custom-control-label" for="fitness">피트니스</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="pool">
+	      <input type="checkbox" class="custom-control-input" id="pool" name="pool" ${not empty param.pool?"checked":""}>
 	      <label class="custom-control-label" for="pool">수영장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="sauna">
+	      <input type="checkbox" class="custom-control-input" id="sauna" name="sauna" ${not empty param.sauna?"checked":""}>
 	      <label class="custom-control-label" for="sauna">사우나</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="lounge">
+	      <input type="checkbox" class="custom-control-input" id="lounge" name="lounge" ${not empty param.lounge?"checked":""}>
 	      <label class="custom-control-label" for="lounge">라운지</label>
 	    </div>
 	    <div style="display: block;height: 15px;"></div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="BBQ">
-	      <label class="custom-control-label" for="BBQ">바베큐장</label>
+	      <input type="checkbox" class="custom-control-input" id="bbq" name="bbq" ${not empty param.bbq?"checked":""}>
+	      <label class="custom-control-label" for="bbq">바베큐장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="cafe">
+	      <input type="checkbox" class="custom-control-input" id="cafe" name="cafe" ${not empty param.cafe?"checked":""}>
 	      <label class="custom-control-label" for="cafe">카페</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="conveni">
+	      <input type="checkbox" class="custom-control-input" id="conveni" name="conveni" ${not empty param.conveni?"checked":""}>
 	      <label class="custom-control-label" for="conveni">편의점</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="karaoke">
+	      <input type="checkbox" class="custom-control-input" id="karaoke" name="karaoke" ${not empty param.karaoke?"checked":""}>
 	      <label class="custom-control-label" for="karaoke">노래방</label>
     	</div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="internet">
+	      <input type="checkbox" class="custom-control-input" id="internet" name="internet" ${not empty param.internet?"checked":""}>
 	      <label class="custom-control-label" for="internet">인터넷</label>
 	    </div>
 	</div>
-	<div style="vertical-align:middle; display:table-cell;text-align: left">
-		<a href="#none" class="keywordreset" style="margin-right: 40%;"><i style="color: #f1e3c4;height: 100%;" class="fa fa-history fa-2x"></i><font style="display: inline-block;"></font></a>
-		<a href="#none" class="btn btn-danger">키워드 검색</a>
+	<div style="vertical-align:middle; display:table-cell;text-align: center; width: 280px;">
+		<a href="#none" class="keywordreset btn btn-danger" style="margin-left: 40px;">선택 해제</a>
+		<input type="submit" class="btn btn-danger" style="width: 130px;" value="키워드 검색"/>
 	</div>					
 </div>
+</form>
 <br>
 <div class="resdesc-wrap">
 <div class="resdesc">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
+</div>
+
+<div class="room_area">
+	<div>넘 ㅜ 열씸히 하는 중입닏
+	</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
