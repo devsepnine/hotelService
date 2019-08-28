@@ -17,6 +17,8 @@ public class HotelDaoImpl implements HotelDao{
 	@Override
 	public boolean regist(HotelDto hotelDto) {
 		try {
+			System.out.println(hotelDto.getHotel_zip_code());
+			System.out.println(hotelDto.getHotel_zip_code().length());
 			sqlSession.insert("hotel.regist", hotelDto);
 			return true;
 		}

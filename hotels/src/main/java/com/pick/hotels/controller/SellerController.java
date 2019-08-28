@@ -39,7 +39,7 @@ public class SellerController {
 	
 	@GetMapping("/")
 	public String main() {
-		return "seller/";
+		return "seller/main";
 	}
 	
 	@GetMapping("/lisence")
@@ -108,7 +108,7 @@ public class SellerController {
 		session.removeAttribute("ok");
 		session.removeAttribute("no");
 		session.removeAttribute("auth");
-		return"redirect:/";
+		return"redirect:/seller";
 	}
 	@GetMapping("/login")
 	public String login() {
