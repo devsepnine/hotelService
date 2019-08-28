@@ -22,9 +22,15 @@ public class HotelController {
 	@Autowired
 	private HotelDao hotelDao;
 	
-	@GetMapping("search")
+	@GetMapping("/search")
 	public String search() {
 		return "hotel/search";
+	}
+	@PostMapping("/search")
+	public String search() {
+		
+		return "hotel/search";
+		
 	}
 	
 	@GetMapping("/regist")
