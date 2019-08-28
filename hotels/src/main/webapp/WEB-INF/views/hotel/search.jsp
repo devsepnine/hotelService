@@ -260,11 +260,13 @@ $(function(){
 	<div class="pick_hotel">
 		<ul class="hotel_list">
 			<c:forEach var="h_con" items="${h_list}">
+			<a href="view?h_no=${h_con.hotel_no}">
 			<li>
 				<span><img alt="" src="http://placehold.it/150"></span>
 				<span><i class="fa fa-car fa-2x"></i></span>
 				<span>${h_con.hotel_name }${h_con.hotel_tel }</span>
 			</li>
+			</a>
 			</c:forEach>
 		</ul>
 	</div>
