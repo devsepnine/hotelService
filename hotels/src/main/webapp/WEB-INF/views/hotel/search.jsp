@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- date picker 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
@@ -54,9 +55,11 @@
 	    }
 	    .hotel_list{
 	    	list-style: none;
+	    	text-align: left;
 	    }
 	    .hotel_list li{
 	    	width: 1000px;
+	    	margin: 10px 20px;
 	    }
 	</style>
 <script>
@@ -86,6 +89,7 @@ $(function(){
 	})
 })
 </script>
+
 <form action="search">
 <div style="height: 50px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
@@ -194,7 +198,6 @@ $(function(){
 		}
     });
 </script>
-
 <div style="height: 20px;"></div>
 <div class="keywordArea">
 	<div class="key_wrap">
@@ -256,10 +259,13 @@ $(function(){
 <div class="room_area">
 	<div class="pick_hotel">
 		<ul class="hotel_list">
+			<c:forEach var="h_con" items="${h_list}">
 			<li>
 				<span><img alt="" src="http://placehold.it/150"></span>
 				<span><i class="fa fa-car fa-2x"></i></span>
+				<span>${h_con.hotel_name }${h_con.hotel_tel }</span>
 			</li>
+			</c:forEach>
 		</ul>
 	</div>
 </div>

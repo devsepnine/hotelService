@@ -125,7 +125,7 @@ form label {
 	//전화 번호 검사 후 형식에 안맞을시 보조메세지 출력
 	function checkTel() {
 		var h_tel = document.querySelector("#h_tel").value;
-		var regex = /^0[0-9]{1,2}[0-9]{3,4}[0-9]{4}$/;
+		var regex = /^0[0-9]{1,2}-[0-9]{3,4}-[0-9]{4}$/;
 
 		//정규표현식으로 h_tel값 검사
 		var result = regex.test(h_tel);
@@ -164,8 +164,8 @@ form label {
 					<tr>
 						<td><label for="h_tel">호텔 번호</label></td>
 						<td><input class="form-control" onblur="checkTel();"
-							type="tel" placeholder="-없이 번호만 입력하세요" name="hotel_tel" id="h_tel"
-							pattern="^0[0-9]{1,2}[0-9]{3,4}[0-9]{4}$" required>
+							type="tel" placeholder="-포함한 번호를 입력해주세요" name="hotel_tel" id="h_tel"
+							pattern="^0[0-9]{1,2}-[0-9]{3,4}-[0-9]{4}$" required>
 							<div class="h_telD"></div></td>
 					</tr>
 					<tr>
@@ -177,7 +177,7 @@ form label {
 							<input class="form-control" type="text" name="hotel_basic_addr"
 								placeholder="주소" required readonly>
 							<input class="form-control" type="text" name="hotel_detail_addr"
-								placeholder="상세주소">
+								placeholder="상세주소" required>
 						</td>
 					</tr>
 					<tr>
@@ -216,14 +216,14 @@ form label {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><div id="map" style="width:100%;height:300px;"></div>
+						<td colspan="2"><div id="map" style="width:100%; height:300px;"></div>
 							<input type="hidden" id="h_longitude" name="hotel_longitude" value="">
 							<input type="hidden" id="h_latitude" name="hotel_latitude" value="">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="file" name="hotel_title">
+							<input type="file" name="hotel_title" required>
 						</td>
 					</tr>
 					
@@ -234,7 +234,6 @@ form label {
 				</tbody>
 			</table>
 		</div>
-		
 	</form>
 </div>
 

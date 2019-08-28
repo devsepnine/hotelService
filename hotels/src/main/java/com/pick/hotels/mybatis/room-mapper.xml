@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+ <mapper namespace="room">
+ 	<insert id="regist" parameterType="roomDto">
+ 		insert into room values (
+ 		#{hotel_no}, room_seq.nextval, #{room_name}, #{room_content}, #{room_price},
+ 		#{room_breakfast}, #{room_bed}, #{room_people}, #{room_spa}, #{room_conditioner},
+ 		#{room_tv}, #{room_refrigerator}, #{room_shower_room}, #{room_bath},
+ 		#{room_hair}, #{room_cookoo}, #{room_smoking}, #{room_cooking}
+ 		)
+ 	</insert>                                                                        
+ </mapper>

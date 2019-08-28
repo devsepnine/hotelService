@@ -13,5 +13,5 @@ public class HotelDto {
 	hotel_karaoke, hotel_internet, hotel_title;
 	
 	private int hotel_no, seller_no, hotel_star;
-	private double hotel_longitude, hotel_latitude;
+	private float hotel_longitude, hotel_latitude;
 }

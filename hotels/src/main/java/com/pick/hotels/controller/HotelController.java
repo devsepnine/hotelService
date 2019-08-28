@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.pick.hotels.entity.HotelDto;
+import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.repository.HotelDao;
 
 @Controller
@@ -24,7 +24,9 @@ public class HotelController {
 	private HotelDao hotelDao;
 	
 	@GetMapping("/search")
-	public String search() {
+	public String search(Model model) {
+		List<HotelListVo> h_list = hotelDao.get_h_list();
+		model.addAttribute("h_list",h_list);
 		return "hotel/search";
 	}
 	
@@ -33,7 +35,7 @@ public class HotelController {
 		return "hotel/regist";
 	}
 	@PostMapping("/regist")
-	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session) {
+	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model) {
 		int seller_no = (int)session.getAttribute("s_no");
 		hotelDto.setSeller_no(seller_no);
 		if(hotelDto.getHotel_bbq()==null) hotelDto.setHotel_bbq("N");
@@ -47,17 +49,17 @@ public class HotelController {
 		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
 		System.out.println(hotelDto);
-		boolean result = hotelDao.regist(hotelDto);
-		if(result)
-			return "hotel/regist_result";
-		else
-			return "hotel/regist_fail";
+		hotelDao.regist(hotelDto);
+		model.addAttribute("hotel_no",hotelDto.getHotel_no());
+		return "hotel/content";
+
 	}
 	@GetMapping("/list")
 	public String list(@ModelAttribute HotelDto hotelDto, Model model, HttpSession session) {
 		String seller_id = (String) session.getAttribute("s_ok");
 		List<HotelDto> list = hotelDao.list(seller_id);
-		return null;
+		model.addAttribute("list",list);
+		return "hotel/list";
 	}
 
 }

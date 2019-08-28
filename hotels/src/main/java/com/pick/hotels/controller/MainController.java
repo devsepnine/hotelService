@@ -77,13 +77,11 @@ public class MainController {
    
    @PostMapping("/region")
    public void region(HttpServletResponse resp) throws IOException {
-	   System.out.println("region 접속");
 	   resp.setContentType("application/json");
 	   List<RegionDto> list = regionDao.get_list();
 	   System.out.println(list.size());
 	   ObjectMapper mapper = new ObjectMapper();
 	   String json = mapper.writeValueAsString(list);
-	   System.out.println(json);
 	   resp.setCharacterEncoding("UTF-8");
 	   resp.getWriter().print(json);
    }

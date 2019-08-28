@@ -167,7 +167,7 @@ form label {
 	//핸드폰 번호 검사 후 형식에 안맞을시 보조메세지 출력
 	function checkPhone() {
 		var s_phone = document.querySelector("#s_phone").value;
-		var regex = /^01[016-9][0-9]{3,4}[0-9]{4}$/;
+		var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
 
 		//정규표현식으로 m_phone값 검사
 		var result = regex.test(s_phone);
@@ -334,7 +334,7 @@ form label {
 						<td><label for="s_phone">PHONE</label></td>
 						<td><input class="form-control" onblur="checkPhone();"
 							type="tel" placeholder="-없이 번호만 입력하세요" name="seller_phone" id="s_phone "
-							pattern="^01[016-9][0-9]{3,4}[0-9]{4}$" required>
+							pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" required>
 							<div class="s_phoneD"></div></td>
 					</tr>
 					<tr>
