@@ -1,6 +1,7 @@
 package com.pick.hotels.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -19,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.EmailCertDto;
+import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.entity.WishDto;
 import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.EmailCertDao;
+import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.MemberDao;
+import com.pick.hotels.repository.WishDao;
 import com.pick.hotels.service.EmailService;
 
 @Controller
@@ -33,10 +38,16 @@ public class MemberController {
 	private MemberDao memberDao;
 	
 	@Autowired
+	private WishDao wishDao;
+	
+	@Autowired
 	private EmailService emailService;
 	
 	@Autowired
 	private EmailCertDao emailcertDao;
+	
+	@Autowired
+	private HotelDao hotelDao;
 	
 	@GetMapping("/agree")
 	public String agree() {
@@ -304,6 +315,19 @@ public class MemberController {
 			emailcertDao.delete(member_email_cert);
 		}
 	}
+	
+	@GetMapping("/wish_list")
+	public String wish_list(Model model, HttpSession session, @ModelAttribute HotelDto hotelDto, @ModelAttribute WishDto wishDto) {
+		int member_no = (int) session.getAttribute("no");
+		
+		List<WishDto> list = wishDao.list(member_no);
+	
+		
+		model.addAttribute("wdto", list);
+		return "member/wish_list";
+	}
+	
+	
 	
 	
 	

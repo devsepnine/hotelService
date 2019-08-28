@@ -311,7 +311,7 @@ $(function() {
 <br><h1>가입 정보 입력</h1><br>
 <form action="regist" method="post">
 	<div>
-		<table>
+		<table class="table table-hamburg table-stripe">
 			<tbody>
 					<tr>
 						<td><label for="m_id">ID</label></td>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -28,8 +29,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.RestaurantFileDto" alias="restaurantFileDto"/>
 		<typeAlias type="com.pick.hotels.entity.CouponDto" alias="couponDto"/>
 		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponHistoryDto"/>
-		<typeAlias type="com.pick.hotels.entity.RoomDto" alias="roomDto"/>
+    <typeAlias type="com.pick.hotels.entity.RoomDto" alias="roomDto"/>
 		<typeAlias type="com.pick.hotels.entity.ReserveDto" alias="reserveDto"/>
-		<typeAlias type="com.pick.hotels.entity.HotelListVo" alias="hotelListVo"/>
+		<typeAlias type="com.pick.hotels.entity.WishDto" alias="wishDto"/>
 	</typeAliases>
+  
 </configuration>
