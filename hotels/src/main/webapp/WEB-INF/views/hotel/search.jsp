@@ -58,8 +58,13 @@
 	    	text-align: left;
 	    }
 	    .hotel_list li{
-	    	width: 1000px;
+	    	width: 1020px;
 	    	margin: 10px 20px;
+	    	border: 1px solid blue;
+	    	padding: 10px;
+	    }
+	    .hotel_list img{
+	    	border-radius: 10px;
 	    }
 	</style>
 <script>
@@ -266,9 +271,13 @@ $(function(){
 			<c:forEach var="h_con" items="${h_list}">
 			<a href="view?h_no=${h_con.hotel_no}">
 			<li>
-				<span><img alt="" src="http://placehold.it/150"></span>
-				<span><i class="fa fa-car fa-2x"></i></span>
-				<span>${h_con.hotel_name }${h_con.hotel_tel }</span>
+				<div class="thum_nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" src="https://q-ak.bstatic.com/xdata/images/hotel/square200/7538404.webp?k=7f6ee80d4b6d3acea301b5c450862a69f0b107f682f435986e2cf31a05552fbb&o="></div>
+				<div class="detail" style="width: 700px;display: inline-block;">
+					<div class="hotel_title-wrap"><h3 style="width: 300px;display: block;">${h_con.hotel_name }</h3></div>
+				</div>
+				<div class="price_review" style="width: 95px;display: inline-block;">
+					<h3>${h_con.max_price }</h3>
+				</div>
 			</li>
 			</a>
 			</c:forEach>
