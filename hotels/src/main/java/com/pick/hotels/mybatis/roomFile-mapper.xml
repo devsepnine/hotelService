@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+ <mapper namespace="roomFile">
+ 
+ 	<!-- 관광지 사진 등록하기 -->
+ 	<insert id="regist" parameterType="roomFileDto">
+ 		insert into r_file values(#{hotel_no}, r_file_seq.nextval, #{r_file_name}, #{r_file_type})
+ 	</insert>
+ 	                                                                                
+ </mapper>

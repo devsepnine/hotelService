@@ -1,5 +1,6 @@
 package com.pick.hotels.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.HotelDto;
+import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.repository.HotelDao;
+import com.pick.hotels.repository.RoomFileDao;
+import com.pick.hotels.service.FileService;
 
 @Controller
 @RequestMapping("/hotel")
@@ -22,6 +28,12 @@ public class HotelController {
 	
 	@Autowired
 	private HotelDao hotelDao;
+	
+	@Autowired
+	private FileService fileService;
+	
+	@Autowired
+	private RoomFileDao roomFileDao;
 	
 	@GetMapping("/search")
 	public String search(Model model) {
@@ -40,7 +52,8 @@ public class HotelController {
 		return "hotel/regist";
 	}
 	@PostMapping("/regist")
-	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model) {
+	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model,
+			@RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws IllegalStateException, IOException {
 		int seller_no = (int)session.getAttribute("s_no");
 		hotelDto.setSeller_no(seller_no);
 		if(hotelDto.getHotel_bbq()==null) hotelDto.setHotel_bbq("N");
@@ -53,16 +66,49 @@ public class HotelController {
 		if(hotelDto.getHotel_parking()==null) hotelDto.setHotel_parking("N");
 		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
-		System.out.println(hotelDto);
 		hotelDao.regist(hotelDto);
+		
+		if(!file1.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(hotelDto.getHotel_no())
+														.build();
+			
+			hfdto =  fileService.hotel_save(file1, hfdto);
+			
+			roomFileDao.regist(hfdto);
+		}
+		
+		if(!file2.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(hotelDto.getHotel_no())
+														.build();
+			
+			hfdto =  fileService.hotel_save(file2, hfdto);
+			
+			roomFileDao.regist(hfdto);
+		}
+		
+		if(!file3.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(hotelDto.getHotel_no())
+														.build();
+			
+			hfdto =  fileService.hotel_save(file3, hfdto);
+			
+			roomFileDao.regist(hfdto);
+		}
 		model.addAttribute("hotel_no",hotelDto.getHotel_no());
-		return "hotel/content";
+		
+
+		return "redirect:hotel/content";
 
 	}
+	
+	
 	@GetMapping("/list")
 	public String list(@ModelAttribute HotelDto hotelDto, Model model, HttpSession session) {
-		String seller_id = (String) session.getAttribute("s_ok");
-		List<HotelDto> list = hotelDao.list(seller_id);
+		int seller_no = (int) session.getAttribute("s_no");
+		List<HotelDto> list = hotelDao.list(seller_no);
 		model.addAttribute("list",list);
 		return "hotel/list";
 	}

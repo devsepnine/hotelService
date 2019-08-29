@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-	<select id="list" parameterType="String" resultType="hotelDto">
-		select * from hotel where seller_id = #{seller_id}
+	<select id="list" parameterType="int" resultType="hotelDto">
+		select * from hotel where seller_no = #{seller_no}
 	</select>
 	
 	<select id="search_list" resultType="hotelListVo">
