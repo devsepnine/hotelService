@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script
@@ -241,4 +241,4 @@ form label {
 </div>
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>

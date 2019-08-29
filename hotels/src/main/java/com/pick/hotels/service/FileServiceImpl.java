@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService{
 		
 		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
 		
-		File dir = new File("D:/upload/kh16/attraction");
+		File dir = new File("D:/upload/kh16/hotel");
 		File target = new File(dir, savename);
 		file.transferTo(target);
 		
