@@ -243,7 +243,7 @@
 					<td colspan="2">
 						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
 						<c:if test="${not empty rfdtolist[0]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[0].restaurant_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[0].restaurant_file_name}">
 						</c:if>							
 					</td>
 				</tr>
@@ -251,7 +251,7 @@
 					<td colspan="2">
 						<input type="file" name="file2" accept = ".jpg, .png, .gif">
 						<c:if test="${not empty rfdtolist[1]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[1].restaurant_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[1].restaurant_file_name}">
 						</c:if>		
 					</td>
 				</tr>
@@ -259,7 +259,7 @@
 					<td colspan="2">
 						<input type="file" name="file3" accept = ".jpg, .png, .gif">
 						<c:if test="${not empty rfdtolist[2]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[2].restaurant_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[2].restaurant_file_name}">
 						</c:if>		
 					</td>
 				</tr>

@@ -115,13 +115,13 @@
 			<tr height="500">
 				<td valign="top" colspan="2">
 				<c:if test="${not empty rfdtolist[0]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[0].restaurant_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[0].restaurant_file_name}">
 				</c:if>
 				<c:if test="${not empty rfdtolist[1]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[1].restaurant_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[1].restaurant_file_name}">
 				</c:if>
 				<c:if test="${not empty rfdtolist[2]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[2].restaurant_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[2].restaurant_file_name}">
 				</c:if>
 					${rdto.restaurant_info}
 				</td>

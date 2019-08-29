@@ -125,7 +125,7 @@
 					<td colspan="2">
 						<input type="file" name="file"  multiple accept = ".jpg, .png, .gif">
 						<c:if test="${not empty ndto.notice_file_name}">
-							<img height="100px;" src="${pageContext.request.contextPath}/ntimg?notice_file_name=${ndto.notice_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/0?img_name?notice_file_name=${ndto.notice_file_name}">
 						</c:if>	
 					</td>
 				</tr>

@@ -243,7 +243,7 @@
 					<td colspan="2">
 						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
 						<c:if test="${not empty afdtolist[0]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[0].attraction_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[0].attraction_file_name}">
 						</c:if>							
 					</td>
 				</tr>
@@ -251,7 +251,7 @@
 					<td colspan="2">
 						<input type="file" name="file2" accept = ".jpg, .png, .gif">
 						<c:if test="${not empty afdtolist[1]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[1].attraction_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[1].attraction_file_name}">
 						</c:if>		
 					</td>
 				</tr>
@@ -259,7 +259,7 @@
 					<td colspan="2">
 						<input type="file" name="file3" accept = ".jpg, .png, .gif">
 						<c:if test="${not empty afdtolist[2]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[2].attraction_file_name}">
+							<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[2].attraction_file_name}">
 						</c:if>		
 					</td>
 				</tr>

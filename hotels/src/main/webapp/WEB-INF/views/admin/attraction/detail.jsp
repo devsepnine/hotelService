@@ -115,13 +115,13 @@
 			<tr height="500">
 				<td valign="top" colspan="2">
 				<c:if test="${not empty afdtolist[0]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[0].attraction_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[0].attraction_file_name}">
 				</c:if>
 				<c:if test="${not empty afdtolist[1]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[1].attraction_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[1].attraction_file_name}">
 				</c:if>
 				<c:if test="${not empty afdtolist[2]}">
-					<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[2].attraction_file_name}">
+					<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[2].attraction_file_name}">
 				</c:if>
 					${adto.attraction_info}
 				</td>

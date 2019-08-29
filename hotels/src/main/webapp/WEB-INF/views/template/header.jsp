@@ -90,7 +90,7 @@
     }
     .sidebar-list p a{
     	font-size: 25px;
-    	color: #9e967c;
+    	color: black;
     }
     @media (max-width:1250px) {
        .sidebar {
@@ -124,8 +124,6 @@
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></p>
 	<p><a href="${pageContext.request.contextPath}/hotel/search">호텔 찾기</a></p>
-	<p><a href="${pageContext.request.contextPath}/attraction">관광지</a></p>
-	<p><a href="${pageContext.request.contextPath}/restaurant">레스토랑</a></p>
 	<c:if test="${empty sessionScope.ok}">
 	<p><a href="${pageContext.request.contextPath}/join">회원가입</a></p>
 	</c:if>

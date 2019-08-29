@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,58 +40,7 @@ public class MainController {
 
 		return "join_select";
 	}
-	
-   @GetMapping("/ntimg")
-   public ResponseEntity<ByteArrayResource> ntimg(@RequestParam String notice_file_name) throws IOException{
-	  
-      File target = new File("D:/upload/kh16/notice", notice_file_name);
-      
-      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
-                  //ok가 성공 notfound 실패
-      
-      ByteArrayResource resource = new ByteArrayResource(data);
-      
-      return ResponseEntity.ok()
-					                 .contentType(MediaType.IMAGE_PNG) //전송타입
-					                 .contentLength(data.length)
-					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(notice_file_name,"utf-8"))
-					                 .body(resource);
-   }
-   
-   @GetMapping("/atimg")
-   public ResponseEntity<ByteArrayResource> atimg(@RequestParam String attraction_file_name) throws IOException{
-	  
-      File target = new File("D:/upload/kh16/attraction", attraction_file_name);
-      
-      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
-                  //ok가 성공 notfound 실패
-      
-      ByteArrayResource resource = new ByteArrayResource(data);
-      
-      return ResponseEntity.ok()
-					                 .contentType(MediaType.IMAGE_PNG) //전송타입
-					                 .contentLength(data.length)
-					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(attraction_file_name,"utf-8"))
-					                 .body(resource);
-   }
-   
-   @GetMapping("/rtimg")
-   public ResponseEntity<ByteArrayResource> rtimg(@RequestParam String restaurant_file_name) throws IOException{
-	  
-      File target = new File("D:/upload/kh16/restaurant", restaurant_file_name);
-      
-      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
-                  //ok가 성공 notfound 실패
-      
-      ByteArrayResource resource = new ByteArrayResource(data);
-      
-      return ResponseEntity.ok()
-					                 .contentType(MediaType.IMAGE_PNG) //전송타입
-					                 .contentLength(data.length)
-					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(restaurant_file_name,"utf-8"))
-					                 .body(resource);
-   }
-   
+
    @PostMapping("/region")
    public void region(HttpServletResponse resp) throws IOException {
 	   resp.setContentType("application/json");
@@ -100,5 +50,29 @@ public class MainController {
 	   String json = mapper.writeValueAsString(list);
 	   resp.setCharacterEncoding("UTF-8");
 	   resp.getWriter().print(json);
+   }
+   
+   
+   @GetMapping("/img_v/{d_no}")
+   public ResponseEntity<ByteArrayResource> v_img(@RequestParam String img_name,
+		   											@PathVariable int d_no) throws IOException{
+	  
+	  String dir[] = {	"D:/upload/kh16/notice",
+			  			"D:/upload/kh16/attraction",
+			  			"D:/upload/kh16/restaurant"
+			  			};
+	   
+      File target = new File(dir[d_no], img_name);
+      
+      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
+                  //ok가 성공 notfound 실패
+      
+      ByteArrayResource resource = new ByteArrayResource(data);
+      
+      return ResponseEntity.ok()
+					                 .contentType(MediaType.IMAGE_PNG) //전송타입
+					                 .contentLength(data.length)
+					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(img_name,"utf-8"))
+					                 .body(resource);
    }
 }
