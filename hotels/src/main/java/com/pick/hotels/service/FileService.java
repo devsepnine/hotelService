@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
 import com.pick.hotels.entity.RestaurantFileDto;
@@ -28,5 +29,7 @@ public interface FileService {
 	HotelFileDto hotel_save(MultipartFile file, HotelFileDto hfdto) throws IllegalStateException, IOException;
 
 	RoomFileDto room_save(MultipartFile file, RoomFileDto rfdto) throws IllegalStateException, IOException;
+
+	HotelDto hotel_title_save(MultipartFile file, HotelDto hdto) throws IllegalStateException, IOException;
 	
 }

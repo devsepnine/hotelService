@@ -3,6 +3,7 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,21 +72,13 @@ public class HotelController {
 		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
 		
-		hotelDto.setHotel_title(file.getOriginalFilename());
 		
 		int no = hotelDao.getSequenceNumber();
 		hotelDto.setHotel_no(no);
-		hotelDao.regist(hotelDto);
 		
 		if(!file.isEmpty()) {
-			HotelFileDto hfdto = HotelFileDto.builder()
-														.hotel_no(no)
-														.build();
-			
-			hfdto =  fileService.hotel_save(file, hfdto);
-			
+			hotelDto =  fileService.hotel_title_save(file,hotelDto);
 		}
-		
 		
 		if(!file1.isEmpty()) {
 			HotelFileDto hfdto = HotelFileDto.builder()
@@ -184,9 +177,10 @@ public class HotelController {
 			hotelFileDao.regist(hfdto);
 		}
 		model.addAttribute("hotel_no",hotelDto.getHotel_no());
+		hotelDao.regist(hotelDto);
 		
 
-		return "redirect:hotel/content";
+		return "redirect:content";
 
 	}
 	
@@ -196,7 +190,19 @@ public class HotelController {
 		int seller_no = (int) session.getAttribute("s_no");
 		List<HotelDto> list = hotelDao.list(seller_no);
 		model.addAttribute("list",list);
+		model.addAttribute("hotel_no",hotelDto.getHotel_no());
 		return "hotel/list";
+	}
+	
+	@GetMapping("/delete")
+	public void delete(@RequestParam int hotel_no, HttpServletResponse resp) throws IOException {
+		boolean result = hotelDao.delete(hotel_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
 	}
 
 }
