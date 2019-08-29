@@ -101,6 +101,7 @@ public class AdminController {
 		return "redirect:detail";
 	}
 	
+	
 //	관광지 수정("/attraction/edit")
 	@GetMapping("/attraction/edit")
 	public String edit(@RequestParam int no, Model model) {
@@ -182,6 +183,7 @@ public class AdminController {
 		return "redirect:detail";
 	}
 	
+	
 //	관광지 삭제("/attraction/exit")
 	@GetMapping("/attraction/exit")
 	public String exit(@RequestParam int no) {
@@ -191,6 +193,7 @@ public class AdminController {
 		
 		return "redirect:list";
 	}
+	
 	
 //	관광지 상세보기("/attraction/detail")
 	@GetMapping("/attraction/detail")
@@ -205,6 +208,7 @@ public class AdminController {
 
 		return "admin/attraction/detail";
 	}
+	
 	
 //	관광지 전체리스트  + 검색("/attraction/list")
 	@GetMapping("/attraction/list")
@@ -243,6 +247,7 @@ public class AdminController {
 		
 		return "admin/attraction/list";
 	}
+	
 	
 //	레스토랑 추가("/restaurant/regist")
 	@GetMapping("/restaurant/regist")
@@ -301,6 +306,7 @@ public class AdminController {
 		
 		return "redirect:detail";
 	}
+	
 	
 //	레스토랑 수정("/restaurant/edit")
 	@GetMapping("/restaurant/edit")
@@ -383,6 +389,7 @@ public class AdminController {
 		return "redirect:detail";
 	}
 	
+	
 //	레스토랑 삭제("/restaurant/exit")
 	@GetMapping("/restaurant/exit")
 	public String exit_rt(@RequestParam int no) {
@@ -392,6 +399,7 @@ public class AdminController {
 		
 		return "redirect:list";
 	}
+	
 	
 //	레스토랑 상세보기("restaurant/detail")
 	@GetMapping("/restaurant/detail")
@@ -406,6 +414,7 @@ public class AdminController {
 
 		return "admin/restaurant/detail";
 	}
+	
 	
 //	레스토랑 전체 리스트 +검색("/restaurant/list")
 	@GetMapping("/restaurant/list")
@@ -444,7 +453,6 @@ public class AdminController {
 		
 		return "admin/restaurant/list";
 	}
-	
 	
 	
 //	쿠폰 추가("/coupon/regist")
