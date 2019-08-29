@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <mapper namespace="hotelFile">
  
- 	<!-- 관광지 사진 등록하기 -->
+ 	<!-- 호텔 사진 등록하기 -->
  	<insert id="regist" parameterType="hotelFileDto">
  		insert into h_file values(#{hotel_no}, h_file_seq.nextval, #{h_file_name}, #{h_file_type})
  	</insert>

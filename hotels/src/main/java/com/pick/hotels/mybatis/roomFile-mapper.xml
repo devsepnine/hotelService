@@ -10,9 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <mapper namespace="roomFile">
  
- 	<!-- 관광지 사진 등록하기 -->
- 	<insert id="regist" parameterType="roomFileDto">
- 		insert into r_file values(#{hotel_no}, r_file_seq.nextval, #{r_file_name}, #{r_file_type})
- 	</insert>
+<!--  	<!-- 방 사진 등록하기 --> -->
+<!--  	<insert id="regist" parameterType="roomFileDto"> -->
+<!--  		insert into r_file values(#{hotel_no}, r_file_seq.nextval, #{r_file_name}, #{r_file_type}) -->
+<!--  	</insert> -->
  	                                                                                
  </mapper>
