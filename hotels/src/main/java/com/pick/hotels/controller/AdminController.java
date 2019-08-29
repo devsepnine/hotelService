@@ -15,8 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.RestaurantDto;
+import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.RestaurantDao;
+import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.service.FileService;
 
 
@@ -29,6 +33,12 @@ public class AdminController {
 	
 	@Autowired
 	private AttractionFileDao attractionFileDao;
+	
+	@Autowired
+	private RestaurantDao restaurantDao;
+	
+	@Autowired
+	private RestaurantFileDao restaurantFileDao;
 	
 	@Autowired
 	private FileService fileService;
@@ -157,9 +167,7 @@ public class AdminController {
 			if(attraction_file_no3 > 0) {
 				fileService.attraction_delete(attraction_file_no3);
 			}
-			
-			fileService.attraction_delete(attraction_file_no3);
-			
+						
 			AttractionFileDto afdto = AttractionFileDto.builder()
 														.attraction_no(no)
 														.build();
@@ -210,7 +218,7 @@ public class AdminController {
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;
+		int blocksize = 5;		//페이지 갯수
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -237,10 +245,206 @@ public class AdminController {
 	}
 	
 //	레스토랑 추가("/restaurant/regist")
+	@GetMapping("/restaurant/regist")
+	public String regist_rt() {
+		return "admin/restaurant/regist";
+	}
+	
+	@PostMapping("/restaurant/regist")
+	public String regist(
+			@RequestParam MultipartFile file1,
+			@RequestParam MultipartFile file2,
+			@RequestParam MultipartFile file3,
+			@ModelAttribute RestaurantDto restaurantDto,
+			Model model
+			) throws IllegalStateException, IOException {
+		
+//		[1] DB에서 attraction seq 에서 번호를 뽑아옴
+		int no = restaurantDao.getSequenceNumber();
+		restaurantDto.setRestaurant_no(no);
+		
+//		[2] 먼저 Attraction table에 DB 추가
+		restaurantDao.regist(restaurantDto);
+		
+//		[3] 파일이 있는지 확인하고 파일 업로드 후 restaurant file DB에 추가
+		if(!file1.isEmpty()) {
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+			
+			rfdto =  fileService.restaurant_save(file1, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		if(!file2.isEmpty()) {
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+			
+			rfdto =  fileService.restaurant_save(file2, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		if(!file3.isEmpty()) {
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+									
+			rfdto =  fileService.restaurant_save(file3, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		model.addAttribute("no", no);
+		
+		return "redirect:detail";
+	}
+	
 //	레스토랑 수정("/restaurant/edit")
+	@GetMapping("/restaurant/edit")
+	public String edit_rt(@RequestParam int no, Model model) {
+		
+		model.addAttribute("rdto", restaurantDao.get(no));
+		model.addAttribute("rfdtolist", restaurantFileDao.getlist(no));
+		
+		return "admin/restaurant/edit";
+	}
+	
+	@PostMapping("/restaurant/edit")
+	public String edit(@ModelAttribute RestaurantDto rdto,
+						@RequestParam(required = false) MultipartFile file1,
+						@RequestParam(required = false) MultipartFile file2,
+						@RequestParam(required = false) MultipartFile file3,
+						@RequestParam(required = false, defaultValue = "0") int restaurant_file_no1,
+						@RequestParam(required = false, defaultValue = "0") int restaurant_file_no2,
+						@RequestParam(required = false, defaultValue = "0") int restaurant_file_no3,
+						Model model
+						) throws IllegalStateException, IOException {
+		
+		int no = rdto.getRestaurant_no();
+		
+		restaurantDao.edit(rdto);
+		
+//		수정을 하게되면 
+//		1. 수정한 글 내용
+//		2. 수정파일1, 2, 3
+//		이 넘어오게 되는데 이것을 받아서 수정 처리를 한다.
+//		-> 글 내용은 그냥 수정
+//		->
+		if(!file1.isEmpty()) {
+		
+			if(restaurant_file_no1 > 0) {
+				fileService.restaurant_delete(restaurant_file_no1);
+			}
+			
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+			
+			rfdto =  fileService.restaurant_save(file1, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		if(!file2.isEmpty()) {
+			
+			if(restaurant_file_no2 > 0) {
+				fileService.restaurant_delete(restaurant_file_no2);
+			}
+			
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+			
+			rfdto =  fileService.restaurant_save(file2, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		if(!file3.isEmpty()) {
+			
+			if(restaurant_file_no3 > 0) {
+				fileService.restaurant_delete(restaurant_file_no3);
+			}
+			
+			RestaurantFileDto rfdto = RestaurantFileDto.builder()
+														.restaurant_no(no)
+														.build();
+			
+			rfdto =  fileService.restaurant_save(file3, rfdto);
+			
+			restaurantFileDao.regist(rfdto);
+		}
+		
+		model.addAttribute("no", no);
+		
+		return "redirect:detail";
+	}
+	
 //	레스토랑 삭제("/restaurant/exit")
-//	레스토랑 상세보기("attraction/detail")
+	@GetMapping("/restaurant/exit")
+	public String exit_rt(@RequestParam int no) {
+		
+		restaurantDao.exit(no);
+		restaurantFileDao.exit(no);
+		
+		return "redirect:list";
+	}
+	
+//	레스토랑 상세보기("restaurant/detail")
+	@GetMapping("/restaurant/detail")
+	public String content_rt(@RequestParam int no, Model model) {
+		
+		RestaurantDto rdto = restaurantDao.get(no);
+		RestaurantFileDto rfdto = restaurantFileDao.get(no);
+		
+		model.addAttribute("rdto", rdto);
+		model.addAttribute("rfdto", rfdto);
+		model.addAttribute("rfdtolist", restaurantFileDao.getlist(no));
+
+		return "admin/restaurant/detail";
+	}
+	
 //	레스토랑 전체 리스트 +검색("/restaurant/list")
+	@GetMapping("/restaurant/list")
+	public String list_rt(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = restaurantDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<RestaurantDto> list = restaurantDao.list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/restaurant/list";
+	}
+	
 	
 	
 //	쿠폰 추가("/coupon/regist")

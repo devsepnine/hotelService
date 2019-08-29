@@ -74,6 +74,23 @@ public class MainController {
 					                 .body(resource);
    }
    
+   @GetMapping("/rtimg")
+   public ResponseEntity<ByteArrayResource> rtimg(@RequestParam String restaurant_file_name) throws IOException{
+	  
+      File target = new File("D:/upload/kh16/restaurant", restaurant_file_name);
+      
+      byte[] data = FileUtils.readFileToByteArray(target); // commons io기능
+                  //ok가 성공 notfound 실패
+      
+      ByteArrayResource resource = new ByteArrayResource(data);
+      
+      return ResponseEntity.ok()
+					                 .contentType(MediaType.IMAGE_PNG) //전송타입
+					                 .contentLength(data.length)
+					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(restaurant_file_name,"utf-8"))
+					                 .body(resource);
+   }
+   
    @PostMapping("/region")
    public void region(HttpServletResponse resp) throws IOException {
 	   resp.setContentType("application/json");

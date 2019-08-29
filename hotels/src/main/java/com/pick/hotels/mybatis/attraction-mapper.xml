@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="count" parameterType="map" resultType="int">
 		select count(*) from attraction
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'		
+			where ${type} like '%' || #{keyword} || '%'
 		</if>
 	</select>
 	

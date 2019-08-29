@@ -8,7 +8,7 @@
 <script>
 	$(function(){
 	    ClassicEditor
-	            .create( document.querySelector( 'textarea[name=attraction_info]' ), {
+	            .create( document.querySelector( 'textarea[name=restaurant_info]' ), {
 	            	removePlugins: [ 'ImageUpload', 'MediaEmbed' ]
 	            })
 	});
@@ -18,7 +18,7 @@
 		$("form").submit(function(e){
 	    	e.preventDefault();
 	    	if($(".ck-editor__editable").children("p").text().length==0){
-	    		alert("관광지 설명을 입력하세요.");
+	    		alert("레스토랑 설명을 입력하세요.");
 	    	}else{
 	    		this.submit();
 	    	}
@@ -77,9 +77,9 @@
 				// document.querySelector("input[name=detailaddr]").focus();
 
 				// 이 코드는 jquery.js 를 먼저 불러온 경우만 사용 가능
-				$("input[name=attraction_postcode]").val(data.zonecode);
-				$("input[name=attraction_addr1]").val(addr);
-				var addr = $("input[name=attraction_addr1]").val();
+				$("input[name=restaurant_postcode]").val(data.zonecode);
+				$("input[name=restaurant_addr1]").val(addr);
+				var addr = $("input[name=restaurant_addr1]").val();
 				  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				    mapOption = {
 				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -101,8 +101,8 @@
 					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 					        var longitude = result[0].x;
 					        var latitude = result[0].y;
-					        $("#attraction_lng").val(longitude);
-					        $("#attraction_lat").val(latitude);
+					        $("#restaurant_lng").val(longitude);
+					        $("#restaurant_lat").val(latitude);
 			
 					        // 결과값으로 받은 위치를 마커로 표시합니다
 					        var marker = new kakao.maps.Marker({
@@ -116,7 +116,7 @@
 					});
 
 				
-				$("input[name=attraction_addr2]").focus();
+				$("input[name=restaurant_addr2]").focus();
 			}
 		}).open();
 	}
@@ -137,11 +137,11 @@
 </style>
 
 <style>
-	.attraction_wrap > *{
+	.restaurant_wrap > *{
 		color:black;
 	}
 	
-	.attraction_wrap > .table_ny_one {
+	.restaurant_wrap > .table_ny_one {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -150,12 +150,12 @@
   		max-width: 1100px;
 	}
 	
-	.attraction_wrap > .table_ny_one > thead > tr > th,
-	.attraction_wrap > .table_ny_one > thead > tr > td,
-	.attraction_wrap > .table_ny_one > tbody > tr > th,
-	.attraction_wrap > .table_ny_one > tbody > tr > td,
-	.attraction_wrap > .table_ny_one > tfoot > tr > th,
-	.attraction_wrap > .table_ny_one > tfoot > tr > td {
+	.restaurant_wrap > .table_ny_one > thead > tr > th,
+	.restaurant_wrap > .table_ny_one > thead > tr > td,
+	.restaurant_wrap > .table_ny_one > tbody > tr > th,
+	.restaurant_wrap > .table_ny_one > tbody > tr > td,
+	.restaurant_wrap > .table_ny_one > tfoot > tr > th,
+	.restaurant_wrap > .table_ny_one > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -197,13 +197,13 @@
 
 
 <form action="edit" method="post" enctype="multipart/form-data">
-<input type="hidden" name="attraction_no" value="${adto.attraction_no}">
-<c:forEach var="afdto" items="${afdtolist}" varStatus="status">
-	<input type="hidden" name="attraction_file_no${status.count}" value="${afdto.attraction_file_no}">
+<input type="hidden" name="restaurant_no" value="${rdto.restaurant_no}">
+<c:forEach var="rfdto" items="${rfdtolist}" varStatus="status">
+	<input type="hidden" name="restaurant_file_no${status.count}" value="${rfdto.restaurant_file_no}">
 </c:forEach>
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="attraction_wrap">
+<div class="restaurant_wrap">
 <div class="headtit">
 <h3>&emsp;</h3>
 </div>
@@ -214,52 +214,52 @@
 						<label>이름</label>
 					</td>
 					<td class="td-line">
-						<input type="text" style="width:300px;" name="attraction_name" value="${adto.attraction_name}" required>
+						<input type="text" style="width:300px;" name="restaurant_name" value="${rdto.restaurant_name}" required>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:100px">
 						<label>주소</label>
 					</td>
-					<td><input class="form-control" type="text" style="display: inline-block;width: 40%" name="attraction_postcode" value="${adto.attraction_postcode }" required readonly>
+					<td><input class="form-control" type="text" style="display: inline-block;width: 40%" name="restaurant_postcode" value="${rdto.restaurant_postcode }" required readonly>
 						<input class="btn btn-danger" type="button" style="width:100px" value="우편번호 찾기" name="postcode_find"><br> 
-						<input class="form-control" type="text" name="attraction_addr1" value="${adto.attraction_addr1}" required readonly>
-						<input class="form-control" type="text" name="attraction_addr2" value="${adto.attraction_addr2}" placeholder="상세주소">
+						<input class="form-control" type="text" name="restaurant_addr1" value="${rdto.restaurant_addr1}" required readonly>
+						<input class="form-control" type="text" name="restaurant_addr2" value="${rdto.restaurant_addr2}" placeholder="상세주소">
 					</td>
 				</tr>
 				<tr height="500">
 					<td valign="top" colspan="2">
-						<textarea name="attraction_info">${adto.attraction_info}</textarea>
+						<textarea name="restaurant_info">${rdto.restaurant_info}</textarea>
 					</td>	
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div id="map" style="width:100%;height:300px;"></div>
-						<input type="hidden" id="attraction_lng" name="attraction_lng" value="${adto.attraction_lng}">
-						<input type="hidden" id="attraction_lat" name="attraction_lat" value="${adto.attraction_lat}">
+						<input type="hidden" id="restaurant_lng" name="restaurant_lng" value="${rdto.restaurant_lng}">
+						<input type="hidden" id="restaurant_lat" name="restaurant_lat" value="${rdto.restaurant_lat}">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
-						<c:if test="${not empty afdtolist[0]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[0].attraction_file_name}">
+						<c:if test="${not empty rfdtolist[0]}">
+							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[0].restaurant_file_name}">
 						</c:if>							
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="file" name="file2" accept = ".jpg, .png, .gif">
-						<c:if test="${not empty afdtolist[1]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[1].attraction_file_name}">
+						<c:if test="${not empty rfdtolist[1]}">
+							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[1].restaurant_file_name}">
 						</c:if>		
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="file" name="file3" accept = ".jpg, .png, .gif">
-						<c:if test="${not empty afdtolist[2]}">
-							<img height="100px;" src="${pageContext.request.contextPath}/atimg?attraction_file_name=${afdtolist[2].attraction_file_name}">
+						<c:if test="${not empty rfdtolist[2]}">
+							<img height="100px;" src="${pageContext.request.contextPath}/rtimg?restaurant_file_name=${rfdtolist[2].restaurant_file_name}">
 						</c:if>		
 					</td>
 				</tr>
@@ -267,7 +267,7 @@
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2"  style="text-align: right;">
-						<input type="submit" style="width:70px" class="btn btn-danger" value="관광지 수정">
+						<input type="submit" style="width:70px" class="btn btn-danger" value="레스토랑 수정">
 					</td>
 				</tr>
 			</tfoot>
