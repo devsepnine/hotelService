@@ -28,13 +28,24 @@ public class HotelDaoImpl implements HotelDao{
 	@Override
 	public List<HotelListVo> get_h_list() {
 		List<HotelListVo> list = sqlSession.selectList("hotel.search_list");
-		System.out.println(list);
 		return list;
 	}
 
 	@Override
 	public int getSequenceNumber() {
 		return sqlSession.selectOne("hotel.seq");
+	}
+
+	@Override
+	public boolean delete(int hotel_no) {
+		try {
+			sqlSession.insert("hotel.delete", hotel_no);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

@@ -15,4 +15,6 @@ public interface HotelDao {
 
 	public int getSequenceNumber();
 
+	public boolean delete(int hotel_no);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
 import com.pick.hotels.entity.RestaurantFileDto;
@@ -140,6 +141,8 @@ public class FileServiceImpl implements FileService{
 		hfdto.setH_file_name(savename);
 		hfdto.setH_file_type(file.getContentType());
 		
+
+		
 		return hfdto;
 	}
 
@@ -149,7 +152,7 @@ public class FileServiceImpl implements FileService{
 		
 		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
 		
-		File dir = new File("D:/upload/kh16/hotel");
+		File dir = new File("D:/upload/kh16/room");
 		File target = new File(dir, savename);
 		file.transferTo(target);
 		
@@ -157,6 +160,20 @@ public class FileServiceImpl implements FileService{
 		rfdto.setR_file_type(file.getContentType());
 		
 		return rfdto;
+	}
+
+
+	@Override
+	public HotelDto hotel_title_save(MultipartFile file, HotelDto hdto) throws IllegalStateException, IOException {
+		
+		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
+		
+		File dir = new File("D:/upload/kh16/hotel");
+		File target = new File(dir, savename);
+		file.transferTo(target);
+		hdto.setHotel_title(savename);
+
+		return hdto;
 	}
 
 }

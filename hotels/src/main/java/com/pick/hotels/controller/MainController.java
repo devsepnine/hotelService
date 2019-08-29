@@ -58,7 +58,10 @@ public class MainController {
 	  
 	  String dir[] = {	"D:/upload/kh16/notice",
 			  			"D:/upload/kh16/attraction",
-			  			"D:/upload/kh16/restaurant"
+			  			"D:/upload/kh16/restaurant",
+			  			"D:/upload/kh16/hotel",
+			  			"D:/upload/kh16/room",
+			  			"D:/upload/kh16/partner"			  			
 			  			};
 	   
       File target = new File(dir[d_no], img_name);
