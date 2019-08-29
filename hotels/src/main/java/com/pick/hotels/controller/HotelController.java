@@ -52,8 +52,9 @@ public class HotelController {
 		return "hotel/regist";
 	}
 	@PostMapping("/regist")
-	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model,
+	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model, @RequestParam MultipartFile file,
 			@RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws IllegalStateException, IOException {
+		
 		int seller_no = (int)session.getAttribute("s_no");
 		hotelDto.setSeller_no(seller_no);
 		if(hotelDto.getHotel_bbq()==null) hotelDto.setHotel_bbq("N");
@@ -66,11 +67,29 @@ public class HotelController {
 		if(hotelDto.getHotel_parking()==null) hotelDto.setHotel_parking("N");
 		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
+		
+		hotelDto.setHotel_title(file.getOriginalFilename());
+		
+		int no = hotelDao.getSequenceNumber();
+		hotelDto.setHotel_no(no);
+		System.out.println(hotelDto);
+		System.out.println(hotelDto.getHotel_no());
 		hotelDao.regist(hotelDto);
 		
+		if(!file.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file, hfdto);
+			
+		}
+		
+		
+		System.out.println("=============================================================");
 		if(!file1.isEmpty()) {
 			HotelFileDto hfdto = HotelFileDto.builder()
-														.hotel_no(hotelDto.getHotel_no())
+														.hotel_no(no)
 														.build();
 			
 			hfdto =  fileService.hotel_save(file1, hfdto);
@@ -80,7 +99,7 @@ public class HotelController {
 		
 		if(!file2.isEmpty()) {
 			HotelFileDto hfdto = HotelFileDto.builder()
-														.hotel_no(hotelDto.getHotel_no())
+														.hotel_no(no)
 														.build();
 			
 			hfdto =  fileService.hotel_save(file2, hfdto);
