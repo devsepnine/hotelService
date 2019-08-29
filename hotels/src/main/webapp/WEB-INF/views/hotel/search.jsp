@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 평점 소스파일 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/star/star.css" />
 <!-- date picker 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
@@ -33,7 +36,7 @@
 	    	display: inline-block;
 	    	width: 100px;
 	    }
-	    .key_wrap{
+	    .key-wrap{
 	    	width: 910px;
 	    	margin: auto;
 	    }
@@ -50,22 +53,31 @@
 	    	font-size: 25px;
 	    	color: #62523f;
 	    }
-	    .room_area{
+	    .room-area{
 	    	text-align: center;
 	    }
-	    .hotel_list{
+	    .hotel-list{
 	    	list-style: none;
 	    	text-align: left;
 	    }
-	    .hotel_list li{
-	    	width: 1020px;
-	    	margin: 10px 20px;
-	    	border: 1px solid blue;
+	    .hotel-list li{
+	    	width: 1220px;
+	    	margin: auto;
+	    	border-bottom: 1px solid #f4eee3;
 	    	padding: 10px;
+	    	margin-bottom: 10px;
 	    }
-	    .hotel_list img{
+	    .hotel-list img{
 	    	border-radius: 10px;
 	    }
+	    .ico-wrap img{
+	    	width: 24px;
+	    	margin-left: 5px;
+	    	margin-right: 5px;
+	    }
+		a:link { color: red; text-decoration: none;}
+		a:visited { color: black; text-decoration: none;}
+		a:hover { color: blue; text-decoration: none;}
 	</style>
 <script>
 $(function(){
@@ -138,11 +150,11 @@ $(function(){
     	var map = new URLSearchParams(window.location.search);
     	if(!map.get('date2')){
     		$(".keywordArea").css("display","none");
-    		$(".room_area").css("display","none");
+    		$(".room-area").css("display","none");
     		$(".resdesc-wrap").css("display","block");
     	}else{
     		$(".keywordArea").css("display","block");
-    		$(".room_area").css("display","block");
+    		$(".room-area").css("display","block");
     		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
@@ -209,8 +221,8 @@ $(function(){
 </script>
 <div style="height: 20px;"></div>
 <div class="keywordArea">
-	<div class="key_wrap">
-	<div class="keywordArea_key" style="width: 520px;text-align: left; display: table-cell;">
+	<div class="key-wrap">
+	<div class="keywordArea-key" style="width: 520px;text-align: left; display: table-cell;">
 	    <div class="custom-control custom-checkbox">
 	      <input type="checkbox" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
 	      <label class="custom-control-label" for="parking">주차장</label>
@@ -254,7 +266,7 @@ $(function(){
 	    </div>
 	</div>
 	<div style="vertical-align:middle; display:table-cell;text-align: center; width: 280px;">
-		<a href="#none" class="keywordreset btn btn-danger" style="margin-left: 40px;">선택 해제</a>
+		<span class="keywordreset btn btn-danger" style="margin-left: 40px;">선택 해제</span>
 		<input type="submit" class="btn btn-danger" style="width: 130px;" value="키워드 검색"/>
 	</div>
 	</div>					
@@ -265,18 +277,36 @@ $(function(){
 <div class="resdesc">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
 </div>
 
-<div class="room_area">
-	<div class="pick_hotel">
-		<ul class="hotel_list">
+<div class="room-area">
+	<div class="pick-hotel">
+		<ul class="hotel-list">
 			<c:forEach var="h_con" items="${h_list}">
 			<a href="view?h_no=${h_con.hotel_no}">
 			<li>
-				<div class="thum_nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" src="https://q-ak.bstatic.com/xdata/images/hotel/square200/7538404.webp?k=7f6ee80d4b6d3acea301b5c450862a69f0b107f682f435986e2cf31a05552fbb&o="></div>
+				<div class="thum-nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" src="https://q-ak.bstatic.com/xdata/images/hotel/square200/7538404.webp?k=7f6ee80d4b6d3acea301b5c450862a69f0b107f682f435986e2cf31a05552fbb&o="></div>
 				<div class="detail" style="width: 700px;display: inline-block;">
-					<div class="hotel_title-wrap"><h3 style="width: 300px;display: block;">${h_con.hotel_name }</h3></div>
+					<div class="hotel-title-wrap"><h2 style="display: block;">${h_con.hotel_name }</h2></div>
+					<div class="hotel-star">
+					    <div class="star-wrap" data-star=${h_con.hotel_star}>
+					        <img src="${pageContext.request.contextPath}/img/star/star.png">        
+					        <div class="star-paint"></div>
+					    </div>
+					</div>
+					<div class="ico-wrap" style="display: inline-block;">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/bbq.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/karaoke.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/cafe.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/conveni.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/fitness.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/internet.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/lounge.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/parking.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/pool.png">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/sauna.png">
+					</div>
 				</div>
-				<div class="price_review" style="width: 95px;display: inline-block;">
-					<h3>${h_con.max_price }</h3>
+				<div class="price-review" style="width: 95px;display: inline-block;">
+					<font>${h_con.max_price } <i class="fi fi-h-currency"></i></font>
 				</div>
 			</li>
 			</a>

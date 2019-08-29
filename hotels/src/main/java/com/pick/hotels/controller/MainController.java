@@ -45,7 +45,6 @@ public class MainController {
    public void region(HttpServletResponse resp) throws IOException {
 	   resp.setContentType("application/json");
 	   List<RegionDto> list = regionDao.get_list();
-	   System.out.println(list.size());
 	   ObjectMapper mapper = new ObjectMapper();
 	   String json = mapper.writeValueAsString(list);
 	   resp.setCharacterEncoding("UTF-8");

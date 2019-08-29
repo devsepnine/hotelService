@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -44,4 +46,13 @@
 		</property>
 	</bean>
 	
+	<!-- servlet과 중복을 방지하기위해 component scan을 선택적으로 사용 type은 검사할 유형 expression은 검사할 수식 type = annotaion, assignable, regex, aspectj 작성가능-->
+	<context:component-scan base-package="com.pick.hotels">
+	<!-- controller를 annotation으로 제외 -->
+	<!-- <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping"/> -->
+	<!-- controller를 regex 식으로 제외 -->
+	<context:exclude-filter type="regex" expression="com.pick.hotels.controller.*"/> </context:component-scan>	
+	
+	<task:annotation-driven/>
+
 </beans>

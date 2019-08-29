@@ -120,7 +120,7 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
-	<p><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%" height="100%"></a></p>
+	<p><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%"></a></p>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></p>
 	<p><a href="${pageContext.request.contextPath}/hotel/search">호텔 찾기</a></p>
