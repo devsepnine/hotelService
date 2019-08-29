@@ -122,13 +122,13 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
-	<p><a href="${pageContext.request.contextPath}/seller/main"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></p>
+	<p><a href="${pageContext.request.contextPath}/seller/"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></p>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/seller/info">판매자 정보</a></p>
 	<p><a href="${pageContext.request.contextPath}/hotel/list">호텔</a></p>
 	<p><a href="${pageContext.request.contextPath}/partner/info">제휴</a></p>
 
-	<p><a href="${pageContext.request.contextPath}/seller/logout">로그아웃</a></p>
+	<p><a href="${pageContext.request.contextPath}/">로그아웃</a></p>
 
 
 </div>

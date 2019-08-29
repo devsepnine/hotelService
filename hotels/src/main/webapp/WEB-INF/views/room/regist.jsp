@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script
@@ -26,6 +26,10 @@ form label {
 .cert_check{
  	display: none; 
 }
+.Thumbnail{
+	color: black;
+	font-size: 1.5rem;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
@@ -39,7 +43,7 @@ form label {
 	<br>
 	<h1>가입 정보 입력</h1>
 	<br>
-	<form action="regist" method="post">
+	<form action="regist" method="post" enctype="multipart/form-data">
 		<div>
 			<table>
 				<tbody>
@@ -106,11 +110,15 @@ form label {
 							<input type="checkbox" name="room_cooking" value="Y">요리가능
 						</td>
 					</tr>
-<!-- 					<tr> -->
-<!-- 						<td> -->
-<!-- 							<input type="file" name="room_title"> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
+					<tr>
+						<td colspan="2">
+							<p class="Thumbnail">호텔 사진</p>
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
+							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file4" accept = ".jpg, .png, .gif" >
+						</td>
+					</tr>
 					
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
@@ -124,4 +132,4 @@ form label {
 </div>
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>

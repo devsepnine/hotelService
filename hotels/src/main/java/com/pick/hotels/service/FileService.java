@@ -9,6 +9,7 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
 import com.pick.hotels.entity.RestaurantFileDto;
+import com.pick.hotels.entity.RoomFileDto;
 
 @Service
 public interface FileService {
@@ -25,5 +26,7 @@ public interface FileService {
 	void restaurant_delete(int no);
 
 	HotelFileDto hotel_save(MultipartFile file, HotelFileDto hfdto) throws IllegalStateException, IOException;
+
+	RoomFileDto room_save(MultipartFile file, RoomFileDto rfdto) throws IllegalStateException, IOException;
 	
 }

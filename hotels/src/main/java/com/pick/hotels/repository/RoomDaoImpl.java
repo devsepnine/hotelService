@@ -16,4 +16,9 @@ public class RoomDaoImpl implements RoomDao{
 	public void regist(RoomDto roomDto) {
 		sqlSession.insert("room.regist", roomDto);
 	}
+
+	@Override
+	public int getSequenceNumber() {
+		return sqlSession.selectOne("room.seq");
+	}
 }

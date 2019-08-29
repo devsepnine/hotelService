@@ -70,8 +70,6 @@ public class GmailMemberService implements EmailService{
 		try {
 			String emailcert = certNo.Certnumber(6, 1);
 			emailcertDao.insert(emailcert);
-			System.out.println(seller_email_id);
-			System.out.println(seller_email_addr);
 			String email = seller_email_id+"@"+seller_email_addr;
 			MimeMessage mail = sender.createMimeMessage();
 			MimeMessageHelper helper = 
@@ -97,8 +95,6 @@ public class GmailMemberService implements EmailService{
 		try {
 			String emailcert = certNo.Certnumber(6, 1);
 			emailcertDao.insert(emailcert);
-			System.out.println(member_email1);
-			System.out.println(member_email2);
 			String email = member_email1+"@"+member_email2;
 			MimeMessage mail = sender.createMimeMessage();
 			MimeMessageHelper helper = 
@@ -122,10 +118,7 @@ public class GmailMemberService implements EmailService{
 		String no = randomStringService.generate(128);
 		String email = sdto.getSeller_email_id()+"@"+sdto.getSeller_email_addr();
 		
-		System.out.println(email);
-		System.out.println(no);
 		CertDto cdto = CertDto.builder().cert_who(sdto.getSeller_no()).cert_no(no).build();
-		System.out.println(cdto);
 		certDao.insert(cdto);
 		
 		MimeMessage mail = sender.createMimeMessage();

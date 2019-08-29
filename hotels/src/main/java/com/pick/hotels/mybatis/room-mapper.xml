@@ -11,10 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace="room">
  	<insert id="regist" parameterType="roomDto">
  		insert into room values (
- 		#{hotel_no}, room_seq.nextval, #{room_name}, #{room_content}, #{room_price},
+ 		#{hotel_no}, #{room_no}, #{room_name}, #{room_content}, #{room_price},
  		#{room_breakfast}, #{room_bed}, #{room_people}, #{room_spa}, #{room_conditioner},
  		#{room_tv}, #{room_refrigerator}, #{room_shower_room}, #{room_bath},
  		#{room_hair}, #{room_cookoo}, #{room_smoking}, #{room_cooking}
  		)
- 	</insert>                                                                        
+ 	</insert>   
+ 	
+ 	<!-- 시퀀스 번호 -->
+	<select id="seq" resultType="int">
+		select room_seq.nextval from dual
+	</select>                                                                     
  </mapper>

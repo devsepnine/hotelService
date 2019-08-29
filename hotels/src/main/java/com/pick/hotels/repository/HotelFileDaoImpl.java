@@ -4,17 +4,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pick.hotels.entity.RoomFileDto;
+import com.pick.hotels.entity.HotelFileDto;
 
 @Repository
-public class RoomFileDaoImpl implements RoomFileDao{
+public class HotelFileDaoImpl implements HotelFileDao{
 
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	@Override
-	public void regist(RoomFileDto rfdto) {
-		sqlSession.insert("roomFile.regist", rfdto);
+	public void regist(HotelFileDto hfdto) {
+		sqlSession.insert("hotelFile.regist", hfdto);
 		
 	}
 

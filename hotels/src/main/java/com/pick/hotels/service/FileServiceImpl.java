@@ -11,6 +11,7 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
 import com.pick.hotels.entity.RestaurantFileDto;
+import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
 import com.pick.hotels.repository.NoticeDao;
@@ -139,8 +140,23 @@ public class FileServiceImpl implements FileService{
 		hfdto.setH_file_name(savename);
 		hfdto.setH_file_type(file.getContentType());
 		
-		System.out.println(hfdto);
 		return hfdto;
+	}
+
+
+	@Override
+	public RoomFileDto room_save(MultipartFile file, RoomFileDto rfdto) throws IllegalStateException, IOException {
+		
+		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
+		
+		File dir = new File("D:/upload/kh16/hotel");
+		File target = new File(dir, savename);
+		file.transferTo(target);
+		
+		rfdto.setR_file_name(savename);
+		rfdto.setR_file_type(file.getContentType());
+		
+		return rfdto;
 	}
 
 }

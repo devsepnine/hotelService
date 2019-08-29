@@ -19,7 +19,7 @@ import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.repository.HotelDao;
-import com.pick.hotels.repository.RoomFileDao;
+import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.service.FileService;
 
 @Controller
@@ -33,7 +33,7 @@ public class HotelController {
 	private FileService fileService;
 	
 	@Autowired
-	private RoomFileDao roomFileDao;
+	private HotelFileDao hotelFileDao;
 	
 	@GetMapping("/search")
 	public String search(Model model) {
@@ -53,7 +53,10 @@ public class HotelController {
 	}
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute HotelDto hotelDto,HttpSession session,Model model, @RequestParam MultipartFile file,
-			@RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws IllegalStateException, IOException {
+			@RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3,
+			@RequestParam MultipartFile file4, @RequestParam MultipartFile file5, @RequestParam MultipartFile file6,
+			@RequestParam MultipartFile file7, @RequestParam MultipartFile file8, @RequestParam MultipartFile file9,
+			@RequestParam MultipartFile file10) throws IllegalStateException, IOException {
 		
 		int seller_no = (int)session.getAttribute("s_no");
 		hotelDto.setSeller_no(seller_no);
@@ -72,8 +75,6 @@ public class HotelController {
 		
 		int no = hotelDao.getSequenceNumber();
 		hotelDto.setHotel_no(no);
-		System.out.println(hotelDto);
-		System.out.println(hotelDto.getHotel_no());
 		hotelDao.regist(hotelDto);
 		
 		if(!file.isEmpty()) {
@@ -86,7 +87,6 @@ public class HotelController {
 		}
 		
 		
-		System.out.println("=============================================================");
 		if(!file1.isEmpty()) {
 			HotelFileDto hfdto = HotelFileDto.builder()
 														.hotel_no(no)
@@ -94,7 +94,7 @@ public class HotelController {
 			
 			hfdto =  fileService.hotel_save(file1, hfdto);
 			
-			roomFileDao.regist(hfdto);
+			hotelFileDao.regist(hfdto);
 		}
 		
 		if(!file2.isEmpty()) {
@@ -104,17 +104,84 @@ public class HotelController {
 			
 			hfdto =  fileService.hotel_save(file2, hfdto);
 			
-			roomFileDao.regist(hfdto);
+			hotelFileDao.regist(hfdto);
 		}
 		
 		if(!file3.isEmpty()) {
 			HotelFileDto hfdto = HotelFileDto.builder()
-														.hotel_no(hotelDto.getHotel_no())
+														.hotel_no(no)
 														.build();
 			
 			hfdto =  fileService.hotel_save(file3, hfdto);
 			
-			roomFileDao.regist(hfdto);
+			hotelFileDao.regist(hfdto);
+		}
+		if(!file4.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file4, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file5.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file5, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file6.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file6, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		if(!file7.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file7, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file8.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file8, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file9.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file9, hfdto);
+			
+			hotelFileDao.regist(hfdto);
+		}
+		if(!file10.isEmpty()) {
+			HotelFileDto hfdto = HotelFileDto.builder()
+														.hotel_no(no)
+														.build();
+			
+			hfdto =  fileService.hotel_save(file10, hfdto);
+			
+			hotelFileDao.regist(hfdto);
 		}
 		model.addAttribute("hotel_no",hotelDto.getHotel_no());
 		
