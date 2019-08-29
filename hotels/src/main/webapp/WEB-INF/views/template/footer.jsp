@@ -22,6 +22,8 @@
 		display: inline-block;
 	}
 </style>
+
+
 </div>
 <footer>
 	<div class="footer-info">

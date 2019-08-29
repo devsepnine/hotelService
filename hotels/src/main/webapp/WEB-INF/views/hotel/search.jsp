@@ -67,7 +67,7 @@
 	    	padding: 10px;
 	    	margin-bottom: 10px;
 	    }
-	    .hotel-list img{
+	    .hotel-list .thum-nail img{
 	    	border-radius: 10px;
 	    }
 	    .ico-wrap img{
@@ -285,13 +285,17 @@ $(function(){
 			<li>
 				<div class="thum-nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" src="https://q-ak.bstatic.com/xdata/images/hotel/square200/7538404.webp?k=7f6ee80d4b6d3acea301b5c450862a69f0b107f682f435986e2cf31a05552fbb&o="></div>
 				<div class="detail" style="width: 700px;display: inline-block;">
-					<div class="hotel-title-wrap"><h2 style="display: block;">${h_con.hotel_name }</h2></div>
+					<div class="hotel-title-wrap">
+					<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
 					<div class="hotel-star">
-					    <div class="star-wrap" data-star=${h_con.hotel_star}>
+					    <div style="display: inline-block;" class="star-wrap" data-star=${h_con.hotel_star}>
 					        <img src="${pageContext.request.contextPath}/img/star/star.png">        
 					        <div class="star-paint"></div>
 					    </div>
 					</div>
+					
+					</div>
+					
 					<div class="ico-wrap" style="display: inline-block;">
 						<img alt="" src="${pageContext.request.contextPath}/img/ico/bbq.png">
 						<img alt="" src="${pageContext.request.contextPath}/img/ico/karaoke.png">
@@ -305,8 +309,10 @@ $(function(){
 						<img alt="" src="${pageContext.request.contextPath}/img/ico/sauna.png">
 					</div>
 				</div>
+				
 				<div class="price-review" style="width: 95px;display: inline-block;">
-					<font>${h_con.max_price } <i class="fi fi-h-currency"></i></font>
+					<p>객실 수 : ${h_con.room_cnt }</p>
+					<font>가격 : ${h_con.max_price } <i class="fi fi-h-currency"></i></font>
 				</div>
 			</li>
 			</a>
