@@ -50,6 +50,14 @@
         display: none;
         transition: left .3s ease-in;
     }
+    .admin-btn{
+    	position:fixed;
+    	top : 10px;
+		right: 70px;
+        height: 100px;
+        z-index: 999;
+        transition: left .3s ease-in;
+    }
     .sidebar {
 	    position: fixed;
 	    width: 250px;
@@ -140,6 +148,9 @@
 	</c:choose>
 </div>
 </div>
+</div>
+<div class="admin-btn">
+<a href="${pageContext.request.contextPath}/admin/main"><span class="btn btn-outline-primary">관리자 페이지</span></a>
 </div>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
