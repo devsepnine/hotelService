@@ -55,10 +55,10 @@
 	    height: 100%;
 	    min-height:1080px;
 /* 	    background-color : #f1e3c4; */
-		background-image : url("${pageContext.request.contextPath}/img/see.jpg");
+		background-image : url("${pageContext.request.contextPath}/img/vintage.jpg");
 		background-repeat:no-repeat;
 		background-size:auto 100%;
-	   	box-shadow:2px 2px 5px #f5fff1;
+	   	box-shadow:1px 1px 3px #3e2b2c;
 	    z-index: 999;
         transition: margin .3s ease-in;
     }
@@ -90,7 +90,7 @@
     }
     .sidebar-list p a{
     	font-size: 25px;
-    	color: #81725f;
+    	color: #9e967c;
     }
     @media (max-width:1250px) {
        .sidebar {
