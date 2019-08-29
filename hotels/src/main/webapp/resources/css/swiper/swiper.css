@@ -17,6 +17,7 @@
   padding: 0;
   /* Fix of Webkit flickering */
   z-index: 1;
+  border: none;
 }
 .swiper-container-no-flexbox .swiper-slide {
   float: left;
@@ -73,6 +74,7 @@
   -o-transition-property: transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
+  border: none;
 }
 .swiper-slide-invisible-blank {
   visibility: hidden;

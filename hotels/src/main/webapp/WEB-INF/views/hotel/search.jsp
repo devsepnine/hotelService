@@ -76,7 +76,6 @@ $(function(){
 			console.log(size);
 			for(var i=0; i<size; i++){
 				region_list.push(data[i].region_kor_name);
-				region_list.push(data[i].region_eng_name);
 			}
 		}
 	})
@@ -175,6 +174,11 @@ $(function(){
 		//날짜 차이 구하는 함수
 		function dateMath() {
 			if(startday != null && lastday!=null){
+				var gap = Date.parse(lastday)-Date.parse(startday);
+				if(gap<0){
+					alert("체크인 날자가 체크아웃보다 뒤에 있습니다.")
+					return;
+				}
 				var diff = dateDiff(startday, lastday)
 				$(".diff").text(diff);
 				if(diff>30){

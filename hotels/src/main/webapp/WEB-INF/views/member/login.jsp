@@ -55,8 +55,8 @@ input[name=m_id], input[name=m_pw]{
 
 <div style="height: 100px"></div>
 <div style="width: 510px;margin: auto;">
-	<a href="${pageContext.request.contextPath}/member/login"><span style="width: 250px;" class="btn btn-outline-secondary">회원</span></a>
-	<a href="${pageContext.request.contextPath}/seller/login"><span style="width: 250px;" class="btn btn-outline-info">호텔매니저</span></a>
+	<a><span style="width: 250px;" class="btn btn-danger">회원</span></a>
+	<a href="${pageContext.request.contextPath}/seller/login"><span style="width: 250px;" class="btn btn-outline-danger">호텔매니저</span></a>
 </div>
 <div align="center" class="content-line">
 	<form action="login" method="post" class="form form-label">

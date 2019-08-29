@@ -88,7 +88,6 @@ $(function(){
 			console.log(size);
 			for(var i=0; i<size; i++){
 				region_list.push(data[i].region_kor_name);
-				region_list.push(data[i].region_eng_name);
 			}
 		}
 	})
@@ -107,7 +106,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="date1" required/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="체크인" name="date1" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -116,7 +115,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" name="date2" required/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="체크아웃" name="date2" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
