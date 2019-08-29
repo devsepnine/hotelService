@@ -150,7 +150,7 @@ form label {
 	<br>
 	<h1>가입 정보 입력</h1>
 	<br>
-	<form action="regist" method="post">
+	<form action="regist" method="post" enctype="multipart/form-data">
 		<div>
 			<table>
 				<tbody>
@@ -222,11 +222,11 @@ form label {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<input type="file" name="hotel_title" required>
-							<input type="file" name=file1 accept = ".jpg, .png, .gif" required>
-							<input type="file" name=file2 accept = ".jpg, .png, .gif" required>
-							<input type="file" name=file3 accept = ".jpg, .png, .gif" required>
+						<td colspan="2">
+							<input type="file" name="file" accept = ".jpg, .png, .gif" required><br>
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" required><br>
+							<input type="file" name="file2" accept = ".jpg, .png, .gif" required><br>
+							<input type="file" name="file3" accept = ".jpg, .png, .gif" required>
 						</td>
 					</tr>
 					

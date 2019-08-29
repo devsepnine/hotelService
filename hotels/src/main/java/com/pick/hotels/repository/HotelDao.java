@@ -13,4 +13,6 @@ public interface HotelDao {
 
 	List<HotelListVo> get_h_list();
 
+	public int getSequenceNumber();
+
 }

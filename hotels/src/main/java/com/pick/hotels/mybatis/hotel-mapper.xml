@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="hotel">
 	<insert id="regist" parameterType="hotelDto">
 		insert into hotel values(
-			hotel_seq.nextval, #{hotel_name}, #{hotel_tel}, #{hotel_zip_code}, 
+			#{hotel_no}, #{hotel_name}, #{hotel_tel}, #{hotel_zip_code}, 
 			#{hotel_basic_addr}, #{hotel_detail_addr},#{hotel_longitude}, 
 			#{hotel_latitude}, #{hotel_content}, #{hotel_star}, #{hotel_parking}, 
 			#{hotel_fitness},#{hotel_pool}, #{hotel_sauna}, #{hotel_lounge}, 
@@ -30,6 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join Room R on H.hotel_no = R.hotel_no
 		group by h.hotel_no, H.hotel_name, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet
 		order by max_price desc
+	</select>
+	
+		<!-- 시퀀스 번호 -->
+	<select id="seq" resultType="int">
+		select hotel_seq.nextval from dual
 	</select>
 	
 </mapper>

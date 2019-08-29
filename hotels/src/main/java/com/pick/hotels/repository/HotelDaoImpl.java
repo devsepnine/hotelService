@@ -32,4 +32,9 @@ public class HotelDaoImpl implements HotelDao{
 		return list;
 	}
 
+	@Override
+	public int getSequenceNumber() {
+		return sqlSession.selectOne("hotel.seq");
+	}
+
 }
