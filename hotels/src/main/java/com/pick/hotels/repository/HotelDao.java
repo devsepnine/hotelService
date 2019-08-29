@@ -9,7 +9,7 @@ public interface HotelDao {
 
 	public void regist(HotelDto hotelDto);
 
-	List<HotelDto> list(String seller_id);
+	List<HotelDto> list(int seller_no);
 
 	List<HotelListVo> get_h_list();
 

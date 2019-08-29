@@ -100,8 +100,8 @@ form label {
 					     if (status === kakao.maps.services.Status.OK) {
 			
 					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-					        var longitude = result[0].y;
-					        var latitude = result[0].x;
+					        var latitude = result[0].y;
+					        var longitude = result[0].x;
 					        $("#h_longitude").val(longitude);
 					        $("#h_latitude").val(latitude);
 			
@@ -224,6 +224,9 @@ form label {
 					<tr>
 						<td>
 							<input type="file" name="hotel_title" required>
+							<input type="file" name=file1 accept = ".jpg, .png, .gif" required>
+							<input type="file" name=file2 accept = ".jpg, .png, .gif" required>
+							<input type="file" name=file3 accept = ".jpg, .png, .gif" required>
 						</td>
 					</tr>
 					
