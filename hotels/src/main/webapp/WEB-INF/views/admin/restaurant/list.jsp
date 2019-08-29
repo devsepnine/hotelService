@@ -126,7 +126,7 @@
 <div class="content-line">
 <div class="list_wrap">
 <div class="headtit">
-<h3>관광지 리스트</h3>
+<h3>레스토랑 리스트</h3>
 </div>
 <div class="table-box">
 <table class="table_ny_two" border="1" >
@@ -134,32 +134,32 @@
 	<thead>
 		<tr>
 			<th width="15%">번호</th>
-			<th width="35%">관광지 이름</th>
+			<th width="35%">레스토랑 이름</th>
 			<th width="50%">주소</th>
 		</tr>
 	</thead>
 	<!-- 게시글 -->
 	<tbody align="center">
-		<c:forEach var="adto" items="${list}">
+		<c:forEach var="rdto" items="${list}">
 		<tr>
-			<td>${adto.attraction_no}</td>
+			<td>${rdto.restaurant_no}</td>
 			<td>
 				
 				<%-- content로 가기 위해 no를 첨부한다 --%>
-				<a href="detail?no=${adto.attraction_no}">
-					${adto.attraction_name}
+				<a href="detail?no=${rdto.restaurant_no}">
+					${rdto.restaurant_name}
 				</a>
 				
 			</td>
-			<td>${adto.attraction_addr1} ${adto.attraction_addr2}</td>
+			<td>${rdto.restaurant_addr1} ${rdto.restaurant_addr2}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
-		<!-- 관광지 등록 버튼 -->
+		<!-- 레스토랑 등록 버튼 -->
 		<tfoot>
 			<tr>
 				<td colspan="8" align="right" >
-					<a href="regist" class="btn btn-danger">관광지 등록</a>
+					<a href="regist" class="btn btn-danger">레스토랑 등록</a>
 				</td>
 			</tr>
 		</tfoot>
@@ -174,8 +174,8 @@
 <input type="hidden" name="page" value="1">
 
 <select name="type" class="custom-select" style="width:120px">
-	<option value="attraction_name">관광지명</option>
-	<option value="attraction_addr1">주소</option>
+	<option value="restaurant_name">레스토랑명</option>
+	<option value="restaurant_addr1">주소</option>
 </select>
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">

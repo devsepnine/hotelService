@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	이 파일은 SQL 명령만 보관하는 파일
+	따라서 외부에서 접근할 수 있도록 namespace를 지정
+ -->
+ 
+ <mapper namespace="restaurantFile">
+ 
+ 	<!-- 관광지 사진 등록하기 -->
+ 	<insert id="regist" parameterType="restaurantFileDto">
+ 		insert into restaurant_file values(#{restaurant_no}, restaurant_file_seq.nextval, #{restaurant_file_name}, #{restaurant_file_type})
+ 	</insert>
+ 	
+ 	<!-- 관광지 사진 상세보기 -->
+ 	<select id="get" parameterType="int" resultType="restaurantFileDto">
+		select * from restaurant_file where restaurant_file_no = #{restaurant_file_no}
+ 	</select>
+ 	
+ 	<!-- 관광지 사진 삭제 -->
+ 	<delete id="exit" parameterType="int">
+ 		delete restaurant_file where restaurant_file_no = #{restaurant_file_no}
+ 	</delete>
+	
+	<!-- 관광지 이미지 리스트 -->
+	<select id="getlist" parameterType="int" resultType="restaurantFileDto">
+		select * from restaurant_file where restaurant_no = #{restaurant_no}
+	</select>
+ 	                                                                                
+ </mapper>
