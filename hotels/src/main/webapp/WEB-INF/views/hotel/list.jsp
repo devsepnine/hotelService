@@ -65,7 +65,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<input class="btn btn-danger" type="button" name="#" value="호텔등록">
+	<a href="${pageContext.request.contextPath}/hotel/regist"><input class="btn btn-danger" type="button" name="#" value="호텔등록"></a>
 	<input class="btn btn-danger" type="button" name="#" value="선택삭제">
 </div>
 

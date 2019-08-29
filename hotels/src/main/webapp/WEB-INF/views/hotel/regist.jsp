@@ -26,6 +26,10 @@ form label {
 .cert_check{
  	display: none; 
 }
+.Thumbnail{
+	color: black;
+	font-size: 1.5rem;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
@@ -148,7 +152,7 @@ form label {
 
 <div class="regist-wrap" align="center">
 	<br>
-	<h1>가입 정보 입력</h1>
+	<h1>호텔 등록 페이지</h1>
 	<br>
 	<form action="regist" method="post" enctype="multipart/form-data">
 		<div>
@@ -223,10 +227,19 @@ form label {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="file" name="file" accept = ".jpg, .png, .gif" required><br>
-							<input type="file" name="file1" accept = ".jpg, .png, .gif" required><br>
-							<input type="file" name="file2" accept = ".jpg, .png, .gif" required><br>
-							<input type="file" name="file3" accept = ".jpg, .png, .gif" required>
+							<p class="Thumbnail">썸네일 사진  </p><input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
+							
+							<p class="Thumbnail">호텔 사진</p>
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
+							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file4" accept = ".jpg, .png, .gif" ><br><br>
+							<input type="file" name="file5" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file6" accept = ".jpg, .png, .gif" ><br><br>
+							<input type="file" name="file7" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file8" accept = ".jpg, .png, .gif" ><br><br>
+							<input type="file" name="file9" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file10" accept = ".jpg, .png, .gif" >
 						</td>
 					</tr>
 					

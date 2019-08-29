@@ -70,7 +70,6 @@ public class SellerController {
 		
 		boolean result = sellerDao.regist(sellerDto);
 		session.removeAttribute("sellerDto");
-		System.out.println(sellerDto);
 		if(result)
 			return "seller/regist_result";
 		else
@@ -156,7 +155,6 @@ public class SellerController {
 	public String info(HttpSession session, Model model) {
 		String seller_id = (String) session.getAttribute("s_ok");
 		SellerDto sellerDto = sellerDao.getId(seller_id);
-		System.out.println(sellerDto);
 		model.addAttribute("sdto", sellerDto);
 		return "seller/info";
 	}
@@ -181,7 +179,6 @@ public class SellerController {
 	@PostMapping("/change")
 	public String change(@ModelAttribute SellerDto sellerDto, HttpSession session) {
 		sellerDto.setSeller_id((String) session.getAttribute("s_ok"));
-		System.out.println(sellerDto);
 		sellerDao.change(sellerDto);
 		return "redirect:info";
 	}
@@ -245,7 +242,6 @@ public class SellerController {
 			Model model) throws IOException {
 		CertDto certDto = CertDto.builder().cert_who(seller_no).cert_no(no).build();
 		boolean result = certDao.validate(certDto);
-		System.out.println(result);
 		certDao.delete(certDto);
 		SellerDto sdto = sellerDao.get(seller_no);
 		if(result && sdto != null) {
