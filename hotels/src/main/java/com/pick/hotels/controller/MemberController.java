@@ -320,15 +320,28 @@ public class MemberController {
 		int member_no = (int) session.getAttribute("no");
 		
 		List<WishListVO> list = wishDao.list(member_no);
-		System.out.println(list);
 		
 		model.addAttribute("wdto", list);
 		return "member/wish_list";
 	}
 	
 	
+	@PostMapping("/wish_in")
+	public void wish_in(HttpSession session, HttpServletResponse resp) throws IOException {
+		int member_no = (int) session.getAttribute("no");
+		boolean result = wishDao.regist(member_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+		
+	}
 	
 	
+	
+
 	
 	
 }

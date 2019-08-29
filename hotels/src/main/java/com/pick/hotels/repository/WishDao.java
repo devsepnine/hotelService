@@ -9,6 +9,8 @@ public interface WishDao {
 
 	List<WishListVO> list(int member_no);
 
+	boolean regist(int member_no);
+
 	
 
 }
