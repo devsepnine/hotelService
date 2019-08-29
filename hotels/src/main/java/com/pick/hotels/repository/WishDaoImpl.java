@@ -20,4 +20,16 @@ public class WishDaoImpl implements WishDao{
 		return sqlSession.selectList("wish.list",member_no);
 	}
 
+	@Override
+	public boolean regist(int member_no) {
+		try {
+			sqlSession.insert("wish.regist", member_no);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

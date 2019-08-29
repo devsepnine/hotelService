@@ -3,8 +3,24 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<h2>비밀번호 변경이 완료되었습니다</h2>
-<h3><a href="login">로그인 할래요?</a></h3>
-<h3><a href="${pageContext.request.contextPath}">메인으로 갈래요?</a></h3>
+<style>
+	.new-pw-wrap{
+		padding: 80px;
+		border: 5px solid white;
+		width: 600x;
+		margin: auto;
+		margin-top:10px;
+		box-shadow: 2px 2px 10px #EAEAEA;
+	}
+	.ab{
+		margin: 10px;
+	}
+</style>
 
+<div align="center" class="new-pw-wrap ">
+	<h2>비밀번호 변경이 완료되었습니다</h2>
+	<br>
+	<a href="login"><input type="button" style="width: 90.14px;" class="btn btn-danger ab" value="로그인"></a>
+	<a href="${pageContext.request.contextPath}"><input type="button" class="btn btn-danger ab" value="메인화면"></a>
+</div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
