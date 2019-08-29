@@ -55,7 +55,6 @@
 				resizeReInit: true,
 				effect: 'fade',
 				autoResize: true
-
 		    })
 	})
 </script>

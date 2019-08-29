@@ -32,7 +32,7 @@
 	    	vertical-align: middle;
 	    	display: table;
 	    }
-	    .keywordArea .keywordArea_key>.custom-control{
+	    .keywordArea .keywordArea-key>.custom-control{
 	    	display: inline-block;
 	    	width: 100px;
 	    }
@@ -75,9 +75,9 @@
 	    	margin-left: 5px;
 	    	margin-right: 5px;
 	    }
-		a:link { color: red; text-decoration: none;}
+		a:link { color: black; text-decoration: none;}
 		a:visited { color: black; text-decoration: none;}
-		a:hover { color: blue; text-decoration: none;}
+		a:hover { color: black; text-decoration: none;}
 	</style>
 <script>
 $(function(){
@@ -283,7 +283,7 @@ $(function(){
 			<c:forEach var="h_con" items="${h_list}">
 			<a href="view?h_no=${h_con.hotel_no}">
 			<li>
-				<div class="thum-nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" src="https://q-ak.bstatic.com/xdata/images/hotel/square200/7538404.webp?k=7f6ee80d4b6d3acea301b5c450862a69f0b107f682f435986e2cf31a05552fbb&o="></div>
+				<div class="thum-nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="https://a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/responsive/980/a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/u/park-hotel-yeongdeungpo-seoul-201/homepage/Deluxe-Oak-Room.jpg"></div>
 				<div class="detail" style="width: 700px;display: inline-block;">
 					<div class="hotel-title-wrap">
 					<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
@@ -293,20 +293,29 @@ $(function(){
 					        <div class="star-paint"></div>
 					    </div>
 					</div>
-					
 					</div>
 					
 					<div class="ico-wrap" style="display: inline-block;">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/bbq.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/karaoke.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/cafe.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/conveni.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/fitness.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/internet.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/lounge.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/parking.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/pool.png">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/sauna.png">
+						<c:if test="${h_con.hotel_bbq=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
+						<c:if test="${h_con.hotel_karaoke=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/karaoke.png"></c:if>
+						<c:if test="${h_con.hotel_cafe=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/cafe.png"></c:if>
+						<c:if test="${h_con.hotel_convenience_store=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/conveni.png"></c:if>
+						<c:if test="${h_con.hotel_fitness=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/fitness.png"></c:if>
+						<c:if test="${h_con.hotel_internet=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/internet.png"></c:if>
+						<c:if test="${h_con.hotel_lounge=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/lounge.png"></c:if>
+						<c:if test="${h_con.hotel_parking=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/parking.png"></c:if>
+						<c:if test="${h_con.hotel_pool=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
+						<c:if test="${h_con.hotel_sauna=='Y'}">
+						<img alt="" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
 				</div>
 				
