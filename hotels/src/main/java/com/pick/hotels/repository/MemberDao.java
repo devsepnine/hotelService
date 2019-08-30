@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import com.pick.hotels.entity.MemberDto;
 
 public interface MemberDao {
@@ -16,6 +18,11 @@ public interface MemberDao {
 	MemberDto checkPw(MemberDto memberDto);
 	
 	
-//	나연이가 만든거	      
+//------------------------------------------------------------------------------------
+//	관리자
+//------------------------------------------------------------------------------------    
 	MemberDto get(int notice_writer);
+	List<MemberDto> list(String type, String keyword, int start, int end);
+	int count(String type, String keyword);
+	
 }
