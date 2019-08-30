@@ -3,7 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/admin/template/header.jsp"></jsp:include>
 
 <!-- 자바스크립트를 이용하여 페이지 이동을 처리 -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -33,8 +33,15 @@
 </script>
 
 <style>
-	.list_wrap > *{
+	.table_ny_two thead,
+	.table_ny_two tbody{
 		color:black;
+	}
+	.table_ny_two > thead > tr > th {
+		font-size: 15px;
+	}
+	.table_ny_two tbody > tr > td{
+		font-size: 13px;
 	}
 	
 	.empty {
