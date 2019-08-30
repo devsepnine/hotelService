@@ -75,4 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete hotel where hotel_no = #{hotel_no}
 	</delete>
 	
+	<select id="get" parameterType="int" resultType="hotelDto">
+		select * from hotel where hotel_no = #{hotel_no}
+ 	</select>
+	
 </mapper>
