@@ -83,6 +83,7 @@
 $(function(){
 <!-- 자동완성 스크립트 -->
 	var region_list = new Array;
+	$('[data-toggle="tooltip"]').tooltip();
 	$.ajax({
 		type:'post',
 		url : "${pageContext.request.contextPath}/region",
@@ -115,7 +116,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
-               <input type="text" name="date1" class="form-control datetimepicker-input" value="${param.date1}" data-target="#datetimepicker1" required/>
+               <input type="text" name="date1" class="form-control datetimepicker-input" value="${param.date1}" placeholder="체크 인" data-target="#datetimepicker1" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -124,7 +125,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" name="date2" class="form-control datetimepicker-input" value="${param.date2}" data-target="#datetimepicker2" required/>
+               <input type="text" name="date2" class="form-control datetimepicker-input" value="${param.date2}" placeholder="체크 아웃" data-target="#datetimepicker2" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -132,12 +133,12 @@ $(function(){
        </div>
        
     <div class="form-group" style="width: 150px;display: inline-block;">
-	  <select class="custom-select" name="people">
-	    <option value="1">총 인원 1</option>
-	    <option value="2">총 인원 2</option>
-	    <option value="3">총 인원 3</option>
-	    <option value="4">총 인원 4</option>
-	    <option value="5">총 인원 5</option>
+	  <select class="custom-select" name="people" >
+	    <option value="1" ${param.people eq 1?"selected":""}>총 인원 1</option>
+	    <option value="2" ${param.people eq 2?"selected":""}>총 인원 2</option>
+	    <option value="3" ${param.people eq 3?"selected":""}>총 인원 3</option>
+	    <option value="4" ${param.people eq 4?"selected":""}>총 인원 4</option>
+	    <option value="5" ${param.people eq 5?"selected":""}>총 인원 5</option>
 	  </select>
 	</div>
 	<input class="btn btn-danger" type="submit" value="호텔 검색">
@@ -281,14 +282,17 @@ $(function(){
 	<div class="pick-hotel">
 		<ul class="hotel-list">
 			<c:forEach var="h_con" items="${h_list}">
-			<a href="view?h_no=${h_con.hotel_no}">
 			<li>
-				<div class="thum-nail" style="width: 205px;display: inline-block;"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="https://a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/responsive/980/a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/u/park-hotel-yeongdeungpo-seoul-201/homepage/Deluxe-Oak-Room.jpg"></div>
+			
+				<div class="thum-nail" style="width: 205px;display: inline-block;">
+					<a href="view?h_no=${h_con.hotel_no}"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="https://a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/responsive/980/a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/u/park-hotel-yeongdeungpo-seoul-201/homepage/Deluxe-Oak-Room.jpg"></a>
+				</div>
+				
 				<div class="detail" style="width: 700px;display: inline-block;">
 					<div class="hotel-title-wrap">
 					<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
 					<div class="hotel-star">
-					    <div style="display: inline-block;" class="star-wrap" data-star=${h_con.hotel_star}>
+					    <div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
 					        <img src="${pageContext.request.contextPath}/img/star/star.png">        
 					        <div class="star-paint"></div>
 					    </div>
@@ -297,25 +301,25 @@ $(function(){
 					
 					<div class="ico-wrap" style="display: inline-block;">
 						<c:if test="${h_con.hotel_bbq=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
 						<c:if test="${h_con.hotel_karaoke=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/karaoke.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="노래방" src="${pageContext.request.contextPath}/img/ico/karaoke.png"></c:if>
 						<c:if test="${h_con.hotel_cafe=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/cafe.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="카페" src="${pageContext.request.contextPath}/img/ico/cafe.png"></c:if>
 						<c:if test="${h_con.hotel_convenience_store=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/conveni.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="편의점" src="${pageContext.request.contextPath}/img/ico/conveni.png"></c:if>
 						<c:if test="${h_con.hotel_fitness=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/fitness.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="피트니스" src="${pageContext.request.contextPath}/img/ico/fitness.png"></c:if>
 						<c:if test="${h_con.hotel_internet=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/internet.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="인터넷" src="${pageContext.request.contextPath}/img/ico/internet.png"></c:if>
 						<c:if test="${h_con.hotel_lounge=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/lounge.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="라운지" src="${pageContext.request.contextPath}/img/ico/lounge.png"></c:if>
 						<c:if test="${h_con.hotel_parking=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/parking.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="주차장" src="${pageContext.request.contextPath}/img/ico/parking.png"></c:if>
 						<c:if test="${h_con.hotel_pool=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="수영장" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
 						<c:if test="${h_con.hotel_sauna=='Y'}">
-						<img alt="" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
+						<img alt="" data-toggle="tooltip" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
 				</div>
 				
@@ -324,7 +328,6 @@ $(function(){
 					<font>가격 : ${h_con.max_price } <i class="fi fi-h-currency"></i></font>
 				</div>
 			</li>
-			</a>
 			</c:forEach>
 		</ul>
 	</div>
