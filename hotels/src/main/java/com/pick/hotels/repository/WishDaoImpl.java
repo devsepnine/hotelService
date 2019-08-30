@@ -21,15 +21,32 @@ public class WishDaoImpl implements WishDao{
 	}
 
 	@Override
-	public boolean regist(int member_no) {
+	public boolean regist(WishDto wishDto) {
 		try {
-			sqlSession.insert("wish.regist", member_no);
+			sqlSession.insert("wish.regist", wishDto);
 			return true;
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean delete(WishDto wishDto) {
+		try {
+			sqlSession.delete("wish.delete", wishDto);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public WishDto get(WishDto wishDto) {
+		return sqlSession.selectOne("wish.wish_ckeck", wishDto);
 	}
 
 }

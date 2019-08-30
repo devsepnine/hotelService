@@ -326,22 +326,43 @@ public class MemberController {
 	}
 	
 	
-	@PostMapping("/wish_in")
-	public void wish_in(HttpSession session, HttpServletResponse resp) throws IOException {
+	@GetMapping("/wish_in")
+	public void wish_in(HttpSession session, HttpServletResponse resp, @RequestParam int hotel_no) throws IOException {
 		int member_no = (int) session.getAttribute("no");
-		boolean result = wishDao.regist(member_no);
-		if(result) {
-			resp.getWriter().print("Y");
-		}
-		else {
-			resp.getWriter().print("N");
+		WishDto wishDto = WishDto.builder().wish_member_no(member_no).wish_hotel_no(hotel_no).build();
+		//이미 위시리스트에 있는지 확인
+		
+		WishDto wdto = wishDao.get(wishDto);
+		
+		if(wdto!=null){
+			boolean out = wishDao.delete(wishDto);
+			
+			if(out) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
 		}
 		
-	}
-	
-	
-	
+		else{
+			boolean result = wishDao.regist(wishDto);
+			
+			
+			
+			if(result) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
+			
+			}
+			
+		}
+		
+		
+		
+		
 
-	
-	
 }
