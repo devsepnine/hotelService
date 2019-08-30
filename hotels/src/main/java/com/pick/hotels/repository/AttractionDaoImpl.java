@@ -77,6 +77,7 @@ public class AttractionDaoImpl implements AttractionDao{
 		sqlSession.update("attraction.edit", atdo);
 	}
 
+//	관광지 리스트에서 삭제
 	@Override
 	public boolean delete(int attraction_no) {
 		try {

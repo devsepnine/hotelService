@@ -430,6 +430,18 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+//	레스토랑 리스트에서 삭제("/restaurant/delete")
+	@GetMapping("/restaurant/delete")
+	public void delete_rt(@RequestParam int restaurant_no, HttpServletResponse resp) throws IOException {
+		boolean result = restaurantDao.delete(restaurant_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	
 //	레스토랑 상세보기("restaurant/detail")
 	@GetMapping("/restaurant/detail")
@@ -452,7 +464,8 @@ public class AdminController {
 						@RequestParam(required = false) String type,
 						@RequestParam(required = false) String keyword,
 						@RequestParam(required = false, defaultValue="1") int page,
-						Model model
+						Model model,
+						@RequestParam int no
 			) {
 		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);

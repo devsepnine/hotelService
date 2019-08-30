@@ -16,4 +16,5 @@ public interface RestaurantDao {
 	int count(String type, String keyword);
 	int getSequenceNumber();
 	void edit(RestaurantDto restaurantDto);
+	boolean delete(int restaurant_no);
 }

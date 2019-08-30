@@ -60,5 +60,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			set restaurant_name = #{restaurant_name}, restaurant_postcode = #{restaurant_postcode}, restaurant_addr1 = #{restaurant_addr1}, restaurant_addr2 = #{restaurant_addr2}, restaurant_lat = #{restaurant_lat}, restaurant_lng = #{restaurant_lng}, restaurant_info = #{restaurant_info}
 		where restaurant_no = #{restaurant_no}
 	</update>
+	
+	<!-- 레스토랑 리스트에서 수정 -->
+	<delete id="delete" parameterType="int">
+		delete restaurant where restaurant_no = #{restaurant_no}
+	</delete>
  	                                                                                
  </mapper>
