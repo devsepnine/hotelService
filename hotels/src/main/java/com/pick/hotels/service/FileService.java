@@ -31,7 +31,7 @@ public interface FileService {
 
 	RoomFileDto room_save(MultipartFile file, RoomFileDto rfdto) throws IllegalStateException, IOException;
 
-	HotelDto hotel_title_save(MultipartFile file, HotelDto hdto) throws IllegalStateException, IOException;
+	HotelDto hotel_title_save(MultipartFile file) throws IllegalStateException, IOException;
 
 	PartnerFileDto partner_save(MultipartFile file, PartnerFileDto pfdto) throws IllegalStateException, IOException;
 	
