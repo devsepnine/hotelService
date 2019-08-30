@@ -14,6 +14,7 @@ public class HotelFileDaoImpl implements HotelFileDao{
 	
 	@Override
 	public void regist(HotelFileDto hfdto) {
+		System.out.println(hfdto.getHotel_no());
 		sqlSession.insert("hotelFile.regist", hfdto);
 		
 	}

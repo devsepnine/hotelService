@@ -142,8 +142,6 @@ public class FileServiceImpl implements FileService{
 		hfdto.setH_file_name(savename);
 		hfdto.setH_file_type(file.getContentType());
 		
-
-		
 		return hfdto;
 	}
 
@@ -165,16 +163,14 @@ public class FileServiceImpl implements FileService{
 
 
 	@Override
-	public HotelDto hotel_title_save(MultipartFile file, HotelDto hdto) throws IllegalStateException, IOException {
+	public HotelDto hotel_title_save(MultipartFile file) throws IllegalStateException, IOException {
 		
 		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
 		
 		File dir = new File("D:/upload/kh16/hotel");
 		File target = new File(dir, savename);
 		file.transferTo(target);
-		hdto.setHotel_title(savename);
-
-		return hdto;
+		return HotelDto.builder().hotel_title(savename).build();
 	}
 
 
