@@ -245,7 +245,7 @@ form label {
 					
 					<tr>
 						<td colspan="2"><input class="btn btn-danger btn-block"
-							type="submit" style="margin-top: 30px;" value="등록하기" name="registbtn"></td>
+							type="submit" style="margin-top: 30px;" value="등록하기"></td>
 					</tr>
 				</tbody>
 			</table>
