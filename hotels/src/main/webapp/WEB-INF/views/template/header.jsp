@@ -52,11 +52,10 @@
     }
     .admin-btn{
     	position:fixed;
-    	top : 10px;
-		right: 70px;
-        height: 100px;
+    	top : 40%;
+		right: 10px;
         z-index: 999;
-        transition: left .3s ease-in;
+        margin: 0px;
     }
     .sidebar {
 	    position: fixed;
@@ -149,9 +148,11 @@
 </div>
 </div>
 </div>
+<c:if test="${sessionScope.auth eq '관리자' }">
 <div class="admin-btn">
-<a href="${pageContext.request.contextPath}/admin/main"><span class="btn btn-outline-primary">관리자 페이지</span></a>
+<a href="${pageContext.request.contextPath}/admin/main"><img alt="관리자버튼" src="${pageContext.request.contextPath}/img/button/admin_btn.png"></a>
 </div>
+</c:if>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
 	<button class="btn btn-default side-btn"><i style="color: #f1e3c4;" class="fa fa-bars fa-3x"></i></button>
