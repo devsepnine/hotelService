@@ -285,7 +285,7 @@ $(function(){
 			<li>
 			
 				<div class="thum-nail" style="width: 205px;display: inline-block;">
-					<a href="view?h_no=${h_con.hotel_no}"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="https://a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/responsive/980/a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/u/park-hotel-yeongdeungpo-seoul-201/homepage/Deluxe-Oak-Room.jpg"></a>
+					<a href="view?h_no=${h_con.hotel_no}"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/3?img_name=${h_con.hotel_title}"></a>
 				</div>
 				
 				<div class="detail" style="width: 700px;display: inline-block;">
