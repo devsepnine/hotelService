@@ -77,4 +77,16 @@ public class AttractionDaoImpl implements AttractionDao{
 		sqlSession.update("attraction.edit", atdo);
 	}
 
+	@Override
+	public boolean delete(int attraction_no) {
+		try {
+			sqlSession.insert("attraction.delete", attraction_no);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }
