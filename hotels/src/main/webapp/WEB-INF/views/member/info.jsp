@@ -42,7 +42,7 @@
 			</tr>
 			<tr>
 				<th>생년월일</th>
-				<td>${mdto.member_birthday}</td>
+				<td>${mdto.member_birthday.substring(0,10)}</td>
 			</tr>
 			<tr>
 				<th>연락처</th>
