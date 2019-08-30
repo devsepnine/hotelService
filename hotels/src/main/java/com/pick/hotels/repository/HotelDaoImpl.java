@@ -50,4 +50,9 @@ public class HotelDaoImpl implements HotelDao{
 		}
 	}
 
+	@Override
+	public HotelDto get(int hotel_no) {
+		return sqlSession.selectOne("hotel.get", hotel_no);
+	}
+
 }

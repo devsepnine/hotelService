@@ -225,7 +225,9 @@ public class HotelController {
 	}
 	
 	@GetMapping("/edit")
-	public String edit(@ModelAttribute HotelDto hotelDto, @ModelAttribute RoomDto roomDto, Model model) {
+	public String edit(@RequestParam int hotel_no, Model model) {
+		model.addAttribute("hdto", hotelDao.get(hotel_no));
+		model.addAttribute("hfdtolist", hotelFileDao.getlist(hotel_no));
 		return "hotel/edit";
 	}
 
