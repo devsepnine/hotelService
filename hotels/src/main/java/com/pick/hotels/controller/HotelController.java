@@ -20,6 +20,7 @@ import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.service.FileService;
@@ -221,6 +222,11 @@ public class HotelController {
 		else {
 			resp.getWriter().print("N");
 		}
+	}
+	
+	@GetMapping("/edit")
+	public String edit(@ModelAttribute HotelDto hotelDto, @ModelAttribute RoomDto roomDto, Model model) {
+		return "hotel/edit";
 	}
 
 }
