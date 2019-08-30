@@ -181,7 +181,7 @@ form label {
 							<input class="form-control" type="text" name="hotel_basic_addr"
 								placeholder="주소" required readonly>
 							<input class="form-control" type="text" name="hotel_detail_addr"
-								placeholder="상세주소" required>
+								placeholder="상세주소">
 						</td>
 					</tr>
 					<tr>
