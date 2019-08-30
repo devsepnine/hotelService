@@ -32,34 +32,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet
 		having
 		H.hotel_basic_addr like '%' ||  #{region} || '%' and
-		<if test="#{parking != null} ">
+		<if test="parking != null ">
 		H.hotel_parking = 'Y' and
 		</if>
-		<if test="#{fitness != null} ">
+		<if test="fitness != null">
 		H.hotel_fitness = 'Y' and
 		</if>
-		<if test="#{pool != null} ">
+		<if test="pool != null">
 		H.hotel_pool = 'Y' and
 		</if>
-		<if test="#{sauna != null} ">
+		<if test="sauna != null ">
 		H.hotel_sauna = 'Y' and
 		</if>
-		<if test="#{lounge != null} ">
+		<if test="lounge != null">
 		H.hotel_lounge = 'Y' and
 		</if>
-		<if test="#{bbq != null} ">
+		<if test="bbq != null ">
 		H.hotel_bbq = 'Y' and
 		</if>
-		<if test="#{cafe != null} ">
+		<if test="cafe != null ">
 		H.hotel_cafe = 'Y' and
 		</if>
-		<if test="#{conveni != null} ">
+		<if test="conveni != null ">
 		H.hotel_convenience_store = 'Y' and
 		</if>
-		<if test="#{karaoke != null} ">
+		<if test="karaoke != null ">
 		H.hotel_karaoke = 'Y' and
 		</if>
-		<if test="#{internet != null} ">
+		<if test="internet != null ">
 		H.hotel_internet = 'Y' and
 		</if>
 		max(R.room_people) >= #{people}
