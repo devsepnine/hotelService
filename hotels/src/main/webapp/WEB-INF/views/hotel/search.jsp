@@ -225,44 +225,44 @@ $(function(){
 	<div class="key-wrap">
 	<div class="keywordArea-key" style="width: 520px;text-align: left; display: table-cell;">
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
 	      <label class="custom-control-label" for="parking">주차장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="fitness" name="fitness" ${not empty param.fitness?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="fitness" name="fitness" ${not empty param.fitness?"checked":""}>
 	      <label class="custom-control-label" for="fitness">피트니스</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="pool" name="pool" ${not empty param.pool?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="pool" name="pool" ${not empty param.pool?"checked":""}>
 	      <label class="custom-control-label" for="pool">수영장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="sauna" name="sauna" ${not empty param.sauna?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="sauna" name="sauna" ${not empty param.sauna?"checked":""}>
 	      <label class="custom-control-label" for="sauna">사우나</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="lounge" name="lounge" ${not empty param.lounge?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="lounge" ${not empty param.lounge?"checked":""}>
 	      <label class="custom-control-label" for="lounge">라운지</label>
 	    </div>
 	    <div style="display: block;height: 15px;"></div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="bbq" name="bbq" ${not empty param.bbq?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="bbq" ${not empty param.bbq?"checked":""}>
 	      <label class="custom-control-label" for="bbq">바베큐장</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="cafe" name="cafe" ${not empty param.cafe?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="cafe" name="cafe" ${not empty param.cafe?"checked":""}>
 	      <label class="custom-control-label" for="cafe">카페</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="conveni" name="conveni" ${not empty param.conveni?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="conveni" name="conveni" ${not empty param.conveni?"checked":""}>
 	      <label class="custom-control-label" for="conveni">편의점</label>
 	    </div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="karaoke" name="karaoke" ${not empty param.karaoke?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="karaoke" name="karaoke" ${not empty param.karaoke?"checked":""}>
 	      <label class="custom-control-label" for="karaoke">노래방</label>
     	</div>
 	    <div class="custom-control custom-checkbox">
-	      <input type="checkbox" class="custom-control-input" id="internet" name="internet" ${not empty param.internet?"checked":""}>
+	      <input type="checkbox" value="Y" class="custom-control-input" id="internet" name="internet" ${not empty param.internet?"checked":""}>
 	      <label class="custom-control-label" for="internet">인터넷</label>
 	    </div>
 	</div>
@@ -325,7 +325,7 @@ $(function(){
 				
 				<div class="price-review" style="width: 95px;display: inline-block;">
 					<p>객실 수 : ${h_con.room_cnt }</p>
-					<font>가격 : ${h_con.max_price } <i class="fi fi-h-currency"></i></font>
+					<font>가격 : ${h_con.min_price } <i class="fi fi-h-currency"></i></font>
 				</div>
 			</li>
 			</c:forEach>

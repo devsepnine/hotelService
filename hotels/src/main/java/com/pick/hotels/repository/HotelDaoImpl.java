@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelListVo;
 
@@ -27,8 +28,8 @@ public class HotelDaoImpl implements HotelDao{
 	}
 
 	@Override
-	public List<HotelListVo> get_h_list() {
-		List<HotelListVo> list = sqlSession.selectList("hotel.search_list");
+	public List<HotelListVo> get_h_list(H_search_vo h_search_vo) {
+		List<HotelListVo> list = sqlSession.selectList("hotel.search_list", h_search_vo);
 		return list;
 	}
 
