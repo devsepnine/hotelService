@@ -15,10 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.service.FileService;
@@ -41,8 +43,16 @@ public class AdminController {
 	private RestaurantFileDao restaurantFileDao;
 	
 	@Autowired
+	private MemberDao memberDao;
+	
+	@Autowired
 	private FileService fileService;
 
+	
+//------------------------------------------------------------------------------------
+//	관광지
+//------------------------------------------------------------------------------------	
+	
 //	관광지 추가("/attraction/regist")
 	@GetMapping("/attraction/regist")
 	public String regist() {
@@ -248,7 +258,11 @@ public class AdminController {
 		return "admin/attraction/list";
 	}
 	
-	
+
+//------------------------------------------------------------------------------------
+//	레스토랑
+//------------------------------------------------------------------------------------
+
 //	레스토랑 추가("/restaurant/regist")
 	@GetMapping("/restaurant/regist")
 	public String regist_rt() {
@@ -416,7 +430,7 @@ public class AdminController {
 	}
 	
 	
-//	레스토랑 전체 리스트 +검색("/restaurant/list")
+//	레스토랑 전체 리스트 + 검색("/restaurant/list")
 	@GetMapping("/restaurant/list")
 	public String list_rt(
 						@RequestParam(required = false) String type,
@@ -454,6 +468,10 @@ public class AdminController {
 		return "admin/restaurant/list";
 	}
 	
+
+//------------------------------------------------------------------------------------
+//	쿠폰
+//------------------------------------------------------------------------------------	
 	
 //	쿠폰 추가("/coupon/regist")
 //	쿠폰 수정("/coupon/edit")
@@ -461,16 +479,71 @@ public class AdminController {
 //	쿠폰 상세보기("/coupon/detail")
 //	쿠폰 전체 리스트 + 검색("/coupon/list")
 	
+//	전체 관리 페이지("main")
+	@GetMapping("/main")
+	public String main() {
+		return "admin/main";
+	}
+
 	
+//------------------------------------------------------------------------------------
+//	회원 관리
+//------------------------------------------------------------------------------------	
+
 //	회원 정보 상세보기("/member/detail")
 //	회원 정보 수정("/member/edit")
 //	회원 탈퇴("/member/exit")
 //	전체 회원 리스트  + 검색("/member/list")
+	@GetMapping("/member/list")
+	public String list_member(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = memberDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<MemberDto> list = memberDao.list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/member/list";
+	}
 
+	
+//------------------------------------------------------------------------------------
+//	판매자 관리
+//------------------------------------------------------------------------------------
 	
 //	판매자 정보 상세보기("/seller/detail")
 //	판매자 정보 수정("/seller/edit")
 //	판매자 탈퇴("/seller/exit")
 //	전체 판매자 리스트 + 검색("/seller/list")
+	
+	
+//------------------------------------------------------------------------------------
+//	제휴 관리
+//------------------------------------------------------------------------------------
 	
 }
