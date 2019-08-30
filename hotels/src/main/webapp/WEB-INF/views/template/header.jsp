@@ -55,6 +55,14 @@
 		right: 80px;
         z-index: 999;
         margin: 0px;
+        font-size: 15px;
+        color:#ffd700;
+        border-radius:10px;
+        padding:10px;
+        background-color: #3e2b2c;
+    }
+    .admin-btn:hover{
+    	background-color: #726454;
     }
     .sidebar {
 	    position: fixed;
@@ -150,7 +158,7 @@
 <c:if test="${sessionScope.auth eq '관리자' }">
 <div class="admin-btn">
 	<a href="${pageContext.request.contextPath}/admin/main">
-		<span class="btn btn-danger admin-btn" style="font-size: 15px;color:#ffd700;border-radius: 10px;padding: 10px;"><i class="fa fa-key"></i>관리자</span>
+		<span class="btn btn-danger admin-btn"><i class="fa fa-key"></i>&nbsp;&nbsp;관리자</span>
 	</a>
 </div>
 </c:if>
