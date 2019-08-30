@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class PartnerFileDto {
-	private int		partner_no, p_file_no;
-	private String	p_file_name, p_file_type;
+public class PartnerDto {
+	private String partner_name, partner_tel, partner_content, partner_type;
+	private int hotel_no, partner_no;
+	private float partner_longitude, partner_latitude;
 }

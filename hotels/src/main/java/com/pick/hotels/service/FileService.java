@@ -9,6 +9,7 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
+import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RoomFileDto;
 
@@ -31,5 +32,7 @@ public interface FileService {
 	RoomFileDto room_save(MultipartFile file, RoomFileDto rfdto) throws IllegalStateException, IOException;
 
 	HotelDto hotel_title_save(MultipartFile file, HotelDto hdto) throws IllegalStateException, IOException;
+
+	PartnerFileDto partner_save(MultipartFile file, PartnerFileDto pfdto) throws IllegalStateException, IOException;
 	
 }

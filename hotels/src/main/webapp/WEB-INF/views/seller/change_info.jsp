@@ -59,6 +59,29 @@ $(function(){
     }
 });
 
+
+	function checkPhone() {
+		var s_phone = document.querySelector("#s_phone").value;
+		var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
+
+		//정규표현식으로 s_phone값 검사
+		var result = regex.test(s_phone);
+
+		var div = document.querySelector(".s_phoneD");
+
+		if (result) {
+			div.innerHTML = ""
+		}
+
+		//m_phone이 형식에 맞지 않으면 메세지 춮력
+		else {
+			div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
+
+		}
+	}
+
+
+
 </script>
 <style>
 	.info-wrap{
@@ -100,7 +123,10 @@ $(function(){
 				<tr>
 					<td>연락처</td>
 					<td>
-						<input class="form-control" type="text" name="seller_phone" value="${sdto.seller_phone}">
+						<input class="form-control" onblur="checkPhone();"
+							type="tel" placeholder="-없이 번호만 입력하세요" name="seller_phone" id="s_phone"
+							pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" value="${sdto.seller_phone}" required>
+							<div class="s_phoneD"></div>
 					</td>
 				</tr>
 				<tr>

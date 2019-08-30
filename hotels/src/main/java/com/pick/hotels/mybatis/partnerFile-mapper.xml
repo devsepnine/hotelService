@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  	<!-- 제휴 사진 등록하기 -->
  	<insert id="regist" parameterType="partnerFileDto">
- 		insert into r_file values(#{hotel_no}, r_file_seq.nextval, #{r_file_name}, #{r_file_type})
+ 		insert into p_file values(#{partner_no}, p_file_seq.nextval, #{p_file_name}, #{p_file_type})
  	</insert>
  	
  	                                                                                

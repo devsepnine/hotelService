@@ -30,6 +30,9 @@
 	$(function(){
 		$(".delete_btn").click(
 			function() {
+				//this == button
+				var that = this;
+				
 				$.ajax({
 					url : "delete",
 					data : {
@@ -37,8 +40,10 @@
 					},
 					dataType : "text",
 					success : function(resp) {
+						//console.log(this);
+						
 						if (resp == "Y") {
-							$(".hotel_info").delete()
+ 							$(that).parents(".hotel_info").remove();							
 						}
 						else {
 							
@@ -82,7 +87,7 @@
 		<table class="table table-hamburg table-stripe hotel_info">
 			<tbody>
 					<tr>
-						<td rowspan="3" style="width: 180px;"><a href="content?no=${hdto.hotel_no}"><img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}" width="200px" height="200px"></a></td>
+						<td rowspan="3" style="width: 180px;"><a href="content?no=${hdto.hotel_no}"><img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}" width="240px" height="240px"></a></td>
 						<td class="content_title">호텔 이름
 							<input type="hidden" id="hotel_no" value="${hdto.hotel_no}">
 						</td>
