@@ -154,7 +154,7 @@ form label {
 	<br>
 	<h1>호텔 등록 페이지</h1>
 	<br>
-	<form action="regist" method="post" enctype="multipart/form-data">
+	<form action="edit" method="post" enctype="multipart/form-data">
 		<div>
 			<table>
 				<tbody>
@@ -162,7 +162,7 @@ form label {
 						<td><label for="s_id">호텔 이름</label></td>
 						<td>
 							<input class="form-control" type="text" name="hotel_name" 
-							id="h_name" required> 
+							id="h_name" value="${hdto.hotel_name}" required> 
 						</td>
 					</tr>
 					<tr>
