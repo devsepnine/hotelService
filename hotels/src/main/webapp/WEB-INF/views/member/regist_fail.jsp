@@ -3,9 +3,24 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<div align="center">
+<style>
+	.regist-fail-wrap{
+		padding: 20px;
+		border: 5px solid white;
+		max-width: 500px;
+		margin: auto;
+		margin-top:150px;
+		box-shadow: 2px 2px 10px #EAEAEA;
+	}
+	.regist-fail-wrap >a{
+		margin: 20px;
+	}
+</style>
+
+<div align="center" class="regist-fail-wrap">
 	<h2>가입을 다시 시도해 주세요</h2>
-	<h3><a href="regist">다시 가입하러 가기</a></h3>
-	<h3><a href="${pageContext.request.contextPath}">메인으로 갈래요?</a></h3>
+	<br>
+	<a href="regist"><input type="button" style="width: 134px;" class="btn btn-danger" value="다시가입하러 가기"></a>
+		<a href="${pageContext.request.contextPath}"><input type="button" style="width: 134px;" class="btn btn-danger" value="메인화면"></a>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

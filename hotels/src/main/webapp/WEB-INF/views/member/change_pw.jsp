@@ -10,20 +10,20 @@
 <style>
 .form.form-label>fieldset {
 	width: 650px;
-	text-align: left;
+	text-align: center;
 	margin-top: 100px;
 	margin-bottom: 100px;
 	padding: 20px;
 }
 
 .table input {
-	width: 190px;
+	width: 200px;
 }
 
 .table input[name=btn] {
-	width: 100px;
+	width: 150px;
 	align: center;
-	margin-left: 120px;
+	margin-left: 35%;
 }
 </style>
 <script>

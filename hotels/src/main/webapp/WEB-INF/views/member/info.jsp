@@ -8,6 +8,10 @@
 		
 		padding: 100px;
 	}
+	.info-wrap > a{
+		margin: 10px;
+
+	}
 </style>
 
 <div align="center" class="info-wrap">
@@ -59,10 +63,10 @@
 		</tbody>
 	</table>
 	<%-- 회원이 이용할 수 있는 기능들을 링크로 제공 --%>
-	<h3><a href="wish_list">위시리스트</a></h3>
-	<h3><a href="change_pw">비밀번호 변경</a></h3>
-	<h3><a href="change">개인정보 변경</a></h3>
-	<h3><a href="delete">회원 탈퇴</a></h3>
+	<a href="wish_list"><input type="button"  style="width: 115px;" class="btn btn-danger" value="위시리스트"></a>
+	<a href="change_pw"><input type="button" style="width: 115px;" class="btn btn-danger" value="비밀번호 변경"></a>
+	<a href="change"><input type="button" style="width: 115px;" class="btn btn-danger" value="개인정보 변경"></a>
+	<a href="delete"><input type="button" style="width: 115px;" class="btn btn-danger" value="회원탈퇴"></a>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

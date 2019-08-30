@@ -19,13 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where M.member_no = ${member_no}
 	</select>	
 	
-	<insert id="regist" parameterType="int">
+	<insert id="regist" parameterType="wishDto">
 		insert into wish values(
-		wish_seq, wish_member_no = #{member_no}, wish_hotel_no = #{hotel_no}, sysdate)
+		wish_seq.nextval, #{wish_member_no}, #{wish_hotel_no}, sysdate)
 	</insert>
 	
-	<delete id="delete">
-		delete from wish where wish_hotel_no = #{hotel_no}
+	<delete id="delete" parameterType="wishDto">
+		delete from wish where wish_hotel_no = #{wish_hotel_no} and wish_member_no = #{wish_member_no}
 	</delete>
+	
+	<select id="wish_ckeck" parameterType="wishDto" resultType="wishDto">
+		select * from wish where wish_hotel_no = #{wish_hotel_no} and wish_member_no = #{wish_member_no}
+	</select>
 	
 </mapper>
