@@ -31,6 +31,32 @@
 	});
 	
 </script>
+<script>
+	$(function(){
+		$(".delete_btn").click(
+			function() {
+				//this == button
+				var that = this;
+				
+				$.ajax({
+					url : "delete",
+					data : {
+						attraction_no : $("#attraction_no").val()
+					},
+					dataType : "text",
+					success : function(resp) {
+						
+						if (resp == "Y") {
+ 							$(that).parents(".attraction_info").remove();							
+						}
+						else {
+							
+						}
+					}
+				});
+			});
+	});
+</script>
 
 <style>
 	.table_ny_two thead,
@@ -129,6 +155,7 @@
 	}
 </style>
 
+<input type="hidden" id="attraction_no" value="${adto.attraction_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
 <div class="list_wrap">
@@ -137,28 +164,33 @@
 </div>
 <div class="table-box">
 <table class="table_ny_two" border="1" >
-	<!-- 제목 -->
 	<thead>
 		<tr>
-			<th width="15%">번호</th>
-			<th width="35%">관광지 이름</th>
-			<th width="50%">주소</th>
+			<th width="25%">대표 사진</th>
+			<th width="15%">관광지 이름</th>
+			<th width="35%">주소</th>
+			<th width="12.5%">상세 정보</th>
+			<th width="12.5%">삭제</th>
 		</tr>
 	</thead>
-	<!-- 게시글 -->
 	<tbody align="center">
 		<c:forEach var="adto" items="${list}">
-		<tr>
-			<td>${adto.attraction_no}</td>
+		<tr class="attraction_info">
 			<td>
-				
-				<%-- content로 가기 위해 no를 첨부한다 --%>
-				<a href="detail?no=${adto.attraction_no}">
-					${adto.attraction_name}
-				</a>
-				
+				사진 넣고싶어요	
 			</td>
+			<td>${adto.attraction_name}</td>
 			<td>${adto.attraction_addr1} ${adto.attraction_addr2}</td>
+		<td>
+			<a href="detail?no=${adto.attraction_no}">
+				<input type="button" class="btn btn-danger" value="DETAIL">
+			</a>
+		</td>
+		<td>
+			<a href="exit?no=${adto.attraction_no}">
+				<input type="button" class="btn btn-danger delete_btn" value="DELETE">
+			</a>
+		</td>
 		</tr>
 		</c:forEach>
 	</tbody>

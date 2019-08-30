@@ -159,7 +159,7 @@
 			<td>${mdto.member_birthday.substring(0,10)}</td>
 			<td>
 				<a href="detail?no=${mdto.member_no}">
-					<input type="button" value="DETAILS">
+					<input type="button" class="btn btn-danger" value="DETAIL">
 				</a>
 			</td>
 		</tr>
