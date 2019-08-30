@@ -10,7 +10,6 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    	
   <script>

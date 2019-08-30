@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
@@ -37,8 +38,11 @@ public class HotelController {
 	private HotelFileDao hotelFileDao;
 	
 	@GetMapping("/search")
-	public String search(Model model) {
-		List<HotelListVo> h_list = hotelDao.get_h_list();
+	public String search(Model model,
+						 @ModelAttribute H_search_vo s_vo) {
+		List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
+		
+		
 		model.addAttribute("h_list",h_list);
 		return "hotel/search";
 	}
