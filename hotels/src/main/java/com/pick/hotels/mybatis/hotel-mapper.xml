@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="#{internet != null} ">
 		H.hotel_internet = 'Y' and
 		</if>
-		max(R.room_people) >= 3
+		max(R.room_people) >= #{people}
 		order by max_price desc
 	</select>
 	
