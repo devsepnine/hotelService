@@ -3,6 +3,9 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -204,6 +207,18 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+//	관광지 리스트에서 삭제("/attraction/delete")
+	@GetMapping("/attraction/delete")
+	public void delete(@RequestParam int attraction_no, HttpServletResponse resp) throws IOException {
+		boolean result = attractionDao.delete(attraction_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	
 //	관광지 상세보기("/attraction/detail")
 	@GetMapping("/attraction/detail")
@@ -215,6 +230,7 @@ public class AdminController {
 		model.addAttribute("adto", adto);
 		model.addAttribute("afdto", afdto);
 		model.addAttribute("afdtolist", attractionFileDao.getlist(no));
+		model.addAttribute("no", no);
 
 		return "admin/attraction/detail";
 	}
@@ -491,6 +507,16 @@ public class AdminController {
 //------------------------------------------------------------------------------------	
 
 //	회원 정보 상세보기("/member/detail")
+	@GetMapping("/member/detail")
+	public String detail_member(@RequestParam int no, Model model) {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		return "admin/member/detail";
+	}
+	
 //	회원 정보 수정("/member/edit")
 //	회원 탈퇴("/member/exit")
 //	전체 회원 리스트  + 검색("/member/list")
