@@ -11,6 +11,7 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.NoticeDto;
+import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.AttractionDao;
@@ -174,6 +175,22 @@ public class FileServiceImpl implements FileService{
 		hdto.setHotel_title(savename);
 
 		return hdto;
+	}
+
+
+	@Override
+	public PartnerFileDto partner_save(MultipartFile file, PartnerFileDto pfdto) throws IllegalStateException, IOException {
+
+		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
+		
+		File dir = new File("D:/upload/kh16/partner");
+		File target = new File(dir, savename);
+		file.transferTo(target);
+		
+		pfdto.setP_file_name(savename);
+		pfdto.setP_file_type(file.getContentType());
+		
+		return pfdto;
 	}
 
 }
