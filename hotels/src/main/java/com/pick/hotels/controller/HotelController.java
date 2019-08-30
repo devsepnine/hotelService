@@ -40,10 +40,10 @@ public class HotelController {
 	@GetMapping("/search")
 	public String search(Model model,
 						 @ModelAttribute H_search_vo s_vo) {
-		List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
-		
-		
-		model.addAttribute("h_list",h_list);
+		if(s_vo.getRegion() != null) {
+			List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
+			model.addAttribute("h_list",h_list);
+		}
 		return "hotel/search";
 	}
 	
