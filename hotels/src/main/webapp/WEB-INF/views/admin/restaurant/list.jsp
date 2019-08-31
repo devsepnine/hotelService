@@ -212,7 +212,7 @@
 
 <input type="hidden" name="page" value="1">
 
-<select name="type" class="custom-select" style="width:120px">
+<select name="type" class="custom-select" style="width:140px">
 	<option value="restaurant_name">레스토랑명</option>
 	<option value="restaurant_addr1">주소</option>
 </select>

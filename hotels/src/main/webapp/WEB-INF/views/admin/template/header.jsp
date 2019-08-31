@@ -56,7 +56,7 @@
 	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/member/list">회원 관리</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">판매자 관리</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/seller/list">판매자 관리</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/attraction/list">관광지 관리</a>
