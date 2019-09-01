@@ -16,6 +16,8 @@ import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.HotelDao;
+import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.repository.NoticeDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
@@ -37,6 +39,12 @@ public class FileServiceImpl implements FileService{
 	
 	@Autowired
 	private RestaurantFileDao restaurantFileDao;
+	
+	@Autowired
+	private HotelFileDao hotelFileDao;
+	
+	@Autowired
+	private HotelDao hotelDao;
 	
 	
 //	공지사항 파일 저장
@@ -187,6 +195,49 @@ public class FileServiceImpl implements FileService{
 		pfdto.setP_file_type(file.getContentType());
 		
 		return pfdto;
+	}
+
+
+	@Override
+	public void hotel_delete(int no) {
+//		번호로 이름을 구한다
+		HotelFileDto hfdto = hotelFileDao.get(no);
+		
+//		HDD에서 지운다
+		File dir = new File("D:/upload/kh16/hotel", hfdto.getH_file_name());
+		dir.delete();
+		
+//		DB에서 지운다
+		hotelFileDao.delete(no);
+	}
+
+	
+	@Override
+	public void hotel_title_edit(int hotel_file_no0, int no) {
+		HotelDto hdto = hotelDao.get(no);
+		
+		File dir = new File("D:/upload/kh16/hotel", hdto.getHotel_title());
+		dir.delete();
+		
+		hotelDao.title_update(hotel_file_no0, no);
+		
+	}
+
+
+	@Override
+	public HotelDto hotel_title_update(MultipartFile file, int no) throws IllegalStateException, IOException {
+		
+		HotelDto hdto = hotelDao.get(no);
+		
+		File dir = new File("D:/upload/kh16/hotel", hdto.getHotel_title());
+		dir.delete();
+		
+		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
+		
+		File dir1 = new File("D:/upload/kh16/hotel");
+		File target = new File(dir, savename);
+		file.transferTo(target);
+		return HotelDto.builder().hotel_title(savename).build();
 	}
 
 }

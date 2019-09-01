@@ -20,4 +20,6 @@ public interface HotelDao {
 
 	HotelDto get(int hotel_no);
 
+	public void edit(HotelDto hotelDto);
+
 }

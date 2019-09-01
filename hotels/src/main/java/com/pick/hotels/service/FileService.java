@@ -34,5 +34,11 @@ public interface FileService {
 	HotelDto hotel_title_save(MultipartFile file) throws IllegalStateException, IOException;
 
 	PartnerFileDto partner_save(MultipartFile file, PartnerFileDto pfdto) throws IllegalStateException, IOException;
+
+	void hotel_delete(int no);
+
+	void hotel_title_edit(int hotel_file_no0, int no);
+
+	HotelDto hotel_title_update(MultipartFile file, int no) throws IllegalStateException, IOException;
 	
 }

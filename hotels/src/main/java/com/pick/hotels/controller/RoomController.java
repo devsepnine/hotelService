@@ -57,6 +57,7 @@ public class RoomController {
 		
 		int no = roomDao.getSequenceNumber();
 		roomDto.setRoom_no(no);
+		roomDao.regist(roomDto);
 		
 		
 		if(!file1.isEmpty()) {
@@ -98,9 +99,9 @@ public class RoomController {
 			
 			roomFileDao.regist(rfdto);
 		}
-		roomDao.regist(roomDto);
+		
 		model.addAttribute("room_no",roomDto.getRoom_no());
 		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:r_content";
+		return "redirect:content";
 	}
 }
