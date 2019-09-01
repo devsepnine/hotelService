@@ -55,4 +55,11 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectOne("hotel.get", hotel_no);
 	}
 
+	@Override
+	public void edit(HotelDto hotelDto) {
+		sqlSession.update("hotel.edit", hotelDto);
+	}
+
+
+
 }

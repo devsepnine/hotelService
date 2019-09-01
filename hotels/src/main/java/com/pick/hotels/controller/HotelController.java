@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pick.hotels.entity.AttractionDto;
+import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
-import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.entity.PartnerDto;
+import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
+import com.pick.hotels.repository.PartnerDao;
+import com.pick.hotels.repository.PartnerFileDao;
 import com.pick.hotels.service.FileService;
 
 @Controller
@@ -37,6 +42,12 @@ public class HotelController {
 	
 	@Autowired
 	private HotelFileDao hotelFileDao;
+	
+	@Autowired
+	private PartnerDao partnerDao;
+	
+	@Autowired
+	private PartnerFileDao partnerFileDao;
 	
 	@GetMapping("/search")
 	public String search(Model model,
@@ -81,19 +92,6 @@ public class HotelController {
 		
 		int no = hotelDao.getSequenceNumber();
 		hotelDto.setHotel_no(no);
-		
-		System.out.println(hotelDto);
-		System.out.println("main : "+file.isEmpty());
-		System.out.println("1 : "+file1.isEmpty());
-		System.out.println("2 : "+file2.isEmpty());
-		System.out.println("3 : "+file3.isEmpty());
-		System.out.println("4 : "+file4.isEmpty());
-		System.out.println("5 : "+file5.isEmpty());
-		System.out.println("6 : "+file6.isEmpty());
-		System.out.println("7 : "+file7.isEmpty());
-		System.out.println("8 : "+file8.isEmpty());
-		System.out.println("9 : "+file9.isEmpty());
-		System.out.println("10 : "+file10.isEmpty());
 		
 		HotelDto saveResult =  fileService.hotel_title_save(file);
 		hotelDto.setHotel_title(saveResult.getHotel_title());
@@ -229,6 +227,263 @@ public class HotelController {
 		model.addAttribute("hdto", hotelDao.get(hotel_no));
 		model.addAttribute("hfdtolist", hotelFileDao.getlist(hotel_no));
 		return "hotel/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute HotelDto hotelDto,
+			@RequestParam(required = false) MultipartFile file,
+			@RequestParam(required = false) MultipartFile file1,
+			@RequestParam(required = false) MultipartFile file2,
+			@RequestParam(required = false) MultipartFile file3,
+			@RequestParam(required = false) MultipartFile file4,
+			@RequestParam(required = false) MultipartFile file5,
+			@RequestParam(required = false) MultipartFile file6,
+			@RequestParam(required = false) MultipartFile file7,
+			@RequestParam(required = false) MultipartFile file8,
+			@RequestParam(required = false) MultipartFile file9,
+			@RequestParam(required = false) MultipartFile file10,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no0,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no1,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no2,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no3,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no4,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no5,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no6,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no7,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no8,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no9,
+			@RequestParam(required = false, defaultValue = "0") int hotel_file_no10,
+			Model model) throws IllegalStateException, IOException {
+		
+		int no = hotelDto.getHotel_no();
+		if(hotel_file_no0 > 0) {
+			fileService.hotel_title_edit(hotel_file_no0,no);
+			HotelDto saveResult =  fileService.hotel_title_update(file,no);
+			hotelDto.setHotel_title(saveResult.getHotel_title());
+		}
+		hotelDao.edit(hotelDto);
+		
+//		수정을 하게되면 
+//		1. 수정한 글 내용
+//		2. 수정파일1, 2, 3
+//		이 넘어오게 되는데 이것을 받아서 수정 처리를 한다.
+//		-> 글 내용은 그냥 수정
+//		->
+		if(!file1.isEmpty()) {
+		
+			if(hotel_file_no1 > 0) {
+				fileService.hotel_delete(hotel_file_no1);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file1, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file2.isEmpty()) {
+			
+			if(hotel_file_no2 > 0) {
+				fileService.hotel_delete(hotel_file_no2);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file2, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file3.isEmpty()) {
+			
+			if(hotel_file_no3 > 0) {
+				fileService.hotel_delete(hotel_file_no3);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file3, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file4.isEmpty()) {
+			
+			if(hotel_file_no4 > 0) {
+				fileService.hotel_delete(hotel_file_no4);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file4, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file5.isEmpty()) {
+			
+			if(hotel_file_no5 > 0) {
+				fileService.hotel_delete(hotel_file_no5);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file5, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file6.isEmpty()) {
+			
+			if(hotel_file_no3 > 0) {
+				fileService.hotel_delete(hotel_file_no6);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file6, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file7.isEmpty()) {
+			
+			if(hotel_file_no7 > 0) {
+				fileService.hotel_delete(hotel_file_no7);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file7, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file8.isEmpty()) {
+			
+			if(hotel_file_no8 > 0) {
+				fileService.hotel_delete(hotel_file_no8);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file8, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file9.isEmpty()) {
+			
+			if(hotel_file_no9 > 0) {
+				fileService.hotel_delete(hotel_file_no9);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file9, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		if(!file10.isEmpty()) {
+			
+			if(hotel_file_no10 > 0) {
+				fileService.hotel_delete(hotel_file_no10);
+			}
+			
+				HotelFileDto hfdto = HotelFileDto.builder()
+						.hotel_no(no)
+						.build();
+	
+				hfdto =  fileService.hotel_save(file10, hfdto);
+	
+				hotelFileDao.regist(hfdto);
+		}
+		
+		
+		model.addAttribute("hotel_no", no);
+		
+		return "redirect:content";
+	}
+	
+	@GetMapping("partner/regist")
+	public String partner_regist(@RequestParam int hotel_int) {
+		return "hotel/partner/regist";
+	}
+	
+	@PostMapping("partner/regist")
+	public String partner_regist(
+			@ModelAttribute PartnerDto partnerDto,@RequestParam int hotel_no, Model model,
+			@RequestParam MultipartFile file1, @RequestParam MultipartFile file2, 
+			@RequestParam MultipartFile file3, @RequestParam MultipartFile file4) throws IllegalStateException, IOException {
+		
+		int no = partnerDao.getSequenceNumber();
+		partnerDto.setPartner_no(no);
+		partnerDao.regist(partnerDto);
+		
+		
+		if(!file1.isEmpty()) {
+			PartnerFileDto pfdto = PartnerFileDto.builder()
+														.partner_no(no)
+														.build();
+			
+			pfdto =  fileService.partner_save(file1, pfdto);
+			
+			partnerFileDao.regist(pfdto);
+		}
+		
+		if(!file2.isEmpty()) {
+			PartnerFileDto pfdto = PartnerFileDto.builder()
+														.partner_no(no)
+														.build();
+			
+			pfdto =  fileService.partner_save(file2, pfdto);
+			
+			partnerFileDao.regist(pfdto);
+		}
+		
+		if(!file3.isEmpty()) {
+			PartnerFileDto pfdto = PartnerFileDto.builder()
+														.partner_no(no)
+														.build();
+			
+			pfdto =  fileService.partner_save(file3, pfdto);
+			
+			partnerFileDao.regist(pfdto);
+		}
+		
+		if(!file4.isEmpty()) {
+			PartnerFileDto pfdto = PartnerFileDto.builder()
+														.partner_no(no)
+														.build();
+			
+			pfdto =  fileService.partner_save(file4, pfdto);
+			
+			partnerFileDao.regist(pfdto);
+		}
+		
+		model.addAttribute("partner_no",partnerDto.getPartner_no());
+		model.addAttribute("hotel_no",hotel_no);
+		return "redirect:partner/content";
 	}
 
 }
