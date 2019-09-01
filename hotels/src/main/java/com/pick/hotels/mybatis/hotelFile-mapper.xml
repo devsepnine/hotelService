@@ -19,6 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getlist" parameterType="int" resultType="hotelFileDto">
 		select * from h_file where hotel_no = #{hotel_no}
 	</select>
+	
+	<!-- 호텔 사진 상세보기 -->
+ 	<select id="get" parameterType="int" resultType="hotelFileDto">
+		select * from h_file where h_file_no = #{h_file_no}
+ 	</select>
+ 	
+ 	<!-- 호텔 사진 삭제 -->
+ 	<delete id="delete" parameterType="int">
+ 		delete h_file where h_file_no = #{h_file_no}
+ 	</delete>
  	
  	                                                                                
  </mapper>
