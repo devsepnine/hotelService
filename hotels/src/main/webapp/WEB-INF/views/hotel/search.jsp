@@ -64,8 +64,6 @@
 	    	width: 1220px;
 	    	margin: auto;
 	    	border-bottom: 1px solid #f4eee3;
-	    	padding: 10px;
-	    	margin-bottom: 10px;
 	    }
 	    .hotel-list .thum-nail img{
 	    	border-radius: 10px;
@@ -116,7 +114,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
-               <input type="text" name="date1" class="form-control datetimepicker-input" value="${param.date1}" placeholder="체크 인" data-target="#datetimepicker1" required/>
+               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -125,7 +123,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" name="date2" class="form-control datetimepicker-input" value="${param.date2}" placeholder="체크 아웃" data-target="#datetimepicker2" required/>
+               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -149,7 +147,7 @@ $(function(){
 <script type="text/javascript">
     $(function () {
     	var map = new URLSearchParams(window.location.search);
-    	if(!map.get('date2')){
+    	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
     		$(".room-area").css("display","none");
     		$(".resdesc-wrap").css("display","block");
@@ -159,12 +157,12 @@ $(function(){
     		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
-    	if(!map.get('date1')){
+    	if(!map.get('check_in')){
 	    	var now = new Date();
 	    	now.setDate(now.getDate()+1);
 	    	startday = now;
     	}else{
-    		startday = map.get('date1');
+    		startday = map.get('check_in');
     	}
     	
     	var lastday = null;
@@ -205,9 +203,9 @@ $(function(){
 				}
 			}
 		};
-		function dateDiff(_date1, _date2) {
-			var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
-			var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+		function dateDiff(_check_in, _check_out) {
+			var diffDate_1 = _check_in instanceof Date ? _check_in : new Date(_check_in);
+			var diffDate_2 = _check_out instanceof Date ? _check_out : new Date(_check_out);
 
 			diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1
 					.getMonth() + 1, diffDate_1.getDate());
@@ -221,6 +219,7 @@ $(function(){
     });
 </script>
 <div style="height: 20px;"></div>
+${h_list }
 <div class="keywordArea">
 	<div class="key-wrap">
 	<div class="keywordArea-key" style="width: 520px;text-align: left; display: table-cell;">
@@ -282,24 +281,26 @@ $(function(){
 	<div class="pick-hotel">
 		<ul class="hotel-list">
 			<c:forEach var="h_con" items="${h_list}">
-			<li>
+			<li class="hotel-wrap" style="padding:20px;vertical-align: middle;">
 			
-				<div class="thum-nail" style="width: 205px;display: inline-block;">
-					<a href="view?h_no=${h_con.hotel_no}"><img alt="${h_con.hotel_title}" width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/3?img_name=${h_con.hotel_title}"></a>
+				<div class="thumnail-wrap" style="display: inline-block; width: 230px;">
+					<a href="view?h_no=${h_con.hotel_no}">
+						<img alt="${h_con.hotel_title}" style="border-radius: 5px;width: 230px; height:230px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${h_con.hotel_title}">
+					</a>
 				</div>
 				
 				<div class="detail" style="width: 700px;display: inline-block;">
 					<div class="hotel-title-wrap">
-					<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
-					<div class="hotel-star">
-					    <div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
-					        <img src="${pageContext.request.contextPath}/img/star/star.png">        
+						<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
+						<div class="hotel-star">
+					    	<div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
+					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
 					        <div class="star-paint"></div>
 					    </div>
-					</div>
+						</div>
 					</div>
 					
-					<div class="ico-wrap" style="display: inline-block;">
+					<div class="ico-wrap" style="display: inline-block;width: 100%;padding: 10px 0px;">
 						<c:if test="${h_con.hotel_bbq=='Y'}">
 						<img alt="" data-toggle="tooltip" title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
 						<c:if test="${h_con.hotel_karaoke=='Y'}">
@@ -320,6 +321,9 @@ $(function(){
 						<img alt="" data-toggle="tooltip" title="수영장" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
 						<c:if test="${h_con.hotel_sauna=='Y'}">
 						<img alt="" data-toggle="tooltip" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
+					</div>
+					<div>
+						<div>${h_con.hotel_content}</div>
 					</div>
 				</div>
 				

@@ -23,12 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="search_list" parameterType="h_search_vo" resultType="hotelListVo">
 		select 
-		h.hotel_no, H.hotel_name, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet,
+		h.hotel_no, H.hotel_name, H.hotel_content, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet,
 		count(R.room_name) room_cnt, min(R.room_price) min_price, max(R.room_price) max_price, max(R.room_people) max_people
 		from 
 		hotel H
 		inner join Room R on H.hotel_no = R.hotel_no
-		group by h.hotel_no, H.hotel_name, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,
+		group by h.hotel_no, H.hotel_name, H.hotel_content, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,
 		                H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet
 		having
 		H.hotel_basic_addr like '%' ||  #{region} || '%' and

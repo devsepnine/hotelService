@@ -18,6 +18,7 @@ public class HotelListVo {
 	private String  hotel_title, // 썸네일
 					hotel_name, // 호텔 이름
 					hotel_basic_addr, // 호텔 주소
+					hotel_content, // 콘텐츠
 					hotel_parking, // 주차장 여부
 					hotel_fitness, // 피트니스 여부
 					hotel_pool,  // 수영장 여부
@@ -28,5 +29,6 @@ public class HotelListVo {
 					hotel_convenience_store, // 편의점 여부
 					hotel_karaoke, // 노래방 여부
 					hotel_internet; // 인터넷 여부
+					
 
 }
