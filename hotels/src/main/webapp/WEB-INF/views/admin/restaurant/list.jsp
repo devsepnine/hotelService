@@ -31,6 +31,32 @@
 	});
 	
 </script>
+<script>
+	$(function(){
+		$(".delete_btn").click(
+			function() {
+				//this == button
+				var that = this;
+				
+				$.ajax({
+					url : "delete",
+					data : {
+						attraction_no : $("#restaurant_no").val()
+					},
+					dataType : "text",
+					success : function(resp) {
+						
+						if (resp == "Y") {
+ 							$(that).parents(".restaurant_info").remove();							
+						}
+						else {
+							
+						}
+					}
+				});
+			});
+	});
+</script>
 
 <style>
 	.table_ny_two thead,
@@ -129,6 +155,7 @@
 	}
 </style>
 
+<input type="hidden" id="restaurant_no" value="${rdto.restaurant_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
 <div class="list_wrap">
@@ -137,28 +164,33 @@
 </div>
 <div class="table-box">
 <table class="table_ny_two" border="1" >
-	<!-- 제목 -->
 	<thead>
 		<tr>
-			<th width="15%">번호</th>
-			<th width="35%">레스토랑 이름</th>
-			<th width="50%">주소</th>
+			<th width="25%">대표 사진</th>
+			<th width="15%">레스토랑 이름</th>
+			<th width="35%">주소</th>
+			<th width="12.5%">상세 정보</th>
+			<th width="12.5%">삭제</th>
 		</tr>
 	</thead>
-	<!-- 게시글 -->
 	<tbody align="center">
 		<c:forEach var="rdto" items="${list}">
-		<tr>
-			<td>${rdto.restaurant_no}</td>
+		<tr class="restaurant_info">
 			<td>
-				
-				<%-- content로 가기 위해 no를 첨부한다 --%>
-				<a href="detail?no=${rdto.restaurant_no}">
-					${rdto.restaurant_name}
-				</a>
-				
+				사진 넣고싶어요
 			</td>
+			<td>${rdto.restaurant_name}</td>
 			<td>${rdto.restaurant_addr1} ${rdto.restaurant_addr2}</td>
+			<td>
+			<a href="detail?no=${rdto.restaurant_no}">
+				<input type="button" class="btn btn-danger" value="DETAIL">
+			</a>
+			</td>
+			<td>
+			<a href="exit?no=${rdto.restaurant_no}">
+				<input type="button" class="btn btn-danger delete_btn" value="DELETE">
+			</a>
+			</td>
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -180,7 +212,7 @@
 
 <input type="hidden" name="page" value="1">
 
-<select name="type" class="custom-select" style="width:120px">
+<select name="type" class="custom-select" style="width:140px">
 	<option value="restaurant_name">레스토랑명</option>
 	<option value="restaurant_addr1">주소</option>
 </select>

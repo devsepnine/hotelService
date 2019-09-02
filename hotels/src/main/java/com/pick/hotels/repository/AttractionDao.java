@@ -16,5 +16,5 @@ public interface AttractionDao {
 	int count(String type, String keyword);
 	int getSequenceNumber();
 	void edit(AttractionDto attractionDto);
-
+	public boolean delete(int attraction_no);
 }

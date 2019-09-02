@@ -76,4 +76,17 @@ public class RestaurantDaoImpl implements RestaurantDao{
 	public void edit(RestaurantDto rdto) {
 		sqlSession.update("restaurant.edit", rdto);
 	}
+
+//	레스토랑 리스트에서 삭제
+	@Override
+	public boolean delete(int restaurant_no) {
+		try {
+			sqlSession.insert("restaurant.delete", restaurant_no);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

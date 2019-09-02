@@ -3,6 +3,8 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +20,13 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
+import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
+import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.FileService;
 
 
@@ -46,8 +50,17 @@ public class AdminController {
 	private MemberDao memberDao;
 	
 	@Autowired
+	private SellerDao sellerDao;
+	
+	@Autowired
 	private FileService fileService;
 
+	
+//	전체 관리 페이지("main")
+	@GetMapping("/main")
+	public String main() {
+		return "admin/main";
+	}
 	
 //------------------------------------------------------------------------------------
 //	관광지
@@ -204,6 +217,18 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+//	관광지 리스트에서 삭제("/attraction/delete")
+	@GetMapping("/attraction/delete")
+	public void delete(@RequestParam int attraction_no, HttpServletResponse resp) throws IOException {
+		boolean result = attractionDao.delete(attraction_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	
 //	관광지 상세보기("/attraction/detail")
 	@GetMapping("/attraction/detail")
@@ -215,6 +240,7 @@ public class AdminController {
 		model.addAttribute("adto", adto);
 		model.addAttribute("afdto", afdto);
 		model.addAttribute("afdtolist", attractionFileDao.getlist(no));
+		model.addAttribute("no", no);
 
 		return "admin/attraction/detail";
 	}
@@ -414,6 +440,18 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+//	레스토랑 리스트에서 삭제("/restaurant/delete")
+	@GetMapping("/restaurant/delete")
+	public void delete_rt(@RequestParam int restaurant_no, HttpServletResponse resp) throws IOException {
+		boolean result = restaurantDao.delete(restaurant_no);
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	
 //	레스토랑 상세보기("restaurant/detail")
 	@GetMapping("/restaurant/detail")
@@ -479,18 +517,22 @@ public class AdminController {
 //	쿠폰 상세보기("/coupon/detail")
 //	쿠폰 전체 리스트 + 검색("/coupon/list")
 	
-//	전체 관리 페이지("main")
-	@GetMapping("/main")
-	public String main() {
-		return "admin/main";
-	}
-
 	
 //------------------------------------------------------------------------------------
 //	회원 관리
 //------------------------------------------------------------------------------------	
 
 //	회원 정보 상세보기("/member/detail")
+	@GetMapping("/member/detail")
+	public String detail_member(@RequestParam int no, Model model) {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		return "admin/member/detail";
+	}
+	
 //	회원 정보 수정("/member/edit")
 //	회원 탈퇴("/member/exit")
 //	전체 회원 리스트  + 검색("/member/list")
@@ -537,9 +579,56 @@ public class AdminController {
 //------------------------------------------------------------------------------------
 	
 //	판매자 정보 상세보기("/seller/detail")
+	@GetMapping("/seller/detail")
+	public String detail_seller(@RequestParam int no, Model model) {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		model.addAttribute("sdto", sellerDto);
+		
+		return "admin/seller/detail";
+	}
+	
+	
 //	판매자 정보 수정("/seller/edit")
 //	판매자 탈퇴("/seller/exit")
 //	전체 판매자 리스트 + 검색("/seller/list")
+	@GetMapping("/seller/list")
+	public String list_seller(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = sellerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<SellerDto> list = sellerDao.list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/seller/list";
+	}
 	
 	
 //------------------------------------------------------------------------------------

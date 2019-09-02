@@ -75,4 +75,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete hotel where hotel_no = #{hotel_no}
 	</delete>
 	
+	<select id="get" parameterType="int" resultType="hotelDto">
+		select * from hotel where hotel_no = #{hotel_no}
+ 	</select>
+ 	
+ 		<!-- 호텔 수정 -->
+	<update id="edit" parameterType="hotelDto">
+		update hotel 
+			set hotel_name = #{hotel_name}, hotel_tel=#{hotel_tel},hotel_zip_code = #{hotel_zip_code}, 
+			hotel_basic_addr = #{hotel_basic_addr}, hotel_detail_addr = #{hotel_detail_addr}, 
+			hotel_longitude = #{hotel_longitude}, hotel_latitude = #{hotel_latitude}, 
+			hotel_content = #{hotel_content}, hotel_star = #{hotel_star}, hotel_parking = #{hotel_parking},
+			hotel_fitness = #{hotel_fitness}, hotel_pool = #{hotel_pool}, hotel_sauna = #{hotel_sauna},
+			hotel_lounge = #{hotel_lounge}, hotel_bbq = #{hotel_bbq}, hotel_cafe = #{hotel_cafe},
+			hotel_convenience_store = #{hotel_convenience_store}, hotel_karaoke = #{hotel_karaoke}, 
+			hotel_internet = #{hotel_internet}, hotel_title = #{hotel_title}
+		where hotel_no = #{hotel_no}
+	</update>
+	
 </mapper>

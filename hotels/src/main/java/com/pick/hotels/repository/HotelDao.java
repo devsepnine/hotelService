@@ -18,4 +18,8 @@ public interface HotelDao {
 
 	public boolean delete(int hotel_no);
 
+	HotelDto get(int hotel_no);
+
+	public void edit(HotelDto hotelDto);
+
 }

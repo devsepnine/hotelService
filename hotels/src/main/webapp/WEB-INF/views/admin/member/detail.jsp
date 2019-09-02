@@ -13,12 +13,6 @@
 	.table_ny_two tbody{
 		color:black;
 	}
-	.table_ny_two > thead > tr > th {
-		font-size: 15px;
-	}
-	.table_ny_two tbody > tr > td{
-		font-size: 13px;
-	}
 	
 	.empty {
 		height:50px;
@@ -41,50 +35,56 @@
 	    text-align: center;
 	}
 	
-	.list_wrap {
+	.detail_wrap_member {
 		text-align: center;
 	}
 	
 	.headtit{
 		border-bottom: #432c10 solid 10px;
-		max-width:1100px;
+		max-width:700px;
 		margin:auto;
 		text-align: left;
 		margin-bottom: 50px;
 	}
 	
-	.list_wrap > .table-box > .table_ny_two {
+	.detail_wrap_member > .table-box > .table_ny_two {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
    		border-left: none;
   		border-right: none;
-  		max-width: 1100px;
+  		max-width: 600px;
 	}
 	
-	.list_wrap > .table-box > .table_ny_two > thead > tr > th,
-	.list_wrap > .table-box > .table_ny_two > thead > tr > td,
-	.list_wrap > .table-box > .table_ny_two > tbody > tr > th,
-	.list_wrap > .table-box > .table_ny_two > tbody > tr > td,
-	.list_wrap > .table-box > .table_ny_two > tfoot > tr > th,
-	.list_wrap > .table-box > .table_ny_two > tfoot > tr > td {
-		border: 1px solid #432c10;
+	.detail_wrap_member > .table-box > .table_ny_two > thead > tr > th,
+	.detail_wrap_member > .table-box > .table_ny_two > tbody > tr > th,
+	.detail_wrap_member > .table-box > .table_ny_two > tfoot > tr > th,
+	.detail_wrap_member > .table-box > .table_ny_two > tfoot > tr > td {
+		border: none;
+  		padding:10px 10px;
+  		font-size: 16px;
+	}
+	
+	.detail_wrap_member > .table-box > .table_ny_two > thead > tr > td,
+	.detail_wrap_member > .table-box > .table_ny_two > tbody > tr > td {
+		border: 1px solid #919aa1;
 		border-left: none;
   		border-right: none;
   		padding:10px 10px;
+  		font-size: 13px;
 	}
 	
 	.content-line{
 		margin-top:10px;
 		border: 5px solid white;
-		max-width: 1200px;
+		max-width: 900px;
 		margin: auto;
 		padding: 20px 10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
 	
 	}
 	.table-box{
-		max-width: 1000px;
+		max-width: 600px;
 		margin: auto;
 	}
 	.table_ny_two{
@@ -102,45 +102,70 @@
 	}
 	.btn-danger{
 		height: 45px;
+		width: 118px;
 	}
 </style>
 
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="list_wrap">
+<div class="detail_wrap_member">
 <div class="headtit">
-<h3>${mdto.member_id}님의 상세 정보</h3>
+<h3>[${mdto.member_id}]님의 상세 정보</h3>
 </div>
 <div class="table-box">
 <table class="table_ny_two" border="1" >
-	<!-- 제목 -->
-	<thead>
-		<tr>
-			<th width="15%">번호</th>
-			<th width="25%">아이디</th>
-			<th width="20%">이름</th>
-			<th width="20%">생년월일</th>
-			<th width="20%">상세 정보</th>
-		</tr>
-	</thead>
-	<!-- 게시글 -->
 	<tbody align="center">
-		<c:forEach var="mdto" items="${list}">
 		<tr>
+			<th>회원 번호</th>
 			<td>${mdto.member_no}</td>
-			<td>
-				${mdto.member_id}
-			</td>
+		<tr>
+		<tr>
+			<th>아이디</th>
+			<td>${mdto.member_id}</td>
+		<tr>
+		<tr>
+			<th>이름</th>
 			<td>${mdto.member_name}</td>
+		<tr>
+		<tr>
+			<th>주소</th>
+			<td>${mdto.member_basic_addr}&emsp;${mdto.member_detail_addr}</td>
+		<tr>
+		<tr>
+			<th>생년월일</th>
 			<td>${mdto.member_birthday.substring(0,10)}</td>
-			<td>
-				<a href="detail?no=${mdto.member_no}">
-					<input type="button" value="DETAILS">
-				</a>
+		<tr>
+		<tr>
+			<th>이메일</th>
+			<td>${mdto.member_email1}@${mdto.member_email2}</td>
+		<tr>
+		<tr>
+			<th>핸드폰 번호</th>
+			<td>${mdto.member_phone}</td>
+		</tr>
+		<tr>
+			<th>가입일</th>
+			<td>${mdto.member_when.substring(0,10)}</td>
+		</tr>
+		<tr>
+			<th>권한</th>
+			<td>${mdto.member_auth}</td>
+		</tr>
+		<tr>
+			<th>최종 접속일</th>
+			<td>${mdto.member_recent}</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2">
+				<div style = "margin-top:40px">
+					<a href ="edit?no=${mdto.member_no}" style = "margin-right:30px; margin-left:200px"><input type="button" value="회원 정보 수정" name="edit" class="btn btn-danger"></a>
+					<a href ="exit?no=${mdto.member_no}" ><input type="button" value="회원 탈퇴" name="exit" class="btn btn-danger"></a>
+				</div>
 			</td>
 		</tr>
-		</c:forEach>
-	</tbody>
+	</tfoot>
 </table>
 </div>
 </div>

@@ -16,6 +16,8 @@ import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.HotelDao;
+import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.repository.NoticeDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
@@ -37,6 +39,12 @@ public class FileServiceImpl implements FileService{
 	
 	@Autowired
 	private RestaurantFileDao restaurantFileDao;
+	
+	@Autowired
+	private HotelFileDao hotelFileDao;
+	
+	@Autowired
+	private HotelDao hotelDao;
 	
 	
 //	공지사항 파일 저장
@@ -188,5 +196,22 @@ public class FileServiceImpl implements FileService{
 		
 		return pfdto;
 	}
+
+
+	@Override
+	public void hotel_delete(int no) {
+//		번호로 이름을 구한다
+		HotelFileDto hfdto = hotelFileDao.get(no);
+		
+//		HDD에서 지운다
+		File dir = new File("D:/upload/kh16/hotel", hfdto.getH_file_name());
+		dir.delete();
+		
+//		DB에서 지운다
+		hotelFileDao.delete(no);
+	}
+
+	
+
 
 }
