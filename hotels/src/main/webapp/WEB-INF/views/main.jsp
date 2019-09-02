@@ -7,36 +7,19 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
 <!-- jquery ui -->
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 
 <!-- 	date picker width 버그 수정 -->
 	<style>
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
 		}
-/*  		swipe 스타일 */
-		.swiper-container {
-			width:100%;
-			padding:30px 0;
-			border:5px solid silver;
-			border-radius:7px;
-			box-shadow:0 0 20px #ccc inset;
-		}
-		.swiper-slide {
-			text-align:center;
-			display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-			align-items:center; /* 위아래 기준 중앙정렬 */
-			justify-content:center; /* 좌우 기준 중앙정렬 */
-		}
-		.swiper-slide img {
-			box-shadow:0 0 5px #555;
-		}
+
 		
 		.ui-autocomplete
 	    {
 	        max-height: 140px;
-	        overflow-y: hidden; /* prevent horizontal scrollbar */
 	        overflow-x: hidden;
 	    }
 	</style>	

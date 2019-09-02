@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,11 @@ public class RoomFileDaoImpl implements RoomFileDao{
 	public void regist(RoomFileDto rfdto) {
 		sqlSession.insert("roomFile.regist", rfdto);
 		
+	}
+
+	@Override
+	public List<RoomFileDto> get_list(int no) {
+		return sqlSession.selectList("roomFile.get_list", no);
 	}
 
 }

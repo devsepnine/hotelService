@@ -28,11 +28,11 @@
                     $(".menubtn").removeClass("active") 
                     setTimeout(function(){
                     	$(".content").removeClass("transition")
-                    }, 200)
+                    }, 300)
                 }else{
                 	setTimeout(function(){
                 		$(".content").addClass("transition")
-                    }, 200)
+                    }, 300)
                 	
                 }
             })

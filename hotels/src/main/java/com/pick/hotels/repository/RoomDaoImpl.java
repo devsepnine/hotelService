@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,10 @@ public class RoomDaoImpl implements RoomDao{
 	@Override
 	public int getSequenceNumber() {
 		return sqlSession.selectOne("room.seq");
+	}
+
+	@Override
+	public List<RoomDto> get_list(int hotel_no) {
+		return sqlSession.selectList("room.get_list", hotel_no);
 	}
 }
