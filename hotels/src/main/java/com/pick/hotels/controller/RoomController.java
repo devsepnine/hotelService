@@ -58,7 +58,7 @@ public class RoomController {
 		int no = roomDao.getSequenceNumber();
 		roomDto.setRoom_no(no);
 		roomDao.regist(roomDto);
-		
+		System.out.println(no);
 		
 		if(!file1.isEmpty()) {
 			RoomFileDto rfdto = RoomFileDto.builder()
