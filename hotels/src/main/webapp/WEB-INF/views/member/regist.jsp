@@ -326,7 +326,7 @@ $(function() {
 							<td>
 								<input onblur="checkPw();" type="password" class="form-control" name="member_pw" id="m_pw" pattern="^[a-zA-Z0-9!@#$\-_]{8,15}$" required>
 								<div class="m_pwD"></div>
-							</td>
+							</td>   
 						</tr>
 				<tr>
 					<td><label>PASSWORD CHECK</label></td>
