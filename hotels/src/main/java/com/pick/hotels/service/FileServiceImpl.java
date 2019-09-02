@@ -212,32 +212,6 @@ public class FileServiceImpl implements FileService{
 	}
 
 	
-	@Override
-	public void hotel_title_edit(int hotel_file_no0, int no) {
-		HotelDto hdto = hotelDao.get(no);
-		
-		File dir = new File("D:/upload/kh16/hotel", hdto.getHotel_title());
-		dir.delete();
-		
-		hotelDao.title_update(hotel_file_no0, no);
-		
-	}
 
-
-	@Override
-	public HotelDto hotel_title_update(MultipartFile file, int no) throws IllegalStateException, IOException {
-		
-		HotelDto hdto = hotelDao.get(no);
-		
-		File dir = new File("D:/upload/kh16/hotel", hdto.getHotel_title());
-		dir.delete();
-		
-		String savename = file.getOriginalFilename() + "-" + System.currentTimeMillis();
-		
-		File dir1 = new File("D:/upload/kh16/hotel");
-		File target = new File(dir, savename);
-		file.transferTo(target);
-		return HotelDto.builder().hotel_title(savename).build();
-	}
 
 }
