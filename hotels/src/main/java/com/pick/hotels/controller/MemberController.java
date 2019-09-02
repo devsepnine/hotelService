@@ -336,34 +336,42 @@ public class MemberController {
 		if(wdto!=null){
 			boolean out = wishDao.delete(wishDto);
 			
-			if(out) {
-				resp.getWriter().print("Y");
-			}
-			else {
-				resp.getWriter().print("N");
-			}
+				if(out) {
+					resp.getWriter().print("Y");
+				}
+				else {
+					resp.getWriter().print("N");
+				}
 		}
 		
 		else{
 			boolean result = wishDao.regist(wishDto);
 			
+				if(result) {
+					resp.getWriter().print("Y");
+				}
+				else {
+					resp.getWriter().print("N");
+				}
 			
+			}
 			
+		}
+		
+	@GetMapping("/wish_delete")
+	public void wish_delete(@RequestParam int hotel_no, HttpServletResponse resp, HttpSession session) throws IOException {
+		int member_no = (int) session.getAttribute("no");
+		WishDto wishDto = WishDto.builder().wish_member_no(member_no).wish_hotel_no(hotel_no).build();
+		boolean result = wishDao.delete(wishDto);
+		
 			if(result) {
 				resp.getWriter().print("Y");
 			}
 			else {
 				resp.getWriter().print("N");
 			}
-			
-			}
-			
-		}
-		
-		
-		
-		
 	}
+}
 	
 	
 
