@@ -199,7 +199,7 @@ form label {
 						</td>
 					</tr>
 					<tr>
-						<td>호텔 성급</td>
+						<td>호텔 성급</td> 
 						<td>
 							<select class="form-control" name="hotel_star" id="h_star" required>
 								<option>1</option>
