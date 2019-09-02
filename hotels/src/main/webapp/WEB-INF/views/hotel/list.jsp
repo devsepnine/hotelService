@@ -87,7 +87,7 @@
 			</tbody>
 		</table>
 	</c:forEach>
-	<a href="${pageContext.request.contextPath}/hotel/regist"><input class="btn btn-danger" type="button" name="#" value="호텔등록"></a>
+	<a href="${pageContext.request.contextPath}/seller/hotel/regist"><input class="btn btn-danger" type="button" name="#" value="호텔등록"></a>
 	<input class="btn btn-danger" type="button" name="#" value="선택삭제">
 </div>
 
