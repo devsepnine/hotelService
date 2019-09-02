@@ -207,16 +207,47 @@ form label {
 					<tr>
 						<td>옵션사항</td>
 						<td>
-							<input type="checkbox" name="hotel_parking" value="Y">주차가능<br>
-							<input type="checkbox" name="hotel_fitness" value="Y">헬스장<br>
-							<input type="checkbox" name="hotel_pool" value="Y">수영장<br>
-							<input type="checkbox" name="hotel_sauna" value="Y">사우나<br>
-							<input type="checkbox" name="hotel_lounge" value="Y">라운지<br>
-							<input type="checkbox" name="hotel_bbq" value="Y">바베큐<br>
-							<input type="checkbox" name="hotel_cafe" value="Y">카페<br>
-							<input type="checkbox" name="hotel_convenience_store" value="Y">편의점<br>
-							<input type="checkbox" name="hotel_karaoke" value="Y">노래방<br>
-							<input type="checkbox" name="hotel_internet" value="Y">와이파이
+							<div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="hotel_parking">
+						      <label class="custom-control-label" for="parking">주차장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="fitness" name="hotel_fitness">
+						      <label class="custom-control-label" for="fitness">피트니스</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="pool" name="hotel_pool">
+						      <label class="custom-control-label" for="pool">수영장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="sauna" name="hotel_sauna">
+						      <label class="custom-control-label" for="sauna">사우나</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="hotel_lounge">
+						      <label class="custom-control-label" for="lounge">라운지</label>
+						    </div><br>
+						    <div style="display: block;height: 15px;"></div>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="hotel_bbq">
+						      <label class="custom-control-label" for="bbq">바베큐장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="cafe" name="hotel_cafe">
+						      <label class="custom-control-label" for="cafe">카페</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="conveni" name="hotel_convenience_store">
+						      <label class="custom-control-label" for="conveni">편의점</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="karaoke" name="hotel_karaoke">
+						      <label class="custom-control-label" for="karaoke">노래방</label>
+					    	</div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="internet" name="hotel_internet">
+						      <label class="custom-control-label" for="internet">인터넷</label>
+						    </div>
 						</td>
 					</tr>
 					<tr>

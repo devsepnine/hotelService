@@ -2,6 +2,7 @@ package com.pick.hotels.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -12,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.EmailCertDto;
@@ -527,7 +530,7 @@ public class SellerController {
 			@RequestParam(required = false) MultipartFile file8,
 			@RequestParam(required = false) MultipartFile file9,
 			@RequestParam(required = false) MultipartFile file10,
-			@RequestParam(required = false, defaultValue = "0") int hotel_file_no0,
+			@RequestParam(required = false, defaultValue = "0") String hotel_file,
 			@RequestParam(required = false, defaultValue = "0") int hotel_file_no1,
 			@RequestParam(required = false, defaultValue = "0") int hotel_file_no2,
 			@RequestParam(required = false, defaultValue = "0") int hotel_file_no3,
@@ -541,10 +544,22 @@ public class SellerController {
 			Model model) throws IllegalStateException, IOException {
 		
 		int no = hotelDto.getHotel_no();
-		if(hotel_file_no0 > 0) {
+		if(hotel_file != null) {
 			HotelDto saveResult =  fileService.hotel_title_save(file);
 			hotelDto.setHotel_title(saveResult.getHotel_title());
 		}
+		System.out.println(hotelDto);
+		
+		if(hotelDto.getHotel_bbq()==null) hotelDto.setHotel_bbq("N");
+		if(hotelDto.getHotel_cafe()==null) hotelDto.setHotel_cafe("N");
+		if(hotelDto.getHotel_convenience_store()==null) hotelDto.setHotel_convenience_store("N");
+		if(hotelDto.getHotel_fitness()==null) hotelDto.setHotel_fitness("N");
+		if(hotelDto.getHotel_internet()==null) hotelDto.setHotel_internet("N");
+		if(hotelDto.getHotel_karaoke()==null) hotelDto.setHotel_karaoke("N");
+		if(hotelDto.getHotel_lounge()==null) hotelDto.setHotel_lounge("N");
+		if(hotelDto.getHotel_parking()==null) hotelDto.setHotel_parking("N");
+		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
+		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
 		hotelDao.edit(hotelDto);
 		
 //		수정을 하게되면 
@@ -705,6 +720,7 @@ public class SellerController {
 		
 		
 		model.addAttribute("hotel_no", no);
+		
 		
 		return "redirect:content";
 	}
