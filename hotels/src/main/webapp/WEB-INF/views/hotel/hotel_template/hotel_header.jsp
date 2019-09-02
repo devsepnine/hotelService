@@ -4,7 +4,7 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ">
      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/hotel/list">내호텔</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/seller/hotel/list">내호텔</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">호텔매출</a>
