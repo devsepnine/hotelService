@@ -534,7 +534,39 @@ public class AdminController {
 	}
 	
 //	회원 정보 수정("/member/edit")
+	@GetMapping("/member/edit")
+	public String edit_member(@RequestParam int no, Model model) {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		return "admin/member/edit";
+	}
+	
+	@PostMapping("/member/edit")
+	public String edit_member(@ModelAttribute MemberDto memberDto, Model model) {
+		
+		memberDao.edit_member(memberDto);
+		
+		model.addAttribute("no", memberDto.getMember_no());
+		
+		return "redirect:detail";
+	}
+	
 //	회원 탈퇴("/member/exit")
+	@GetMapping("/member/exit")
+	public String exit_member(@RequestParam int no, Model model) {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		String member_id = memberDto.getMember_id();
+		
+		memberDao.delete(member_id);
+		
+		return "redirect:list";
+	}
+	
 //	전체 회원 리스트  + 검색("/member/list")
 	@GetMapping("/member/list")
 	public String list_member(
