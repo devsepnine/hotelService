@@ -37,8 +37,6 @@ public interface FileService {
 
 	void hotel_delete(int no);
 
-	void hotel_title_edit(int hotel_file_no0, int no);
 
-	HotelDto hotel_title_update(MultipartFile file, int no) throws IllegalStateException, IOException;
 	
 }
