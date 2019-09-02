@@ -10,6 +10,8 @@ public interface RoomDao {
 
 	public int getSequenceNumber();
 
+	public RoomDto get(int room_no);
+
 	public List<RoomDto> get_list(int hotel_no);
 	
 }

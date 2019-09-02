@@ -6,4 +6,7 @@ public interface ReserveDao {
 
 	boolean regist(ReserveDto reserveDto);
 
+	ReserveDto get(int reserve_no, int no);
+
+
 }

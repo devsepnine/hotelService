@@ -10,7 +10,7 @@
 		$("reivew-wrap").append(h1);
 	});
 </script>
-<textarea class="review-box" rows="1" placeholder="후기입력">
+<textarea class="review-box" rows="3" placeholder="후기입력">
 </textarea>
 <hr>
 <button class="">등록하기</button>

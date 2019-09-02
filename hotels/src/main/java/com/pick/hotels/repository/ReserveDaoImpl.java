@@ -1,5 +1,8 @@
 package com.pick.hotels.repository;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,4 +26,16 @@ public class ReserveDaoImpl implements ReserveDao{
 			return false;
 		}
 	}
+
+	@Override
+	public ReserveDto get(int reserve_no, int no) {
+		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		param.put("reserve_no", reserve_no);
+		param.put("member_no", no);
+		ReserveDto rdto = sqlsession.selectOne("reserve.get", param);
+		System.out.println(rdto);
+		return rdto;
+	}
+
+
 }

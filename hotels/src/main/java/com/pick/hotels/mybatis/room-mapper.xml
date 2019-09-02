@@ -23,6 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select room_seq.nextval from dual
 	</select>     
 	
+	<!-- 방정보  -->
+	<select id="get" parameterType="int" resultType="roomDto">
+		select * from room where room_no = #{room_no}
+	</select>                
+	
+	<!-- 리스트 -->
 	<select id="get_list" parameterType="int" resultType="roomDto">
 		select * from room where hotel_no = ${hotel_no}
 	</select>                                                                
