@@ -1,5 +1,7 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import com.pick.hotels.entity.SellerDto;
 
 public interface SellerDao {
@@ -14,4 +16,10 @@ public interface SellerDao {
 	void changePw(SellerDto sellerDto);
 	SellerDto findId(SellerDto sellerDto);
 	SellerDto get(int seller_no);
+	
+	//------------------------------------------------------------------------------------
+//	관리자
+//------------------------------------------------------------------------------------    
+	List<SellerDto> list(String type, String keyword, int start, int end);
+	int count(String type, String keyword);
 }

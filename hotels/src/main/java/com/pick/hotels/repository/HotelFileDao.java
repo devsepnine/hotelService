@@ -10,4 +10,8 @@ public interface HotelFileDao {
 
 	List<HotelFileDto> getlist(int hotel_no);
 
+	HotelFileDto get(int no);
+
+	void delete(int no);
+
 }

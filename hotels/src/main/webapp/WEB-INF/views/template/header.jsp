@@ -6,26 +6,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
+<title>호텔델꾸가</title>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-   	
+   	<link rel="icon" type="image/png"  href="${pageContext.request.contextPath}/img/ico/hotel_icon.png"/>
+
   <script>
         $(function(){
-            $(".side-btn").click(function(){
+            $(".menubtn").click(function(){
                                 console.log($(window).width())
                                 $(".sidebar").toggleClass("active")
                                 $(".content").toggleClass("active")
-                                $(".menubtn").toggleClass("active") 
                                 })
             
             $(window).resize(function(){
-                if($(window).width() > 1224){
+                if($(window).width() > 1249){
                     $(".sidebar").removeClass("active")
                     $(".content").removeClass("active")
                     $(".menubtn").removeClass("active") 
+                    setTimeout(function(){
+                    	$(".content").removeClass("transition")
+                    }, 200)
+                }else{
+                	setTimeout(function(){
+                		$(".content").addClass("transition")
+                    }, 200)
+                	
                 }
             })
         })
@@ -83,6 +91,9 @@
    .content.active{
         margin-left: 0px;
    }
+   .content.transition{
+   	transition: margin .3s ease-in;
+   }
     .content {
     margin-left: 250px;
     min-height:1080px;
@@ -90,8 +101,7 @@
     position: relative;
     background: white;
     overflow: auto;
-        z-index: 1;
-        transition: margin .3s ease-in;
+    z-index: 1;
     }
     .info {
     min-width: 355px;
@@ -135,7 +145,7 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
-	<p><a href="${pageContext.request.contextPath}"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%"></a></p>
+	<p><a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%"></a></p>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></p>
 	<p><a href="${pageContext.request.contextPath}/hotel/search">호텔 찾기</a></p>
