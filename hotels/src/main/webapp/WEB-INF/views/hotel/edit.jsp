@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
-
+<jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/cryptojs/components/core-min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
+
 <!-- 수정했습니다. -->
 <style>
 form h4 {
@@ -32,6 +34,7 @@ form label {
 }
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
+
 <script>
 
 
@@ -149,12 +152,16 @@ form label {
 </script>
 
 
-<jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div class="regist-wrap" align="center">
 	<br>
-	<h1>호텔 등록 페이지</h1>
+	<h1>호텔 수정 페이지</h1>
 	<br>
 	<form action="edit" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="hotel_no" value="${hdto.hotel_no}">
+			<c:forEach var="hfdto" items="${hfdtolist}" varStatus="status">
+				<input type="hidden" name="hotel_file_no${status.count}" value="${hfdto.h_file_no}">
+			</c:forEach>
+		<input type="hidden" name="hotel_file" value="${hdto.hotel_title}">
 		<div>
 			<table>
 				<tbody>
@@ -169,26 +176,26 @@ form label {
 						<td><label for="h_tel">호텔 번호</label></td>
 						<td><input class="form-control" onblur="checkTel();"
 							type="tel" placeholder="-포함한 번호를 입력해주세요" name="hotel_tel" id="h_tel"
-							pattern="^0[0-9]{1,2}-[0-9]{3,4}-[0-9]{4}$" required>
+							pattern="^0[0-9]{1,2}-[0-9]{3,4}-[0-9]{4}$" value="${hdto.hotel_tel}" required>
 							<div class="h_telD"></div></td>
 					</tr>
 					<tr>
 						<td><label for="h_addr">ADDRESS</label></td>
 						<td><input class="form-control" type="text" style="display: inline-block;width: 40%"
-								name="hotel_zip_code" placeholder="우편번호" required readonly>
+								name="hotel_zip_code" placeholder="우편번호" value="${hdto.hotel_zip_code}" required readonly>
 							<input class="btn btn-danger" type="button" value="우편번호 찾기"
 								name="postcode_find"><br> 
 							<input class="form-control" type="text" name="hotel_basic_addr"
-								placeholder="주소" required readonly>
+								placeholder="주소" value="${hdto.hotel_basic_addr}" required readonly>
 							<input class="form-control" type="text" name="hotel_detail_addr"
-								placeholder="상세주소">
+								placeholder="상세주소" value="${hdto.hotel_detail_addr}">
 						</td>
 					</tr>
 					<tr>
 						<td>소개</td>
 						<td>
 							<textarea class="form-control" placeholder="호텔 소개글을 입력하세요" 
-							name="hotel_content" id="h_content"></textarea>
+							name="hotel_content" id="h_content">${hdto.hotel_content}</textarea>
 						</td>
 					</tr>
 					<tr>
@@ -207,22 +214,52 @@ form label {
 					<tr>
 						<td>옵션사항</td>
 						<td>
-							<input type="checkbox" name="hotel_parking" value="Y">주차가능<br>
-							<input type="checkbox" name="hotel_fitness" value="Y">헬스장<br>
-							<input type="checkbox" name="hotel_pool" value="Y">수영장<br>
-							<input type="checkbox" name="hotel_sauna" value="Y">사우나<br>
-							<input type="checkbox" name="hotel_lounge" value="Y">라운지<br>
-							<input type="checkbox" name="hotel_bbq" value="Y">바베큐<br>
-							<input type="checkbox" name="hotel_cafe" value="Y">카페<br>
-							<input type="checkbox" name="hotel_convenience_store" value="Y">편의점<br>
-							<input type="checkbox" name="hotel_karaoke" value="Y">노래방<br>
-							<input type="checkbox" name="hotel_internet" value="Y">와이파이
+							<div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="hotel_parking">
+						      <label class="custom-control-label" for="parking">주차장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="fitness" name="hotel_fitness">
+						      <label class="custom-control-label" for="fitness">피트니스</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="pool" name="hotel_pool">
+						      <label class="custom-control-label" for="pool">수영장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="sauna" name="hotel_sauna">
+						      <label class="custom-control-label" for="sauna">사우나</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="hotel_lounge">
+						      <label class="custom-control-label" for="lounge">라운지</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="hotel_bbq">
+						      <label class="custom-control-label" for="bbq">바베큐장</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="cafe" name="hotel_cafe">
+						      <label class="custom-control-label" for="cafe">카페</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="conveni" name="hotel_convenience_store">
+						      <label class="custom-control-label" for="conveni">편의점</label>
+						    </div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="karaoke" name="hotel_karaoke">
+						      <label class="custom-control-label" for="karaoke">노래방</label>
+					    	</div><br>
+						    <div class="custom-control custom-checkbox">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="internet" name="hotel_internet">
+						      <label class="custom-control-label" for="internet">인터넷</label>
+						    </div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2"><div id="map" style="width:100%; height:300px;"></div>
-							<input type="hidden" id="h_longitude" name="hotel_longitude" value="">
-							<input type="hidden" id="h_latitude" name="hotel_latitude" value="">
+							<input type="hidden" id="h_longitude" name="hotel_longitude" value="${hdto.hotel_longitude}">
+							<input type="hidden" id="h_latitude" name="hotel_latitude" value="${hdto.hotel_latitude}">
 						</td>
 					</tr>
 					<tr>
