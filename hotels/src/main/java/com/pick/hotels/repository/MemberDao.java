@@ -24,5 +24,6 @@ public interface MemberDao {
 	MemberDto get(int notice_writer);
 	List<MemberDto> list(String type, String keyword, int start, int end);
 	int count(String type, String keyword);
+	void edit_member(MemberDto memberDto);
 	
 }

@@ -122,4 +122,11 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.count", param);
 	}
 
+	
+//	관리자 회원 정보 수정
+	@Override
+	public void edit_member(MemberDto memberDto) {
+		sqlSession.update("member.edit_member", memberDto);
+	}
+
 }

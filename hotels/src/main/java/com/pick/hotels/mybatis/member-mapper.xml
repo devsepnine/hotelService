@@ -125,4 +125,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+	<!-- 관리자의 회원 정보 수정  -->
+	<update id="edit_member" parameterType="memberDto">
+		update member
+			set
+				member_name = #{member_name},
+				member_zip_code = #{member_zip_code},
+				member_basic_addr = #{member_basic_addr},
+				member_detail_addr = #{member_detail_addr},
+				member_birthday = #{member_birthday},
+				member_phone = #{member_phone},
+				member_auth = #{member_auth}
+			where
+				member_id = #{member_id}
+	</update>
+	
+	
 </mapper>
