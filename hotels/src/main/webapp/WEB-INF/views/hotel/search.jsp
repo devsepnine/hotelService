@@ -219,10 +219,10 @@ $(function(){
     });
 </script>
 <div style="height: 20px;"></div>
-${h_list }
+
 <div class="keywordArea">
 	<div class="key-wrap">
-	<div class="keywordArea-key" style="width: 520px;text-align: left; display: table-cell;">
+	<div class="keywordArea-key" style="width: 550px;text-align: left; display: table-cell;">
 	    <div class="custom-control custom-checkbox">
 	      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="parking" ${not empty param.parking?"checked":""}>
 	      <label class="custom-control-label" for="parking">주차장</label>
@@ -265,7 +265,7 @@ ${h_list }
 	      <label class="custom-control-label" for="internet">인터넷</label>
 	    </div>
 	</div>
-	<div style="vertical-align:middle; display:table-cell;text-align: center; width: 280px;">
+	<div style="vertical-align:middle; display:table-cell;text-align: center; width: 290px;">
 		<span class="keywordreset btn btn-danger" style="margin-left: 40px;">선택 해제</span>
 		<input type="submit" class="btn btn-danger" style="width: 130px;" value="키워드 검색"/>
 	</div>
