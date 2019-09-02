@@ -55,6 +55,7 @@ public class HotelController {
 		HotelDto hdto = hotelDao.get(hotel_no);
 		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
 		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
+		
 		List<RoomDto> rdto_list = roomDao.get_list(hotel_no);
 		for(RoomDto rdto : rdto_list) {
 			int no = rdto.getRoom_no();
