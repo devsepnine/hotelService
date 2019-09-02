@@ -10,8 +10,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 <!-- jquery ui -->
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 <!-- 	date picker width 버그 수정 -->
 	<style>
 		.bootstrap-datetimepicker-widget.dropdown-menu{
@@ -20,7 +20,6 @@
 		.ui-autocomplete
 	    {
 	        max-height: 140px;
-	        overflow-y: hidden; /* prevent horizontal scrollbar */
 	        overflow-x: hidden;
 	    }
 	    .keywordArea{
@@ -284,7 +283,7 @@ $(function(){
 			<li class="hotel-wrap" style="padding:20px;vertical-align: middle;">
 			
 				<div class="thumnail-wrap" style="display: inline-block; width: 230px;">
-					<a href="view?h_no=${h_con.hotel_no}">
+					<a href="view/${h_con.hotel_no}?region=${param.region}&check_in=${param.check_in}&check_out=${param.check_out}&people=${param.people}">
 						<img alt="${h_con.hotel_title}" style="border-radius: 5px;width: 230px; height:230px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${h_con.hotel_title}">
 					</a>
 				</div>
