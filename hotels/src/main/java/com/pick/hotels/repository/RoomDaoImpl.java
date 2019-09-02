@@ -21,4 +21,9 @@ public class RoomDaoImpl implements RoomDao{
 	public int getSequenceNumber() {
 		return sqlSession.selectOne("room.seq");
 	}
+
+	@Override
+	public RoomDto get(int room_no) {
+		return sqlSession.selectOne("room.get", room_no);
+	}
 }

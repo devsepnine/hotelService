@@ -18,6 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<select id="get" parameterType="map" resultType="reserveDto">
+		select * from reserve where reserve_member_no = #{member_no}  and reserve_no= ${reserve_no}
+	</select>
+	
 	
 	
 </mapper>

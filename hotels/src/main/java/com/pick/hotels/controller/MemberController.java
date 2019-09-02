@@ -371,6 +371,11 @@ public class MemberController {
 				resp.getWriter().print("N");
 			}
 	}
+	
+	
+	
+	
+	
 }
 	
 	

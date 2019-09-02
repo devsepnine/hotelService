@@ -21,5 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select room_seq.nextval from dual
-	</select>                                                                     
+	</select>     
+	
+	<!-- 방정보  -->
+	<select id="get" parameterType="int" resultType="roomDto">
+		select * from room where room_no = #{room_no}
+	</select>                                                                
  </mapper>

@@ -49,7 +49,7 @@
 							<input type="hidden" id="hotel_no" value="${wishDto.hotel_no}">
 						</a>
 						</td>
-						<td><input type="button" class="btn btn-danger delete_btn" value="삭제"></td>
+						<td><input type="button" class="btn btn-danger" value="삭제"></td>
 					</tr>
 			</tbody>
 		</table>

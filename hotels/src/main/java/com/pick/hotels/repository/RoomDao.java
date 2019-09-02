@@ -7,5 +7,7 @@ public interface RoomDao {
 	public void regist(RoomDto roomDto);
 
 	public int getSequenceNumber();
+
+	public RoomDto get(int room_no);
 	
 }
