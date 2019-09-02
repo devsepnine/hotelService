@@ -1,9 +1,8 @@
 package com.pick.hotels.controller;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,41 +10,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.pick.hotels.entity.Detail_room_vo;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
-import com.pick.hotels.entity.PartnerDto;
-import com.pick.hotels.entity.PartnerFileDto;
+import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
-import com.pick.hotels.repository.PartnerDao;
-import com.pick.hotels.repository.PartnerFileDao;
-import com.pick.hotels.service.FileService;
+import com.pick.hotels.repository.RoomDao;
+import com.pick.hotels.repository.RoomFileDao;
 
 @Controller
 @RequestMapping("/hotel")
 public class HotelController {
 	
-	@Autowired
-	private HotelDao hotelDao;
 	
-	@Autowired
-	private FileService fileService;
+	private @Autowired HotelDao hotelDao;
 	
-	@Autowired
-	private HotelFileDao hotelFileDao;
+	private @Autowired HotelFileDao hotelFileDao;
 	
-	@Autowired
-	private PartnerDao partnerDao;
+	private @Autowired RoomDao roomDao;
 	
-	@Autowired
-	private PartnerFileDao partnerFileDao;
+	private @Autowired RoomFileDao roomFileDao;
 	
 	@GetMapping("/search")
 	public String search(Model model,
@@ -57,8 +48,26 @@ public class HotelController {
 		return "hotel/search";
 	}
 	
-	@GetMapping("/view")
-	public String view() {
+	@GetMapping("/view/{hotel_no}")
+	public String view(HttpSession session,
+						@PathVariable int hotel_no,
+						Model model) {
+		HotelDto hdto = hotelDao.get(hotel_no);
+		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
+		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
+		
+		List<RoomDto> rdto_list = roomDao.get_list(hotel_no);
+		for(RoomDto rdto : rdto_list) {
+			int no = rdto.getRoom_no();
+			List<RoomFileDto> rfdto_list = roomFileDao.get_list(no);
+			Detail_room_vo drv = Detail_room_vo.builder().rdto(rdto).room_file_list(rfdto_list).build();
+			detail_list.add(drv);
+		}
+		
+		
+		model.addAttribute("detail_list", detail_list);
+		model.addAttribute("hdto", hdto);
+		model.addAttribute("hflist", hflist);
 		return "hotel/view";
 	}
 	
