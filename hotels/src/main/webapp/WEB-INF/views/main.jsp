@@ -18,19 +18,16 @@
 /*  		swipe 스타일 */
 		.swiper-container {
 			width:100%;
+			max-height:200px;
 			padding:30px 0;
 			border:5px solid silver;
 			border-radius:7px;
 			box-shadow:0 0 20px #ccc inset;
 		}
-		.swiper-slide {
-			text-align:center;
-			display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-			align-items:center; /* 위아래 기준 중앙정렬 */
-			justify-content:center; /* 좌우 기준 중앙정렬 */
-		}
-		.swiper-slide img {
-			box-shadow:0 0 5px #555;
+		
+		.swiper-container img{
+			width:100%;
+			max-height:200px;
 		}
 		
 		.ui-autocomplete
@@ -50,9 +47,8 @@
 <script>
 	$(function(){
 		var mySwiper = new Swiper ('.swiper-container', {
-				autoHeight : true,
 				loop : true,
-				resizeReInit: true,
+// 				resizeReInit: true,
 				effect: 'fade',
 				autoResize: true
 		    })
@@ -63,9 +59,9 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/1.jpg"></div>
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/2.jpg"></div>
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/3.jpg"></div>
+        <div class="swiper-slide"><img src="${pageContext.request.contextPath }/img/1.jpg"></div>
+        <div class="swiper-slide"><img src="${pageContext.request.contextPath }/img/2.jpg"></div>
+        <div class="swiper-slide"><img src="${pageContext.request.contextPath }/img/3.jpg"></div>
         ...
     </div>
 </div>
@@ -105,7 +101,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="체크인" name="date1" required/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="체크인" name="check_in" required/>
                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -114,7 +110,7 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="체크아웃" name="date2" required/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="체크아웃" name="check_out" required/>
                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
@@ -174,9 +170,9 @@ $(function(){
 				}
 			}
 		};
-		function dateDiff(_date1, _date2) {
-			var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
-			var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+		function dateDiff(_check_in, _check_out) {
+			var diffDate_1 = _check_in instanceof Date ? _check_in : new Date(_check_in);
+			var diffDate_2 = _check_out instanceof Date ? _check_out : new Date(_check_out);
 
 			diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1
 					.getMonth() + 1, diffDate_1.getDate());

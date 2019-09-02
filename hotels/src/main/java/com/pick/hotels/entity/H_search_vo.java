@@ -20,7 +20,7 @@ public class H_search_vo {
 					conveni, // 편의점 여부
 					karaoke, // 노래방 여부
 					internet, // 인터넷 여부
-					date1, // 체크 인
-					date2, // 체크 아웃
+					check_in, // 체크 인
+					check_out, // 체크 아웃
 					region; // 검색어
 }
