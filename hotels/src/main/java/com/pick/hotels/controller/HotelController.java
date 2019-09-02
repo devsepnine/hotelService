@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pick.hotels.entity.AttractionDto;
-import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
@@ -257,8 +255,7 @@ public class HotelController {
 		
 		int no = hotelDto.getHotel_no();
 		if(hotel_file_no0 > 0) {
-			fileService.hotel_title_edit(hotel_file_no0,no);
-			HotelDto saveResult =  fileService.hotel_title_update(file,no);
+			HotelDto saveResult =  fileService.hotel_title_save(file);
 			hotelDto.setHotel_title(saveResult.getHotel_title());
 		}
 		hotelDao.edit(hotelDto);
