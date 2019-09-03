@@ -157,7 +157,7 @@ form label {
 			<table>
 				<tbody>
 					<tr>
-						<td>방 이름</td>
+						<td><label>방 이름</label></td>
 						<td>
 							<input type="hidden" value="${param.partner_no}" name="partner_no">
 							
@@ -179,12 +179,6 @@ form label {
 						</td>
 					</tr>
 					<tr>
-						<td>방 가격</td>
-						<td><input class="form-control"
-							type="text" placeholder="가격을 입력해주세요" name="partner_price" required>
-						</td>
-					</tr>
-					<tr>
 						<td><label for="p_tel">제휴 번호</label></td>
 						<td><input class="form-control" onblur="checkTel();"
 							type="tel" placeholder="-포함한 번호를 입력해주세요" name="partner_tel" id="p_tel"
@@ -192,10 +186,16 @@ form label {
 							<div class="p_telD"></div></td>
 					</tr>
 					<tr>
-						<td>소개</td>
+						<td><label>소개</label></td>
 						<td>
 							<textarea class="form-control" placeholder="제휴 소개글을 입력하세요" 
 							name="partner_content"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><div id="map" style="width:100%; height:300px;"></div>
+							<input type="hidden" id="p_longitude" name="partner_longitude" value="">
+							<input type="hidden" id="p_latitude" name="partner_latitude" value="">
 						</td>
 					</tr>
 					<tr>
