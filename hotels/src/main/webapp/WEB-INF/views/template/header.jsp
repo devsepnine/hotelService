@@ -157,7 +157,7 @@
 			<p><a href="${pageContext.request.contextPath}/member/login">로그인</a></p>
 		</c:when>
 		<c:otherwise>
-			
+			<p><a href="${pageContext.request.contextPath}/reserve/list">예약내역</a></p>
 			<p><a href="${pageContext.request.contextPath}/member/info">내 정보</a></p>
 			<p><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></p>
 		</c:otherwise>
