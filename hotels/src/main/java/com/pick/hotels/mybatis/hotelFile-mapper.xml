@@ -30,5 +30,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		delete h_file where h_file_no = #{h_file_no}
  	</delete>
  	
+ 		<!-- 호텔 썸네일파일 가져오기 -->
+ 	<select id="getTitle" parameterType="String" resultType="hotelFileDto">
+		select * from h_file where h_file_name = #{h_file_name}
+ 	</select>
+ 	
+ 	 	<!-- 호텔 썸네일 삭제 -->
+ 	<delete id="deleteTitle" parameterType="String">
+ 		delete h_file where h_file_name = #{h_file_name}
+ 	</delete>
+ 	
  	                                                                                
  </mapper>

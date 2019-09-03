@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.pick.hotels.entity.AttractionDto;
+import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.HotelDto;
@@ -545,6 +547,7 @@ public class SellerController {
 		
 		int no = hotelDto.getHotel_no();
 		if(hotel_file != null) {
+			fileService.hotel_delete(hotel_file);
 			HotelDto saveResult =  fileService.hotel_title_save(file);
 			hotelDto.setHotel_title(saveResult.getHotel_title());
 		}
@@ -562,12 +565,6 @@ public class SellerController {
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
 		hotelDao.edit(hotelDto);
 		
-//		수정을 하게되면 
-//		1. 수정한 글 내용
-//		2. 수정파일1, 2, 3
-//		이 넘어오게 되는데 이것을 받아서 수정 처리를 한다.
-//		-> 글 내용은 그냥 수정
-//		->
 		if(!file1.isEmpty()) {
 		
 			if(hotel_file_no1 > 0) {
@@ -726,7 +723,7 @@ public class SellerController {
 	}
 	
 	@GetMapping("/hotel/partner/regist")
-	public String partner_regist(@RequestParam int hotel_int) {
+	public String partner_regist(@RequestParam int hotel_no) {
 		return "hotel/partner/regist";
 	}
 	
@@ -785,4 +782,17 @@ public class SellerController {
 		model.addAttribute("hotel_no",hotel_no);
 		return "redirect:partner/content";
 	}
+	
+	@GetMapping("/hotel/partner/delete")
+	public void partner_delete(@RequestParam int partner_no, HttpServletResponse resp) throws IOException {
+		boolean result = partnerDao.delete(partner_no);
+		if(result) {
+			resp.getWriter().print("Y");
+			fileService.partner_delete(partner_no);
+		} 
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+
 }

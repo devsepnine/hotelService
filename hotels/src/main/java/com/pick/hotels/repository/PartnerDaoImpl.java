@@ -23,4 +23,23 @@ public class PartnerDaoImpl implements PartnerDao{
 		
 	}
 
+	@Override
+	public PartnerDto get(int partner_no) {
+		return sqlSession.selectOne("partner.get",partner_no);
+	}
+
+	@Override
+	public boolean delete(int partner_no) {
+		try {
+			sqlSession.insert("partner.delete", partner_no);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+
 }
