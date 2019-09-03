@@ -8,4 +8,9 @@ public interface PartnerDao {
 
 	void regist(PartnerDto partnerDto);
 
+	PartnerDto get(int partner_no);
+
+	boolean delete(int partner_no);
+
+
 }

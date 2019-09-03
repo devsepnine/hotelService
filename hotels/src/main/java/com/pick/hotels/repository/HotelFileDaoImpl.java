@@ -36,4 +36,14 @@ public class HotelFileDaoImpl implements HotelFileDao{
 		sqlSession.delete("hotelFile.delete", no);
 	}
 
+	@Override
+	public HotelFileDto get(String hotel_file) {
+		return sqlSession.selectOne("hotelFile.getTitle", hotel_file);
+	}
+
+	@Override
+	public void delete(String hotel_file) {
+		sqlSession.delete("hotelFile.deleteTitle", hotel_file);
+	}
+
 }

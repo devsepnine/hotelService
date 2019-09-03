@@ -14,4 +14,8 @@ public interface HotelFileDao {
 
 	void delete(int no);
 
+	HotelFileDto get(String hotel_file);
+
+	void delete(String hotel_file);
+
 }
