@@ -239,15 +239,21 @@ function checkPhone(){
 		<tr>
 			<th>주소</th>
 			<td>
-				<input class="form-control" type="text" name="member_zip_code" placeholder="우편번호" value="${mdto.member_zip_code}" required readonly style="width:200px; display: inline-block;">
-					<input class="btn btn-danger"  type="button" value="우편번호 찾기" name="postcode_find" style="margin-left:50px;"><br><br>
-					<input class="form-control" type="text" name="member_basic_addr" value="${mdto.member_basic_addr}" required readonly ><br>
+				<div style="margin:5px 0px; text-align:left;">
+					<input class="form-control" type="text" name="member_zip_code" placeholder="우편번호" value="${mdto.member_zip_code}" required readonly style="width:200px; display: inline-block;">
+					<input class="btn btn-danger"  type="button" value="우편번호 찾기" name="postcode_find" style="margin-left:50px;">
+				</div>
+				<div style="margin:5px 0px; text-align:left;">
+					<input class="form-control" type="text" name="member_basic_addr" value="${mdto.member_basic_addr}" required readonly>
+				</div>
+				<div style="margin:5px 0px; text-align:left;">
 					<input class="form-control" type="text" name="member_detail_addr" value="${mdto.member_detail_addr}">
+				</div>
 			</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>생년월일</th>
-			<td><input class="form-control" type="date" name="member_birthday" id="m_birth" value="${mdto.member_birthday}" required></td>
+			<td><input class="form-control" type="date" name="member_birthday" id="m_birth" value="${mdto.member_birthday.substring(0,10)}" required></td>
 		<tr>
 		<tr>
 			<th>이메일</th>

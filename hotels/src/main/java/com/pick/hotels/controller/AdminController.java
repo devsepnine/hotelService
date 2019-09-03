@@ -662,6 +662,43 @@ public class AdminController {
 		return "admin/seller/list";
 	}
 	
+//	전체 판매자 리스트 + 검색("/seller/blacklist")
+	@GetMapping("/seller/blacklist")
+	public String blacklist_seller(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = sellerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<SellerDto> list = sellerDao.blacklist(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/seller/blacklist";
+	}
 	
 //------------------------------------------------------------------------------------
 //	제휴 관리
