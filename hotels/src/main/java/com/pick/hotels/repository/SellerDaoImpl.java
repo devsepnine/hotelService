@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.SellerDto;
 
 @Repository
@@ -129,6 +130,12 @@ public class SellerDaoImpl implements SellerDao{
 		param.put("end", end);
 		
 		return sqlSession.selectList("seller.blacklist", param);
+	}
+	
+//	관리자 판매자 정보 수정
+	@Override
+	public void edit_seller(SellerDto sellerDto) {
+		sqlSession.update("seller.edit_seller", sellerDto);
 	}
 
 }

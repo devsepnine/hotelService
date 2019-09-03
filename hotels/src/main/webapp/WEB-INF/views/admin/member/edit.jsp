@@ -207,10 +207,6 @@ function checkPhone(){
 		width: 118px;
 	}
 	
-	input[name=member_zip_code] {
-		align-items: left;
-		align-self: left !important;
-	}
 </style>
 
 <form action="edit" method="post">

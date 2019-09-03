@@ -149,7 +149,7 @@
 		</tr>
 		<tr>
 			<th>블랙리스트 여부</th>
-			<td>${sdto.seller_blacklist}</td>
+			<td>${sdto.seller_blacklist eq 'Y'?"blacklist":"clean"}</td>
 		</tr>
 	</tbody>
 	<tfoot>

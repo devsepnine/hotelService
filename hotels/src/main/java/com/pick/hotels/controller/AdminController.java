@@ -623,7 +623,41 @@ public class AdminController {
 	
 	
 //	판매자 정보 수정("/seller/edit")
+	@GetMapping("/seller/edit")
+	public String edit_seller(@RequestParam int no, Model model) {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		model.addAttribute("sdto", sellerDto);
+		
+		return "admin/seller/edit";
+	}
+	
+	@PostMapping("/seller/edit")
+	public String edit_seller(@ModelAttribute SellerDto sellerDto, Model model) {
+		
+		sellerDao.edit_seller(sellerDto);
+		
+		model.addAttribute("no", sellerDto.getSeller_no());
+		
+		return "redirect:detail";
+	}
+	
+	
 //	판매자 탈퇴("/seller/exit")
+	@GetMapping("/seller/exit")
+	public String exit_seller(@RequestParam int no, Model model) {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		String seller_id = sellerDto.getSeller_id();
+		
+		sellerDao.delete(seller_id);
+		
+		return "redirect:list";
+	}
+	
+	
 //	전체 판매자 리스트 + 검색("/seller/list")
 	@GetMapping("/seller/list")
 	public String list_seller(
