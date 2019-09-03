@@ -623,7 +623,41 @@ public class AdminController {
 	
 	
 //	판매자 정보 수정("/seller/edit")
+	@GetMapping("/seller/edit")
+	public String edit_seller(@RequestParam int no, Model model) {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		model.addAttribute("sdto", sellerDto);
+		
+		return "admin/seller/edit";
+	}
+	
+	@PostMapping("/seller/edit")
+	public String edit_seller(@ModelAttribute SellerDto sellerDto, Model model) {
+		
+		sellerDao.edit_seller(sellerDto);
+		
+		model.addAttribute("no", sellerDto.getSeller_no());
+		
+		return "redirect:detail";
+	}
+	
+	
 //	판매자 탈퇴("/seller/exit")
+	@GetMapping("/seller/exit")
+	public String exit_seller(@RequestParam int no, Model model) {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		String seller_id = sellerDto.getSeller_id();
+		
+		sellerDao.delete(seller_id);
+		
+		return "redirect:list";
+	}
+	
+	
 //	전체 판매자 리스트 + 검색("/seller/list")
 	@GetMapping("/seller/list")
 	public String list_seller(
@@ -662,6 +696,43 @@ public class AdminController {
 		return "admin/seller/list";
 	}
 	
+//	전체 판매자 리스트 + 검색("/seller/blacklist")
+	@GetMapping("/seller/blacklist")
+	public String blacklist_seller(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = sellerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<SellerDto> list = sellerDao.blacklist(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/seller/blacklist";
+	}
 	
 //------------------------------------------------------------------------------------
 //	제휴 관리

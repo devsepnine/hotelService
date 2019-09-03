@@ -22,4 +22,6 @@ public interface SellerDao {
 //------------------------------------------------------------------------------------    
 	List<SellerDto> list(String type, String keyword, int start, int end);
 	int count(String type, String keyword);
+	List<SellerDto> blacklist(String type, String keyword, int start, int end);
+	void edit_seller(SellerDto sellerDto);
 }

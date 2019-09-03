@@ -148,10 +148,10 @@
 <div class="content-line">
 <div class="list_wrap">
 <div class="list_headtit">
-<h3>판매자 리스트</h3>
+<h3>블랙 리스트</h3>
 </div>
-	<a href="blacklist">
-		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="BLACK LIST">
+	<a href="list">
+		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="SELLER LIST">
 	</a>
 <div class="table-box">
 <table class="table_ny_three" border="1" >

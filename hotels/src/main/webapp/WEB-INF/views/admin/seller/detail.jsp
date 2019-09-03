@@ -147,6 +147,10 @@
 			<th>가입일</th>
 			<td>${sdto.seller_regist.substring(0,10)}</td>
 		</tr>
+		<tr>
+			<th>블랙리스트 여부</th>
+			<td>${sdto.seller_blacklist eq 'Y'?"blacklist":"clean"}</td>
+		</tr>
 	</tbody>
 	<tfoot>
 		<tr>

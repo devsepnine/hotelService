@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				${type} like '%' || #{keyword} || '%'
 			</if>
 		<![CDATA[
-			 order by seller_no desc )s)  where r >= #{start} and r <= #{end}
+			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'N'
 		]]>
 	</select>
 	
@@ -118,5 +118,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where ${type} like '%' || #{keyword} || '%'
 		</if>
 	</select>
+	
+	<!-- 판매자 블랙리스트 -->
+	<select id="blacklist" parameterType="map" resultType="sellerDto">
+		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
+		<![CDATA[
+		select *  from(
+    		select rownum r, s.* from(select * from seller 
+		]]>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
+		<![CDATA[
+			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'Y'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+		]]>
+	</select>
+	
+	<!-- 관리자의 판매자 정보 수정  -->
+	<update id="edit_seller" parameterType="sellerDto">
+		update seller
+			set
+				seller_name = #{seller_name},
+				seller_zip_code = #{seller_zip_code},
+				seller_basic_addr = #{seller_basic_addr},
+				seller_detail_addr = #{seller_detail_addr},
+				seller_birth = #{seller_birth},
+				seller_phone = #{seller_phone},
+				seller_blacklist = #{seller_blacklist}
+			where
+				seller_id = #{seller_id}
+	</update>
 	
 </mapper>
