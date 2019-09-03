@@ -132,10 +132,10 @@ $(function(){
 <script type="text/javascript">
     $(function () {
     	$("input[name=check_in]").focus(function(){
-			$(".check_in_btn").trigger("click");
+    	    $("#datetimepicker1").datetimepicker("show");
 		});
 		$("input[name=check_out]").focus(function(){
-			$(".check_out_btn").trigger("click");
+			$("#datetimepicker2").datetimepicker("show");
 		});
     	
     	var map = new URLSearchParams(window.location.search);
@@ -218,27 +218,25 @@ $(function(){
 			width:330px;
 		}
 		
-		
 		<!-- typeahead 디자인 -->
 		.typeahead,
 		.tt-query,
 		.tt-hint {
 		  border: 2px solid #ccc;
 		  outline: none;
-		  color: lightgray;
 		}
 		.typeahead {
 		  background-color: #fff;
+		}
+		.typeahead:focus {
+		  border: 2px solid #0097cf;
 		}
 		.twitter-typeahead > .form-control:focus{
 			color: blue;
 			font-weight: bold;
 		}
-		.typeahead:focus {
-		  border: 2px solid #0097cf;
-		}
 		.tt-menu{
-			width:150px;
+			width:20rem;
 			background-color: white;
 			border: 1px solid black;
 		}
@@ -262,6 +260,12 @@ $(function(){
 		  padding: 3px 20px;
 		  line-height: 24px;
 		  color: gray;
+		  text-align: left;
+		  
+		  /* 텍스트 숨기기 위한 스타일 속성 */
+		  text-overflow: ellipsis;
+		  white-space: nowrap;
+		  overflow: hidden;
 		}
 		.tt-suggestion:hover{
 			background-color:lightgray;
@@ -326,9 +330,7 @@ $(function(){
 </style>
 
 ${hdto }
-<font>============</font>
-${detail_list}
-<form action="search">
+<form action="../search">
 <div style="height: 50px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
@@ -378,7 +380,7 @@ ${detail_list}
 	        	<div class="star-paint"></div>
 	    	</div>
 		</div>
-		<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-3x"></i>
+		<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
 	</div>
 	
   <div class="gallary">
@@ -405,7 +407,23 @@ ${detail_list}
 	    </div>
 	  </div>
   </div>
+  	<div class="room-wrap">
+  		<c:forEach	var="detail_room" items="${detail_list}">
+  			<p>${detail_room}</p>
+  			<c:forEach items="${detail_room.room_file_list }" var="room_picture">
+  				<p>${room_picture}</p>
+  			</c:forEach>
+  		</c:forEach>
+  	</div>
+  <div>
+  
+  
+  </div>
+  
+  
 </div>
+
+
 
 
 
