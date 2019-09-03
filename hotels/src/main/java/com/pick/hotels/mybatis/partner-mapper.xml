@@ -19,5 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select partner_seq.nextval from dual
-	</select>                                                                     
+	</select>       
+	
+	<select id="get" parameterType="int" resultType="partnerDto">
+		select * from partner where partner_no = #{partner_no}
+	</select> 
+	
+	<!-- 제휴 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete partner where partner_no = #{partner_no}
+	</delete>
+	                                                         
  </mapper>

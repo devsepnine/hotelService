@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into seller values(
 			seller_seq.nextval, #{seller_id}, #{seller_pw}, #{seller_phone}, #{seller_name},
 			#{seller_lisence}, #{seller_zip_code}, #{seller_basic_addr}, #{seller_detail_addr},
-			#{seller_birth}, #{seller_email_id}, #{seller_email_addr}, sysdate
+			#{seller_birth}, #{seller_email_id}, #{seller_email_addr}, sysdate , 'N'
 		)
 	</insert>
 	
