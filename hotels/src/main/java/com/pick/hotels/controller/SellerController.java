@@ -724,7 +724,7 @@ public class SellerController {
 	
 	@GetMapping("/hotel/partner/regist")
 	public String partner_regist(@RequestParam int hotel_no) {
-		return "hotel/partner/regist";
+		return "/partner/regist";
 	}
 	
 	@PostMapping("/hotel/partner/regist")
@@ -780,7 +780,7 @@ public class SellerController {
 		
 		model.addAttribute("partner_no",partnerDto.getPartner_no());
 		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:partner/content";
+		return "redirect:/partner/content";
 	}
 	
 	@GetMapping("/hotel/partner/delete")

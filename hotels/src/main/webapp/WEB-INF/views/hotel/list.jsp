@@ -82,13 +82,16 @@
 						<td class="">${hdto.hotel_tel}</td>
 					</tr>
 					<tr class="end_line">
-						<td colspan="3"><button class="btn btn-danger delete_btn ">삭제</button></td>
+						<td colspan="3">
+							<a href="${pageContext.request.contextPath}/seller/hotel/partner/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">제휴 추가  </button></a>
+							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">방 추가  </button></a>
+							<button class="btn btn-danger delete_btn ">삭제</button>
+						</td>
 					</tr>
 			</tbody>
 		</table>
 	</c:forEach>
 	<a href="${pageContext.request.contextPath}/seller/hotel/regist"><input class="btn btn-danger" type="button" name="#" value="호텔등록"></a>
-	<input class="btn btn-danger" type="button" name="#" value="선택삭제">
 </div>
 
 

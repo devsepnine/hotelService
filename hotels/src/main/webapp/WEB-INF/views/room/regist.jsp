@@ -41,7 +41,7 @@ form label {
 
 <div class="regist-wrap" align="center">
 	<br>
-	<h1>가입 정보 입력</h1>
+	<h1>객실 정보 입력</h1>
 	<br>
 	<form action="regist" method="post" enctype="multipart/form-data">
 		<div>
@@ -51,7 +51,7 @@ form label {
 						<td>방 이름</td>
 						<td>
 							<input type="hidden" value="${param.hotel_no}" name="hotel_no">
-							<input class="form-control" type="text" name="room_name" required> 
+							<input class="form-control" type="text" name="room_name" placeholder="객실 이름을 입력하세요" required> 
 						</td>
 					</tr>
 					<tr>
@@ -112,7 +112,7 @@ form label {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">호텔 사진</p>
+							<p class="Thumbnail">객실 사진</p>
 							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
