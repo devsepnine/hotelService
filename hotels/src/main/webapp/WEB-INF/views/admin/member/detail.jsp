@@ -104,6 +104,10 @@
 		height: 45px;
 		width: 118px;
 	}
+	
+	.newpw_btn{
+		width : 200px;
+	}
 </style>
 
 <div style="height: 100px;"></div>
@@ -118,27 +122,33 @@
 		<tr>
 			<th>회원 번호</th>
 			<td>${mdto.member_no}</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>아이디</th>
 			<td>${mdto.member_id}</td>
+		</tr>
 		<tr>
+			<th>비밀번호</th>
+			<td>
+				<a href="" class="btn btn-danger newpw_btn">임시 비밀번호 발급</a>
+			</td>
+		</tr>
 		<tr>
 			<th>이름</th>
 			<td>${mdto.member_name}</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>주소</th>
 			<td>${mdto.member_basic_addr}&emsp;${mdto.member_detail_addr}</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>생년월일</th>
 			<td>${mdto.member_birthday.substring(0,10)}</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>${mdto.member_email1}@${mdto.member_email2}</td>
-		<tr>
+		</tr>
 		<tr>
 			<th>핸드폰 번호</th>
 			<td>${mdto.member_phone}</td>
