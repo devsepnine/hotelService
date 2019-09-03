@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
 <!-- 평점 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/star/star.css" />
@@ -9,19 +10,78 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
-<!-- jquery ui -->
-<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+
 <!-- 	date picker width 버그 수정 -->
-	<style>
+<!-- 	date picker width 버그 수정 -->
+<style>
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
 		}
-		.ui-autocomplete
-	    {
-	        max-height: 140px;
-	        overflow-x: hidden;
-	    }
+		
+		<!-- typeahead 디자인 -->
+		.typeahead,
+		.tt-query,
+		.tt-hint {
+		  border: 2px solid #ccc;
+		  outline: none;
+		}
+		.typeahead {
+		  background-color: #fff;
+		}
+		.typeahead:focus {
+		  border: 2px solid #0097cf;
+		}
+		.twitter-typeahead > .form-control:focus{
+			color: blue;
+			font-weight: bold;
+		}
+		.tt-menu{
+			width:150px;
+			background-color: white;
+			border: 1px solid black;
+		}
+		.tt-dropdown-menu {
+		  width: 422px;
+		  margin-top: 3px;
+		  padding: 8px 0;
+		  background-color: #fff;
+		  border: 1px solid #ccc;
+		  border: 1px solid rgba(0, 0, 0, 0.2);
+		  -webkit-border-radius: 8px;
+		     -moz-border-radius: 8px;
+		          border-radius: 8px;
+		  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		}
+		
+		/* 자동완성(하단) */
+		.tt-suggestion {
+		  padding: 3px 20px;
+		  line-height: 24px;
+		  color: gray;
+		}
+		.tt-suggestion:hover{
+			background-color:lightgray;
+			cursor:hand;
+		}
+		
+		.tt-suggestion.tt-cursor {
+		  color: #fff;
+		  background-color: #0097cf;
+		}
+		
+		.tt-suggestion p {
+		  margin: 0;
+		  font-size: 18px;
+		  text-align: left;
+		}
+		
+		.twitter-typeahead {
+			width: 100%;
+		}
+	</style>	
+	<style>
 	    .keywordArea{
 	    	margin: auto;
 	    	width: 1000px;
@@ -78,9 +138,16 @@
 	</style>
 <script>
 $(function(){
-<!-- 자동완성 스크립트 -->
-	var region_list = new Array;
 	$('[data-toggle="tooltip"]').tooltip();
+// 	키워드 리셋
+	$(".keywordreset").click(function(){
+		$("input[type=checkbox]").prop("checked", false);
+	})
+})
+</script>
+
+<script>
+	var states = [];
 	$.ajax({
 		type:'post',
 		url : "${pageContext.request.contextPath}/region",
@@ -90,17 +157,46 @@ $(function(){
 			var size = Object.keys(data).length;
 			console.log(size);
 			for(var i=0; i<size; i++){
-				region_list.push(data[i].region_kor_name);
+				states.push(data[i].region_kor_name);
+				states.push(data[i].region_eng_name);
 			}
 		}
 	})
-    $("input[name=region]").autocomplete({
-   	source : region_list
-    });
-// 	키워드 리셋
-	$(".keywordreset").click(function(){
-		$("input[type=checkbox]").prop("checked", false);
-	})
+</script>
+<!-- 자동완성 스크립트 -->
+<script>
+$(function(){
+	var substringMatcher = function(strs) {
+		  return function findMatches(q, cb) {
+		    var matches, substringRegex;
+
+		    // an array that will be populated with substring matches
+		    matches = [];
+
+		    // regex used to determine if a string contains the substring `q`
+		    substrRegex = new RegExp(q, 'i');
+
+		    // iterate through the pool of strings and for any string that
+		    // contains the substring `q`, add it to the `matches` array
+		    $.each(strs, function(i, str) {
+		      if (substrRegex.test(str)) {
+		        matches.push(str);
+		      }
+		    });
+
+		    cb(matches);
+		  };
+		};
+	
+	$("input[name=region]").typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'states',
+	  source: substringMatcher(states)
+	});
 })
 </script>
 
@@ -113,8 +209,8 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
-               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" required/>
-               <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" autocomplete="off" required/>
+               <div class="input-group-append check_in_btn" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
            </div>
@@ -122,8 +218,8 @@ $(function(){
 	
 	<div style="width: 200px;display: inline-block;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" required/>
-               <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" autocomplete="off" required/>
+               <div class="input-group-append check_out_btn" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
            </div>
@@ -145,6 +241,13 @@ $(function(){
 
 <script type="text/javascript">
     $(function () {
+    	$("input[name=check_in]").focus(function(){
+			$(".check_in_btn").trigger("click");
+		});
+		$("input[name=check_out]").focus(function(){
+			$(".check_out_btn").trigger("click");
+		});
+    	
     	var map = new URLSearchParams(window.location.search);
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
@@ -294,32 +397,31 @@ $(function(){
 						<div class="hotel-star">
 					    	<div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
 					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
-					        <div class="star-paint"></div>
-					    </div>
+					        	<div class="star-paint"></div>
+					    	</div>
 						</div>
 					</div>
-					
 					<div class="ico-wrap" style="display: inline-block;width: 100%;padding: 10px 0px;">
 						<c:if test="${h_con.hotel_bbq=='Y'}">
-						<img alt="" data-toggle="tooltip" title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
 						<c:if test="${h_con.hotel_karaoke=='Y'}">
-						<img alt="" data-toggle="tooltip" title="노래방" src="${pageContext.request.contextPath}/img/ico/karaoke.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="노래방" src="${pageContext.request.contextPath}/img/ico/karaoke.png"></c:if>
 						<c:if test="${h_con.hotel_cafe=='Y'}">
-						<img alt="" data-toggle="tooltip" title="카페" src="${pageContext.request.contextPath}/img/ico/cafe.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="카페" src="${pageContext.request.contextPath}/img/ico/cafe.png"></c:if>
 						<c:if test="${h_con.hotel_convenience_store=='Y'}">
-						<img alt="" data-toggle="tooltip" title="편의점" src="${pageContext.request.contextPath}/img/ico/conveni.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="편의점" src="${pageContext.request.contextPath}/img/ico/conveni.png"></c:if>
 						<c:if test="${h_con.hotel_fitness=='Y'}">
-						<img alt="" data-toggle="tooltip" title="피트니스" src="${pageContext.request.contextPath}/img/ico/fitness.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="피트니스" src="${pageContext.request.contextPath}/img/ico/fitness.png"></c:if>
 						<c:if test="${h_con.hotel_internet=='Y'}">
-						<img alt="" data-toggle="tooltip" title="인터넷" src="${pageContext.request.contextPath}/img/ico/internet.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="인터넷" src="${pageContext.request.contextPath}/img/ico/internet.png"></c:if>
 						<c:if test="${h_con.hotel_lounge=='Y'}">
-						<img alt="" data-toggle="tooltip" title="라운지" src="${pageContext.request.contextPath}/img/ico/lounge.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="라운지" src="${pageContext.request.contextPath}/img/ico/lounge.png"></c:if>
 						<c:if test="${h_con.hotel_parking=='Y'}">
-						<img alt="" data-toggle="tooltip" title="주차장" src="${pageContext.request.contextPath}/img/ico/parking.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="주차장" src="${pageContext.request.contextPath}/img/ico/parking.png"></c:if>
 						<c:if test="${h_con.hotel_pool=='Y'}">
-						<img alt="" data-toggle="tooltip" title="수영장" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="수영장" src="${pageContext.request.contextPath}/img/ico/pool.png"></c:if>
 						<c:if test="${h_con.hotel_sauna=='Y'}">
-						<img alt="" data-toggle="tooltip" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
+						<img alt="" data-toggle="tooltip" data-placement="top" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
 					<div>
 						<div>${h_con.hotel_content}</div>
