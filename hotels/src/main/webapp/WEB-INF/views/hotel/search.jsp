@@ -17,7 +17,6 @@
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
 		}
-		
 		<!-- typeahead 디자인 -->
 		.typeahead,
 		.tt-query,
@@ -36,7 +35,7 @@
 			font-weight: bold;
 		}
 		.tt-menu{
-			width:150px;
+			width:20rem;
 			background-color: white;
 			border: 1px solid black;
 		}
@@ -60,6 +59,12 @@
 		  padding: 3px 20px;
 		  line-height: 24px;
 		  color: gray;
+		  text-align: left;
+		  
+		  /* 텍스트 숨기기 위한 스타일 속성 */
+		  text-overflow: ellipsis;
+		  white-space: nowrap;
+		  overflow: hidden;
 		}
 		.tt-suggestion:hover{
 			background-color:lightgray;
@@ -242,10 +247,10 @@ $(function(){
 <script type="text/javascript">
     $(function () {
     	$("input[name=check_in]").focus(function(){
-			$(".check_in_btn").trigger("click");
+    	    $("#datetimepicker1").datetimepicker("show");
 		});
 		$("input[name=check_out]").focus(function(){
-			$(".check_out_btn").trigger("click");
+			$("#datetimepicker2").datetimepicker("show");
 		});
     	
     	var map = new URLSearchParams(window.location.search);
