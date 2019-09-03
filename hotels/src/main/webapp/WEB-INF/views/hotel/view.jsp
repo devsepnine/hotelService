@@ -2,9 +2,16 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- jquery ui -->
-<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
+<!-- 평점 소스파일 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/star/star.css" />
+
+<!-- date picker 소스파일 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
+
 
 <!-- 	swiper 소스파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/swiper/swiper.css">
@@ -39,12 +46,9 @@
 	});
 </script>
 
-
+<!-- search data -->
 <script>
-$(function(){
-<!-- 자동완성 스크립트 -->
-	var region_list = new Array;
-	$('[data-toggle="tooltip"]').tooltip();
+	var states = [];
 	$.ajax({
 		type:'post',
 		url : "${pageContext.request.contextPath}/region",
@@ -54,100 +58,86 @@ $(function(){
 			var size = Object.keys(data).length;
 			console.log(size);
 			for(var i=0; i<size; i++){
-				region_list.push(data[i].region_kor_name);
+				states.push(data[i].region_kor_name);
+				states.push(data[i].region_eng_name);
 			}
 		}
 	})
-    $("input[name=region]").autocomplete({
-   	source : region_list
-    });
-// 	키워드 리셋
-	$(".keywordreset").click(function(){
-		$("input[type=checkbox]").prop("checked", false);
-	})
+</script>
+<!-- 자동완성 스크립트 -->
+<script>
+$(function(){
+	var substringMatcher = function(strs) {
+		  return function findMatches(q, cb) {
+		    var matches, substringRegex;
+
+		    // an array that will be populated with substring matches
+		    matches = [];
+
+		    // regex used to determine if a string contains the substring `q`
+		    substrRegex = new RegExp(q, 'i');
+
+		    // iterate through the pool of strings and for any string that
+		    // contains the substring `q`, add it to the `matches` array
+		    $.each(strs, function(i, str) {
+		      if (substrRegex.test(str)) {
+		        matches.push(str);
+		      }
+		    });
+
+		    cb(matches);
+		  };
+		};
+	
+	$("input[name=region]").typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'states',
+	  source: substringMatcher(states)
+	});
 })
 </script>
 
-<style>
-    .gallary {
-      position: relative;
-      width:100%;
-      height:500px;
-    }
-    .swiper-container {
-      width: 100%;
-      height: 300px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .swiper-slide {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    .gallery-top {
-      height: 80%;
-      width: 100%;
-    }
-    .gallery-thumbs {
-      height: 20%;
-      box-sizing: border-box;
-      padding: 10px 0;
-    }
-    .gallery-thumbs .swiper-slide {
-      width: 25%;
-      height: 100%;
-      opacity: 0.4;
-    }
-    .gallery-thumbs .swiper-slide-thumb-active {
-      opacity: 1;
-    }
-</style>
-
-
-${detail_list}
-<form action="search">
-<div style="height: 50px;"></div>
-<div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
-	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
-	</div>
-	
-	<div style="width: 200px;display: inline-block;">
-          <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
-               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" required/>
-               <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-               </div>
-           </div>
-	</div>
-	
-	<div style="width: 200px;display: inline-block;">
-          <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" required/>
-               <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-               </div>
-           </div>
-       </div>
-       
-    <div class="form-group" style="width: 150px;display: inline-block;">
-	  <select class="custom-select" name="people" >
-	    <option value="1" ${param.people eq 1?"selected":""}>총 인원 1</option>
-	    <option value="2" ${param.people eq 2?"selected":""}>총 인원 2</option>
-	    <option value="3" ${param.people eq 3?"selected":""}>총 인원 3</option>
-	    <option value="4" ${param.people eq 4?"selected":""}>총 인원 4</option>
-	    <option value="5" ${param.people eq 5?"selected":""}>총 인원 5</option>
-	  </select>
-	</div>
-	<input class="btn btn-danger" type="submit" value="호텔 검색">
-	
-<span style="font-size: 20px;" class="diff"></span>
-</div>
-</form>
+<!-- Initialize Swiper -->
+<script>
+  $(function(){
+	  var galleryThumbs = new Swiper('.gallery-thumbs', {
+	      spaceBetween: 10,
+	      slidesPerView: 6,
+	      freeMode: true,
+	      autoResize: true,
+	      
+	      watchSlidesVisibility: true,
+	      watchSlidesProgress: true,
+	    });
+	    var galleryTop = new Swiper('.gallery-top', {
+	      spaceBetween: 10,
+	      autoResize: true,
+	      loop : true,
+	      navigation: {
+	        nextEl: '.swiper-button-next',
+	        prevEl: '.swiper-button-prev',
+	      },
+	      thumbs: {
+	        swiper: galleryThumbs
+	      }
+	    });
+  })
+    
+  </script>
 
 <script type="text/javascript">
     $(function () {
+    	$("input[name=check_in]").focus(function(){
+			$(".check_in_btn").trigger("click");
+		});
+		$("input[name=check_out]").focus(function(){
+			$(".check_out_btn").trigger("click");
+		});
+    	
     	var map = new URLSearchParams(window.location.search);
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
@@ -222,10 +212,173 @@ ${detail_list}
 </script>
 
 
+<!-- 	date picker width 버그 수정 -->
+<style>
+		.bootstrap-datetimepicker-widget.dropdown-menu{
+			width:330px;
+		}
+		
+		
+		<!-- typeahead 디자인 -->
+		.typeahead,
+		.tt-query,
+		.tt-hint {
+		  border: 2px solid #ccc;
+		  outline: none;
+		  color: lightgray;
+		}
+		.typeahead {
+		  background-color: #fff;
+		}
+		.twitter-typeahead > .form-control:focus{
+			color: blue;
+			font-weight: bold;
+		}
+		.typeahead:focus {
+		  border: 2px solid #0097cf;
+		}
+		.tt-menu{
+			width:150px;
+			background-color: white;
+			border: 1px solid black;
+		}
+		.tt-dropdown-menu {
+		  width: 422px;
+		  margin-top: 3px;
+		  padding: 8px 0;
+		  background-color: #fff;
+		  border: 1px solid #ccc;
+		  border: 1px solid rgba(0, 0, 0, 0.2);
+		  -webkit-border-radius: 8px;
+		     -moz-border-radius: 8px;
+		          border-radius: 8px;
+		  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		}
+		
+		/* 자동완성(하단) */
+		.tt-suggestion {
+		  padding: 3px 20px;
+		  line-height: 24px;
+		  color: gray;
+		}
+		.tt-suggestion:hover{
+			background-color:lightgray;
+			cursor:hand;
+		}
+		
+		.tt-suggestion.tt-cursor {
+		  color: #fff;
+		  background-color: #0097cf;
+		}
+		
+		.tt-suggestion p {
+		  margin: 0;
+		  font-size: 18px;
+		  text-align: left;
+		}
+		
+		.twitter-typeahead {
+			width: 100%;
+		}
+	</style>	
+<style>
+/* 	swiper 스타일 */
+    .gallary {
+      position: relative;
+      width:100%;
+      height:600px;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .gallery-top {
+      height: 80%;
+      width: 100%;
+    }
+    .gallery-thumbs {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+    .gallery-thumbs .swiper-slide {
+      height: 100%;
+      opacity: 0.4;
+    }
+    .gallery-thumbs .swiper-slide-thumb-active {
+      opacity: 1;
+    }
+    
+    .hotel-title-wrap .head-name{
+     	font-size: 30px;
+     	color: black;
+     	padding: 20px 0px;
+    }
+</style>
 
-<div class="hotel-info-wrap" style="width: 700px; margin: auto;">
+${hdto }
+<font>============</font>
+${detail_list}
+<form action="search">
+<div style="height: 50px;"></div>
+<div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
+	<div class="form-group" style="width: 150px;display: inline-block;">
+		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
+	</div>
+	
+	<div style="width: 200px;display: inline-block;">
+          <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
+               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" autocomplete="off" required/>
+               <div class="input-group-append check_in_btn" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+               </div>
+           </div>
+	</div>
+	
+	<div style="width: 200px;display: inline-block;">
+          <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" autocomplete="off" required/>
+               <div class="input-group-append check_out_btn" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+               </div>
+           </div>
+       </div>
+       
+    <div class="form-group" style="width: 150px;display: inline-block;">
+	  <select class="custom-select" name="people" >
+	    <option value="1" ${param.people eq 1?"selected":""}>총 인원 1</option>
+	    <option value="2" ${param.people eq 2?"selected":""}>총 인원 2</option>
+	    <option value="3" ${param.people eq 3?"selected":""}>총 인원 3</option>
+	    <option value="4" ${param.people eq 4?"selected":""}>총 인원 4</option>
+	    <option value="5" ${param.people eq 5?"selected":""}>총 인원 5</option>
+	  </select>
+	</div>
+	<input class="btn btn-danger" type="submit" value="호텔 검색">
+	
+<span style="font-size: 20px;" class="diff"></span>
+</div>
+</form>
+
+
+<div class="hotel-info-wrap" style="width: 1100px; margin: auto;">
 	<div class="hotel-title-wrap">
-	<p>${hdto.hotel_name}</p>	
+		<div class="head-name" style="display: inline-block;">${hdto.hotel_name}</div>
+		<div class="hotel-star" style="width: 120px;display: inline-block;">
+	    	<div style="display: inline-block;" data-toggle="tooltip" title="${hdto.hotel_star}성급 호텔" class="star-wrap" data-star="${hdto.hotel_star}" >
+	        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+	        	<div class="star-paint"></div>
+	    	</div>
+		</div>
+		<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-3x"></i>
 	</div>
 	
   <div class="gallary">
@@ -255,31 +408,7 @@ ${detail_list}
 </div>
 
 
-<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-3x"></i>
-<input type="hidden" class="hotel_no" value="${param.h_no}">
 
-  <!-- Initialize Swiper -->
-  <script>
-    var galleryThumbs = new Swiper('.gallery-thumbs', {
-      spaceBetween: 10,
-      slidesPerView: 4,
-      freeMode: true,
-      autoResize: true,
-      
-      watchSlidesVisibility: true,
-      watchSlidesProgress: true,
-    });
-    var galleryTop = new Swiper('.gallery-top', {
-      spaceBetween: 10,
-      autoResize: true,
-      loop : true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      thumbs: {
-        swiper: galleryThumbs
-      }
-    });
-  </script>
+
+<input type="hidden" class="hotel_no" value="${param.h_no}">
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
