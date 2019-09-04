@@ -1,10 +1,13 @@
 package com.pick.hotels.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.PartnerDto;
+import com.pick.hotels.entity.PartnerListVO;
 
 @Repository
 public class PartnerDaoImpl implements PartnerDao{
@@ -38,6 +41,11 @@ public class PartnerDaoImpl implements PartnerDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<PartnerListVO> list(int hotel_no) {
+		return sqlSession.selectList("partner.list",hotel_no);
 	}
 
 
