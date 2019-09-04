@@ -16,7 +16,11 @@ form h4 {
 
 form label {
 	font-size: 20px;
+	
 	/* 	background-color:yellow; */
+}
+.left_info{
+	width:40%;
 }
 
 .regist-wrap {
@@ -31,12 +35,24 @@ form label {
 	color: black;
 	font-size: 1.5rem;
 }
+.hotel_info{ 
+ 	width: 70%; 
+} 
+
+.buttonclass{
+	text-align: right;
+}
+.btnstyle{
+	width: 100px;
+	background: black;
+	color: white;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 
 <script>
         $(function(){
-        	var markerPosition  = new kakao.maps.LatLng(${adto.attraction_lat}, ${adto.attraction_lng}); 
+        	var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
 
         	// 이미지 지도에 표시할 마커입니다
         	// 이미지 지도에 표시할 마커는 Object 형태입니다
@@ -46,7 +62,7 @@ form label {
 
         	var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
         	    staticMapOption = { 
-        	        center: new kakao.maps.LatLng(${hdto.attraction_latitude}, ${hdto.attraction_longitude}), // 이미지 지도의 중심좌표
+        	        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
         	        level: 3, // 이미지 지도의 확대 레벨
         	        marker: marker // 이미지 지도에 표시할 마커 
         	    };    
@@ -62,45 +78,45 @@ form label {
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div class="regist-wrap" align="center">
 	<br>
-	<h1>호텔 등록 페이지</h1>
+	<h1>호텔 상세보기 페이지</h1>
 	<br>
 	<form action="regist" method="post" enctype="multipart/form-data">
 		<div>
-			<table>
+			<table class="hotel_info">
 				<tbody>
 					<tr>
-						<td><label for="s_id">호텔 이름</label></td>
+						<td class="left_info"><label for="s_id">호텔 이름</label></td>
 						<td>
 							<input class="form-control" type="text" value="${hdto.hotel_name}" readonly> 
 						</td>
 					</tr>
 					<tr>
-						<td><label for="h_tel">호텔 번호</label></td>
+						<td class="left_info"><label for="h_tel">호텔 번호</label></td>
 						<td><input class="form-control"	type="tel" value="${hdto.hotel_tel}" readonly></td>
 					</tr>
 					<tr>
-						<td><label for="h_addr">ADDRESS</label></td>
+						<td class="left_info"><label for="h_addr">ADDRESS</label></td>
 						<td><input class="form-control" type="text" style="display: inline-block;width: 40%"
-							value="${hdto.hotel_code_zip}" readonly>
+							value="${hdto.hotel_zip_code}" readonly>
 							<input class="form-control" type="text" value="${hdto.hotel_basic_addr}" readonly>
 							<input class="form-control" type="text" value="${hdto.hotel_detail_addr}" readonly>
 						</td>
 					</tr>
 					<tr>
-						<td><label>소개</label></td>
+						<td class="left_info"><label>소개</label></td>
 						<td>
 							<textarea class="form-control" readonly>${hdto.hotel_content}</textarea>
 						</td>
 					</tr>
 					<tr>
-						<td><label>호텔 성급</label></td>
+						<td class="left_info"><label>호텔 성급</label></td>
 						<td>
-							<input type="text" value="${hdto.hotel_star }" readonly>
+							<input type="text" value="${hdto.hotel_star}" readonly>
 						</td>
 					</tr>
 					
 					<tr>
-						<td><label>옵션사항</label></td>
+						<td class="left_info"><label>옵션사항</label></td>
 						<td>
 							<div class="custom-control custom-checkbox">
 						      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="hotel_parking">
@@ -122,7 +138,6 @@ form label {
 						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="hotel_lounge">
 						      <label class="custom-control-label" for="lounge">라운지</label>
 						    </div><br>
-						    <div style="display: block;height: 15px;"></div>
 						    <div class="custom-control custom-checkbox">
 						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="hotel_bbq">
 						      <label class="custom-control-label" for="bbq">바베큐장</label>
@@ -146,56 +161,65 @@ form label {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<div id="staticMap" style="width:100%;height:300px;"></div>
+						<td colspan="2">
+							<div id="staticMap" style="width:100%;height:300px;" ></div>
 							<input type="hidden" id="h_longitude" name="" value="${hotel_longitude}">
 							<input type="hidden" id="h_latitude"  value="${hotel_latitude}">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">썸네일 사진  </p><input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
-							
+							<p class="Thumbnail">썸네일 사진  </p>
+								<img width="100%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}">
+							<br><br>
+						</td>
+					</tr>
+					<tr>	
+						<td colspan="2">	
 							<p class="Thumbnail">호텔 사진</p>
 
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}">
 								<c:if test="${not empty hfdtolist[0]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[0].attraction_file_name}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[0].h_file_name}">
 								</c:if>
-								<c:if test="${not empty afdtolist[1]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[1].attraction_file_name}">
-								</c:if>
-								<c:if test="${not empty afdtolist[2]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[2].attraction_file_name}">
+								<c:if test="${not empty hfdtolist[1]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[1].h_file_name}">
+								</c:if><br>
+								<c:if test="${not empty hfdtolist[2]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[2].h_file_name}">
 								</c:if>
 								<c:if test="${not empty hfdtolist[3]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[0].attraction_file_name}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[3].h_file_name}">
+								</c:if><br>
+								<c:if test="${not empty hfdtolist[4]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[4].h_file_name}">
 								</c:if>
-								<c:if test="${not empty afdtolist[4]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[1].attraction_file_name}">
-								</c:if>
-								<c:if test="${not empty afdtolist[5]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[2].attraction_file_name}">
-								</c:if>
+								<c:if test="${not empty hfdtolist[5]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[5].h_file_name}">
+								</c:if><br>
 								<c:if test="${not empty hfdtolist[6]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[0].attraction_file_name}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[6].h_file_name}">
 								</c:if>
-								<c:if test="${not empty afdtolist[7]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[1].attraction_file_name}">
-								</c:if>
-								<c:if test="${not empty afdtolist[8]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[2].attraction_file_name}">
+								<c:if test="${not empty hfdtolist[7]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[7].h_file_name}">
+								</c:if><br>
+								<c:if test="${not empty hfdtolist[8]}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[8].h_file_name}">
 								</c:if>
 								<c:if test="${not empty hfdtolist[9]}">
-									<img height="100px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${afdtolist[0].attraction_file_name}">
+									<img width="49%;" src="${pageContext.request.contextPath}/img_v/3?img_name=${hfdtolist[9].h_file_name}">
 								</c:if>
-
 						</td>
 					</tr>
 					
 					<tr>
-						<td colspan="2"><input class="btn btn-danger btn-block"
-							type="submit" style="margin-top: 30px;" value="등록하기"></td>
+						<td colspan="2" class="buttonclass">
+							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}">
+								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="방 목록">
+							</a>
+							<a href="${pageContext.request.contextPath}/seller/partner/list?hotel_no=${hdto.hotel_no}">
+								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="제휴 목록">
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

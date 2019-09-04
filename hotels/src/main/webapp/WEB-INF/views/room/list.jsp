@@ -36,14 +36,14 @@
 				$.ajax({
 					url : "delete",
 					data : {
-						hotel_no : $("#hotel_no").val()
+						room_no : $("#room_no").val()
 					},
 					dataType : "text",
 					success : function(resp) {
 						//console.log(this);
 						
 						if (resp == "Y") {
- 							$(that).parents(".hotel_info").remove();							
+ 							$(that).parents(".room_info").remove();							
 						}
 						else {
 							
@@ -57,44 +57,41 @@
 <br>
 <br>
 
-
-
-
-
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div align="center" class="hotel-list-wrap">
-	<c:forEach var="hdto" items="${list}">
-		<table class="table table-hamburg table-stripe hotel_info">
+	<c:forEach var="rdto" items="${list}">
+		<table class="table table-hamburg table-stripe room_info">
 			<tbody>
 					<tr>
-						<td rowspan="3" style="width: 180px;"><a href="detail?hotel_no=${hdto.hotel_no}"><img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}" width="240px" height="240px"></a></td>
-						<td class="content_title">호텔 이름
-							<input type="hidden" id="hotel_no" name="hotel_no" value="${hdto.hotel_no}">
+						<td rowspan="3" style="width: 180px;">
+							<a href="detail?room_no=${rdto.room_no}">
+								<img src="${pageContext.request.contextPath}/img_v/4?img_name=${rdto.r_file_name}" width="240px" height="240px">
+							</a>
 						</td>
-						<td><a href="detail?hotel_no=${hdto.hotel_no}">${hdto.hotel_name}</a></td>
+						<td class="content_title">객실 이름
+							<input type="hidden" id="room_no" name="room_no" value="${rdto.room_no}">
+						</td>
+						<td>
+							<a href="detail?room_no=${rdto.room_no}">${rdto.room_name}</a>
+						</td>
 					</tr>
 					<tr>
-						<td class="content_title">호텔 주소</td>
-						<td >${hdto.hotel_basic_addr}<br>${hdto.hotel_detail_addr}</td>
+						<td class="content_title">객실 가격</td>
+						<td >${rdto.room_price}</td>
 					</tr>
 					<tr>
-						<td class="content_title ">호텔 전화번호</td>
-						<td class="">${hdto.hotel_tel}</td>
+						<td class="content_title ">객실 소개</td>
+						<td class="">${rdto.room_content}</td>
 					</tr>
 					<tr class="end_line">
 						<td colspan="3">
-							<a href="${pageContext.request.contextPath}/seller/hotel/partner/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">제휴 추가  </button></a>
-							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">방 추가  </button></a>
 							<button class="btn btn-danger delete_btn ">삭제</button>
 						</td>
 					</tr>
 			</tbody>
 		</table>
 	</c:forEach>
-	<a href="${pageContext.request.contextPath}/seller/hotel/regist"><input class="btn btn-danger" type="button" name="#" value="호텔등록"></a>
 </div>
-
-
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
