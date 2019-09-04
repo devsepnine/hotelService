@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.entity.RoomListVO;
 
 @Repository
 public class RoomDaoImpl implements RoomDao{
@@ -32,5 +33,10 @@ public class RoomDaoImpl implements RoomDao{
 	@Override
 	public List<RoomDto> get_list(int hotel_no) {
 		return sqlSession.selectList("room.get_list", hotel_no);
+	}
+
+	@Override
+	public List<RoomListVO> list(int hotel_no) {
+		return sqlSession.selectList("room.list", hotel_no);
 	}
 }
