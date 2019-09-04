@@ -17,7 +17,7 @@ public class CertificationRemoveTaskServiceImpl implements CertificationRemoveTa
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Override
-	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 */5 * * * *")
 	public void run() {
 		emailcertDao.clear();
 		logger.info("인증번호 초기화 작업이 수행되었습니다");
