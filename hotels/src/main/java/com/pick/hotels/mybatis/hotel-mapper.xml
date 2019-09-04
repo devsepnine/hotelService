@@ -24,10 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="search_list" parameterType="h_search_vo" resultType="hotelListVo">
 		select 
 		h.hotel_no, H.hotel_name, H.hotel_content, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet,
-		count(R.room_name) room_cnt, min(R.room_price) min_price, max(R.room_price) max_price, max(R.room_people) max_people
+		count(R.room_name) room_cnt, min(R.room_price) min_price, max(R.room_price) max_price, max(R.room_people) max_people, E.seller_blacklist
 		from 
 		hotel H
 		inner join Room R on H.hotel_no = R.hotel_no
+		inner join seller E
+		on H.seller_no = E.seller_no
 		left outer join reserve S 
 		on R.room_no = S.reserve_room_no
 		where 
@@ -39,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or reserve_in is null or reserve_out is null
 		
 		group by h.hotel_no, H.hotel_name, H.hotel_content, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,
-		                H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet
+		                H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet, E.seller_blacklist
 		having
-		H.hotel_basic_addr like '%' ||  #{region} || '%' and
+		H.hotel_basic_addr like '%' || #{region} || '%' and
 		<if test="parking != null ">
 		H.hotel_parking = 'Y' and
 		</if>
@@ -72,7 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="internet != null ">
 		H.hotel_internet = 'Y' and
 		</if>
-		max(R.room_people) >= #{people}
+		max(R.room_people) >= #{people} and
+		E.seller_blacklist = 'N'
 		order by max_price desc
 	</select>
 	
