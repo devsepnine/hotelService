@@ -34,7 +34,8 @@
 
 <style>
 	.new-wrap{
-		padding: 80px;
+		margin: 80px;
+		padding : 20px;
 		border: 5px solid white;
 		width: 600x;
 		margin: auto;
@@ -46,12 +47,15 @@
 </style>
 
 
-<div align="center" class="new- wrap">
+<div align="center" class="new-wrap">
 	<h1>비밀번호 변경</h1>
+	<br>
+	<br>
 	<form class="form" action="new_pw" method="post">
 		<%-- hidden은 사용자에게 표시되지 않으면서 전송이 가능 --%>
 		<input class="form-control"  type="hidden" name="member_no" value="${member_no}">
-		<input class="form-control" style="width: 50%;" type="password" name="member_pw" placeholder="신규 비밀번호" required>
+		<input class="form-control" style="width: 30%;" type="password" name="member_pw" placeholder="신규 비밀번호" required>
+		<br>
 		<input class="btn btn-danger" type="submit" value="변경하기">
 	</form>
 </div>
