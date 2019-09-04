@@ -1,5 +1,7 @@
 package com.pick.hotels.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.HotelDto;
+import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.ReserveDto;
+import com.pick.hotels.entity.ReserveVO;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.repository.HotelDao;
+import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.ReserveDao;
+import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.RoomDao;
 
 @Controller
@@ -30,6 +36,12 @@ public class ReserveController {
 	
 	@Autowired
 	private HotelDao hotelDao;
+	
+	@Autowired
+	private MemberDao memberDao;
+	
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	@GetMapping("/regist")
 	public String regist() {
@@ -57,15 +69,22 @@ public class ReserveController {
 	}
 	
 	@GetMapping("/list")
-	public String list() {
+	public String list(Model model, HttpSession session) {
+
+		int member_no = (int) session.getAttribute("no");
+		
+		List<ReserveVO> list = reserveDao.list(member_no);
+		
+		model.addAttribute("reserveVO", list);
 		return "reserve/list";
 	}
 	
 	@GetMapping("/details")
 	public String details(Model model, HttpSession session, 
-							@RequestParam int reserve_no) {
-		int no = (int) session.getAttribute("no");
-		ReserveDto reserveDto = reserveDao.get(reserve_no, no);
+							@RequestParam int reserve_no
+							) {
+		int member_no = (int) session.getAttribute("no");
+		ReserveDto reserveDto = reserveDao.get(reserve_no, member_no);
 //		방정보
 		int room_no = reserveDto.getReserve_room_no();
 		RoomDto roomDto = roomDao.get(room_no);
@@ -74,9 +93,21 @@ public class ReserveController {
 		int hotel_no = reserveDto.getReserve_hotel_no();
 		HotelDto hotelDto = hotelDao.get(hotel_no);
 		
+//		회원정보
+		MemberDto memberDto = memberDao.get(member_no);
+		
+//		날짜계산
+		int count = reserveDao.timeCnt(reserveDto);
+		
+//		리뷰작성 확인
+		boolean check = reviewDao.check(reserve_no);
+		
+		model.addAttribute("memberDto", memberDto);
 		model.addAttribute("roomDto", roomDto);
 		model.addAttribute("hotelDto", hotelDto);
 		model.addAttribute("rdto", reserveDto);
+		model.addAttribute("time", count);
+		model.addAttribute("check", check);
 		
 		return "reserve/details";
 	}
