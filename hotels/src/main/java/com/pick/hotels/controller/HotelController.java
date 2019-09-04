@@ -42,6 +42,7 @@ public class HotelController {
 	public String search(Model model,
 						 @ModelAttribute H_search_vo s_vo) {
 		if(s_vo.getRegion() != null) {
+			System.out.println(s_vo);
 			List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
 			model.addAttribute("h_list",h_list);
 		}
