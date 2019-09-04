@@ -31,5 +31,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리스트 -->
 	<select id="get_list" parameterType="int" resultType="roomDto">
 		select * from room where hotel_no = ${hotel_no}
-	</select>                                                                
+	</select>  
+	
+	<!-- 방사진 하나만 가져오는 방 리스트 -->
+	<select id="list" parameterType="int" resultType="roomListVO">
+		SELECT 
+		    hotel_no, room_no, r_file_no, room_name, room_price, r_file_name, room_content
+		FROM (
+		    SELECT 
+		        R.hotel_no, R.room_no, RF.r_file_no, R.room_name, R.room_price, RF.r_file_name, R.room_content, 
+		        ROW_NUMBER() OVER(PARTITION BY R.room_no ORDER BY RF.r_file_no ASC) as rn
+		    FROM 
+		        room R inner join r_file RF on R.room_no = RF.room_no
+		) WHERE rn=1 and hotel_no=#{hotel_no}
+	</select>                                
+	                              
  </mapper>

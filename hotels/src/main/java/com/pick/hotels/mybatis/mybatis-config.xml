@@ -39,6 +39,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.PartnerFileDto" alias="partnerFileDto"/>
 		<typeAlias type="com.pick.hotels.entity.PartnerDto" alias="partnerDto"/>
 		<typeAlias type="com.pick.hotels.entity.H_search_vo" alias="h_search_vo"/>
+		<typeAlias type="com.pick.hotels.entity.RoomListVO" alias="roomListVO"/>
 	</typeAliases>
   
 </configuration>
