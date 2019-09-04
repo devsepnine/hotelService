@@ -20,7 +20,7 @@ public class CertificationRemoveTaskServiceImpl implements CertificationRemoveTa
 	@Scheduled(cron = "0 */5 * * * *")
 	public void run() {
 		emailcertDao.clear();
-		logger.info("인증번호 초기화 작업이 수행되었습니다");
+		logger.info("인증번호 초기화 작업이 수행되었습니다"); 
 	}
 	
 }
