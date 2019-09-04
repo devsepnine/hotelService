@@ -10,7 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="review">
 	<insert id="write" parameterType="reviewDto">
 		insert into review values(
-		review_seq, #{review_name}, #{review_content},
-		 #{review_hotel}, #{review_score}, sysdate)
+		review_seq.nextval, #{review_member_no}, #{review_hotel}, #{review_reserve}, 
+		5, #{review_content}, sysdate)
 	</insert>
+	
+	<select id="check" parameterType="int" resultType="reviewDto">
+		select * from review where review_reserve = #{reserve_no}
+	</select>
 </mapper>

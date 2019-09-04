@@ -30,11 +30,36 @@
 		});
 	});
 	
+	$(function(){
+		$("input[name=_member_pw]").blur(
+			function checkPw(){
+			    var m_pw = document.querySelector(".member_pw").value;
+			    var regex = /^[a-zA-Z0-9!@#$\-_]{8,15}$/;
+		    
+			  //정규표현식으로 m_pw값 검사
+			    var result = regex.test(m_pw);
+			    
+			    var div = document.querySelector(".m_pwD");
+			
+			    if(result) {
+			        div.innerHTML = ""
+			    }
+			    
+				//m_pw가 형식에 맞지 않으면 메세지 춮력
+			    else {
+			        div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 대소문자, 숫자, 특수문자(!@#$-_)로 입력해주세요</font>"
+		        
+		   		 }
+			});
+		});
+		
+	
 </script>
 
 <style>
 	.new-wrap{
-		padding: 80px;
+		margin: 80px;
+		padding : 20px;
 		border: 5px solid white;
 		width: 600x;
 		margin: auto;
@@ -46,12 +71,17 @@
 </style>
 
 
-<div align="center" class="new- wrap">
+<div align="center" class="new-wrap">
 	<h1>비밀번호 변경</h1>
+	<br>
+	<br>
 	<form class="form" action="new_pw" method="post">
 		<%-- hidden은 사용자에게 표시되지 않으면서 전송이 가능 --%>
 		<input class="form-control"  type="hidden" name="member_no" value="${member_no}">
-		<input class="form-control" style="width: 50%;" type="password" name="member_pw" placeholder="신규 비밀번호" required>
+		<input class="form-control" style="width: 30%;" type="password" name="member_pw" placeholder="신규 비밀번호" required>
+		<br>
+		<div class="m_pwD"></div>
+		<br>
 		<input class="btn btn-danger" type="submit" value="변경하기">
 	</form>
 </div>

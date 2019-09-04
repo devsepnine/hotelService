@@ -130,7 +130,8 @@
 		<tr>
 			<th>비밀번호</th>
 			<td>
-				<a href="" class="btn btn-danger newpw_btn">임시 비밀번호 발급</a>
+				<input type="hidden" name="member_no" value="${mdto.member_no}">
+				<a href="new_pw?no=${mdto.member_no}" class="btn btn-danger newpw_btn">비밀번호 인증 메일 발송</a>
 			</td>
 		</tr>
 		<tr>
