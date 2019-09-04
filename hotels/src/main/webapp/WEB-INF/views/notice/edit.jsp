@@ -85,7 +85,7 @@
 		text-align: left;
 	}
 	
-	.btn{
+	.table_ny_one .btn{
 		width: 50px;
 		height: 40px;
 		padding: 0px;
