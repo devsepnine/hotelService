@@ -6,4 +6,6 @@ public interface ReviewDao {
 
 	boolean write(ReviewDto reviewDto);
 
+	boolean check(int reserve_no);
+
 }
