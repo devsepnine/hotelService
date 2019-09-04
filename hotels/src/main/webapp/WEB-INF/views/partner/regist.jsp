@@ -201,7 +201,7 @@ form label {
 					<tr>
 						<td colspan="2">
 							<p class="Thumbnail">제휴 사진</p>
-							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
+							메인사진(필수)<input type="file" name="file1" accept = ".jpg, .png, .gif" required>
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
 							<input type="file" name="file4" accept = ".jpg, .png, .gif" >
