@@ -28,14 +28,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from 
 		hotel H
 		inner join Room R on H.hotel_no = R.hotel_no
-		left outer join reserve S
+		left outer join reserve S 
 		on R.room_no = S.reserve_room_no
-		where
-		S.reserve_in not between to_date(#{check_in}, 'yyyy-mm-dd') and to_date(#{check_out}, 'yyyy-mm-dd')
-		and
-		S.reserve_out not between to_date(#{check_in}, 'yyyy-mm-dd') and to_date(#{check_out}, 'yyyy-mm-dd')
+		where 
+		reserve_in >= to_date(#{check_out}, 'YYYY/MM/DD')
 		or
-		S.reserve_in is null or S.reserve_out is null
+		<![CDATA[
+		reserve_out <= to_date(#{check_in}, 'YYYY/MM/DD')
+		]]>
+		or reserve_in is null or reserve_out is null
 		
 		group by h.hotel_no, H.hotel_name, H.hotel_content, H.hotel_tel, H.hotel_zip_code, H.hotel_basic_addr, H.hotel_title, H.hotel_star,H.hotel_parking, H.hotel_fitness,
 		                H.hotel_pool,H.hotel_sauna,H.hotel_lounge,H.hotel_bbq,H.hotel_cafe,H.hotel_convenience_store,H.hotel_karaoke,H.hotel_internet
