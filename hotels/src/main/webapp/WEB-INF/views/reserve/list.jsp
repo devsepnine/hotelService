@@ -17,24 +17,28 @@
 <div align="center" class="list-wrap">
 	<h1>내 예약 내역</h1>
 	<br>
-	<%-- <c:forEach var = "reserveDto" items="${rdto}"> --%>
-<form action="details" method="get">
+<c:forEach var = "reserveVO" items="${reserveVO}"> 
 		<table class="table table-hamburg table-stripe">
 			<tbody>
 				<tr>
-					<td>이용상태</td>
+					<td>${reserveVO.reserve_ok}</td>
 				</tr>
 				<tr>
-					<td rowspan="2" ><img src="${pageContext.request.contextPath}/img_v/3?img_name=${wishDto.hotel_title}" width="200px" height="200px"></td>
-					<td>호텔이름</td>
+					<td rowspan="3" ><img src="${pageContext.request.contextPath}/img_v/3?img_name=${reserveVO.hotel_title}" width="200px" height="200px" ></td>
+					<td>호텔이름 : ${reserveVO.hotel_name}</td>
 				</tr>
 				<tr>
-					<td>날짜</td>
+					<td>입실일 : ${reserveVO.reserve_in.substring(0,10)}
+					<br>
+						퇴실일 : ${reserveVO.reserve_out.substring(0,10)}</td>
+				</tr>
+				<tr>
+					<td>예약명 수: ${reserveVO.reserve_people}</td> 
 				</tr>
 			</tbody>
 		</table>
-		<a href="details"><input type="button" class="btn btn-danger" value="상세보기"></a>
-</form>
-	<%--  </c:forEach>--%>
+		<a href="details?reserve_no=${reserveVO.reserve_no}"><input type="button" class="btn btn-danger" value="상세보기"></a>
+
+</c:forEach>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

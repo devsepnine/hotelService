@@ -19,7 +19,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="get" parameterType="map" resultType="reserveDto">
-		select * from reserve where reserve_member_no = #{member_no}  and reserve_no= ${reserve_no}
+		select * from reserve where reserve_member_no = #{member_no}  and reserve_no= #{reserve_no}
+	</select>
+	
+	<select id="time" parameterType="reserveDto" resultType="int">
+		select reserve_out - reserve_in from reserve where reserve_no = #{reserve_no}
+	</select>
+	
+	<select id="list" parameterType="int" resultType="reserveVO">
+		select *
+			from reserve R
+			inner join hotel H on
+			R.reserve_hotel_no = H.hotel_no
+			where R.reserve_member_no = #{member_no} order by reserve_no desc
+	</select>
+	
+	<select id="review_write" parameterType="map" resultType="reserveVo">
+		select *
+		from reserve R
+		inner join hotel H on
+		R.reserve_hotel_no = H.hotel_no
+		where R.reserve_member_no = #{member_no} and R.reserve_no = #{reserve_no}
 	</select>
 	
 	
