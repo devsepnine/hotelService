@@ -3,6 +3,7 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.repository.SellerDao;
+import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
 
 
@@ -54,6 +58,12 @@ public class AdminController {
 	
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private EmailCertDao emailcertDao;
 
 	
 //	전체 관리 페이지("main")
@@ -522,6 +532,19 @@ public class AdminController {
 //	회원 관리
 //------------------------------------------------------------------------------------	
 
+//	new_pw
+	@GetMapping("/member/new_pw")
+	public String new_pw(@RequestParam int no, Model model) throws MessagingException {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		emailService.find_pw(memberDto);
+		
+		return "redirect:list";
+	}
+	
 //	회원 정보 상세보기("/member/detail")
 	@GetMapping("/member/detail")
 	public String detail_member(@RequestParam int no, Model model) {
@@ -605,6 +628,31 @@ public class AdminController {
 		return "admin/member/list";
 	}
 
+//	비밀번호 변경 메일 발송
+	@GetMapping("/emailcert")
+	public void emailcert(@RequestParam String member_email1, @RequestParam String member_email2, HttpServletResponse resp) throws IOException, MessagingException {
+			boolean result = emailService.sendCertNo_member(member_email1,member_email2);
+			if(result) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
+		}
+	
+//	비밀번호 변경 메일 인증 여부 체크
+	@GetMapping("/email_cert_check")
+	public void email_cert_check(@RequestParam String member_email_cert, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		EmailCertDto ecdto = emailcertDao.get(member_email_cert);
+		if(ecdto==null) {
+			resp.getWriter().print("N");
+		}
+		else {
+			resp.getWriter().print("Y");
+			emailcertDao.delete(member_email_cert);
+		}
+	}
 	
 //------------------------------------------------------------------------------------
 //	판매자 관리
