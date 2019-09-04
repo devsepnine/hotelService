@@ -1,6 +1,7 @@
 package com.pick.hotels.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
+import com.pick.hotels.entity.RoomListVO;
 import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.RoomFileDao;
 import com.pick.hotels.service.FileService;
@@ -103,5 +105,12 @@ public class RoomController {
 		model.addAttribute("room_no",roomDto.getRoom_no());
 		model.addAttribute("hotel_no",hotel_no);
 		return "redirect:content";
+	}
+	
+	@GetMapping("/list")
+	public String list(@RequestParam int hotel_no,Model model) {
+		List<RoomListVO> list = roomDao.list(hotel_no);
+		model.addAttribute("list", list);
+		return "room/list";
 	}
 }

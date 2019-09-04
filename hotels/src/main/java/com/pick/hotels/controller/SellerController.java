@@ -486,7 +486,7 @@ public class SellerController {
 		model.addAttribute("hotel_no",hotelDto.getHotel_no());
 		
 
-		return "redirect:content";
+		return "redirect:detail";
 
 	}
 	
@@ -545,7 +545,7 @@ public class SellerController {
 			@RequestParam(required = false, defaultValue = "0") int hotel_file_no10,
 			Model model) throws IllegalStateException, IOException {
 		
-		int no = hotelDto.getHotel_no();
+		int hotel_no = hotelDto.getHotel_no();
 		if(hotel_file != null) {
 			fileService.hotel_delete(hotel_file);
 			HotelDto saveResult =  fileService.hotel_title_save(file);
@@ -572,7 +572,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file1, hfdto);
@@ -587,7 +587,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file2, hfdto);
@@ -602,7 +602,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file3, hfdto);
@@ -617,7 +617,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file4, hfdto);
@@ -632,7 +632,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file5, hfdto);
@@ -647,7 +647,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file6, hfdto);
@@ -662,7 +662,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file7, hfdto);
@@ -677,7 +677,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file8, hfdto);
@@ -692,7 +692,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file9, hfdto);
@@ -707,7 +707,7 @@ public class SellerController {
 			}
 			
 				HotelFileDto hfdto = HotelFileDto.builder()
-						.hotel_no(no)
+						.hotel_no(hotel_no)
 						.build();
 	
 				hfdto =  fileService.hotel_save(file10, hfdto);
@@ -716,10 +716,18 @@ public class SellerController {
 		}
 		
 		
-		model.addAttribute("hotel_no", no);
+		model.addAttribute("hotel_no", hotel_no);
 		
 		
-		return "redirect:content";
+		return "redirect:detail";
+	}
+	
+	@GetMapping("/hotel/detail")
+	public String detail(@RequestParam int hotel_no, Model model) {
+		HotelDto hotelDto = hotelDao.get(hotel_no);
+		model.addAttribute("hdto", hotelDto);
+		model.addAttribute("hfdtolist", hotelFileDao.getlist(hotel_no));
+		return "hotel/detail";
 	}
 	
 	@GetMapping("/hotel/partner/regist")
@@ -780,7 +788,7 @@ public class SellerController {
 		
 		model.addAttribute("partner_no",partnerDto.getPartner_no());
 		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:/partner/content";
+		return "redirect:/partner/detail";
 	}
 	
 	@GetMapping("/hotel/partner/delete")
