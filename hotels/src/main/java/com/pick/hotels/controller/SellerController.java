@@ -135,11 +135,16 @@ public class SellerController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("ok");
-		session.removeAttribute("no");
-		session.removeAttribute("auth");
+		session.removeAttribute("s_ok");
+		session.removeAttribute("s_no");
 		return"redirect:/seller";
 	}
+	
+	@GetMapping("/blacklist")
+	public String blacklist() {
+		return "seller/blacklist";
+	}
+	
 	@GetMapping("/login")
 	public String login() {
 		return "seller/login";
@@ -150,7 +155,8 @@ public class SellerController {
 			@ModelAttribute SellerDto sellerDto,
 			@RequestParam(required=false) String remember,
 			HttpSession session,
-			HttpServletResponse response) {
+			HttpServletResponse response,
+			Model model) {
 //		암호화 적용 전
 //		MemberDto result = memberDao.login(memberDto);
 //		if(result != null) {
@@ -160,19 +166,24 @@ public class SellerController {
 //		2. BCrypt의 비교 명령을 이용하여 비교 후 처리
 		if(result!=null) {
 			if(BCrypt.checkpw(sellerDto.getSeller_pw(),result.getSeller_pw())) {
-				session.setAttribute("s_ok", result.getSeller_id());
-				session.setAttribute("s_no", result.getSeller_no());
-				
-				
-				//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
-				Cookie c = new Cookie("saveId", sellerDto.getSeller_id());
-				if(remember == null)//체크 안했을때 
-					c.setMaxAge(0);
-				else //체크 했을때
-					c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
-				response.addCookie(c);
-				
-				return "redirect:/seller/";
+				if(result.getSeller_blacklist().equalsIgnoreCase("Y")) {
+					
+					model.addAttribute("id", sellerDto.getSeller_id());
+					return "redirect:/seller/blacklist" ;
+				}else {
+					session.setAttribute("s_ok", result.getSeller_id());
+					session.setAttribute("s_no", result.getSeller_no());
+					
+					
+					//쿠키객체를 만들고 체크여부에 따라 시간 설정 후 response에 추가
+					Cookie c = new Cookie("saveId", sellerDto.getSeller_id());
+					if(remember == null)//체크 안했을때 
+						c.setMaxAge(0);
+					else //체크 했을때
+						c.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
+					response.addCookie(c);
+					return "redirect:/seller/";
+				}
 			}else {
 				return "seller/login_fail";
 			}
