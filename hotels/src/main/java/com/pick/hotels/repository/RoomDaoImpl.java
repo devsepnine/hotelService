@@ -39,4 +39,9 @@ public class RoomDaoImpl implements RoomDao{
 	public List<RoomListVO> list(int hotel_no) {
 		return sqlSession.selectList("room.list", hotel_no);
 	}
+
+	@Override
+	public void edit(RoomDto roomDto) {
+		sqlSession.update("room.edit",roomDto);
+	}
 }

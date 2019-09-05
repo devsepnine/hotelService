@@ -131,7 +131,7 @@
 	<p><a href="${pageContext.request.contextPath}/seller/hotel/list">호텔</a></p>
 	<p><a href="${pageContext.request.contextPath}/seller/hotel/partner/list">제휴</a></p>
 
-	<p><a href="${pageContext.request.contextPath}/">로그아웃</a></p>
+	<p><a href="${pageContext.request.contextPath}/seller/logout">로그아웃</a></p>
 
 
 </div>
