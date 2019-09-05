@@ -252,6 +252,7 @@ public class AdminController {
 	public String content(@RequestParam int no, Model model) {
 		
 		AttractionDto adto = attractionDao.get(no);
+		AttractionFileDto afdto = attractionFileDao.get(no);
 
 		model.addAttribute("adto", adto);
 		model.addAttribute("afdtolist", attractionFileDao.getlist(no));
