@@ -17,5 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	         
  	<select id="get_list" parameterType="int" resultType="roomFileDto">
  		select * from r_file where room_no = ${no}
- 	</select>                                                                       
+ 	</select>       
+ 	
+	<select id="getlist" parameterType="int" resultType="roomFileDto">
+		select * from r_file where room_no = #{room_no}
+	</select>
+ 	
  </mapper>

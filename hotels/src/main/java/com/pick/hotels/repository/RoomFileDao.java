@@ -10,4 +10,6 @@ public interface RoomFileDao {
 
 	List<RoomFileDto> get_list(int no);
 
+	List<RoomFileDto> getlist(int room_no);
+
 }

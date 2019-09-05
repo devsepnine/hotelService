@@ -119,43 +119,43 @@ form label {
 						<td class="left_info"><label>옵션사항</label></td>
 						<td>
 							<div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="parking" name="hotel_parking">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="parking" disabled name="hotel_parking" ${hdto.hotel_parking eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="parking">주차장</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="fitness" name="hotel_fitness">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="fitness" disabled name="hotel_fitness" ${hdto.hotel_fitness eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="fitness">피트니스</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="pool" name="hotel_pool">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="pool" disabled name="hotel_pool" ${hdto.hotel_pool eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="pool">수영장</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="sauna" name="hotel_sauna">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="sauna" disabled name="hotel_sauna" ${hdto.hotel_sauna eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="sauna">사우나</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="hotel_lounge">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" disabled name="hotel_lounge" ${hdto.hotel_lounge eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="lounge">라운지</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="hotel_bbq">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" disabled name="hotel_bbq" ${hdto.hotel_bbq eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="bbq">바베큐장</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="cafe" name="hotel_cafe">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="cafe" disabled name="hotel_cafe" ${hdto.hotel_cafe eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="cafe">카페</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="conveni" name="hotel_convenience_store">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="conveni" disabled name="hotel_convenience_store" ${hdto.hotel_convenience_store eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="conveni">편의점</label>
 						    </div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="karaoke" name="hotel_karaoke">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="karaoke" disabled name="hotel_karaoke" ${hdto.hotel_karaoke eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="karaoke">노래방</label>
 					    	</div><br>
 						    <div class="custom-control custom-checkbox">
-						      <input type="checkbox" value="Y" class="custom-control-input" id="internet" name="hotel_internet">
+						      <input type="checkbox" value="Y" class="custom-control-input" id="internet" disabled name="hotel_internet" ${hdto.hotel_internet eq 'Y'?"checked":""}>
 						      <label class="custom-control-label" for="internet">인터넷</label>
 						    </div>
 						</td>
@@ -216,7 +216,7 @@ form label {
 							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}">
 								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="방 목록">
 							</a>
-							<a href="${pageContext.request.contextPath}/seller/partner/list?hotel_no=${hdto.hotel_no}">
+							<a href="${pageContext.request.contextPath}/seller/hotel/partner/list?hotel_no=${hdto.hotel_no}">
 								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="제휴 목록">
 							</a>
 						</td>

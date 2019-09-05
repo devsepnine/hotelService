@@ -113,4 +113,17 @@ public class RoomController {
 		model.addAttribute("list", list);
 		return "room/list";
 	}
+	
+	@GetMapping("/detail")
+	public String detail(@RequestParam int room_no,Model model) {
+		RoomDto rdto = roomDao.get(room_no);
+		List<RoomFileDto> rfdtolist = roomFileDao.getlist(room_no);
+		System.out.println(rfdtolist);
+		model.addAttribute("rdto", rdto);
+		model.addAttribute("rfdtolist", rfdtolist);
+		
+		return "room/detail";
+	}
+	
+	
 }
