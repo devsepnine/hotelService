@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
 <!-- date picker 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
@@ -9,21 +10,68 @@
 <!-- jquery ui -->
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawVisualization);
+	
+		function drawVisualization() { 
+// 			var arr = [
+// 				['월', '개수'],
+// 				['2004/06',  165],
+// 				['2004/07',  165],
+// 				['2004/08',  165]
+// 			]
 
-
+			var arr = [];
+				arr.push(['월', '개수']);
+			<c:forEach var="sales" items="${r_sales}">
+				arr.push(['${sales.montly}', ${sales.count}]);
+			</c:forEach>
+			
+			var data = google.visualization.arrayToDataTable(arr);
+			var options = {
+					title : '월별 매출',
+					vAxis: {title: 'Price(원)'},
+					hAxis: {title: 'Month'}, 
+					seriesType: 'bars',
+					series: {5: {type: 'line'}}
+				};
+			
+			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+</script>
 
 
 
 
 
 <div style="height: 20px;"></div>
-
-
+${r_sales}
+<table class="table">
+	<thead>
+		<tr>
+			<th>방번호</th>
+			<th>월</th>
+			<th>갯수</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="sales" items="${r_sales}">
+			<tr>
+				<td>${sales.room_no}</td>
+				<td>${sales.montly}</td>
+				<td>${sales.count}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
 
 
 
 
 <div style="text-align: center;">
-<span> 여기에 메인 내용을 넣으시면 됩니다.</span>
+<div id="chart_div" style="width:900px; height: 500px;"></div>
 </div>
 <jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>

@@ -26,6 +26,7 @@ import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.PartnerDto;
 import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.PartnerListVO;
+import com.pick.hotels.entity.RoomSalesVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.EmailCertDao;
@@ -33,6 +34,7 @@ import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.repository.PartnerDao;
 import com.pick.hotels.repository.PartnerFileDao;
+import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
@@ -64,8 +66,20 @@ public class SellerController {
 	@Autowired
 	private HotelDao hotelDao;
 	
+	@Autowired
+	private RoomDao roomDao;
+	
 	@GetMapping("/")
-	public String main() {
+	public String main(HttpSession session, Model model) {
+		int seller_no = (int) session.getAttribute("s_no");
+		System.out.println(seller_no);
+		
+		HotelDto hotelDto = hotelDao.getNo(seller_no);
+		System.out.println(hotelDto);
+		
+		List<RoomSalesVO> room_sales = roomDao.sales(hotelDto.getHotel_no());
+		model.addAttribute("r_sales", room_sales);
+		
 		return "seller/main";
 	}
 	

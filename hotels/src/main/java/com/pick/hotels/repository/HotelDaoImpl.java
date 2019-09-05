@@ -60,6 +60,11 @@ public class HotelDaoImpl implements HotelDao{
 		sqlSession.update("hotel.edit", hotelDto);
 	}
 
+	@Override
+	public HotelDto getNo(int seller_no) {
+		return sqlSession.selectOne("hotel.getNo",seller_no);
+	}
+
 
 
 }
