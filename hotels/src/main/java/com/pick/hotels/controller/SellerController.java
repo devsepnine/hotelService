@@ -2,7 +2,6 @@ package com.pick.hotels.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -13,23 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 
-import com.pick.hotels.entity.AttractionDto;
-import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.PartnerDto;
 import com.pick.hotels.entity.PartnerFileDto;
+import com.pick.hotels.entity.PartnerListVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.EmailCertDao;
@@ -137,7 +133,7 @@ public class SellerController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("s_ok");
 		session.removeAttribute("s_no");
-		return"redirect:/seller";
+		return"redirect:/";
 	}
 	
 	@GetMapping("/blacklist")
@@ -798,8 +794,7 @@ public class SellerController {
 		}
 		
 		model.addAttribute("partner_no",partnerDto.getPartner_no());
-		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:/partner/detail";
+		return "redirect:detail";
 	}
 	
 	@GetMapping("/hotel/partner/delete")
@@ -812,6 +807,23 @@ public class SellerController {
 		else {
 			resp.getWriter().print("N");
 		}
+	}
+	
+	@GetMapping("/hotel/partner/list")
+	public String partner_list(@RequestParam int hotel_no, Model model) {
+			List<PartnerListVO> list = partnerDao.list(hotel_no);
+			model.addAttribute("list", list);
+			System.out.println(list);
+			return "/partner/list";
+	}
+	
+	@GetMapping("/hotel/partner/detail")
+	public String partner_detail(@RequestParam int partner_no, Model model) {
+		PartnerDto partnerDto = partnerDao.get(partner_no);
+		model.addAttribute("pdto", partnerDto);
+		model.addAttribute("pfdtolist", partnerFileDao.getlist(partner_no));
+		
+		return "/partner/detail";
 	}
 
 }

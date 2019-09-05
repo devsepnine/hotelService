@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class ReviewDto {
-	private int review_no, review_member_no, review_hotel,review_reserve, review_score;
-	private String review_content,review_when, review_state;
+public class ReviewVO {
+		private String hotel_name, room_name, reserve_in,
+						reserve_out,review_content, review_when;
+		private int review_score, review_no;
 }

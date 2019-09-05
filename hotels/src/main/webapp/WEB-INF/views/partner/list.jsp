@@ -33,15 +33,15 @@
 				var that = this;
 				
 				$.ajax({
-					url : "delete",
+					url : "${pageContext.request.contextPath}/seller/hotel/partner/delete",
 					data : {
-						room_no : $("#room_no").val()
+						room_no : $("#partner_no").val()
 					},
 					dataType : "text",
 					success : function(resp) {
 						
 						if (resp == "Y") {
- 							$(that).parents(".room_info").remove();							
+ 							$(that).parents(".partner_info").remove();							
 						}
 						else {
 							
@@ -57,29 +57,34 @@
 
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div align="center" class="hotel-list-wrap">
-	<c:forEach var="rdto" items="${list}">
-		<table class="table table-hamburg table-stripe room_info">
+	<c:forEach var="pdto" items="${list}">
+		<table class="table table-hamburg table-stripe partner_info">
 			<tbody>
 					<tr>
-						<td rowspan="3" style="width: 180px;">
-							<a href="detail?room_no=${rdto.room_no}">
-								<img src="${pageContext.request.contextPath}/img_v/4?img_name=${rdto.r_file_name}" width="240px" height="240px">
+						<td rowspan="4" style="width: 180px;">
+							<a href="detail?partner_no=${pdto.partner_no}">
+								<img src="${pageContext.request.contextPath}/img_v/5?img_name=${pdto.p_file_name}" width="240px" height="240px">
 							</a>
 						</td>
-						<td class="content_title">객실 이름
-							<input type="hidden" id="room_no" name="room_no" value="${rdto.room_no}">
+						<td class="content_title">제휴 이름
+							<input type="hidden" id="partner_no" name="partner_no" value="${pdto.partner_no}">
 						</td>
 						<td>
-							<a href="detail?room_no=${rdto.room_no}">${rdto.room_name}</a>
+							<a href="detail?partner_no=${pdto.partner_no}">${pdto.partner_name}</a>
 						</td>
 					</tr>
 					<tr>
-						<td class="content_title">객실 가격</td>
-						<td >${rdto.room_price}</td>
+						<td class="content_title">제휴 번호</td>
+						<td >${pdto.partner_tel}</td>
 					</tr>
 					<tr>
-						<td class="content_title ">객실 소개</td>
-						<td class="">${rdto.room_content}</td>
+						<td class="content_title ">제휴 주소</td>
+						<td class="">${pdto.partner_basic_addr}<br>
+									${pdto.partner_detail_addr}</td>
+					</tr>
+					<tr>
+						<td class="content_title ">제휴 소개</td>
+						<td class="">${pdto.partner_content}</td>
 					</tr>
 					<tr class="end_line">
 						<td colspan="3">

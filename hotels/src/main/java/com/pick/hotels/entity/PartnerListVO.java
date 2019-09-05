@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class PartnerDto {
-	private String partner_name, partner_tel, partner_content, partner_type, partner_zip_code, 
-					partner_basic_addr, partner_detail_addr ;
-	private int hotel_no, partner_no;
+public class PartnerListVO {
+	private int partner_no, p_file_no, hotel_no;
 	private float partner_longitude, partner_latitude;
+	private String partner_name, partner_content, p_file_name, partner_zip_code, partner_basic_addr,
+	partner_detail_addr, partner_tel;
 }

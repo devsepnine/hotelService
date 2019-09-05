@@ -30,6 +30,9 @@ form label {
 	color: black;
 	font-size: 1.5rem;
 }
+table{
+	width: 70%;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
@@ -258,10 +261,10 @@ form label {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">썸네일 사진  </p><input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
+							<p class="Thumbnail">썸네일 사진(필수)</p><input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
 							
 							<p class="Thumbnail">호텔 사진</p>
-							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
+							상세사진 (필수)<input type="file" name="file1" accept = ".jpg, .png, .gif" required>
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
 							<input type="file" name="file4" accept = ".jpg, .png, .gif" ><br><br>

@@ -16,11 +16,11 @@
 			function() {
 				//this == button
 				var that = this;
-				
+				var hotel_no = $(this).prev(".hotel_no").val();
 				$.ajax({
 					url : "${pageContext.request.contextPath}/member/wish_delete",
 					data : {
-						hotel_no : $("#hotel_no").val()
+						hotel_no : hotel_no
 					},
 					dataType : "text",
 					success : function(resp) {
@@ -43,13 +43,13 @@
 			<tbody>
 					<tr>
 						<td>
-						<a href="${pageContext.request.contextPath}/hotel/view?h_no=${wishDto.hotel_no}">
+						<a href="${pageContext.request.contextPath}/hotel/view/${wishDto.hotel_no}">
 							<img src="${pageContext.request.contextPath}/img_v/3?img_name=${wishDto.hotel_title}" width="200px" height="200px">
 							<font>${wishDto.hotel_name}</font>
-							<input type="hidden" id="hotel_no" value="${wishDto.hotel_no}">
+							
 						</a>
 						</td>
-						<td><input type="button" class="btn btn-danger" value="삭제"></td>
+						<td><input type="hidden" class="hotel_no" value="${wishDto.hotel_no}"><input type="button" class="btn btn-danger delete_btn" value="삭제" ></td>
 					</tr>
 			</tbody>
 		</table>

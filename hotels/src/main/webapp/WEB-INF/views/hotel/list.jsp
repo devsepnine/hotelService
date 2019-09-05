@@ -83,8 +83,10 @@
 					</tr>
 					<tr class="end_line">
 						<td colspan="3">
-							<a href="${pageContext.request.contextPath}/seller/hotel/partner/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">제휴 추가  </button></a>
-							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-primary">방 추가  </button></a>
+							<a href="${pageContext.request.contextPath}/seller/hotel/partner/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-danger">제휴 추가  </button></a>
+							<a href="${pageContext.request.contextPath}/seller/hotel/partner/list?hotel_no=${hdto.hotel_no}"><button class="btn btn-danger">제휴목록</button></a>
+							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-warning">방 추가  </button></a>
+							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}"><button class="btn btn-warning">방 목록</button></a>
 							<button class="btn btn-danger delete_btn ">삭제</button>
 						</td>
 					</tr>

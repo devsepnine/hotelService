@@ -30,6 +30,9 @@ form label {
 	color: black;
 	font-size: 1.5rem;
 }
+table{
+	width: 70%;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
@@ -157,9 +160,9 @@ form label {
 			<table>
 				<tbody>
 					<tr>
-						<td><label>방 이름</label></td>
+						<td><label>제휴 이름</label></td>
 						<td>
-							<input type="hidden" value="${param.partner_no}" name="partner_no">
+							<input type="hidden" value="${param.hotel_no}" name="hotel_no">
 							
 							<input class="form-control" type="text" name="partner_name" placeholder="제휴명 입력하세요" required> 
 						</td>
@@ -201,9 +204,9 @@ form label {
 					<tr>
 						<td colspan="2">
 							<p class="Thumbnail">제휴 사진</p>
-							<input type="file" name="file1" accept = ".jpg, .png, .gif" >
-							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
-							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" required> 메인사진(필수)<br>
+							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br>
+							<input type="file" name="file3" accept = ".jpg, .png, .gif" ><br>
 							<input type="file" name="file4" accept = ".jpg, .png, .gif" >
 						</td>
 					</tr>
