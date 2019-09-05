@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pick.hotels.entity.AttractionListVO;
 import com.pick.hotels.entity.RestaurantDto;
+import com.pick.hotels.entity.RestaurantListVO;
 
 @Repository
 public class RestaurantDaoImpl implements RestaurantDao{
@@ -34,23 +36,6 @@ public class RestaurantDaoImpl implements RestaurantDao{
 		sqlSession.delete("restaurant.exit", no);
 	}
 
-//	레스토랑 목록
-	@Override
-	public List<RestaurantDto> list(String type, String keyword, int start, int end) {
-		Map<String, Object> param = new HashMap<>();
-		
-//		검색일 떄 검색어를 mybatis에 전달
-		if(type != null && keyword != null) {
-			param.put("type", type.replace("+", "||"));
-			param.put("keyword", keyword);			
-		}
-		
-//		검색이든 목록이든 페이징 구간 전달
-		param.put("start", start);
-		param.put("end", end);
-		
-		return sqlSession.selectList("restaurant.list", param);
-	}
 
 //	레스토랑 게시글 수 구하기
 	@Override
@@ -89,4 +74,25 @@ public class RestaurantDaoImpl implements RestaurantDao{
 			return false;
 		}
 	}
+	
+//	레스토랑 목록
+	@Override
+	public List<RestaurantListVO> listVO(String type, String keyword, int start, int end) {
+		Map<String, Object> param = new HashMap<>();
+		
+//		검색일 떄 검색어를 mybatis에 전달
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);			
+		}
+		
+//		검색이든 목록이든 페이징 구간 전달
+		param.put("start", start);
+		param.put("end", end);
+		
+		List<RestaurantListVO> list = sqlSession.selectList("restaurant.listVO", param);
+		
+		return list;
+	}
+
 }

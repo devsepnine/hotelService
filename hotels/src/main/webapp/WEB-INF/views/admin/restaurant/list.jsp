@@ -177,7 +177,7 @@
 		<c:forEach var="rdto" items="${list}">
 		<tr class="restaurant_info">
 			<td>
-				사진 넣고싶어요
+				<img src="${pageContext.request.contextPath}/img_v/2?img_name=${rdto.restaurant_file_name}" width="150px" height="150px">
 			</td>
 			<td>${rdto.restaurant_name}</td>
 			<td>${rdto.restaurant_addr1} ${rdto.restaurant_addr2}</td>
