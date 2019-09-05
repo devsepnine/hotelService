@@ -60,6 +60,55 @@ $(function(){
 });
 
 </script>
+<script>
+//이름 검사 후 형식에 안맞을시 보조메세지 출력
+function checkName(){
+    var member_name = document.querySelector("#member_name").value;
+    var regex = /^[가-힣]{2,7}$/;
+    
+  	//정규표현식으로 m_name값 검사
+    var result = regex.test(member_name);
+    
+    var div = document.querySelector(".member_nameD");
+
+    if(result) {
+        div.innerHTML = ""
+    }
+    
+  	//member_name이 형식에 맞지 않으면 메세지 춮력
+    else {
+        div.innerHTML = "<font color = 'gray' size = '2'>2~7자의 한글로 입력해주세요</font>"
+    }
+}
+
+//핸드폰 번호 검사 후 형식에 안맞을시 보조메세지 출력
+function checkPhone(){
+    var member_phone = document.querySelector("#member_phone").value;
+    var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
+    
+  	//정규표현식으로 m_phone값 검사
+    var result = regex.test(member_phone);
+    
+    var div = document.querySelector(".member_phoneD");
+
+    if(result) {
+        div.innerHTML = ""
+    }
+    
+  	//m_phone이 형식에 맞지 않으면 메세지 춮력
+    else {
+        div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
+        
+    }
+}
+</script>
+<script>
+//member_auth 옵션값 선택
+	$(function(){
+		$("select[name=member_auth]").val("${mdto.member_auth}");
+	});
+	
+</script>
 <style>
 	.info-wrap{
 		
@@ -93,7 +142,7 @@ $(function(){
 				<tr>
 					<td>연락처</td>
 					<td>
-						<input class="form-control" type="text" name="member_phone" value="${mdto.member_phone}">
+						<input class="form-control" type="text" name="member_phone" value="${mdto.member_phone}"  pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" required>
 					</td>
 				</tr>
 				<tr>

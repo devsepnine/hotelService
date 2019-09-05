@@ -20,10 +20,10 @@
 </script>
 
 <div align="center" class="list-wrap">
-	<h1>내 예약 내역</h1>
+	<h1>내 취소 내역</h1>
 	<br>
 	<div class="reserve-cancel-wrap">
-	<a href="cancel_list" class="btn btn-danger can_btn" >예약취소 내역</a>
+	<a href="list" class="btn btn-danger can_btn" >예약 내역</a>
 	</div>
 <c:forEach var = "reserveVO" items="${reserveVO}"> 
 		<table class="table table-hamburg table-stripe">

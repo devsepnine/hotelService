@@ -27,11 +27,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="list" parameterType="int" resultType="reserveVO">
-		select *
-			from reserve R
+	<![CDATA[
+	    select *
+			from 
+    		reserve R
 			inner join hotel H on
 			R.reserve_hotel_no = H.hotel_no
-			where R.reserve_member_no = #{member_no} order by reserve_no desc
+			where R.reserve_member_no = #{member_no}
+            and sysdate - 60 <=reserve_out and reserve_ok = '예약'
+            order by reserve_no desc
+            ]]>
+	</select>
+	
+	<select id="cancel_list" parameterType="int" resultType="reserveVO">
+		<![CDATA[
+	    select *
+			from 
+    		reserve R
+			inner join hotel H on
+			R.reserve_hotel_no = H.hotel_no
+			where R.reserve_member_no = #{member_no}
+            and sysdate - 60 <=reserve_out and reserve_ok = '취소'
+            order by reserve_no desc
+            ]]>
 	</select>
 	
 	<select id="review_write" parameterType="map" resultType="reserveVo">
@@ -39,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from reserve R
 		inner join hotel H on
 		R.reserve_hotel_no = H.hotel_no
-		where R.reserve_member_no = #{member_no} and R.reserve_no = #{reserve_no}
+		where R.reserve_member_no = #{member_no} and R.reserve_no = #{reserve_no} 
 	</select>
 	
 	<update id="change" parameterType="reserveDto">
@@ -49,6 +67,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where
 				reserve_no = #{reserve_no}	
 	</update>
+	
+	<select id="count" parameterType="int" resultType="int">
+		select count (*) from reserve where reserve_member_no = #{reserve_member_no}
+	</select>
 	
 	
 	

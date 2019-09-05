@@ -19,6 +19,10 @@ public interface ReserveDao {
 
 	boolean change(ReserveDto reserveDto);
 
+	int count(int member_no);
+
+	List<ReserveVO> cancel_list(int member_no);
+
 
 
 }

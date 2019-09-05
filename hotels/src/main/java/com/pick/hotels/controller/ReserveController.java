@@ -78,7 +78,17 @@ public class ReserveController {
 		List<ReserveVO> list = reserveDao.list(member_no);
 		
 		model.addAttribute("reserveVO", list);
+		
 		return "reserve/list";
+	}
+	
+	@GetMapping("/cancel_list")
+	public String cancel_list(Model model, HttpSession session) {
+		int member_no = (int) session.getAttribute("no");
+		 List<ReserveVO> cancel_list = reserveDao.cancel_list(member_no);
+		 
+		 model.addAttribute("reserveVO", cancel_list);
+		return "reserve/cancel_list";
 	}
 	
 	@GetMapping("/details")
