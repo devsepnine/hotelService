@@ -71,7 +71,6 @@ public class NoticeController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		model.addAttribute("auth", (String) session.getAttribute("auth")); 
 		
