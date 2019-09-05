@@ -16,5 +16,7 @@ public interface RoomDao {
 	public List<RoomDto> get_list(int hotel_no);
 
 	public List<RoomListVO> list(int hotel_no);
+
+	public void edit(RoomDto roomDto);
 	
 }

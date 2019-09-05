@@ -30,6 +30,17 @@ form label {
 	color: black;
 	font-size: 1.5rem;
 }
+.end-line{
+	text-align: center;
+}
+
+.end-btn{
+	margin: 30px,30px;
+}
+table{
+	width: 70%;
+}
+
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>
@@ -148,8 +159,10 @@ form label {
 					</tr>
 					
 					<tr>
-						<td colspan="2"><input class="btn btn-danger btn-block"
-							type="submit" style="margin-top: 30px;" value="등록하기" name="registbtn"></td>
+						<td colspan="2" class="end-line">
+							<a href="${pageContext.request.contextPath}/room/edit?room_no=${rdto.room_no}"><button class="btn btn-danger end-btn">수정</button></a>
+							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${rdto.hotel_no}"><button class="btn btn-danger end-btn">목록 </button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
