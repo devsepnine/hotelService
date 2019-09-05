@@ -61,8 +61,8 @@
 		<table class="table table-hamburg table-stripe partner_info">
 			<tbody>
 					<tr>
-						<td rowspan="3" style="width: 180px;">
-							<a href="detail?partner_no=${pdto.room_no}">
+						<td rowspan="4" style="width: 180px;">
+							<a href="detail?partner_no=${pdto.partner_no}">
 								<img src="${pageContext.request.contextPath}/img_v/5?img_name=${pdto.p_file_name}" width="240px" height="240px">
 							</a>
 						</td>
@@ -70,7 +70,7 @@
 							<input type="hidden" id="partner_no" name="partner_no" value="${pdto.partner_no}">
 						</td>
 						<td>
-							<a href="detail?room_no=${pdto.partner_no}">${pdto.partner_name}</a>
+							<a href="detail?partner_no=${pdto.partner_no}">${pdto.partner_name}</a>
 						</td>
 					</tr>
 					<tr>

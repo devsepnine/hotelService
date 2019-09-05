@@ -30,6 +30,9 @@ form label {
 	color: black;
 	font-size: 1.5rem;
 }
+table{
+	width: 70%;
+}
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
 <script>

@@ -133,7 +133,7 @@ public class SellerController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("s_ok");
 		session.removeAttribute("s_no");
-		return"redirect:/seller";
+		return"redirect:/";
 	}
 	
 	@GetMapping("/blacklist")
@@ -794,8 +794,7 @@ public class SellerController {
 		}
 		
 		model.addAttribute("partner_no",partnerDto.getPartner_no());
-		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:/partner/detail";
+		return "redirect:detail";
 	}
 	
 	@GetMapping("/hotel/partner/delete")
@@ -814,7 +813,17 @@ public class SellerController {
 	public String partner_list(@RequestParam int hotel_no, Model model) {
 			List<PartnerListVO> list = partnerDao.list(hotel_no);
 			model.addAttribute("list", list);
+			System.out.println(list);
 			return "/partner/list";
+	}
+	
+	@GetMapping("/hotel/partner/detail")
+	public String partner_detail(@RequestParam int partner_no, Model model) {
+		PartnerDto partnerDto = partnerDao.get(partner_no);
+		model.addAttribute("pdto", partnerDto);
+		model.addAttribute("pfdtolist", partnerFileDao.getlist(partner_no));
+		
+		return "/partner/detail";
 	}
 
 }

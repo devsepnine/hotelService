@@ -44,6 +44,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    FROM 
 		        room R inner join r_file RF on R.room_no = RF.room_no
 		) WHERE rn=1 and hotel_no=#{hotel_no}
-	</select>                                
+	</select>       
+	
+	<update id="edit" parameterType="roomDto">
+		update room 
+			set 
+				room_name = #{room_name}, room_price = #{room_price}, room_content = #{room_content}, 
+				room_people = #{room_people}, room_bed = #{room_bed}, room_breakfast = #{room_breakfast}, 
+				room_spa = #{room_spa}, room_conditioner = #{room_conditioner}, room_tv = #{room_tv}, 
+				room_refrigerator = #{room_refrigerator}, room_shower_room = #{room_shower_room}, 
+				room_bath = #{room_bath}, room_hair = #{room_hair}, room_cookoo = #{room_cookoo}, 
+				room_smoking = #{room_smoking}, room_cooking = #{room_cooking}
+			where room_no = #{room_no}
+	</update>                         
 	                              
  </mapper>
