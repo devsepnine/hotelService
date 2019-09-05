@@ -105,9 +105,12 @@ function checkPhone(){
         
     }
 }
-
+</script>
+<script>
 //member_auth 옵션값 선택
-	$("select[name=member_auth]").val("${mdto.member_auth}");
+	$(function(){
+		$("select[name=member_auth]").val("${mdto.member_auth}");
+	});
 </script>
 
 <style>

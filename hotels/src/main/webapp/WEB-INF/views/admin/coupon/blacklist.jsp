@@ -149,10 +149,10 @@
 <div class="content-line">
 <div class="list_wrap">
 <div class="list_headtit">
-<h3>사용가능 쿠폰 리스트</h3>
+<h3>사용만료 쿠폰 리스트</h3>
 </div>
-	<a href="blacklist">
-		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="사용만료 쿠폰">
+	<a href="list">
+		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="사용가능 쿠폰">
 	</a>
 <div class="table-box">
 <table class="table_ny_three" border="1" >

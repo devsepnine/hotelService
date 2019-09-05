@@ -106,8 +106,13 @@ function checkPhone(){
     }
 }
 
-//seller_auth 옵션값 선택
-	$("select[name=seller_blacklist]").val("${sdto.seller_blacklist}");
+</script>
+
+<script>
+//seller_blacklist 옵션값 선택
+	$(function(){
+		$("select[name=seller_blacklist]").val("${sdto.seller_blacklist}");
+	});
 </script>
 
 <style>
