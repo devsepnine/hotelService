@@ -31,7 +31,7 @@
 		  border: 2px solid #0097cf;
 		}
 		.twitter-typeahead > .form-control:focus{
-			color: blue;
+			color: #003a70;
 			font-weight: bold;
 		}
 		.tt-menu{
@@ -137,13 +137,19 @@
 	    	margin-left: 5px;
 	    	margin-right: 5px;
 	    }
-		a:link { color: black; text-decoration: none;}
-		a:visited { color: black; text-decoration: none;}
-		a:hover { color: black; text-decoration: none;}
+		#date-toast{
+			position: fixed;
+			top: 30px;
+			right: 50px;
+			z-index: 999;
+		}
+		#date-toast>.toast-header{
+			background-color: #000080;
+			color: white;
+		}
 	</style>
 <script>
 $(function(){
-	$('[data-toggle="tooltip"]').tooltip();
 // 	키워드 리셋
 	$(".keywordreset").click(function(){
 		$("input[type=checkbox]").prop("checked", false);
@@ -286,24 +292,31 @@ $(function(){
         
         $("#datetimepicker1").on("change.datetimepicker", function (e) {
             $('#datetimepicker2').datetimepicker('minDate', e.date);
-            startday = $("#datetimepicker1 input").val();
+            startday = new Date($("#datetimepicker1 input").val());
             dateMath();
         });
         $("#datetimepicker2").on("change.datetimepicker", function (e) {
-            lastday = $("#datetimepicker2 input").val();
+            lastday = new Date($("#datetimepicker2 input").val());
             dateMath();
         });
 
+    	$("form").submit(function(e){
+    		e.preventDefault();
+    		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
+    		if(daygap < 0){
+    			$('#date-toast').toast({
+                    delay: 3000
+                }).toast('show');
+    			$("input[name=check_in]").val("");
+    			$("input[name=check_in]").focus();
+    		}else{
+    			this.submit();
+    		}
+    	})
 		//날짜 차이 구하는 함수
 		function dateMath() {
 			if(startday != null && lastday!=null){
-				var gap = Date.parse(lastday)-Date.parse(startday);
-				if(gap<0){
-					alert("체크인 날자가 체크아웃보다 뒤에 있습니다.")
-					return;
-				}
-				var diff = dateDiff(startday, lastday)
-				$(".diff").text(diff);
+				var diff = dateDiff(new Date($("#datetimepicker1 input").val()), new Date($("#datetimepicker2 input").val()))
 				if(diff>30){
 					alert("기간은 30일 이하로 선택해주세요.")
 					$("#datetimepicker2 input").val('');
@@ -443,4 +456,15 @@ $(function(){
 	</div>
 </div>
 
+
+
+<!-- 	팝업알림 -->
+  <div class="toast" id="date-toast">
+    <div class="toast-header">
+      숙박기간
+    </div>
+    <div class="toast-body">
+      Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
+    </div>
+  </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -17,8 +17,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/swiper/swiper.css">
 <script src="${pageContext.request.contextPath}/js/swiper/swiper.js"></script>
 
-
-  
 <script>
 	$(function(){
 		$(".wish-btn").click(function(){
@@ -101,7 +99,7 @@ $(function(){
 })
 </script>
 
-<!-- Initialize Swiper -->
+<!-- hotel Swiper -->
 <script>
   $(function(){
 	  var galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -117,6 +115,11 @@ $(function(){
 	      spaceBetween: 10,
 	      autoResize: true,
 	      loop : true,
+	      effect: 'fade',
+	      autoplay: {
+		      delay: 5000,
+		      disableOnInteraction: false,
+	    },
 	      navigation: {
 	        nextEl: '.swiper-button-next',
 	        prevEl: '.swiper-button-prev',
@@ -126,8 +129,67 @@ $(function(){
 	      }
 	    });
   })
-    
-  </script>
+</script>
+
+<!-- room 슬라이더 스크립트 -->
+<script>
+	$(function(){
+		var mySwiper = new Swiper ('.room-swiper', {
+				autoHeight : true,
+				loop : true,
+				resizeReInit: true,
+				effect: 'fade',
+				autoplay: {
+				      delay: 2500,
+				      disableOnInteraction: false,
+			    }
+		    })
+	})
+</script>
+<style>
+	.room-pic{
+		max-width: 300px;
+		height: 200px;
+		display: inline-block;
+	}
+	.room-swiper{
+		height: 100%;
+	}
+</style>
+<!--  room detail style -->
+<style>
+	.room-detail{
+		display: inline-block;
+	}
+	.room-detail >.room-ico-wrap img{
+		width: 30px;
+		height: 30px;
+	}
+</style>
+<style>
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+</style>
 
 <script type="text/javascript">
     $(function () {
@@ -179,16 +241,23 @@ $(function(){
             dateMath();
         });
 
+    	$("form").submit(function(e){
+    		e.preventDefault();
+    		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
+    		if(daygap < 0){
+    			$('#date-toast').toast({
+                    delay: 3000
+                }).toast('show');
+    			$("input[name=check_in]").val("");
+    			$("input[name=check_in]").focus();
+    		}else{
+    			this.submit();
+    		}
+    	})
 		//날짜 차이 구하는 함수
 		function dateMath() {
 			if(startday != null && lastday!=null){
-				var gap = Date.parse(lastday)-Date.parse(startday);
-				if(gap<0){
-					alert("체크인 날자가 체크아웃보다 뒤에 있습니다.")
-					return;
-				}
-				var diff = dateDiff(startday, lastday)
-				$(".diff").text(diff);
+				var diff = dateDiff(new Date($("#datetimepicker1 input").val()), new Date($("#datetimepicker2 input").val()));
 				if(diff>30){
 					alert("기간은 30일 이하로 선택해주세요.")
 					$("#datetimepicker2 input").val('');
@@ -217,7 +286,12 @@ $(function(){
 		.bootstrap-datetimepicker-widget.dropdown-menu{
 			width:330px;
 		}
-		
+/* 		 iconn 크기 조절  */
+		.ico-wrap img{
+	    	width: 24px;
+	    	margin-left: 5px;
+	    	margin-right: 5px;
+	    }
 		<!-- typeahead 디자인 -->
 		.typeahead,
 		.tt-query,
@@ -232,7 +306,7 @@ $(function(){
 		  border: 2px solid #0097cf;
 		}
 		.twitter-typeahead > .form-control:focus{
-			color: blue;
+			color: #003a70;
 			font-weight: bold;
 		}
 		.tt-menu{
@@ -285,6 +359,16 @@ $(function(){
 		
 		.twitter-typeahead {
 			width: 100%;
+		}
+		#date-toast{
+			position: fixed;
+			top: 30px;
+			right: 50px;
+			z-index: 999;
+		}
+		#date-toast>.toast-header{
+			background-color: #000080;
+			color: white;
 		}
 	</style>	
 <style>
@@ -407,26 +491,101 @@ ${hdto }
 	    </div>
 	  </div>
   </div>
-  	<div class="room-wrap">
-  		<c:forEach	var="detail_room" items="${detail_list}">
-  			<p>${detail_room}</p>
-  			<c:forEach items="${detail_room.room_file_list }" var="room_picture">
-  				<p>${room_picture}</p>
-  			</c:forEach>
-  		</c:forEach>
-  	</div>
-  <div>
+
   
-  
-  </div>
-  
-  
+<div class="card border-light">
+	<div class="card-header">주요 편의 시설</div>
+	<div class="card-body">
+		<div class="ico-wrap" style="display: inline-block;width: 100%;padding: 10px 0px;">
+			<c:if test="${hdto.hotel_bbq=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png">바베큐장</c:if>
+			<c:if test="${hdto.hotel_karaoke=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="노래방" src="${pageContext.request.contextPath}/img/ico/karaoke.png">노래방</c:if>
+			<c:if test="${hdto.hotel_cafe=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="카페" src="${pageContext.request.contextPath}/img/ico/cafe.png">카페</c:if>
+			<c:if test="${hdto.hotel_convenience_store=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="편의점" src="${pageContext.request.contextPath}/img/ico/conveni.png">편의점</c:if>
+			<c:if test="${hdto.hotel_fitness=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="피트니스" src="${pageContext.request.contextPath}/img/ico/fitness.png">피트니스</c:if>
+			<c:if test="${hdto.hotel_internet=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="인터넷" src="${pageContext.request.contextPath}/img/ico/internet.png">무료 WIFI</c:if>
+			<c:if test="${hdto.hotel_lounge=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="라운지" src="${pageContext.request.contextPath}/img/ico/lounge.png">라운지</c:if>
+			<c:if test="${hdto.hotel_parking=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="주차장" src="${pageContext.request.contextPath}/img/ico/parking.png">주차장</c:if>
+			<c:if test="${hdto.hotel_pool=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="수영장" src="${pageContext.request.contextPath}/img/ico/pool.png">수영장</c:if>
+			<c:if test="${hdto.hotel_sauna=='Y'}">
+			<img alt="" data-toggle="tooltip" data-placement="top" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png">사우나</c:if>
+		</div>
+	</div>
 </div>
 
+<c:forEach	var="detail_room" items="${detail_list}">
+	<div class="card border-secondary room-wrap">
+		<div class="card-header">${detail_room.rdto.room_name } | 최대숙박인원 : ${detail_room.rdto.room_people}</div>
+		<div class="card-body">
+			<!-- Slider main container -->
+			<div class="room-pic">
+				<div class="room-swiper">
+				    <!-- Additional required wrapper -->
+				    <div class="swiper-wrapper">
+				        <!-- Slides -->
+				        <c:forEach items="${detail_room.room_file_list }" var="room_picture">
+				        <div class="swiper-slide"><img height="200px" src="${pageContext.request.contextPath }/img_v/4?img_name=${room_picture.r_file_name}"></div>
+				        </c:forEach>
+				        
+				    </div>
+				    	<img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="BED TYPE" src="${pageContext.request.contextPath}/img/room_ico/bed.png"> : ${detail_room.rdto.room_bed}
+				</div>
+			</div>
+			
+			<div class="room-detail">
+				<div class="room-ico-wrap">
+					<c:if test="${detail_room.rdto.room_breakfast eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="BREAKFAST" src="${pageContext.request.contextPath}/img/room_ico/breakfast.png"></c:if>
+					<c:if test="${detail_room.rdto.room_spa eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SPA" src="${pageContext.request.contextPath}/img/room_ico/spa.png"></c:if>
+					<c:if test="${detail_room.rdto.room_conditioner eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="CONDITIONER" src="${pageContext.request.contextPath}/img/room_ico/conditioner.png"></c:if>
+					<c:if test="${detail_room.rdto.room_tv eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="TV" src="${pageContext.request.contextPath}/img/room_ico/tv.png"></c:if>
+					<c:if test="${detail_room.rdto.room_refrigerator eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="REFRIGERATOR" src="${pageContext.request.contextPath}/img/room_ico/refrigerator.png"></c:if>
+					<c:if test="${detail_room.rdto.room_shower_room eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SHOWER_ROOM" src="${pageContext.request.contextPath}/img/room_ico/shower_room.png"></c:if>
+					<c:if test="${detail_room.rdto.room_bath eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="BATH" src="${pageContext.request.contextPath}/img/room_ico/bath.png"></c:if>
+					<c:if test="${detail_room.rdto.room_hair eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="HAIR DRYER" src="${pageContext.request.contextPath}/img/room_ico/hair.png"></c:if>
+					<c:if test="${detail_room.rdto.room_cookoo eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="COOKOO" src="${pageContext.request.contextPath}/img/room_ico/cookoo.png"></c:if>
+					<c:if test="${detail_room.rdto.room_smoking eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SMOKING" src="${pageContext.request.contextPath}/img/room_ico/smoking.png"></c:if>
+					<c:if test="${detail_room.rdto.room_cooking eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="COOKING" src="${pageContext.request.contextPath}/img/room_ico/cooking.png"></c:if>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p>${detail_room}</p>
+
+	
+</c:forEach>
+  		
+  			
+  			
 
 
-
-
-
+</div>
+<!-- 	팝업알림 -->
+  <div class="toast" id="date-toast">
+    <div class="toast-header">
+      숙박기간
+    </div>
+    <div class="toast-body">
+      Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
+    </div>
+  </div>
 <input type="hidden" class="hotel_no" value="${param.h_no}">
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

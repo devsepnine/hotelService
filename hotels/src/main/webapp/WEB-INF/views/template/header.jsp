@@ -16,6 +16,7 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script>
         $(function(){
+        	$('[data-toggle="tooltip"]').tooltip();
             $(".menubtn").click(function(){
                                 console.log($(window).width())
                                 $(".sidebar").toggleClass("active")
@@ -46,6 +47,9 @@
       		font-family:ON-IGothic;
            box-sizing: border-box;
        }
+    a:link { color: black; text-decoration: none;}
+	a:visited { color: black; text-decoration: none;}
+	a:hover { color: black; text-decoration: none;}
     body{
         margin: 0;
     }
