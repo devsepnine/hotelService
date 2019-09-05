@@ -42,6 +42,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where R.reserve_member_no = #{member_no} and R.reserve_no = #{reserve_no}
 	</select>
 	
+	<update id="change" parameterType="reserveDto">
+		update reserve
+			set
+				reserve_ok = '취소'
+			where
+				reserve_no = #{reserve_no}	
+	</update>
+	
 	
 	
 </mapper>
