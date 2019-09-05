@@ -7,6 +7,36 @@
 
 <!-- 자바스크립트를 이용하여 페이지 이동을 처리 -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(function(){
+		//인증메일 버튼을 누르면 ajax로 /member/new_pw에 신호를 보낸다
+		$(".newpw_btn").click(function(){
+			$.ajax({ 
+				url : "/hotels/admin/member/new_pw",
+				data : {
+					no : ${mdto.member_no}
+				},
+				dataType:"text",
+				beforeSend : function(){
+					//버튼 비활성화
+					$(".newpw_btn").prop("disabled", true);
+					$(".newpw_btn").text("인증 메일 발송중...");
+				},
+				success : function(resp){
+					alert("이메일 발송 완료")
+				},
+				error:function(){
+					alert("오류 발생");
+				},
+				complete:function(){
+					//버튼 활성화
+					$(".newpw_btn").prop("disabled", false);
+					$(".newpw_btn").text("비밀번호 인증 메일 발송");
+				}
+			})
+		});
+	});
+</script>
 
 <style>
 	.table_ny_two thead,
@@ -102,7 +132,7 @@
 	}
 	.btn-danger{
 		height: 45px;
-		width: 118px;
+		width: 130px;
 	}
 	
 	.newpw_btn{
@@ -131,7 +161,7 @@
 			<th>비밀번호</th>
 			<td>
 				<input type="hidden" name="member_no" value="${mdto.member_no}">
-				<a href="new_pw?no=${mdto.member_no}" class="btn btn-danger newpw_btn">비밀번호 인증 메일 발송</a>
+				<button class="btn btn-danger newpw_btn">비밀번호 인증 메일 발송</button>
 			</td>
 		</tr>
 		<tr>
