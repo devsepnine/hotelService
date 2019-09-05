@@ -16,6 +16,15 @@ public interface PartnerDao {
 	boolean delete(int partner_no);
 
 	List<PartnerListVO> list(int hotel_no);
-
-
+	
+	
+//------------------------------------------------------------------------------------
+//	관리자
+//------------------------------------------------------------------------------------    
+	List<PartnerListVO> waiting_list(String type, String keyword, int start, int end);
+	List<PartnerListVO> complete_list(String type, String keyword, int start, int end);
+	List<PartnerListVO> refuse_list(String type, String keyword, int start, int end);
+	int count(String type, String keyword);
+	void edit_partner(PartnerDto partnerDto);
+	
 }
