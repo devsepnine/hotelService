@@ -1,7 +1,9 @@
 package com.pick.hotels.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,10 +114,22 @@ public class ReserveController {
 		return "reserve/details";
 	}
 	
-//	@GetMapping("/details")
-//	public String details() {
-//		return "reserve/details";
-//	}
+	@GetMapping("/reserve_delete")
+	public void reserve_delete(@RequestParam int reserve_no, @ModelAttribute ReserveDto reserveDto, HttpSession session, HttpServletResponse resp) throws IOException {
+		int member_no = (int) session.getAttribute("no");
+		reserveDto.setReserve_member_no(member_no);
+		reserveDto.setReserve_no(reserve_no);
+		boolean result = reserveDao.change(reserveDto);
+		
+		if(result) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+		
+	}
+	
 	
 	
 }
