@@ -65,10 +65,10 @@
 	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/restaurant/list">레스토랑 관리</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">제휴 관리</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner/list">제휴 관리</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">쿠폰 관리</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/coupon/list">쿠폰 관리</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="${pageContext.request.contextPath}">메인 화면</a>

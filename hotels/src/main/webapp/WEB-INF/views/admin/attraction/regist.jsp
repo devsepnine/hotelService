@@ -237,17 +237,17 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
+						<input type="file" name="file1"  accept = ".jpg, .png, .gif" required>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file2" accept = ".jpg, .png, .gif">
+						<input type="file" name="file2" accept = ".jpg, .png, .gif" required>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file3" accept = ".jpg, .png, .gif">
+						<input type="file" name="file3" accept = ".jpg, .png, .gif" required>
 					</td>
 				</tr>
 			</tbody>

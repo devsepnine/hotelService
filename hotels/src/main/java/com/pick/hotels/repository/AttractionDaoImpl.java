@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.AttractionDto;
+import com.pick.hotels.entity.AttractionListVO;
 
 @Repository
 public class AttractionDaoImpl implements AttractionDao{
@@ -32,24 +33,6 @@ public class AttractionDaoImpl implements AttractionDao{
 	@Override
 	public void exit(int no) {
 		sqlSession.delete("attraction.exit", no);
-	}
-
-//	관광지 목록
-	@Override
-	public List<AttractionDto> list(String type, String keyword, int start, int end) {
-		Map<String, Object> param = new HashMap<>();
-		
-//		검색일 떄 검색어를 mybatis에 전달
-		if(type != null && keyword != null) {
-			param.put("type", type.replace("+", "||"));
-			param.put("keyword", keyword);			
-		}
-		
-//		검색이든 목록이든 페이징 구간 전달
-		param.put("start", start);
-		param.put("end", end);
-		
-		return sqlSession.selectList("attraction.list", param);
 	}
 
 //	관광지 게시글 수 구하기
@@ -88,6 +71,26 @@ public class AttractionDaoImpl implements AttractionDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+//	관광지 목록
+	@Override
+	public List<AttractionListVO> listVO(String type, String keyword, int start, int end) {
+		Map<String, Object> param = new HashMap<>();
+		
+//		검색일 떄 검색어를 mybatis에 전달
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);			
+		}
+		
+//		검색이든 목록이든 페이징 구간 전달
+		param.put("start", start);
+		param.put("end", end);
+		
+		List<AttractionListVO> list = sqlSession.selectList("attraction.listVO", param);
+		
+		return list;
 	}
 
 }

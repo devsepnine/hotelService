@@ -177,7 +177,7 @@
 		<c:forEach var="adto" items="${list}">
 		<tr class="attraction_info">
 			<td>
-				사진 넣고싶어요	
+				<img src="${pageContext.request.contextPath}/img_v/1?img_name=${adto.attraction_file_name}" width="150px" height="150px">
 			</td>
 			<td>${adto.attraction_name}</td>
 			<td>${adto.attraction_addr1} ${adto.attraction_addr2}</td>

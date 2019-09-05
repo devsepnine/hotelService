@@ -207,10 +207,10 @@
 	<c:if test="${startBlock > 1}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
+				<li><a href="blacklist?page=${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${startBlock - 1}">&lt;&lt;</a></li>		
+				<li><a href="blacklist?page=${startBlock - 1}">&lt;&lt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>
@@ -219,10 +219,10 @@
 	<c:if test="${page > 1}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${page-1}&type=${param.type}&keyword=${param.keyword}">&lt;</a></li>		
+				<li><a href="blacklist?page=${page-1}&type=${param.type}&keyword=${param.keyword}">&lt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${page-1}">&lt;</a></li>		
+				<li><a href="blacklist?page=${page-1}">&lt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>
@@ -231,10 +231,10 @@
 	<c:forEach var="i" begin="${startBlock}" end="${endBlock}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
+				<li><a href="blacklist?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${i}">${i}</a></li>		
+				<li><a href="blacklist?page=${i}">${i}</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -243,10 +243,10 @@
 	<c:if test="${page < pageCount}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${page+1}&type=${param.type}&keyword=${param.keyword}">&gt;</a></li>		
+				<li><a href="blacklist?page=${page+1}&type=${param.type}&keyword=${param.keyword}">&gt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${page+1}">&gt;</a></li>	
+				<li><a href="blacklist?page=${page+1}">&gt;</a></li>	
 			</c:otherwise>
 		</c:choose>
 		
@@ -256,10 +256,10 @@
 	<c:if test="${endBlock < pageCount}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${endBlock + 1}&type=${param.type}&keyword=${param.keyword}">&gt;&gt;</a></li>		
+				<li><a href="blacklist?page=${endBlock + 1}&type=${param.type}&keyword=${param.keyword}">&gt;&gt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${endBlock + 1}">&gt;&gt;</a></li>		
+				<li><a href="blacklist?page=${endBlock + 1}">&gt;&gt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>
