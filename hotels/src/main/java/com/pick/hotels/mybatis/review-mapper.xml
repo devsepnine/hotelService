@@ -11,10 +11,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="write" parameterType="reviewDto">
 		insert into review values(
 		review_seq.nextval, #{review_member_no}, #{review_hotel}, #{review_reserve}, 
-		5, #{review_content}, sysdate)
+		5, #{review_content}, sysdate, '등록')
 	</insert>
 	
 	<select id="check" parameterType="int" resultType="reviewDto">
 		select * from review where review_reserve = #{reserve_no}
 	</select>
+	
+	<select id="list" parameterType="int" resultType="reviewVO">
+	 select
+        H.hotel_name,
+        R.room_name,
+        RV.reserve_in,
+        RV.reserve_out,
+        RW.review_score,
+        RW.review_content,
+        RW.review_when,
+        RW.review_no
+    from
+        hotel H 
+        inner join room R on R.hotel_no = H.hotel_no
+        inner join reserve RV on  RV.reserve_room_no = R.room_no
+        inner join review RW on  RW.review_reserve = RV.reserve_no
+	where
+		RW.review_name = #{review_name} and RW.review_state = '등록'
+	</select>
+	
+	<update id="change" parameterType="reviewDto">
+		update review
+			set
+				review_state = '삭제'
+			where
+				review_no = #{review_no}
+	</update>
 </mapper>
