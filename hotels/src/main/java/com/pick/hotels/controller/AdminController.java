@@ -14,17 +14,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.AttractionFileDto;
+import com.pick.hotels.entity.AttractionListVO;
+import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
+import com.pick.hotels.entity.RestaurantListVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
+import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.RestaurantDao;
@@ -64,6 +69,9 @@ public class AdminController {
 	
 	@Autowired
 	private EmailCertDao emailcertDao;
+	
+	@Autowired
+	private CouponDao couponDao;
 
 	
 //	전체 관리 페이지("main")
@@ -227,6 +235,7 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+	
 //	관광지 리스트에서 삭제("/attraction/delete")
 	@GetMapping("/attraction/delete")
 	public void delete(@RequestParam int attraction_no, HttpServletResponse resp) throws IOException {
@@ -245,10 +254,8 @@ public class AdminController {
 	public String content(@RequestParam int no, Model model) {
 		
 		AttractionDto adto = attractionDao.get(no);
-		AttractionFileDto afdto = attractionFileDao.get(no);
-		
+
 		model.addAttribute("adto", adto);
-		model.addAttribute("afdto", afdto);
 		model.addAttribute("afdtolist", attractionFileDao.getlist(no));
 		model.addAttribute("no", no);
 
@@ -287,7 +294,7 @@ public class AdminController {
 		model.addAttribute("end", end);
 		model.addAttribute("pageCount", pageCount);
 		
-		List<AttractionDto> list = attractionDao.list(type, keyword, start, end);
+		List<AttractionListVO> list = attractionDao.listVO(type, keyword, start, end);
 		
 		model.addAttribute("list", list);
 		
@@ -304,6 +311,7 @@ public class AdminController {
 	public String regist_rt() {
 		return "admin/restaurant/regist";
 	}
+	
 	
 	@PostMapping("/restaurant/regist")
 	public String regist(
@@ -367,6 +375,7 @@ public class AdminController {
 		
 		return "admin/restaurant/edit";
 	}
+	
 	
 	@PostMapping("/restaurant/edit")
 	public String edit(@ModelAttribute RestaurantDto rdto,
@@ -450,6 +459,7 @@ public class AdminController {
 		return "redirect:list";
 	}
 	
+	
 //	레스토랑 리스트에서 삭제("/restaurant/delete")
 	@GetMapping("/restaurant/delete")
 	public void delete_rt(@RequestParam int restaurant_no, HttpServletResponse resp) throws IOException {
@@ -468,10 +478,8 @@ public class AdminController {
 	public String content_rt(@RequestParam int no, Model model) {
 		
 		RestaurantDto rdto = restaurantDao.get(no);
-		RestaurantFileDto rfdto = restaurantFileDao.get(no);
 		
 		model.addAttribute("rdto", rdto);
-		model.addAttribute("rfdto", rfdto);
 		model.addAttribute("rfdtolist", restaurantFileDao.getlist(no));
 
 		return "admin/restaurant/detail";
@@ -509,7 +517,7 @@ public class AdminController {
 		model.addAttribute("end", end);
 		model.addAttribute("pageCount", pageCount);
 		
-		List<RestaurantDto> list = restaurantDao.list(type, keyword, start, end);
+		List<RestaurantListVO> list = restaurantDao.listVO(type, keyword, start, end);
 		
 		model.addAttribute("list", list);
 		
@@ -519,31 +527,147 @@ public class AdminController {
 
 //------------------------------------------------------------------------------------
 //	쿠폰
-//------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------
 	
 //	쿠폰 추가("/coupon/regist")
-//	쿠폰 수정("/coupon/edit")
-//	쿠폰 만료 처리(사용불가 상태)("/coupon/exit")
-//	쿠폰 상세보기("/coupon/detail")
+	@GetMapping("/coupon/regist")
+	public String regist_couon() {
+		return "admin/coupon/regist";
+	}
+	
+	@PostMapping("/coupon/regist")
+	public String regist(
+			@ModelAttribute CouponDto couponDto,
+			Model model
+			) throws IllegalStateException, IOException {
+		
+		int no = couponDao.getSequenceNumber();
+		couponDto.setCoupon_no(no);
+		
+		couponDao.regist(couponDto);
+		
+		model.addAttribute("no", no);
+		
+		return "redirect:detail";
+	}
+	
+	
+//	쿠폰 상세보기("coupon/detail")
+	@GetMapping("/coupon/detail")
+	public String detail_coupon(@RequestParam int no, Model model) {
+		
+		CouponDto cdto = couponDao.get(no);
+		
+		model.addAttribute("cdto", cdto);
+
+		return "admin/coupon/detail";
+	}
+	
+	
+//	쿠폰 수정(사용불가 상태)("/coupon/edit")
+	@GetMapping("/coupon/edit")
+	public String edit_coupon(@RequestParam int no, Model model) {
+		
+		model.addAttribute("cdto", couponDao.get(no));
+		
+		return "admin/coupon/edit";
+	}
+	
+	@PostMapping("/coupon/edit")
+	public String edit_coupon(@ModelAttribute CouponDto cdto,
+						Model model
+						) throws IllegalStateException, IOException {
+		
+		int no = cdto.getCoupon_no();
+		
+		couponDao.edit(cdto);
+		
+		model.addAttribute("no", no);
+		
+		return "redirect:detail";
+	}
+	
+	
 //	쿠폰 전체 리스트 + 검색("/coupon/list")
+	@GetMapping("/coupon/list")
+	public String list_coupon(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = couponDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<CouponDto> list = couponDao.list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/coupon/list";
+	}
+	
+//	사용만료 쿠폰 리스트 + 검색("/coupon/blacklist")
+	@GetMapping("/coupon/blacklist")
+	public String blacklist_coupon(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = sellerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		model.addAttribute("pageCount", pageCount);
+		
+		List<CouponDto> blacklist = couponDao.blacklist(type, keyword, start, end);
+		
+		model.addAttribute("list", blacklist);
+		
+		return "admin/coupon/blacklist";
+	}
 	
 	
 //------------------------------------------------------------------------------------
 //	회원 관리
 //------------------------------------------------------------------------------------	
-
-//	new_pw
-	@GetMapping("/member/new_pw")
-	public String new_pw(@RequestParam int no, Model model) throws MessagingException {
-		
-		MemberDto memberDto = memberDao.get(no);
-		
-		model.addAttribute("mdto", memberDto);
-		
-		emailService.find_pw(memberDto);
-		
-		return "redirect:list";
-	}
 	
 //	회원 정보 상세보기("/member/detail")
 	@GetMapping("/member/detail")
@@ -555,6 +679,22 @@ public class AdminController {
 		
 		return "admin/member/detail";
 	}
+	
+	
+//	회원 비밀번호 변경 이메일 발송
+	@GetMapping("/member/new_pw")
+	@ResponseBody
+	public String new_pw_member(@RequestParam int no, Model model) throws MessagingException {
+		
+		MemberDto memberDto = memberDao.get(no);
+		
+		model.addAttribute("mdto", memberDto);
+		
+		emailService.find_pw(memberDto);
+		
+		return "Y";
+	}
+	
 	
 //	회원 정보 수정("/member/edit")
 	@GetMapping("/member/edit")
@@ -577,6 +717,7 @@ public class AdminController {
 		return "redirect:detail";
 	}
 	
+	
 //	회원 탈퇴("/member/exit")
 	@GetMapping("/member/exit")
 	public String exit_member(@RequestParam int no, Model model) {
@@ -589,6 +730,7 @@ public class AdminController {
 		
 		return "redirect:list";
 	}
+	
 	
 //	전체 회원 리스트  + 검색("/member/list")
 	@GetMapping("/member/list")
@@ -628,6 +770,7 @@ public class AdminController {
 		return "admin/member/list";
 	}
 
+	
 //	비밀번호 변경 메일 발송
 	@GetMapping("/emailcert")
 	public void emailcert(@RequestParam String member_email1, @RequestParam String member_email2, HttpServletResponse resp) throws IOException, MessagingException {
@@ -639,6 +782,7 @@ public class AdminController {
 				resp.getWriter().print("N");
 			}
 		}
+	
 	
 //	비밀번호 변경 메일 인증 여부 체크
 	@GetMapping("/email_cert_check")
@@ -654,6 +798,7 @@ public class AdminController {
 		}
 	}
 	
+	
 //------------------------------------------------------------------------------------
 //	판매자 관리
 //------------------------------------------------------------------------------------
@@ -667,6 +812,21 @@ public class AdminController {
 		model.addAttribute("sdto", sellerDto);
 		
 		return "admin/seller/detail";
+	}
+	
+	
+//	판매자 비밀번호 변경 이메일 발송
+	@GetMapping("/seller/new_pw")
+	@ResponseBody
+	public String new_pw_seller(@RequestParam int no, Model model) throws MessagingException {
+		
+		SellerDto sellerDto = sellerDao.get(no);
+		
+		model.addAttribute("sdto", sellerDto);
+		
+		emailService.find_pw(sellerDto);
+		
+		return "Y";
 	}
 	
 	
@@ -744,7 +904,8 @@ public class AdminController {
 		return "admin/seller/list";
 	}
 	
-//	전체 판매자 리스트 + 검색("/seller/blacklist")
+	
+//	블랙리스트 판매자 리스트 + 검색("/seller/blacklist")
 	@GetMapping("/seller/blacklist")
 	public String blacklist_seller(
 						@RequestParam(required = false) String type,
@@ -781,6 +942,7 @@ public class AdminController {
 		
 		return "admin/seller/blacklist";
 	}
+	
 	
 //------------------------------------------------------------------------------------
 //	제휴 관리

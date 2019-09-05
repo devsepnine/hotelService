@@ -10,4 +10,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <mapper namespace="coupon">
  
+ 	<!-- 쿠폰 등록하기 -->
+ 	<insert id="regist" parameterType="couponDto">
+ 		insert into coupon values(#{coupon_no}, #{coupon_name}, #{coupon_price}, #{coupon_date1}, #{coupon_date2}, #{coupon_minimum}, #{coupon_condition})
+ 	</insert>
+ 
+ 	<!-- 쿠폰 상세보기 -->
+ 	<select id="get" parameterType="int" resultType="couponDto">
+		select * from coupon where coupon_no = #{coupon_no}
+ 	</select>
+ 	
+ 	<!-- 쿠폰 리스트 -->
+	<select id="list" parameterType="map" resultType="couponDto">
+		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
+		<![CDATA[
+		select *  from(
+    		select rownum r, c.* from(select * from coupon 
+		]]>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
+		<![CDATA[
+			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용가능'
+		]]>
+	</select>
+	
+	<!-- 사용 만료 쿠폰 리스트 -->
+	<select id="blacklist" parameterType="map" resultType="couponDto">
+		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
+		<![CDATA[
+		select *  from(
+    		select rownum r, c.* from(select * from coupon 
+		]]>
+			<if test="type != null and keyword != null">
+			where
+				${type} like '%' || #{keyword} || '%'
+			</if>
+		<![CDATA[
+			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용불가능'
+		]]>
+	</select>
+	
+	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
+	<select id="count" parameterType="map" resultType="int">
+		select count(*) from coupon
+		<if test="type != null and keyword != null">
+			where ${type} like '%' || #{keyword} || '%'
+		</if>
+	</select>
+	
+	<!-- 쿠폰 수정 -->
+	<update id="edit" parameterType="couponDto">
+		update coupon 
+			set coupon_condition = #{coupon_condition}
+		where coupon_no = #{coupon_no}
+	</update>
+	
+	<!-- 시퀀스 번호 -->
+	<select id="seq" resultType="int">
+		select coupon_seq.nextval from dual
+	</select>
+	
  </mapper>

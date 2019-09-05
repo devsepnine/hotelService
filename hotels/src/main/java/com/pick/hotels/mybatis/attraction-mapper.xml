@@ -26,19 +26,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</delete>
  	
  	<!-- 관광지 리스트 -->
-	<select id="list" parameterType="map" resultType="attractionDto">
-		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
-		<![CDATA[
-		select *  from(
-    		select rownum r, a.* from(select * from attraction 
-		]]>
-			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
-			</if>
-		<![CDATA[
-			 order by attraction_no desc )a)  where r >= #{start} and r <= #{end}
-		]]>
+	<select id="listVO" resultType="attractionListVO" parameterType="map">
+		SELECT * FROM (
+			SELECT ROWNUM R, TMP.* FROM(
+				SELECT 
+					*
+				FROM (
+			    	SELECT 
+			        	A.attraction_name,
+				        A.attraction_addr1, 
+				        A.attraction_addr2, 
+				        A.attraction_no, 
+				        AF.attraction_file_name,
+				        ROW_NUMBER() OVER(PARTITION BY A.attraction_no ORDER BY AF.attraction_file_no ASC) as rn
+					FROM 
+			        	attraction A inner join attraction_file AF on A.attraction_no = AF.attraction_no
+				) WHERE rn=1 
+				<if test="type != null and keyword != null">
+					AND ${type} like '%'||#{keyword}||'%'
+				</if>
+			)TMP
+		) WHERE R BETWEEN #{start} and #{end}
 	</select>
 	
 	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->

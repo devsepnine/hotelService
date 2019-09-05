@@ -7,6 +7,37 @@
 
 <!-- 자바스크립트를 이용하여 페이지 이동을 처리 -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(function(){
+		//인증메일 버튼을 누르면 ajax로 /member/new_pw에 신호를 보낸다
+		$(".newpw_btn").click(function(){
+			$.ajax({ 
+				url : "/hotels/admin/seller/new_pw",
+				data : {
+					no : ${sdto.seller_no}
+				},
+				dataType:"text",
+				beforeSend : function(){
+					//버튼 비활성화
+					$(".newpw_btn").prop("disabled", true);
+					$(".newpw_btn").text("인증 메일 발송중...");
+				},
+				success : function(resp){
+					alert("이메일 발송 완료")
+				},
+				error:function(){
+					alert("오류 발생");
+				},
+				complete:function(){
+					//버튼 활성화
+					$(".newpw_btn").prop("disabled", false);
+					$(".newpw_btn").text("비밀번호 인증 메일 발송");
+				}
+			})
+		});
+	});
+</script>
+
 
 <style>
 	.table_ny_two thead,
@@ -104,6 +135,9 @@
 		height: 45px;
 		width: 130px;
 	}
+	.newpw_btn{
+		width : 200px;
+	}
 </style>
 
 <div style="height: 100px;"></div>
@@ -123,6 +157,13 @@
 			<th>아이디</th>
 			<td>${sdto.seller_id}</td>
 		<tr>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input type="hidden" name="seller_no" value="${sdto.seller_no}">
+				<button class="btn btn-danger newpw_btn">비밀번호 인증 메일 발송</button>
+			</td>
+		</tr>
 		<tr>
 			<th>이름</th>
 			<td>${sdto.seller_name}</td>

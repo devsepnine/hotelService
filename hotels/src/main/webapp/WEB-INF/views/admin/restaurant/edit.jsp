@@ -241,7 +241,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file1"  accept = ".jpg, .png, .gif">
+						<input type="file" name="file1"  accept = ".jpg, .png, .gif" >
 						<c:if test="${not empty rfdtolist[0]}">
 							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[0].restaurant_file_name}">
 						</c:if>							
@@ -249,7 +249,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file2" accept = ".jpg, .png, .gif">
+						<input type="file" name="file2" accept = ".jpg, .png, .gif" >
 						<c:if test="${not empty rfdtolist[1]}">
 							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[1].restaurant_file_name}">
 						</c:if>		
@@ -257,7 +257,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="file3" accept = ".jpg, .png, .gif">
+						<input type="file" name="file3" accept = ".jpg, .png, .gif" >
 						<c:if test="${not empty rfdtolist[2]}">
 							<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[2].restaurant_file_name}">
 						</c:if>		
@@ -267,7 +267,7 @@
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2"  style="text-align: right;">
-						<input type="submit" style="width:70px" class="btn btn-danger" value="레스토랑 수정">
+						<input type="submit" style="width:90px" class="btn btn-danger" value="레스토랑 수정">
 					</td>
 				</tr>
 			</tfoot>

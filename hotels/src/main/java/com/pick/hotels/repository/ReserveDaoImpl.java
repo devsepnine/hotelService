@@ -57,6 +57,21 @@ public class ReserveDaoImpl implements ReserveDao{
 		return sqlsession.selectOne("reserve.review_write", param);
 	}
 
+	@Override
+	public boolean change(ReserveDto reserveDto) {
+		return sqlsession.update("reserve.change", reserveDto) > 0;
+	}
+
+	@Override
+	public int count(int member_no) {
+		return sqlsession.selectOne("reserve.count", member_no);
+	}
+
+	@Override
+	public List<ReserveVO> cancel_list(int member_no) {
+		return sqlsession.selectList("reserve.cancel_list",member_no);
+	}
+
 
 
 

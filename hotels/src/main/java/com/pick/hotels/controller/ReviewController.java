@@ -86,7 +86,7 @@ public class ReviewController {
 		reviewDto.setReview_member_no(member_no);
 		reviewDto.setReview_no(review_no);
 		boolean result = reviewDao.change(reviewDto);
-		System.out.println(result);
+		
 		if(result) {
 			resp.getWriter().print("Y");
 		}

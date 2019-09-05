@@ -34,11 +34,6 @@
 		</layout>
 	</appender>
 
-	<!-- Application Loggers -->
-	<logger name="hotels" additivity="false">
-		<level value="debug" />
-	</logger>
-	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
@@ -61,7 +56,7 @@
 		<priority value="debug" />
 <!-- 		<appender-ref ref="xml" /> -->
 		<appender-ref ref="console" />
-		<apeender-ref ref="daily" />
+<!-- 		<apeender-ref ref="daily" /> -->
 	</root>
 	
 </log4j:configuration>
