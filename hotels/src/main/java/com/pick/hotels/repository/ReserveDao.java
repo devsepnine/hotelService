@@ -17,6 +17,8 @@ public interface ReserveDao {
 
 	ReserveVO one_review(int reserve_no, int member_no);
 
+	boolean change(ReserveDto reserveDto);
+
 
 
 }

@@ -14,18 +14,18 @@
 		var checkout = new Date($(".check_out").text().substring(6,16));
 		var today = new Date();
 		var gap = today - checkout;
-		var review_state = Math.round(gap/(24 * 3600 * 1000))
-		if(review_state >= 7 || review_state < 0){
-			$('#review-btn').css('display','block');
+		var review_states = Math.round(gap/(24 * 3600 * 1000))
+		if(review_states >= 7 || review_states < 0){
+			$('.review-btn').css('display','none');
 		}else{
-			$('#review-btn').css('display','block');
+			$('.review-btn').css('display','block');
 		}
 	});
 	
 	$(function(){
 		var check = ${check};
 		if(${check}==true){
-			$('#review-btn').prop('disabled', true)
+			$('.review-btn').prop('disabled', true)
 							.val("리뷰완료");
 		}
 	});
@@ -34,15 +34,44 @@
 		var checkin = new Date($(".check_in").text().substring(6,16));
 		var today = new Date();
 		var gap = today - checkin;
-		console.log(gap);
 		var review_state = Math.round(gap/(24 * 3600 * 1000))
 		console.log(review_state);		
-		
 		if(review_state > -1){
-			$('.reserve_can').css('display','none');
+			$('.delete_btn').css('display','none');
 		}else{
-			$('.reserve_can').css('display','block');
+			if($(".reserve_ok").text() == '취소'){
+				$(".delete_btn").css("display",'none');
+				$(".review-btn").css("display",'none');
+			}	
+			else{
+				$(".delete_btn").css("display",'block');
+			}
 		}
+	});
+	
+	$(function(){
+		$(".delete_btn").click(
+			function() {
+				//this == button
+				var that = this;
+				var reserve_no = $(this).prev(".reserve_no").val();
+				$.ajax({
+					url : "${pageContext.request.contextPath}/reserve/reserve_delete",
+					data : {
+						reserve_no : reserve_no
+					},
+					dataType : "text",
+					success : function(resp) {
+						if (resp == "Y") {
+							$(".reserve_ok").text("취소");
+							$(".delete_btn").css("display",'none');
+						}
+						else {
+							
+						}
+					}
+				});
+			});
 	});
 	
 	
@@ -56,8 +85,8 @@
 		<tbody>
 			<tr>
 				<td>호텔이름 : ${hotelDto.hotel_name}</td>
-				<td>${rdto.reserve_ok}</td>
-				<td><a href="${pageContext.request.contextPath}/review/write?reserve_no=${rdto.reserve_no}"><input type="button" id="review-btn" class="btn btn-danger" value="리뷰쓰기"></a></td>
+				<td>예약상태 :<span class="reserve_ok">${rdto.reserve_ok}</span></td>
+				<td><a href="${pageContext.request.contextPath}/review/write?reserve_no=${rdto.reserve_no}"><input type="button" class="btn btn-danger review-btn" value="리뷰쓰기"></a></td>
 			</tr>
 			<tr>
 				<td colspan="3">1.예약정보</td>
@@ -122,7 +151,7 @@
 				<td colspan="2">(금액)</td>
 			</tr>
 			<tr>
-				<td colspan="3" style="text-align: center;" ><a href="#" class="btn btn-danger reserve_can">예약취소</a>
+				<td colspan="3"><input type="hidden" class="reserve_no" name="${reserveDto.reserve_no}" value="${param.reserve_no}"><input type="button" class="btn btn-danger delete_btn btn-block" value="예약취소"></td>
 			</tr>
 		</tbody>
 	</table>
