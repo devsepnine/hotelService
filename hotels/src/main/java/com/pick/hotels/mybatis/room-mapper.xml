@@ -56,6 +56,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				room_bath = #{room_bath}, room_hair = #{room_hair}, room_cookoo = #{room_cookoo}, 
 				room_smoking = #{room_smoking}, room_cooking = #{room_cooking}
 			where room_no = #{room_no}
-	</update>                         
+	</update>  
+	
+	<select id="sales" parameterType="int" resultType="roomSalesVO">
+		select to_char(RV.reserve_in,'YYYY/MM') montly, count(reserve_no) count
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		            where R.hotel_no = #{hotel_no}
+		    group by to_char(RV.reserve_in,'YYYY/MM')
+		    order by montly asc
+	</select>                       
 	                              
  </mapper>

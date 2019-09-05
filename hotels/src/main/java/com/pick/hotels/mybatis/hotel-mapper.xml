@@ -106,4 +106,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where hotel_no = #{hotel_no}
 	</update>
 	
+	<select id="getNo" parameterType="int" resultType="hotelDto">
+		
+		select * from hotel where seller_no = #{seller_no} and rownum=1
+		
+	</select>
+	
 </mapper>

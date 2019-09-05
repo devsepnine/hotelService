@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomListVO;
+import com.pick.hotels.entity.RoomSalesVO;
 
 public interface RoomDao {
 
@@ -18,5 +19,7 @@ public interface RoomDao {
 	public List<RoomListVO> list(int hotel_no);
 
 	public void edit(RoomDto roomDto);
+
+	List<RoomSalesVO> sales(int hotel_no);
 	
 }

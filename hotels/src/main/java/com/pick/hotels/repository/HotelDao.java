@@ -19,6 +19,8 @@ public interface HotelDao {
 	public boolean delete(int hotel_no);
 
 	HotelDto get(int hotel_no);
+	
+	HotelDto getNo(int seller_no);
 
 	public void edit(HotelDto hotelDto);
 
