@@ -112,4 +112,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 	
+	<select id="getNoList" parameterType="int" resultType="hotelDto">
+		select * from hotel where seller_no = #{seller_no}
+	</select>
+	
+		<select id="sales" parameterType="int" resultType="hotelSalesVO">
+		select to_char(RV.reserve_in,'YYYY/MM') monthly, count(reserve_no) count
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		            where R.hotel_no = #{hotel_no}
+		    group by to_char(RV.reserve_in,'YYYY/MM')
+		    order by monthly asc
+	</select>  
+	
 </mapper>

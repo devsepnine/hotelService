@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.HotelSalesVO;
 
 @Repository
 public class HotelDaoImpl implements HotelDao{
@@ -65,6 +66,15 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectOne("hotel.getNo",seller_no);
 	}
 
+	@Override
+	public List<HotelDto> getNoList(int seller_no) {
+		return sqlSession.selectList("hotel.getNoList",seller_no);
+	}
+
+	@Override
+	public List<HotelSalesVO> sales(int hotel_no) {
+		return sqlSession.selectList("hotel.sales", hotel_no);
+	}
 
 
 }
