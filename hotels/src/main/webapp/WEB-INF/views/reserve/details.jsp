@@ -144,7 +144,7 @@
 			</tr>
 			<tr>
 				<td>예약금액</td>
-				<td colspan="2">${roomDto.room_price}원</td>
+				<td colspan="2">${rdto.reserve_price}원</td>
 			</tr>
 			<tr>
 				<td>총 결제금액</td>

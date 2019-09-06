@@ -15,4 +15,6 @@ public interface ReviewDao {
 
 	boolean change(ReviewDto reviewDto);
 
+	int count(String type, String keyword);
+
 }

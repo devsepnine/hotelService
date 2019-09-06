@@ -71,7 +71,7 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/review_list")
-	public String review_list(Model model, HttpSession session	) {
+	public String review_list(Model model, HttpSession session) {
 		int member_no = (int) session.getAttribute("no");
 		
 		List<ReviewVO> list = reviewDao.list(member_no);

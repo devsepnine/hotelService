@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <style>
 .review-wrap{
 		padding: 100px;
@@ -34,6 +35,29 @@ $(function(){
 			});
 		});
 });
+
+
+$(function(){
+	//목표 : 페이지 번호를 누르면 해당하는 번호의 페이지로 이동 처리
+	//			이동은 form을 전송하는 것으로 대체
+	$(".navigator-page").click(function(){
+		var p = $(this).text();
+		move(p);
+	});
+	
+	//이동 함수
+	function move(no){
+		//input[name=page]에 no를 설정한 뒤 form을 전송
+		$("input[name=page]").val(no);
+		$("form").submit();
+	}
+	
+	//select[name=type]인 항목의 값을 선택
+	var type = "${param.type}";
+	if(type){
+		$("select[name=type]").val(type);
+	}
+});
 </script>
 <div align="center" class="review-wrap">
 	<h1>내가 쓴 리뷰</h1>
@@ -65,8 +89,6 @@ $(function(){
 	</c:forEach>
 
 </div>
-
-
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
