@@ -34,7 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         inner join reserve RV on  RV.reserve_room_no = R.room_no
         inner join review RW on  RW.review_reserve = RV.reserve_no
 	where
-		RW.review_name = #{review_name} and RW.review_state = '등록'
+		RW.review_state = '등록'
+		order by review_no desc
+		
+		
+	
 	</select>
 	
 	<update id="change" parameterType="reviewDto">
@@ -44,4 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where
 				review_no = #{review_no}
 	</update>
+	
+	<select id="count" parameterType="reviewDto" resultType="reviewDto">
+		select count(*) from review
+	</select>
 </mapper>
