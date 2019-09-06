@@ -34,12 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 한장만 가지고 오는 제휴 리스트 -->
 	<select id="list" parameterType="int" resultType="partnerListVO">
 			SELECT 
-				hotel_no, partner_no, p_file_no, partner_name, partner_longitude, partner_latitude, 
+				hotel_no, hotel_name, partner_no, p_file_no, partner_name, partner_longitude, partner_latitude, 
 				p_file_name, partner_content, partner_zip_code, partner_basic_addr, partner_detail_addr,
 				partner_tel, partner_type
 			FROM (
 			    SELECT 
-			        P.hotel_no, P.partner_no, PF.p_file_no, P.partner_name, P.partner_longitude, 
+			        P.hotel_no, P.hotel_name, P.partner_no, PF.p_file_no, P.partner_name, P.partner_longitude, 
 			        P.partner_latitude, PF.p_file_name, P.partner_content, P.partner_zip_code, P.partner_basic_addr, 
 			        P.partner_detail_addr, P.partner_tel,P.partner_type,
 			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
@@ -49,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+
 	<!-- 관리자 -->
 	
 	<!-- 제휴 승인 대기 리스트 -->
@@ -70,7 +71,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
 			        inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE partner_type = '승인대기'
+			) WHERE rn = 1 
+					<if test="type != null and keyword != null">
+							AND ${type} like '%'||#{keyword}||'%'
+					</if>
+					and partner_type = '승인대기'
 	</select>
 	
 	<!-- 제휴 승인 완료 리스트 -->
@@ -92,7 +97,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
                     inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE partner_type = '승인완료'
+			) WHERE rn = 1
+					<if test="type != null and keyword != null">
+							AND ${type} like '%'||#{keyword}||'%'
+					</if>
+					and partner_type = '승인완료'
 	</select>
 	
 	<!-- 제휴 승인 거절 리스트 -->
@@ -114,7 +123,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
 			        inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE partner_type = '승인거부'
+			) WHERE rn = 1
+					<if test="type != null and keyword != null">
+							AND ${type} like '%'||#{keyword}||'%'
+					</if>
+					and partner_type = '승인거부'
 	</select>
 	
 	<!-- 제휴 리스트  카운트 -->
