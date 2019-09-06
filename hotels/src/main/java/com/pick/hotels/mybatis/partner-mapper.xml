@@ -36,17 +36,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT 
 				hotel_no, partner_no, p_file_no, partner_name, partner_longitude, partner_latitude, 
 				p_file_name, partner_content, partner_zip_code, partner_basic_addr, partner_detail_addr,
-				partner_tel
+				partner_tel, partner_type
 			FROM (
 			    SELECT 
 			        P.hotel_no, P.partner_no, PF.p_file_no, P.partner_name, P.partner_longitude, 
 			        P.partner_latitude, PF.p_file_name, P.partner_content, P.partner_zip_code, P.partner_basic_addr, 
-			        P.partner_detail_addr, P.partner_tel,
+			        P.partner_detail_addr, P.partner_tel,P.partner_type,
 			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
 			) WHERE rn=1 and hotel_no= #{hotel_no}
 	</select>
+	
 	
 	<!-- 관리자 -->
 	
