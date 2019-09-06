@@ -12,10 +12,10 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawVisualization);
+ 		google.charts.load('current', {'packages':['corechart']});
+ 		google.charts.setOnLoadCallback(drawVisualization);
 	
-		function drawVisualization() { 
+ 		function drawVisualization() { 
 // 			var arr = [
 // 				['월', '개수'],
 // 				['2004/06',  165],
@@ -23,32 +23,32 @@
 // 				['2004/08',  165]
 // 			]
 
-			var arr = [];
-				arr.push(['월', '개수']);
-			<c:forEach var="sales" items="${r_sales}">
-				arr.push(['${sales.montly}', ${sales.count}]);
-			</c:forEach>
+ 			var arr = [];
+ 				arr.push(['월', '개수']);
+ 			<c:forEach var="sales" items="${monthlySales}">
+ 				<c:forEach var="con" items="${sales}">
+ 					arr.push(['${con.monthly}', ${con.count}]);
+ 				</c:forEach>
+ 			</c:forEach>
 			
-			var data = google.visualization.arrayToDataTable(arr);
-			var options = {
-					title : '월별 매출',
-					vAxis: {title: 'Price(원)'},
-					hAxis: {title: 'Month'}, 
-					seriesType: 'bars',
-					series: {5: {type: 'line'}}
-				};
+ 			var data = google.visualization.arrayToDataTable(arr);
+ 			var options = {
+ 					title : '월별 매출',
+ 					vAxis: {title: 'Price(원)'},
+ 					hAxis: {title: 'Month'}, 
+ 					seriesType: 'bars',
+ 					series: {5: {type: 'line'}}
+ 				};
 			
-			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-			chart.draw(data, options);
+ 			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+ 			chart.draw(data, options);
 		}
 </script>
 
 
-
-
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div style="height: 20px;"></div>
-${r_sales}
+${monthlySales}
 <table class="table">
 	<thead>
 		<tr>
@@ -58,12 +58,13 @@ ${r_sales}
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="sales" items="${r_sales}">
-			<tr>
-				<td>${sales.room_no}</td>
-				<td>${sales.montly}</td>
-				<td>${sales.count}</td>
-			</tr>
+		<c:forEach var="sales" items="${monthlySales}">
+			<c:forEach var="con" items="${sales}">
+				<tr>
+				<td>${con.monthly}</td>
+				<td>${con.count}</td>
+				</tr>
+			</c:forEach>
 		</c:forEach>
 	</tbody>
 </table>
@@ -72,6 +73,6 @@ ${r_sales}
 
 
 <div style="text-align: center;">
-<div id="chart_div" style="width:900px; height: 500px;"></div>
+<div id="chart_div" style="width:900px; height: 500px;"></div> 
 </div>
 <jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>

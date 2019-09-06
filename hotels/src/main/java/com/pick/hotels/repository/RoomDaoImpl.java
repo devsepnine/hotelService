@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomListVO;
-import com.pick.hotels.entity.RoomSalesVO;
+import com.pick.hotels.entity.HotelSalesVO;
 
 @Repository
 public class RoomDaoImpl implements RoomDao{
@@ -46,8 +46,6 @@ public class RoomDaoImpl implements RoomDao{
 		sqlSession.update("room.edit",roomDto);
 	}
 
-	@Override
-	public List<RoomSalesVO> sales(int hotel_no) {
-		return sqlSession.selectList("room.sales", hotel_no);
-	}
+	
+
 }
