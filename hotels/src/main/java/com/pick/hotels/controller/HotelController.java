@@ -22,6 +22,7 @@ import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
+import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.RoomFileDao;
 
@@ -37,6 +38,8 @@ public class HotelController {
 	private @Autowired RoomDao roomDao;
 	
 	private @Autowired RoomFileDao roomFileDao;
+	
+	private @Autowired ReviewDao reviewDao;
 	
 	@GetMapping("/search")
 	public String search(Model model,
@@ -64,8 +67,9 @@ public class HotelController {
 			Detail_room_vo drv = Detail_room_vo.builder().rdto(rdto).room_file_list(rfdto_list).build();
 			detail_list.add(drv);
 		}
+		Float hotel_score = reviewDao.get_avg_star(hotel_no);
 		
-		
+		model.addAttribute("hotel_score", hotel_score);
 		model.addAttribute("detail_list", detail_list);
 		model.addAttribute("hdto", hdto);
 		model.addAttribute("hflist", hflist);

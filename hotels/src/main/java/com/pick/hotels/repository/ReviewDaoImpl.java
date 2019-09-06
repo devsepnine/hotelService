@@ -53,5 +53,10 @@ public class ReviewDaoImpl implements ReviewDao{
 		return sqlSession.selectOne("review.count", param);
 	}
 
+	@Override
+	public Float get_avg_star(int hotel_no) {
+		return sqlSession.selectOne("review.getavgstar", hotel_no);
+	}
+
 	
 }

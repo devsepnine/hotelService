@@ -36,9 +36,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 		RW.review_state = '등록'
 		order by review_no desc
-		
-		
-	
 	</select>
 	
 	<update id="change" parameterType="reviewDto">
@@ -51,5 +48,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="count" parameterType="reviewDto" resultType="reviewDto">
 		select count(*) from review
+	</select>
+	
+	<select id="getavgstar" parameterType="int" resultType="_float">
+		select round(avg(review_score),1) from review where review_hotel = #{hotel_no}
 	</select>
 </mapper>
