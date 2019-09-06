@@ -196,7 +196,7 @@
 
 <div class="empty"></div>
 
-<form class="form" action="list" method="get">
+<form class="form" action="blacklist" method="get">
 
 <input type="hidden" name="page" value="1">
 
