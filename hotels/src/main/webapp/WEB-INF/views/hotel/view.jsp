@@ -156,14 +156,54 @@ $(function(){
 		height: 100%;
 	}
 </style>
+
+<!-- hotel detail wrap -->
+<style>
+	.hotel-detail-wrap{
+		display: flex;
+		margin-bottom: 20px;
+	}
+	.hotel-map-wrap{
+		border: 1px solid black;
+		border-radius:5px;
+		height: 300px;
+		width: 300px;
+		margin-right: 20px;
+		padding: 5px;
+	}
+	.hotel-title-wrap{
+		border: 1px solid black;
+		border-radius: 5px;
+		padding: 10px;
+		width: 800px;
+	}
+</style>
 <!--  room detail style -->
 <style>
 	.room-detail{
 		display: inline-block;
 	}
+	.room-header{
+		font-size: 15px;
+	}
+	.room-ico-wrap{
+		border: 1px solid #ced4da;
+		border-radius:10px;
+		padding: 5px;
+		margin:auto;
+		width: 750px;
+	}
 	.room-detail >.room-ico-wrap img{
 		width: 30px;
 		height: 30px;
+	}
+	.room-body-wrap{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.room-thumnail{
+		width: 300px;
+		height: 240px;
 	}
 </style>
 <style>
@@ -191,8 +231,11 @@ $(function(){
   }
 </style>
 
+<!-- 날짜 검색 스크립트 -->
 <script type="text/javascript">
     $(function () {
+    	$(".toast").hide();
+    	
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
 		});
@@ -243,6 +286,7 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
+    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 0){
     			$('#date-toast').toast({
@@ -393,6 +437,9 @@ $(function(){
       height: 80%;
       width: 100%;
     }
+    .gallery-top{
+    	border-radius: 10px;
+    }
     .gallery-thumbs {
       height: 20%;
       box-sizing: border-box;
@@ -411,6 +458,10 @@ $(function(){
      	color: black;
      	padding: 20px 0px;
     }
+    .card{
+    	margin-bottom: 20px;
+    }
+    .card 
 </style>
 
 ${hdto }
@@ -456,17 +507,7 @@ ${hdto }
 
 
 <div class="hotel-info-wrap" style="width: 1100px; margin: auto;">
-	<div class="hotel-title-wrap">
-		<div class="head-name" style="display: inline-block;">${hdto.hotel_name}</div>
-		<div class="hotel-star" style="width: 120px;display: inline-block;">
-	    	<div style="display: inline-block;" data-toggle="tooltip" title="${hdto.hotel_star}성급 호텔" class="star-wrap" data-star="${hdto.hotel_star}" >
-	        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
-	        	<div class="star-paint"></div>
-	    	</div>
-		</div>
-		<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
-	</div>
-	
+	<div style="height: 20px;"></div>
   <div class="gallary">
 	  <div class="swiper-container gallery-top">
 	    <div class="swiper-wrapper">
@@ -487,18 +528,34 @@ ${hdto }
 				<div class="swiper-slide">
 	      			<img width="100%" height="100%" src="${pageContext.request.contextPath}/img_v/3?img_name=${hotel_file.h_file_name}">
 	      	    </div>	    
-		    </c:forEach>
+	      	</c:forEach>
 	    </div>
 	  </div>
-  </div>
-
+   </div>
+   
+	<div class="hotel-detail-wrap">
+		<div class="hotel-map-wrap">
+		
+		</div>
+	  	<div class="hotel-title-wrap">
+			<div class="head-name" style="display: inline-block;">${hdto.hotel_name}</div>
+			<div class="hotel-star" style="width: 120px;display: inline-block;">
+		    	<div style="display: inline-block;" data-toggle="tooltip" title="${hdto.hotel_star}성급 호텔" class="star-wrap" data-star="${hdto.hotel_star}" >
+		        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+		        	<div class="star-paint"></div>
+		    	</div>
+			</div>
+			<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
+		</div>
+	
+	</div>
   
-<div class="card border-light">
+<div class="card border-secondary">
 	<div class="card-header">주요 편의 시설</div>
 	<div class="card-body">
 		<div class="ico-wrap" style="display: inline-block;width: 100%;padding: 10px 0px;">
 			<c:if test="${hdto.hotel_bbq=='Y'}">
-			<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png">바베큐장</c:if>
+			<img alt="" data-toggle="tooltip" data-placement="top" title="바베큐" data-original-title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png">바베큐장</c:if>
 			<c:if test="${hdto.hotel_karaoke=='Y'}">
 			<img alt="" data-toggle="tooltip" data-placement="top" title="노래방" src="${pageContext.request.contextPath}/img/ico/karaoke.png">노래방</c:if>
 			<c:if test="${hdto.hotel_cafe=='Y'}">
@@ -523,8 +580,9 @@ ${hdto }
 
 <c:forEach	var="detail_room" items="${detail_list}">
 	<div class="card border-secondary room-wrap">
-		<div class="card-header">${detail_room.rdto.room_name } | 최대숙박인원 : ${detail_room.rdto.room_people}</div>
-		<div class="card-body">
+		<div class="card-header room-header">${detail_room.rdto.room_name } | 최대숙박인원 : ${detail_room.rdto.room_people}</div>
+		<div class="card-body room-body-wrap">
+		<div class="room-thumnail">
 			<!-- Slider main container -->
 			<div class="room-pic">
 				<div class="room-swiper">
@@ -539,7 +597,7 @@ ${hdto }
 				    	<img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="BED TYPE" src="${pageContext.request.contextPath}/img/room_ico/bed.png"> : ${detail_room.rdto.room_bed}
 				</div>
 			</div>
-			
+		</div>
 			<div class="room-detail">
 				<div class="room-ico-wrap">
 					<c:if test="${detail_room.rdto.room_breakfast eq 'Y'}">
