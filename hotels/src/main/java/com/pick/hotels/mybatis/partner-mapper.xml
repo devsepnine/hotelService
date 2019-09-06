@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
-			) WHERE rn=1 and hotel_no= #{hotel_no}
+			) WHERE rn=1 and hotel_no= #{hotel_no} and partner_type = '승인완료'
 	</select>
 	
 	
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
 			FROM 
 			        partner P inner join p_file PF on P.partner_no = PF.partner_no
-			) WHERE hotel_no= #{hotel_no} and partner_type = '승인대기'
+			) WHERE hotel_no= #{hotel_no}
 	</select>
 	
 	<!-- 제휴 승인 완료 리스트 -->
