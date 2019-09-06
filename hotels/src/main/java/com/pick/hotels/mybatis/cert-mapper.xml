@@ -16,6 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<delete id="delete" parameterType="certDto">
-		delete from cert where cert_who = #{cert_who} and cert_no = #{cert_no}
+		delete cert where cert_who = #{cert_who} and cert_no = #{cert_no}
 	</delete>
 </mapper>
