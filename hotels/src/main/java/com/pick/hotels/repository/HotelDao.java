@@ -5,6 +5,7 @@ import java.util.List;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.HotelSalesVO;
 
 public interface HotelDao {
 
@@ -23,5 +24,9 @@ public interface HotelDao {
 	HotelDto getNo(int seller_no);
 
 	public void edit(HotelDto hotelDto);
+
+	List<HotelDto> getNoList(int seller_no);
+	
+	List<HotelSalesVO> sales(int hotel_no);
 
 }

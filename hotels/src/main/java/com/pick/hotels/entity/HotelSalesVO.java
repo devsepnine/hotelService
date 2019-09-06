@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class RoomSalesVO {
+public class HotelSalesVO {
 	private int room_no, total, count;
-	private String montly;
+	private String monthly;
 }
