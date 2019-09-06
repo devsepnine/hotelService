@@ -46,7 +46,7 @@
 
 
 
-
+<jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div style="height: 20px;"></div>
 ${r_sales}
 <table class="table">
