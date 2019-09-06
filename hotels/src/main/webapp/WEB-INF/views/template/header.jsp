@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>호텔델꾸가</title>
+<title>호텔델꾸와</title>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    	<link rel="icon" type="image/png"  href="${pageContext.request.contextPath}/img/ico/hotel_icon.png"/>
@@ -82,8 +82,8 @@
 	    width: 250px;
 	    height: 100%;
 	    min-height:1080px;
-/* 	    background-color : #f1e3c4; */
-		background-image : url("${pageContext.request.contextPath}/img/vintage.jpg");
+ 	    background-color : #f1e3c4;
+/* 		background-image : url("${pageContext.request.contextPath}/img/vintage.jpg"); */
 		background-repeat:no-repeat;
 		background-size:auto 100%;
 	   	box-shadow:1px 1px 3px #3e2b2c;
@@ -150,7 +150,9 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
+	<div style="height: 40px;"></div>
 	<p><a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%"></a></p>
+	<div style="width: 100px; border-bottom: 2px solid #3e2b2c;margin: auto;"></div>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></p>
 	<p><a href="${pageContext.request.contextPath}/hotel/search">호텔 찾기</a></p>
