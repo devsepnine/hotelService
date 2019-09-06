@@ -5,6 +5,12 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
+<script>
+	//partner_tyㅔe 옵션값 선택
+	$(function(){//문서가 다 생기면
+		$("select[name=partner_type]").val("${pdto.partner_type}");
+	});
+</script>
 <%-- 
 		table_ny_one
 		 - 위아래는 두껍고 안에는 얇은 선
@@ -12,11 +18,11 @@
 	--%>
 
 <style>
-	.coupon_wrap > *{
+	.admin_partner_wrap > *{
 		color:black;
 	}
 	
-	.coupon_wrap > .table_ny_one {
+	.admin_partner_wrap > .table_ny_one {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -25,18 +31,18 @@
   		max-width: 800px;
 	}
 	
-	.coupon_wrap > .table_ny_one > thead > tr > th,
-	.coupon_wrap > .table_ny_one > tbody > tr > th,
-	.coupon_wrap > .table_ny_one > tfoot > tr > th {
+	.admin_partner_wrap > .table_ny_one > thead > tr > th,
+	.admin_partner_wrap > .table_ny_one > tbody > tr > th,
+	.admin_partner_wrap > .table_ny_one > tfoot > tr > th {
 		border: none;
   		padding:10px 10px;
   		font-size: 16px;
   		text-align: center;
 	}
 	
-	.coupon_wrap > .table_ny_one > thead > tr > td,
-	.coupon_wrap > .table_ny_one > tbody > tr > td,
-	.coupon_wrap > .table_ny_one > tfoot > tr > td {
+	.admin_partner_wrap > .table_ny_one > thead > tr > td,
+	.admin_partner_wrap > .table_ny_one > tbody > tr > td,
+	.admin_partner_wrap > .table_ny_one > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -77,54 +83,54 @@
 </style>
 
 
-<form action="regist" method="post">
+<form action="edit" method="post">
+<input type="hidden" name="partner_no" value="${pdto.partner_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="coupon_wrap">
+<div class="admin_partner_wrap">
 <div class="headtit">
-<h3>[ ${cdto.coupon_name} ]</h3>
+<h3>[ ${pdto.partner_name} ]</h3>
 </div>
 		<table class="table_ny_one" align="center" >
 			<tbody>
 				<tr>
 					<th style="width:180px">
-						<label>이름</label>
+						<label>호텔 번호</label>
 					</th>
-					<td class="td-line">${cdto.coupon_name}</td>
+					<td class="td-line">${pdto.hotel_no}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>할인 가격</label>
+						<label>제휴 전화번호</label>
 					</th>
-					<td class="td-line">${cdto.coupon_price}</td>
+					<td class="td-line">${pdto.partner_tel}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>사용 기간</label>
+						<label>주소</label>
 					</th>
-					<td class="td-line">${cdto.coupon_date1.substring(0,10)}&emsp;~&emsp;${cdto.coupon_date2.substring(0,10)}</td>
-				</tr>
-				<tr>
-					<th style="width:180px">
-						<label>최소 결제 금액</label>
-					</th>
-					<td class="td-line">${cdto.coupon_minimum}</td>
+					<td class="td-line">${pdto.partner_basic_addr}&emsp;${pdto.partner_detail_addr}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
 						<label>쿠폰 상태</label>
 					</th>
-					<td>${cdto.coupon_condition}</td>
+					<td>
+						<select id="partner_type" style="width:160px;" class="form-control" name="partner_type">
+							<option value="승인대기">승인 대기</option>
+							<option value="승인완료">승인 완료</option>
+							<option value="승인거부">승인 거절</option>
+						</select>
+					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="td-line" colspan="2" style="text-align: right;">
-						<a href ="edit?no=${cdto.coupon_no}"><input type="button" value="수정" name="edit" class="btn btn-danger"></a>
-						<a href ="list"><input type="button" value="목록" name="list" class="btn btn-danger"></a>
+					<td class="td-line" colspan="2"  style="text-align: right;">
+						<input type="submit" style="width:70px" class="btn btn-danger" value="제휴 수정">
 					</td>
 				</tr>
-		</tfoot>
+			</tfoot>
 		</table>
 	</form>
 </div>
