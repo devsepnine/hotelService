@@ -23,6 +23,8 @@ import com.pick.hotels.entity.AttractionListVO;
 import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.entity.PartnerDto;
+import com.pick.hotels.entity.PartnerListVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RestaurantListVO;
@@ -32,6 +34,7 @@ import com.pick.hotels.repository.AttractionFileDao;
 import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
+import com.pick.hotels.repository.PartnerDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.repository.SellerDao;
@@ -73,6 +76,8 @@ public class AdminController {
 	@Autowired
 	private CouponDao couponDao;
 
+	@Autowired
+	private PartnerDao partnerDao;
 	
 //	전체 관리 페이지("main")
 	@GetMapping("/main")
@@ -292,7 +297,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<AttractionListVO> list = attractionDao.listVO(type, keyword, start, end);
 		
@@ -515,7 +519,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<RestaurantListVO> list = restaurantDao.listVO(type, keyword, start, end);
 		
@@ -617,7 +620,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<CouponDto> list = couponDao.list(type, keyword, start, end);
 		
@@ -655,7 +657,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<CouponDto> blacklist = couponDao.blacklist(type, keyword, start, end);
 		
@@ -761,7 +762,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<MemberDto> list = memberDao.list(type, keyword, start, end);
 		
@@ -895,7 +895,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<SellerDto> list = sellerDao.list(type, keyword, start, end);
 		
@@ -934,7 +933,6 @@ public class AdminController {
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("start", start);
 		model.addAttribute("end", end);
-		model.addAttribute("pageCount", pageCount);
 		
 		List<SellerDto> list = sellerDao.blacklist(type, keyword, start, end);
 		
@@ -947,5 +945,152 @@ public class AdminController {
 //------------------------------------------------------------------------------------
 //	제휴 관리
 //------------------------------------------------------------------------------------
+
+//	제휴 정보 수정("/partner/edit")
+	@GetMapping("/partner/edit")
+	public String edit_partner(@RequestParam int no, Model model) {
+		
+		PartnerDto partnerDto = partnerDao.get(no);
+		
+		model.addAttribute("pdto", partnerDto);
+		
+		return "admin/partner/edit";
+	}
 	
+	@PostMapping("/partner/edit")
+	public String edit_partner(@ModelAttribute PartnerDto partnerDto, Model model) {
+		
+		partnerDao.edit_partner(partnerDto);
+		
+		model.addAttribute("no", partnerDto.getPartner_no());
+		
+		return "redirect:detail";
+	}
+	
+//	제휴 정보 상세보기("/partner/detail")
+	@GetMapping("/partner/detail")
+	public String detail_partner(@RequestParam int no, Model model) {
+		
+		PartnerDto partnerDto = partnerDao.get(no);
+		
+		model.addAttribute("pdto", partnerDto);
+		
+		//여기 좀 보시오!!!!! 여기에 파일 넣어야 하오!!!!!!!
+		//까먹지 마시오!!!!!!!
+		
+		return "admin/partner/detail";
+	}
+	
+//	제휴 승인 대기 리스트("/partner/waiting_list")
+	@GetMapping("/partner/waiting_list")
+	public String waiting_list(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = partnerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<PartnerListVO> list = partnerDao.waiting_list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/partner/waiting_list";
+	}
+	
+	
+//	제휴 승인 완료 리스트("/partner/complete_list")
+	@GetMapping("/partner/complete_list")
+	public String complete_list(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = partnerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<PartnerListVO> list = partnerDao.complete_list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/partner/complete_list";
+	}
+	
+	
+//	제휴 승인 대기 리스트("/partner/refuse_list")
+	@GetMapping("/partner/refuse_list")
+	public String refuse_list(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;		//페이지 갯수
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = partnerDao.count(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<PartnerListVO> list = partnerDao.refuse_list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/partner/refuse_list";
+	}
 }
