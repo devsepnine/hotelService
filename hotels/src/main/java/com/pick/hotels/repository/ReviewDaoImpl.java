@@ -1,6 +1,8 @@
 package com.pick.hotels.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +42,16 @@ public class ReviewDaoImpl implements ReviewDao{
 		return sqlSession.update("review.change", reviewDto) > 0;
 	}
 
+	@Override
+	public int count(String type, String keyword) {
+		Map<String, String> param = new HashMap<>();
+		
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);
+		}
+		return sqlSession.selectOne("review.count", param);
+	}
+
+	
 }

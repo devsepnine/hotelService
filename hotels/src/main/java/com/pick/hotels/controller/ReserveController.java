@@ -120,7 +120,6 @@ public class ReserveController {
 		model.addAttribute("rdto", reserveDto);
 		model.addAttribute("time", count);
 		model.addAttribute("check", check);
-		
 		return "reserve/details";
 	}
 	
