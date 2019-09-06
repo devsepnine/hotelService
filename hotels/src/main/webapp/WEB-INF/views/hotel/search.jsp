@@ -212,7 +212,7 @@ $(function(){
 </script>
 
 <form action="search">
-<div style="height: 50px;"></div>
+<div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
 		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
