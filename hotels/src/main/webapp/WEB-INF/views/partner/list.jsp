@@ -11,7 +11,7 @@
 	}
 	.content_title{
 		color:black;
-		border-right: 0.5px solid lightgray;
+		border-right: 1px solid lightgray;
 		text-align: center;
 		width: 15%;
 	}
@@ -23,7 +23,11 @@
 		background-color: #fe2c08;
 		color : white;
 	}
-
+	.table > tbody > tr > .partner_status{
+	    vertical-align: middle;
+	    text-align: center;
+		border-left: 1px solid lightgray;
+	}
 	
 </style>
 <script>
@@ -72,6 +76,9 @@
 						<td>
 							<a href="detail?partner_no=${pdto.partner_no}">${pdto.partner_name}</a>
 						</td>
+						<td rowspan="4" class="partner_status" >
+							${pdto.partner_type}
+						</td>
 					</tr>
 					<tr>
 						<td class="content_title">제휴 번호</td>
@@ -87,7 +94,7 @@
 						<td class="">${pdto.partner_content}</td>
 					</tr>
 					<tr class="end_line">
-						<td colspan="3">
+						<td colspan="4">
 							<button class="btn btn-danger delete_btn ">삭제</button>
 						</td>
 					</tr>

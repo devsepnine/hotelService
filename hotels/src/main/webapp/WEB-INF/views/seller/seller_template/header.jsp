@@ -129,7 +129,7 @@
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/seller/info">판매자 정보</a></p>
 	<p><a href="${pageContext.request.contextPath}/seller/hotel/list">호텔</a></p>
-	<p><a href="${pageContext.request.contextPath}/seller/hotel/partner/list">제휴</a></p>
+	<p><a href="${pageContext.request.contextPath}/seller/">매출</a></p>
 
 	<p><a href="${pageContext.request.contextPath}/seller/logout">로그아웃</a></p>
 
