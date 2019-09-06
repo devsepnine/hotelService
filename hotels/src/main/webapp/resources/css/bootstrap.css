@@ -2790,7 +2790,16 @@ fieldset:disabled a.btn {
   background-color: #3e2b2c;
   border-color: #c9302c;
 }
-
+.btn-reserve{
+	color: #fff;
+	background-color: #ed5c59;
+	border-color: #d9534f;
+}
+.btn-reserve:hover{
+  color: #fff;
+  background-color: #f28b88;
+  border-color: #c9302c;
+}
 .btn-danger:focus, .btn-danger.focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(223, 109, 105, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(223, 109, 105, 0.5);
