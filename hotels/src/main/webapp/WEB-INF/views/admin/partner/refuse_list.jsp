@@ -133,13 +133,21 @@
 	input[name=BLACK_LIST]{
 		margin-top:20px;
 		margin-bottom: 20px;
- 		margin-right : 850px;
+ 		margin-left : 50px;
+	}
+	input[name=BLACK_LIST_FIRST]{
+		margin-top:20px;
+		margin-bottom: 20px;
+ 		margin-left : 100px;
 	}
 	
 	.btn-blacklist {
 	  color: #fff;
 	  background-color: black;
 	  border-color: #d9534f;
+	}
+	.table_list_btn {
+		border:none;
 	}
 	
 </style>
@@ -150,27 +158,39 @@
 <div class="list_headtit">
 <h3>제휴 승인거절 리스트</h3>
 </div>
-	<a href="waiting_list">
-		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="승인 대기 리스트">
-	</a>
-	<a href="complete_list">
-		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="승인 완료 리스트">
-	</a>
+<table class="table_list_btn">
+	<tbody>
+		<tr>
+			<td style="width:130px;">
+				<a href="waiting_list"  style="width:300px;">
+					<input type="button" class="btn btn-blacklist" name="BLACK_LIST_FIRST" value="승인 대기 리스트">
+				</a>			
+			</td>
+			<td style="width:130px;">
+				<a href="complete_list">
+					<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="승인 완료 리스트">
+				</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
 <div class="table-box">
 <table class="table_ny_three" border="1" >
 	<thead>
 		<tr>
+			<th width="5%">번호</th>
 			<th width="15%">제휴 사진</th>
 			<th width="15%">호텔명</th>
-			<th width="20%">제휴명</th>
-			<th width="20%">주소</th>
-			<th width="25%">상세 정보</th>
-			<th width="20%">승인 처리</th>
+			<th width="15%">제휴명</th>
+			<th width="30%">주소</th>
+			<th width="10%">상세 정보</th>
+			<th width="10%">승인 처리</th>
 		</tr>
 	</thead>
 	<tbody align="center">
 		<c:forEach var="patnerListVO" items="${list}">
 		<tr>
+			<td>${patnerListVO.partner_no}</td>
 			<td>
 				<img src="${pageContext.request.contextPath}/img_v/5?img_name=${patnerListVO.p_file_name}" width="150px" height="150px">
 			</td>

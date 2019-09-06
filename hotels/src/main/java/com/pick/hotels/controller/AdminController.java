@@ -24,6 +24,7 @@ import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.PartnerDto;
+import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.PartnerListVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
@@ -35,6 +36,7 @@ import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.PartnerDao;
+import com.pick.hotels.repository.PartnerFileDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.repository.SellerDao;
@@ -78,6 +80,9 @@ public class AdminController {
 
 	@Autowired
 	private PartnerDao partnerDao;
+	
+	@Autowired
+	private PartnerFileDao partnerFileDao;
 	
 //	전체 관리 페이지("main")
 	@GetMapping("/main")
@@ -972,11 +977,13 @@ public class AdminController {
 	public String detail_partner(@RequestParam int no, Model model) {
 		
 		PartnerDto partnerDto = partnerDao.get(no);
+
+		String type = partnerDto.getPartner_type().equals("승인대기")?"waiting_list":partnerDto.getPartner_type().equals("승인완료")?"complete_list":"refuse_list";
 		
 		model.addAttribute("pdto", partnerDto);
-		
-		//여기 좀 보시오!!!!! 여기에 파일 넣어야 하오!!!!!!!
-		//까먹지 마시오!!!!!!!
+		model.addAttribute("pfdtolist", partnerFileDao.getlist(no));
+		model.addAttribute("no", no);
+		model.addAttribute("link", type);
 		
 		return "admin/partner/detail";
 	}
