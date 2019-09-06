@@ -47,6 +47,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.HotelSalesVO" alias="hotelSalesVO"/>
 		<typeAlias type="com.pick.hotels.entity.AttractionListVO" alias="attractionListVO"/>
 		<typeAlias type="com.pick.hotels.entity.RestaurantListVO" alias="restaurantListVO"/>
+		<typeAlias type="com.pick.hotels.entity.CouponVO" alias="couponVO"/>
 	</typeAliases>
   
 </configuration>
