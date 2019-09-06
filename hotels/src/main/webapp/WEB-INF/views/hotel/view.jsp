@@ -164,7 +164,7 @@ $(function(){
 		margin-bottom: 20px;
 	}
 	.hotel-map-wrap{
-		border: 1px solid black;
+		border: 1px solid lightgray;
 		border-radius:5px;
 		height: 300px;
 		width: 300px;
@@ -172,7 +172,7 @@ $(function(){
 		padding: 5px;
 	}
 	.hotel-title-wrap{
-		border: 1px solid black;
+		border: 1px solid lightgray;
 		border-radius: 5px;
 		padding: 10px;
 		width: 800px;
@@ -187,8 +187,10 @@ $(function(){
     }
     .hotel-title-wrap > .title-content-wrap{
     	width: 780px;
-    	height: 40px;
-    	border-bottom: 1px solid gray;
+    }
+    .hotel-title-wrap > .hotel-addr{
+    	border-bottom: 1px solid lightgray;
+    	padding-bottom: 10px;
     }
 </style>
 <!--  room detail style -->
@@ -485,7 +487,7 @@ $(function(){
 		var staticMapContainer  = document.getElementById('hotel-map'), // 이미지 지도를 표시할 div  
 		    staticMapOption = { 
 		        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
-		        level: 5, // 이미지 지도의 확대 레벨
+		        level: 6, // 이미지 지도의 확대 레벨
 		        marker: marker // 이미지 지도에 표시할 마커 
 		    };    
 	
@@ -494,9 +496,8 @@ $(function(){
 	});
 </script>
 
-${hdto }
 <form action="../search">
-<div style="height: 50px;"></div>
+<div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
 		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
@@ -534,8 +535,6 @@ ${hdto }
 <span style="font-size: 20px;" class="diff"></span>
 </div>
 </form>
-
-
 <div class="hotel-info-wrap" style="width: 1100px; margin: auto;">
 	<div style="height: 20px;"></div>
   <div class="gallary">
@@ -577,9 +576,23 @@ ${hdto }
 				</div>
 				<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
 			</div>
-			<div>
-				<div>${hdto.hotel_basic_addr }</div>
+			<div class="hotel-addr">
+				<div>${hdto.hotel_basic_addr}</div>
 			</div>
+			<div>
+				<span>${hdto.hotel_content}</span>
+			</div>
+			
+			<div>
+				<div class="hotel-star" style="width: 120px;display: inline-block;">
+			    	<div style="display: inline-block;" data-toggle="tooltip" title="리뷰 평점 : ${hotel_score}" class="star-wrap" data-star="${hotel_score}" >
+			        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+			        	<div class="star-paint"></div>
+			    	</div>
+				</div>
+			</div>
+			
+			
 		</div>
 	
 	</div>
@@ -635,27 +648,28 @@ ${hdto }
 			<div class="room-detail">
 				<div class="room-ico-wrap">
 					<c:if test="${detail_room.rdto.room_breakfast eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="BREAKFAST" src="${pageContext.request.contextPath}/img/room_ico/breakfast.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="조식" src="${pageContext.request.contextPath}/img/room_ico/breakfast.png"></c:if>
 					<c:if test="${detail_room.rdto.room_spa eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SPA" src="${pageContext.request.contextPath}/img/room_ico/spa.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="스파" src="${pageContext.request.contextPath}/img/room_ico/spa.png"></c:if>
 					<c:if test="${detail_room.rdto.room_conditioner eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="CONDITIONER" src="${pageContext.request.contextPath}/img/room_ico/conditioner.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="에어컨" src="${pageContext.request.contextPath}/img/room_ico/conditioner.png"></c:if>
 					<c:if test="${detail_room.rdto.room_tv eq 'Y'}">
 					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="TV" src="${pageContext.request.contextPath}/img/room_ico/tv.png"></c:if>
 					<c:if test="${detail_room.rdto.room_refrigerator eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="REFRIGERATOR" src="${pageContext.request.contextPath}/img/room_ico/refrigerator.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="냉장고" src="${pageContext.request.contextPath}/img/room_ico/refrigerator.png"></c:if>
 					<c:if test="${detail_room.rdto.room_shower_room eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SHOWER_ROOM" src="${pageContext.request.contextPath}/img/room_ico/shower_room.png"></c:if>
-					<c:if test="${detail_room.rdto.room_bath eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="BATH" src="${pageContext.request.contextPath}/img/room_ico/bath.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="샤워룸" src="${pageContext.request.contextPath}/img/room_ico/shower_room.png"></c:if>
 					<c:if test="${detail_room.rdto.room_hair eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="HAIR DRYER" src="${pageContext.request.contextPath}/img/room_ico/hair.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="헤어드라이어" src="${pageContext.request.contextPath}/img/room_ico/hair.png"></c:if>
 					<c:if test="${detail_room.rdto.room_cookoo eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="COOKOO" src="${pageContext.request.contextPath}/img/room_ico/cookoo.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="취사가능" src="${pageContext.request.contextPath}/img/room_ico/cookoo.png"></c:if>
 					<c:if test="${detail_room.rdto.room_smoking eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="SMOKING" src="${pageContext.request.contextPath}/img/room_ico/smoking.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="흡연가능" src="${pageContext.request.contextPath}/img/room_ico/smoking.png"></c:if>
 					<c:if test="${detail_room.rdto.room_cooking eq 'Y'}">
-					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="COOKING" src="${pageContext.request.contextPath}/img/room_ico/cooking.png"></c:if>
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="취사가능" src="${pageContext.request.contextPath}/img/room_ico/cooking.png"></c:if>
+					<c:if test="${detail_room.rdto.room_bath eq 'Y'}">
+					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="욕조" src="${pageContext.request.contextPath}/img/room_ico/bath.png"></c:if>
+					
 				</div>
 			</div>
 		</div>

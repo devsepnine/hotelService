@@ -17,4 +17,6 @@ public interface ReviewDao {
 
 	int count(String type, String keyword);
 
+	Float get_avg_star(int hotel_no);
+
 }
