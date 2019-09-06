@@ -27,6 +27,7 @@
 	    vertical-align: middle;
 	    text-align: center;
 		border-left: 1px solid lightgray;
+		width:10%;
 	}
 	
 </style>

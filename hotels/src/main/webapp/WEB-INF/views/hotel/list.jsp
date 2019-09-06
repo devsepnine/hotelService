@@ -58,10 +58,6 @@
 <br>
 
 
-
-
-
-<jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div align="center" class="hotel-list-wrap">
 	<c:forEach var="hdto" items="${list}">
 		<table class="table table-hamburg table-stripe hotel_info">
