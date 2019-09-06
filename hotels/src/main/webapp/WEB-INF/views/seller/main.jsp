@@ -44,35 +44,61 @@
  			chart.draw(data, options);
 		}
 </script>
+<style>
+	.chart_page{
+		width: 1600px;
+		height: 500px;
+	}
+	
+	.chart_chart{
+		width:49%;
+		height:100%;
+		display:inline-block;
+	}
+	
+	.chart_table{
+		width: 49%;
+		height:100%;
+		display:inline-block;	
+	}
+	#chart_div{
+		height: 100%;
+	}
 
+
+
+	
+</style>
 
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div style="height: 20px;"></div>
-${monthlySales}
-<table class="table">
-	<thead>
-		<tr>
-			<th>방번호</th>
-			<th>월</th>
-			<th>갯수</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="sales" items="${monthlySales}">
-			<c:forEach var="con" items="${sales}">
+<div class="chart_page">
+	<div class="chart_chart">
+		<div id="chart_div"></div>
+	</div>
+	<div class="chart_table">
+		<table class="table chart_table_size">
+			<thead>
 				<tr>
-				<td>${con.monthly}</td>
-				<td>${con.count}</td>
+					<th class="menu_month">월</th>
+					<th>갯수</th>
 				</tr>
-			</c:forEach>
-		</c:forEach>
-	</tbody>
-</table>
-
-
-
-
-<div style="text-align: center;">
-<div id="chart_div" style="width:900px; height: 500px;"></div> 
+			</thead>
+			<tbody>
+				<c:forEach var="sales" items="${monthlySales}">
+					<c:forEach var="con" items="${sales}">
+						<tr>
+							<td>${con.monthly}</td>
+							<td>${con.count}</td>
+						</tr>
+					</c:forEach>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </div>
+
+
+
+
 <jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>
