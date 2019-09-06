@@ -177,6 +177,19 @@ $(function(){
 		padding: 10px;
 		width: 800px;
 	}
+	.hotel-title-wrap{
+		display: flex;
+		flex-direction: column;
+	}
+    .hotel-title-wrap .head-name{
+    	font-size: 30px;
+    	color: black;
+    }
+    .hotel-title-wrap > .title-content-wrap{
+    	width: 780px;
+    	height: 40px;
+    	border-bottom: 1px solid gray;
+    }
 </style>
 <!--  room detail style -->
 <style>
@@ -452,17 +465,34 @@ $(function(){
     .gallery-thumbs .swiper-slide-thumb-active {
       opacity: 1;
     }
-    
-    .hotel-title-wrap .head-name{
-     	font-size: 30px;
-     	color: black;
-     	padding: 20px 0px;
-    }
     .card{
     	margin-bottom: 20px;
     }
     .card 
 </style>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
+<script>
+	$(function(){
+		var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
+	
+		// 이미지 지도에 표시할 마커입니다
+		// 이미지 지도에 표시할 마커는 Object 형태입니다
+		var marker = {
+		    position: markerPosition
+		};
+	
+		var staticMapContainer  = document.getElementById('hotel-map'), // 이미지 지도를 표시할 div  
+		    staticMapOption = { 
+		        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
+		        level: 5, // 이미지 지도의 확대 레벨
+		        marker: marker // 이미지 지도에 표시할 마커 
+		    };    
+	
+		// 이미지 지도를 생성합니다
+		var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+	});
+</script>
 
 ${hdto }
 <form action="../search">
@@ -534,18 +564,22 @@ ${hdto }
    </div>
    
 	<div class="hotel-detail-wrap">
-		<div class="hotel-map-wrap">
+		<div class="hotel-map-wrap" id="hotel-map"></div>
 		
-		</div>
 	  	<div class="hotel-title-wrap">
-			<div class="head-name" style="display: inline-block;">${hdto.hotel_name}</div>
-			<div class="hotel-star" style="width: 120px;display: inline-block;">
-		    	<div style="display: inline-block;" data-toggle="tooltip" title="${hdto.hotel_star}성급 호텔" class="star-wrap" data-star="${hdto.hotel_star}" >
-		        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
-		        	<div class="star-paint"></div>
-		    	</div>
+	  		<div class="title-content-wrap">
+				<div class="head-name" style="display: inline-block;">${hdto.hotel_name}</div>
+				<div class="hotel-star" style="width: 120px;display: inline-block;">
+			    	<div style="display: inline-block;" data-toggle="tooltip" title="${hdto.hotel_star}성급 호텔" class="star-wrap" data-star="${hdto.hotel_star}" >
+			        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+			        	<div class="star-paint"></div>
+			    	</div>
+				</div>
+				<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
 			</div>
-			<i style="color: #ffa2ad;" class="wish-btn fa fa-heart-o fa-2x"></i>
+			<div>
+				<div>${hdto.hotel_basic_addr }</div>
+			</div>
 		</div>
 	
 	</div>
