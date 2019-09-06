@@ -644,7 +644,7 @@ public class AdminController {
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = sellerDao.count(type, keyword);
+		int count = couponDao.count(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
