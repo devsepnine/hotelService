@@ -989,6 +989,7 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+		
 		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -1057,7 +1058,7 @@ public class AdminController {
 	}
 	
 	
-//	제휴 승인 대기 리스트("/partner/refuse_list")
+//	제휴 승인 거절 리스트("/partner/refuse_list")
 	@GetMapping("/partner/refuse_list")
 	public String refuse_list(
 						@RequestParam(required = false) String type,
