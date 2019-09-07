@@ -27,12 +27,17 @@
 </div>
 <footer>
 	<div class="footer-info">
-		<p>copyright &copy;</p>
-		<p>회원 번호 : ${sessionScope.no}</p>
-		<p>회원 아이디 : ${sessionScope.ok}</p>
-		<p>회원 권한 : ${auth}</p>
-		<p>회원 번호 : ${sessionScope.s_no}</p>
-		<p>회원 아이디 : ${sessionScope.s_ok}</p>
+		<span>copyright &copy;</span>
+		<span>회원 번호 : ${sessionScope.no}</span>
+		<span>회원 아이디 : ${sessionScope.ok}</span>
+		<span>회원 권한 : ${auth}</span>
+		<span>판매자 번호 : ${sessionScope.s_no}</span>
+		<span>판매자 아이디 : ${sessionScope.s_ok}</span>
+		<span>동시접속자수 : ${applicationScope.usercnt}</span>
+
+<script id="_waur7b">var _wau = _wau || []; _wau.push(["map", "a97laxk81m", "r7b", "308", "154", "dashmap", "spinner-orange"]);</script>
+<script async src="//waust.at/m.js"></script>
+
 	</div>
 	<div class="footer-local">
 		<ul>
