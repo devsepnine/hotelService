@@ -76,5 +76,20 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectList("hotel.sales", hotel_no);
 	}
 
+	@Override
+	public List<HotelSalesVO> salesPrice(int hotel_no) {
+		return sqlSession.selectList("hotel.salesPrice",hotel_no);
+	}
+
+	@Override
+	public List<HotelSalesVO> monthSales(int hotel_no) {
+		return sqlSession.selectList("hotel.monthSale", hotel_no);
+	}
+
+	@Override
+	public List<HotelSalesVO> monthSalesPrice(int hotel_no) {
+		return sqlSession.selectList("hotel.monthSalePrice", hotel_no);
+	}
+
 
 }
