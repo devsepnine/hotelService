@@ -116,7 +116,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from hotel where seller_no = #{seller_no}
 	</select>
 	
-		<select id="sales" parameterType="int" resultType="hotelSalesVO">
+<!-- 호텔 전체	월별 건수 구하기 -->
+	<select id="sales" parameterType="int" resultType="hotelSalesVO">
 		select to_char(RV.reserve_in,'YYYY/MM') monthly, count(reserve_no) count
 		    from room R 
 		        inner join reserve RV on
@@ -125,5 +126,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    group by to_char(RV.reserve_in,'YYYY/MM')
 		    order by monthly asc
 	</select>  
+	
+<!-- 	호텔 전체 월별 매출 구하기 -->
+	<select id="salesPrice" parameterType="int" resultType="hotelSalesVO">
+		select distinct
+		    to_char(RV.reserve_in,'YYYY/MM') monthly, 
+		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY/MM') order by R.hotel_no asc) total, R.hotel_no
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		            where R.hotel_no = #{hotel_no} and RV.reserve_ok = '예약'
+		    group by to_char(RV.reserve_in,'YYYY/MM'),reserve_price, hotel_no
+		    order by monthly asc
+	</select>
+	
+<!-- 	호텔별 해당 월 매출 건수 구하기 -->
+	<select id="monthSale" parameterType="int" resultType="hotelSalesVO">
+		 select to_char(RV.reserve_in,'YYYY/MM/DD') monthly, count(RV.reserve_no) count
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		            where R.hotel_no = #{hotel_no} and to_char(RV.reserve_in,'MM') = to_char(sysdate,'MM')
+		    group by to_char(RV.reserve_in,'YYYY/MM/DD'), reserve_hotel_no,to_char(RV.reserve_in,'MM')
+		    order by monthly asc
+	</select>
+	
+<!-- 	호텔별 월별 매출 구하기 -->
+	<select id="monthSalePrice" parameterType="int" resultType="hotelSalesVO">
+		select distinct
+		    to_char(RV.reserve_in,'YYYY/MM/DD') monthly, 
+		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY/MM/DD') order by R.hotel_no asc) total
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		            where R.hotel_no = #{hotel_no} and to_char(RV.reserve_in,'MM') = to_char(sysdate,'MM') and RV.reserve_ok = '예약'
+		    group by to_char(RV.reserve_in,'YYYY/MM/DD'),reserve_price, hotel_no, to_char(RV.reserve_in,'MM')
+		    order by monthly asc
+	</select>
 	
 </mapper>

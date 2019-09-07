@@ -29,4 +29,10 @@ public interface HotelDao {
 	
 	List<HotelSalesVO> sales(int hotel_no);
 
+	List<HotelSalesVO> monthSales(int hotel_no);
+
+	List<HotelSalesVO> monthSalesPrice(int hotel_no);
+
+	List<HotelSalesVO> salesPrice(int hotel_no);
+
 }
