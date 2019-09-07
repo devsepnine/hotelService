@@ -91,5 +91,5 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectList("hotel.monthSalePrice", hotel_no);
 	}
 
-
+  
 }
