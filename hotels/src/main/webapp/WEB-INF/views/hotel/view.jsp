@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
 <!-- 평점 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
@@ -144,7 +145,12 @@ $(function(){
 				autoplay: {
 				      delay: 2500,
 				      disableOnInteraction: false,
-			    }
+			    },
+			    pagination: {
+			        el: '.swiper-pagination',
+			        type:'bullets',
+			        clickable:'true',
+			      }
 		    })
 	})
 </script>
@@ -156,6 +162,18 @@ $(function(){
 	}
 	.room-swiper{
 		height: 100%;
+	}
+	.room-swiper .swiper-pagination{
+		position: relative;
+		text-align: center;
+		bottom: 27px;
+	}
+	.swiper-pagination-bullet{
+		background: white;
+		opacity: 0.7;
+	}
+	.swiper-pagination-bullet-active{
+		background: #007aff;
 	}
 </style>
 
@@ -708,6 +726,7 @@ $(function(){
 				        <div class="swiper-slide"><img height="200px" src="${pageContext.request.contextPath }/img_v/4?img_name=${room_picture.r_file_name}"></div>
 				        </c:forEach>
 				    </div>
+				    <div class="swiper-pagination"></div>
 				</div>
 			</div>
 		</div>
@@ -723,7 +742,7 @@ $(function(){
 						<div>${detail_room.rdto.room_content}</div>
 					</div>
 					<div class="reserve-price">
-						<div><div style="font-weight: bold; font-size: 20px;text-align: right;color: black">${detail_room.rdto.room_price}원</div></div>
+						<div><div style="font-weight: bold; font-size: 20px;text-align: right;color: black"><fmt:formatNumber value="${detail_room.rdto.room_price}" pattern="#,###" />원</div></div>
 						<div style="text-align: center">세금 및 기타 요금 포함</div>
 						<div><a class="btn btn-reserve btn-block" style="color: white; border-radius: 10px;">예약하러 가기</a></div>
 					</div>
