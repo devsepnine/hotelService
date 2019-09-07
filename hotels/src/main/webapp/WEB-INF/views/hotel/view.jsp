@@ -12,7 +12,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
-
+<!-- 다음 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46239c794a7a0438306ca21d387251c8"></script>
+  	
 <!-- 	swiper 소스파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/swiper/swiper.css">
 <script src="${pageContext.request.contextPath}/js/swiper/swiper.js"></script>

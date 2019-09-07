@@ -15,8 +15,6 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   	
-  	<!-- 다음 지도 -->
-  	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46239c794a7a0438306ca21d387251c8"></script>
   <script>
         $(function(){
         	$('[data-toggle="tooltip"]').tooltip();
