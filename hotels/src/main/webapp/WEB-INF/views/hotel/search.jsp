@@ -11,6 +11,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
+<script>
+	var param_map = new URLSearchParams(window.location.search);
+	var region_uri = encodeURI(param_map.get("region"));
+</script>
+
 <!-- 	date picker width 버그 수정 -->
 <!-- 	date picker width 버그 수정 -->
 <style>
@@ -156,7 +161,7 @@ $(function(){
 	})
 })
 </script>
-
+<!-- 자동완성 스크립트 시작 -->
 <script>
 	var states = [];
 	$.ajax({
@@ -174,7 +179,7 @@ $(function(){
 		}
 	})
 </script>
-<!-- 자동완성 스크립트 -->
+
 <script>
 $(function(){
 	var substringMatcher = function(strs) {
@@ -210,6 +215,8 @@ $(function(){
 	});
 })
 </script>
+<!-- 자동완성 스크립트 종료 -->
+
 
 <form action="search">
 <div style="height: 20px;"></div>
@@ -406,7 +413,7 @@ $(function(){
 			<li class="hotel-wrap" style="padding:20px;vertical-align: middle;">
 			
 				<div class="thumnail-wrap" style="display: inline-block; width: 230px;">
-					<a href="view/${h_con.hotel_no}?region=${param.region}&check_in=${param.check_in}&check_out=${param.check_out}&people=${param.people}">
+					<a href="view/${h_con.hotel_no}?region=${region_uri}&check_in=${param.check_in}&check_out=${param.check_out}&people=${param.people}">
 						<img alt="${h_con.hotel_title}" style="border-radius: 5px;width: 230px; height:230px;" src="${pageContext.request.contextPath}/img_v/3?img_name=${h_con.hotel_title}">
 					</a>
 				</div>
