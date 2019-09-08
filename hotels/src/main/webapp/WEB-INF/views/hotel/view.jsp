@@ -55,9 +55,7 @@
 		url : "${pageContext.request.contextPath}/region",
 		dataType:"json",
 		success: function(data){
-			console.log(data[1].region_kor_name);
 			var size = Object.keys(data).length;
-			console.log(size);
 			for(var i=0; i<size; i++){
 				states.push(data[i].region_kor_name);
 				states.push(data[i].region_eng_name);
@@ -340,6 +338,7 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
+    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
     		$(".room-area").css("display","none");
@@ -382,6 +381,8 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
+    		var region_uri = encodeURI($("input[name=region]").val());
+    		$("input[name=region]").val(region_uri);
     		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 0){
