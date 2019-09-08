@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.AttractionDto;
+import com.pick.hotels.entity.MemberCountVO;
 import com.pick.hotels.entity.MemberDto;
 
 @Repository
@@ -127,6 +128,23 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public void edit_member(MemberDto memberDto) {
 		sqlSession.update("member.edit_member", memberDto);
+	}
+
+//	전체 회원 수
+	@Override
+	public int total_count() {
+		return sqlSession.selectOne("member.total_count");
+	}
+
+//	최근 7일 가입 회원 수
+	@Override
+	public int recent_count() {
+		return sqlSession.selectOne("member.recent_count");
+	}
+
+	@Override
+	public List<MemberCountVO> monthly_count() {
+		return sqlSession.selectList("member.monthly_count");
 	}
 
 }
