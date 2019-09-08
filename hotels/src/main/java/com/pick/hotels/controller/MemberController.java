@@ -120,6 +120,7 @@ public class MemberController {
 				session.setAttribute("ok", result.getMember_id());
 				session.setAttribute("auth", result.getMember_auth());
 				session.setAttribute("no", result.getMember_no());
+				session.setAttribute("username", result.getMember_name());
 				
 //				System.out.println("로그인 성공");
 //				최종접속시간 저장

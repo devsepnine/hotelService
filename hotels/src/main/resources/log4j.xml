@@ -7,32 +7,30 @@
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 <!-- 			<param name="ConversionPattern" value="%-5p: %c - %m%n" /> -->
-			<param name="ConversionPattern" value="[%-5p] %c - %m[%d]%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%-5p] %F:%L - %m%n" />
 		</layout>
 	</appender>
 	
-	<appender name="xml" class="org.apache.log4j.FileAppender">
-		<param name="file" value="log.xml"></param>
-		<param name="Append" value="true"></param>
-		<layout class="org.apache.log4j.xml.XMLLayout">
-		</layout>
-	</appender>
-	
-	<!-- Appenders -->
-	<appender name="daily" class="org.apache.log4j.DailyRollingFileAppender">
-		<!-- 위치 -->
-		<param name="file" value="D:/log/daily.log"/>
-		<!-- 덧붙임 여부 -->
-		<param name="Append" value="true"/>
-		<!-- 파일에 추가할 날짜 패턴 -->
-		<param name="DatePattern" value="'.'yyMMdd"/>
-		<!-- 롤링을 사용할 용량 설정(1개 파일 크기) - RollingFileAppender 전용, KB, MB 등 사용 가능 -->
-		<param name="MaxFileSize" value="1MB"></param>
-		<!-- 로그 패턴 -->
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %c - %m[%d]%n" />
-		</layout>
-	</appender>
+    <!-- 로그 파일 저장하기 -->
+    <appender name="dailylog" class="org.apache.log4j.DailyRollingFileAppender">
+<!--     로그파일 저장 위치 -->
+        <param name="file" value="d://Log//hotels.log"/>
+<!--     덧붙임 여부 -->
+        <param name="Append" value="true"/>
+<!--     파일 날짜 패턴 -->
+        <param name="dataPattern" value=".yy-MM-dd"/>
+<!--     저장 파일 용량 설정 -->
+        <param name="MaxFileSize" value="1MB"></param>
+<!--     로그 패턴  -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%-5p] %F:%L - %m%n" />
+        </layout>
+    </appender>
+
+<!-- 	application Loggers -->
+	<logger name="com.pick.hotels">
+        <level value="debug" />
+    </logger>
 
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
@@ -54,9 +52,8 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="debug" />
-<!-- 		<appender-ref ref="xml" /> -->
 		<appender-ref ref="console" />
-<!-- 		<apeender-ref ref="daily" /> -->
+		<appender-ref ref="dailylog"/>
 	</root>
 	
 </log4j:configuration>

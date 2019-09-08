@@ -1,5 +1,7 @@
 package com.pick.hotels.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +45,9 @@ public class HotelController {
 	
 	@GetMapping("/search")
 	public String search(Model model,
-						 @ModelAttribute H_search_vo s_vo) {
+						 @ModelAttribute H_search_vo s_vo) throws UnsupportedEncodingException {
 		if(s_vo.getRegion() != null) {
+			s_vo.setRegion(URLDecoder.decode(s_vo.getRegion(),"UTF-8"));
 			List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
 			System.out.println(h_list);
 			model.addAttribute("h_list",h_list);
