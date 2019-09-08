@@ -59,7 +59,7 @@ var chart = new CanvasJS.Chart("member_count", {
 				{ x: new Date(2019, 09), y: 340 },
 				{ x: new Date(2019, 10), y: 220 },
 				{ x: new Date(2019, 11), y: 420 },
-				{ x: new Date(2019, 12), y: 510 }
+				{ x: new Date(2019, 12), y: 510 } 
 			]
 		}]
 		});
