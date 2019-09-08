@@ -145,7 +145,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				member_auth = #{member_auth}
 			where
 				member_id = #{member_id}
-	</update>
+	</update>                                
 	
+	<!-- 전체 회원 수 -->
+	<select id="total_count" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<!-- 최근 7일 가입 회원 수 -->
+	<select id="recent_count" resultType="int">
+		select count(*) from member where member_when between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	<!-- 월별 회원 가입 수 -->
+	<select id="monthly_count" resultType="memberCountVO">
+		select 
+  			to_char(member_when,'YYYY,MM') monthly, count(*) count
+    			from member
+    			 where member_auth != '관리자'
+   			group by to_char(member_when,'YYYY,MM')
+    		order by monthly asc
+	</select>
 	
 </mapper>

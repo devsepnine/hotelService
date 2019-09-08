@@ -22,7 +22,7 @@
 // 				['2004/07',  165],
 // 				['2004/08',  165]
 // 			]
-
+          
  			var arr = [];
  				arr.push(['월', '금액']);
  			<c:forEach var="salesPrice" items="${monthly_price}">
