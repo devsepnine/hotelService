@@ -16,29 +16,27 @@ public class HttpSessionListenerService implements HttpSessionListener{
 		if (usercnt==null)usercnt=0;
 		usercnt++;
 		application.setAttribute("usercnt", usercnt);
-		System.out.println("###  ##  ### ###  ##   ##                             ##  ###   ## ##   ### ###  ### ##   \r\n" + 
-				"  ## ##   ##  ##  ##   ##                             ##   ##  ##   ##   ##  ##   ##  ##  \r\n" + 
-				" # ## #   ##      ##   ##                             ##   ##  ####      ##       ##  ##  \r\n" + 
-				" ## ##    ## ##   ## # ##                             ##   ##   #####    ## ##    ## ##   \r\n" + 
-				" ##  ##   ##      # ### #                             ##   ##      ###   ##       ## ##   \r\n" + 
-				" ##  ##   ##  ##   ## ##                              ##   ##  ##   ##   ##  ##   ##  ##  \r\n" + 
-				"###  ##  ### ###  ##   ##                              ## ##    ## ##   ### ###  #### ## ");
+		System.out.println(
+				" _   _ _______        __  __  __ _____ __  __  ____ _____  ____ \r\n" + 
+				"| | / |____ \\ \\      / / |  \\/  |____ |  \\/  |( __ |____ |/ _  |\r\n" + 
+				"| |/  | |_  |\\ \\ /\\ / /  | |\\/| | |_  | |\\/| |/ _  | |_  | (_| |\r\n" + 
+				"|  /| |___| | \\ V  V /   | |  | |___| | |  | | (_| |___| |> _  |\r\n" + 
+				"|_/ |_|_____|  \\_/\\_/    |_|  |_|_____|_|  |_|\\____|_____/_/ |_|");
 	}
 	
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
 		ServletContext application = se.getSession().getServletContext();
 		Integer usercnt = (Integer) application.getAttribute("usercnt");
-		if(usercnt==null)usercnt=1;
+		if(usercnt==null || usercnt <= 0)usercnt=1;
 		usercnt--;
 		application.setAttribute("usercnt", usercnt);
-		System.out.println(" ## ##   ##  ###  #### ##           ##  ###   ## ##   ### ###  ### ##   \r\n" + 
-				"##   ##  ##   ##  # ## ##           ##   ##  ##   ##   ##  ##   ##  ##  \r\n" + 
-				"##   ##  ##   ##    ##              ##   ##  ####      ##       ##  ##  \r\n" + 
-				"##   ##  ##   ##    ##              ##   ##   #####    ## ##    ## ##   \r\n" + 
-				"##   ##  ##   ##    ##              ##   ##      ###   ##       ## ##   \r\n" + 
-				"##   ##  ##   ##    ##              ##   ##  ##   ##   ##  ##   ##  ##  \r\n" + 
-				" ## ##    ## ##    ####              ## ##    ## ##   ### ###  #### ##  ");
+		System.out.println(
+				"  ___  _   _ _____   __  __ _____ __  __  ____ _____  ____ \r\n" + 
+				" / _ \\| | | |_   _| |  \\/  |____ |  \\/  |( __ |____ |/ _  |\r\n" + 
+				"| | | | | | | | |   | |\\/| | |_  | |\\/| |/ _  | |_  | (_| |\r\n" + 
+				"| |_| | |_| | | |   | |  | |___| | |  | | (_| |___| |> _  |\r\n" + 
+				" \\___/ \\___/  |_|   |_|  |_|_____|_|  |_|\\____|_____/_/ |_|");
 	}
 
 	
