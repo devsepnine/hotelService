@@ -31,8 +31,11 @@
 		<span>회원 번호 : ${sessionScope.no}</span>
 		<span>회원 아이디 : ${sessionScope.ok}</span>
 		<span>회원 권한 : ${auth}</span>
+		<br>
 		<span>판매자 번호 : ${sessionScope.s_no}</span>
 		<span>판매자 아이디 : ${sessionScope.s_ok}</span>
+		<br>
+		<span>세션 정보 : <%=session.getId()%>  <%=session.isNew() %></span><br>
 		<span>동시접속자수 : ${applicationScope.usercnt}</span>
 
 <script id="_waur7b">var _wau = _wau || []; _wau.push(["map", "a97laxk81m", "r7b", "308", "154", "dashmap", "spinner-orange"]);</script>

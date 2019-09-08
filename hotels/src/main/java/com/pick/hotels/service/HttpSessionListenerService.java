@@ -6,8 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebListener
 public class HttpSessionListenerService implements HttpSessionListener{
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
@@ -16,7 +20,7 @@ public class HttpSessionListenerService implements HttpSessionListener{
 		if (usercnt==null)usercnt=0;
 		usercnt++;
 		application.setAttribute("usercnt", usercnt);
-		System.out.println(
+		logger.debug("\n"+
 				" _   _ _______        __  __  __ _____ __  __  ____ _____  ____ \r\n" + 
 				"| | / |____ \\ \\      / / |  \\/  |____ |  \\/  |( __ |____ |/ _  |\r\n" + 
 				"| |/  | |_  |\\ \\ /\\ / /  | |\\/| | |_  | |\\/| |/ _  | |_  | (_| |\r\n" + 
@@ -31,7 +35,7 @@ public class HttpSessionListenerService implements HttpSessionListener{
 		if(usercnt==null || usercnt <= 0)usercnt=1;
 		usercnt--;
 		application.setAttribute("usercnt", usercnt);
-		System.out.println(
+		logger.debug("\n"+
 				"  ___  _   _ _____   __  __ _____ __  __  ____ _____  ____ \r\n" + 
 				" / _ \\| | | |_   _| |  \\/  |____ |  \\/  |( __ |____ |/ _  |\r\n" + 
 				"| | | | | | | | |   | |\\/| | |_  | |\\/| |/ _  | |_  | (_| |\r\n" + 
