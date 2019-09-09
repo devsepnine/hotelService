@@ -2,6 +2,7 @@ package com.pick.hotels.repository;
 
 import java.util.List;
 
+import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
 
 public interface SellerDao {
@@ -24,4 +25,7 @@ public interface SellerDao {
 	int count(String type, String keyword);
 	List<SellerDto> blacklist(String type, String keyword, int start, int end);
 	void edit_seller(SellerDto sellerDto);
+	int total_count();
+	int recent_count();
+	List<SellerCountVO> monthly_count();
 }
