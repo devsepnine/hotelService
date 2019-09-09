@@ -72,6 +72,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count (*) from reserve where reserve_member_no = #{reserve_member_no}
 	</select>
 	
+	
+	<!-- 관리자 -->
+	<!-- 월별 전체 호텔 매출 -->
 	<select id="total" resultType="reserveTotalVO">
 	 select 
 	    sum(reserve_price) total , to_char(reserve_in,'YYYY,MM') monthly 

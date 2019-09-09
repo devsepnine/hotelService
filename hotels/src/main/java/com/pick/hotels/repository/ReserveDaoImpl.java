@@ -73,6 +73,9 @@ public class ReserveDaoImpl implements ReserveDao{
 		return sqlsession.selectList("reserve.cancel_list",member_no);
 	}
 
+	
+//	관리자
+//	월별 호텔 전체 매출
 	@Override
 	public List<ReserveTotalVO> getTotal() {
 		return sqlsession.selectList("reserve.total");
