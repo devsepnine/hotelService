@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.CouponDto;
+import com.pick.hotels.entity.CouponVO;
 
 @Repository
 public class CouponDaoImpl implements CouponDao{
@@ -89,6 +90,18 @@ public class CouponDaoImpl implements CouponDao{
 	@Override
 	public int getSequenceNumber() {
 		return sqlSession.selectOne("coupon.seq");
+	}
+
+//	회원 내쿠폰 리스트
+	
+	@Override
+	public List<CouponVO> coupon_list(int member_no) {
+		return sqlSession.selectList("coupon.coupon_list",member_no);
+	}
+
+	@Override
+	public List<CouponVO> coupon_down_list(int member_no) {
+		return sqlSession.selectList("coupon.coupon_down",member_no);
 	}
 
 

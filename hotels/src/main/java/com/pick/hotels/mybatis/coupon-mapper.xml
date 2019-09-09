@@ -72,4 +72,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select coupon_seq.nextval from dual
 	</select>
 	
+	
+	
+	<!-- 회원 내 쿠폰 리스트 -->
+	<select id="coupon_list" parameterType="int" resultType="couponVO">
+	     select 
+            C.coupon_no,
+            C.coupon_name,
+            C.coupon_price,
+            C.coupon_date1,
+            C.coupon_date2,
+            C.coupon_minimum,
+            C.coupon_condition,
+            CH.coupon_history_no,
+            CH.member_no,
+            CH.coupon_get_date
+    from
+            coupon C
+           left outer join coupon_history CH on CH.coupon_no = C.coupon_no
+    where CH.member_no =#{member_no} and C.coupon_condition = '사용가능'
+   
+	</select>
+	
+	<select id="coupon_down" parameterType="int" resultType="couponVO">
+	select  
+	    C.coupon_no,
+	    C.coupon_name,
+	    C.coupon_price,
+	    C.coupon_date1,
+	    C.coupon_date2,
+	    C.coupon_minimum,
+	    C.coupon_condition
+	    from coupon C
+	    where  C.coupon_condition ='사용가능'
+	minus
+	select 
+	    C.coupon_no,
+	    C.coupon_name,
+	    C.coupon_price,
+	    C.coupon_date1,
+	    C.coupon_date2,
+	    C.coupon_minimum,
+	    C.coupon_condition
+   from 
+	 coupon C inner join coupon_history CH on C.coupon_no = CH.coupon_no where CH.member_no=63
+		
+	</select>
+	
+	
+	
  </mapper>
