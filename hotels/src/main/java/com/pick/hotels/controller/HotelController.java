@@ -65,13 +65,19 @@ public class HotelController {
 						Model model) {
 		HotelDto hdto = hotelDao.get(hotel_no);
 		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
+		//detail vo 리스트 생성
 		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
-		
+		// room 리스트 받아옴
 		List<RoomDto> rdto_list = roomDao.get_list(hotel_no);
+		//room 리스트 for문
 		for(RoomDto rdto : rdto_list) {
+			// room 번호로 파일 구함
 			int no = rdto.getRoom_no();
+			//room file 리스트 생성
 			List<RoomFileDto> rfdto_list = roomFileDao.get_list(no);
+			//detail room vo 하나 생성
 			Detail_room_vo drv = Detail_room_vo.builder().rdto(rdto).room_file_list(rfdto_list).build();
+			//list에 추가
 			detail_list.add(drv);
 		}
 		Float hotel_score = reviewDao.get_avg_star(hotel_no);
