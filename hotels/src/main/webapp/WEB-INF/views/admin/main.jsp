@@ -21,8 +21,8 @@ var chart = new CanvasJS.Chart("member_count", {
 	data: [{
 		type: "splineArea",
 		color: "rgba(54,158,173,.7)",
-		markerSize: 5,
-		xValueFormatString: "MM",
+		markerSize: 10,
+		xValueFormatString: "MM월",
 		yValueFormatString: "###,###,###,###",
 		dataPoints: [
 			<c:forEach var="member_monthly_count" items="${member_monthly_count}">
@@ -38,29 +38,19 @@ var chart = new CanvasJS.Chart("member_count", {
 		},
 		axisY: {
 			title: "가입자 수",
-			valueFormatString: "#0",
+			valueFormatString: "###,###,###,###",
 			suffix: "명"
 		},
 		data: [{
 			type: "splineArea",
 			color: "rgba(54,158,173,.7)",
-			markerSize: 5,
+			markerSize: 10,
 			xValueFormatString: "MM월",
-			yValueFormatString: "$#,##0.##",
+			yValueFormatString:  "###,###,###,###",
 			dataPoints: [
-				{ x: new Date(2019, 01), y: 700 },
-				{ x: new Date(2019, 02), y: 230 },
-				{ x: new Date(2019, 03), y: 250 },
-				{ x: new Date(2019, 04), y: 130 },
-				{ x: new Date(2019, 05), y: 150 },
-				{ x: new Date(2019, 06), y: 230 },
-				{ x: new Date(2019, 07), y: 100 },
-				{ x: new Date(2019, 08), y: 200 },
-				{ x: new Date(2019, 09), y: 340 },
-				{ x: new Date(2019, 10), y: 220 },
-				{ x: new Date(2019, 11), y: 420 },
-				{ x: new Date(2019, 12), y: 510 } 
-			]
+				<c:forEach var="seller_monthly_count" items="${seller_monthly_count}">
+				{ x: new Date('${seller_monthly_count.monthly}'), y: ${seller_monthly_count.count}} ,
+			</c:forEach>]
 		}]
 		});
 	
@@ -76,23 +66,14 @@ var chart = new CanvasJS.Chart("member_count", {
 		},
 		data: [{
 			type: "splineArea",
-			color: "rgba(54,158,173,.7)",
+			color: "rgba(255,000,255,.7)",
 			markerSize: 5,
 			xValueFormatString: "MM월",
 			yValueFormatString: "\#,##0.##",
 			dataPoints: [
-				{ x: new Date(2019, 01), y: 7000000 },
-				{ x: new Date(2019, 02), y: 2300000 },
-				{ x: new Date(2019, 03), y: 2500000 },
-				{ x: new Date(2019, 04), y: 1300000 },
-				{ x: new Date(2019, 05), y: 1500000 },
-				{ x: new Date(2019, 06), y: 2300000 },
-				{ x: new Date(2019, 07), y: 1000000 },
-				{ x: new Date(2019, 08), y: 2000000 },
-				{ x: new Date(2019, 09), y: 3400000 },
-				{ x: new Date(2019, 10), y: 2200000 },
-				{ x: new Date(2019, 11), y: 4200000 },
-				{ x: new Date(2019, 12), y: 5100000 }
+				<c:forEach var="reserve_total" items="${reserve_total}">
+					{ x: new Date('${reserve_total.monthly}'), y: ${reserve_total.total}} ,
+				</c:forEach>
 			]
 		}]
 		});
@@ -140,11 +121,11 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td>전체 회원 수</td>
-					<td>1000명</td>
+					<td>${member_total_count}명</td>
 				</tr>
 				<tr>
 					<td>최근 7일 가입 회원 수</td>
-					<td>123명</td>
+					<td>${recent_member_count}명</td>
 				</tr>
 			</tbody>
 		</table>
@@ -161,11 +142,11 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td>전체 판매자 수</td>
-					<td>1000명</td>
+					<td>${seller_total_count}명</td>
 				</tr>
 				<tr>
 					<td>최근 7일 가입 판매자 수</td>
-					<td>123명</td>
+					<td>${recent_seller_count}명</td>
 				</tr>
 			</tbody>
 		</table>

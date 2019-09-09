@@ -39,42 +39,38 @@
 		}
 </script>
 <script>
+	var chart;
 	window.onload = function () {
-		var arr = [];
-			arr.push(['날짜', '금액']);
-		<c:forEach var="monthPrice" items="${hotel_month_price}">
-				arr.push(['${monthPrice.monthly}', ${monthPrice.total}]);
-		</c:forEach>
-	var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled: true,  
-		title:{
-			text: "${this_month}월 날짜별 예약 금액"
-		},
-		axisX:{
-			minimum:"1",
-			maximum: "31"
-		},
-		axisY: {
-			title: "price",
-			valueFormatString: "\###,###,###,##0.##",
-			suffix: "원"
-		},
-		data: [{
-			type: "splineArea",
-			color: "rgba(54,158,173,.7)",
-			markerSize: 10,
-			xValueFormatString: "DD",
-			yValueFormatString: "\#,##0.##",
-			dataPoints: [
-				<c:forEach var="monthPrice" items="${hotel_month_price}">
-					{ x: new Date('${monthPrice.monthly}').getDate() , y: ${monthPrice.total}} ,
-				</c:forEach>
-				
-			]
-		}]
-		});
-	chart.render();
 	
+		chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,  
+			title:{
+				text: "${this_month}월 날짜별 예약 금액"
+			},
+			axisX:{
+				minimum:"1",
+				maximum: "31"
+			},
+			axisY: {
+				title: "price",
+				valueFormatString: "\###,###,###,##0.##",
+				suffix: "원"
+			},
+			data: [{
+				type: "splineArea",
+				color: "rgba(54,158,173,.7)",
+				markerSize: 7,
+				xValueFormatString: 'DD',
+				yValueFormatString: "\#,##0.##",
+				dataPoints: [
+					<c:forEach var="monthPrice" items="${hotel_month_price}">
+						{ x: new Date('${monthPrice.monthly}').getDate() , y: ${monthPrice.total} , label:new Date('${monthPrice.monthly}').getDate()} ,
+					</c:forEach>
+					
+				]
+			}]
+			});
+		chart.render();
 	}
 </script>
 <style>
@@ -143,9 +139,27 @@
 	</div>
 </div>
 
-<div style="width: 100%; text-align: center; margin-top: 100px;p"><h2>(${hdto.hotel_name}) 의 이번달 매출 내역</h2></div>
+<div style="width: 100%; text-align: center; margin-top: 100px; margin-bottom: 100px;"><h2>(${hdto.hotel_name}) 의 이번달 매출 내역</h2></div>
 <div>
-	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<div id="chartContainer" style="height: 370px; width: 50%; display: inline-block;"></div>
+	<div style="width: 49%; display: inline-block;">
+	<table class="table chart_table_size">
+		<thead>
+			<tr>
+				<th class="menu_month">날짜</th>
+				<th>건수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="sales" items="${hotel_month_cnt}">
+				<tr>
+					<td>${sales.monthly}</td>
+					<td>${sales.count}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	</div>
 </div>
 
 

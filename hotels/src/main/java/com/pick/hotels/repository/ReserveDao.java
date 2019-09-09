@@ -3,6 +3,7 @@ package com.pick.hotels.repository;
 import java.util.List;
 
 import com.pick.hotels.entity.ReserveDto;
+import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.ReserveVO;
 
 public interface ReserveDao {
@@ -22,6 +23,8 @@ public interface ReserveDao {
 	int count(int member_no);
 
 	List<ReserveVO> cancel_list(int member_no);
+
+	List<ReserveTotalVO> getTotal();
 
 
 

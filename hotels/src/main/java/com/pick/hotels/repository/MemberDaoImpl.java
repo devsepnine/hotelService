@@ -142,6 +142,7 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.recent_count");
 	}
 
+//	월별 가입 회원 수
 	@Override
 	public List<MemberCountVO> monthly_count() {
 		return sqlSession.selectList("member.monthly_count");
