@@ -41,6 +41,8 @@ public interface FileService {
 
 	void partner_delete(int partner_no);
 
+	void room_delete(int no);
+
 
 	
 }
