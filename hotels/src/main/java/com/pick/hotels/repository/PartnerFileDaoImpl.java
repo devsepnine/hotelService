@@ -30,4 +30,9 @@ public class PartnerFileDaoImpl implements PartnerFileDao{
 		return sqlSession.selectList("partnerFile.getlist", partner_no);
 	}
 
+	@Override
+	public void delete(int no) {
+		sqlSession.delete("partnerFile.delete", no);
+	}
+
 }

@@ -12,4 +12,6 @@ public interface PartnerFileDao {
 
 	List<PartnerFileDto> getlist(int partner_no);
 
+	void delete(int no);
+
 }
