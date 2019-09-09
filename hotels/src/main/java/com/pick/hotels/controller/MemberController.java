@@ -390,7 +390,7 @@ public class MemberController {
 		return "member/coupon_list";
 	}
 	
-	@GetMapping("/coupon_down")
+	@GetMapping("/coupon_down_list")
 	public String coupon_down(Model model, HttpSession session, @ModelAttribute CouponVO couponVO) {
 		 int member_no = (int) session.getAttribute("no");
 		 
@@ -399,6 +399,9 @@ public class MemberController {
 		 model.addAttribute("couponVO", down_list);
 		return "member/coupon_down";
 	}
+	
+//	@PostMapping("/coupon_down_list")
+//	public String coupon
 	
 	
 	

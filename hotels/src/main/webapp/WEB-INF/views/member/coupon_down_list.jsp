@@ -14,11 +14,14 @@
       background-image : url('${pageContext.request.contextPath}/resources/image/coupon.png');
       width :547px;
       height : 194px;
+      text-align: center;
+      color: black
+      }
+      .down{
+      	width: 115px;
+      	height: 194px;
       }
       
-       .name{
-      	text-align: center;
-      }
 </style>
 
 <script>
@@ -36,17 +39,21 @@
 		<table  class="coupon_list_download" >
 				<tbody class="coupon_down">
 					<tr>
-						<td style="font-size: 25px; padding-top: 20px;" class="name">${cvo.coupon_name}</td>
-						<td rowspan="4" style="width: 115px;"><a href="#"></a></td>
+						<td style="font-size: 25px; padding-top: 30px;" class="name">${cvo.coupon_name}</td>
+						<td rowspan="4" style="width: 115px;">
+							<div class="down" style="text-align: center;">
+								<a href="#"  style="top: 50px;height: 100%;display: block;"></a>
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<td>${cvo.coupon_price}</td>
+						<td style="font-size: 40px;">${cvo.coupon_price}원</td>
 					</tr>
 					<tr>
-						<td>${cvo.coupon_date1.substring(0,11)} ~ ${cvo.coupon_date2.substring(0,11)}</td>
+						<td>${cvo.coupon_date1.substring(0,11)} ~ ${cvo.coupon_date2.substring(0,11)}까지</td>
 					</tr>
 					<tr>
-						<td><p>최소 ${cvo.coupon_minimum}원 이상 결제시 사용가능</p></td>
+						<td style="font-size: 1px; color: gray;"><p>${cvo.coupon_minimum}원 이상 결제시 사용가능</p></td>
 					</tr>
 				</tbody>
 		</table>
