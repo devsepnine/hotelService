@@ -35,4 +35,6 @@ public interface HotelDao {
 
 	List<HotelSalesVO> salesPrice(int hotel_no);
 
+	public String getMonth();
+
 }
