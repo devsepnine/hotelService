@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.Review_list_vo;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.HotelDao;
@@ -32,6 +35,7 @@ import com.pick.hotels.repository.RoomFileDao;
 @RequestMapping("/hotel")
 public class HotelController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private @Autowired HotelDao hotelDao;
 	
@@ -71,7 +75,10 @@ public class HotelController {
 			detail_list.add(drv);
 		}
 		Float hotel_score = reviewDao.get_avg_star(hotel_no);
+		List<Review_list_vo> review = reviewDao.get_list(hotel_no);
+		System.out.println(review);
 		
+		model.addAttribute("review_list", review);
 		model.addAttribute("hotel_score", hotel_score);
 		model.addAttribute("detail_list", detail_list);
 		model.addAttribute("hdto", hdto);

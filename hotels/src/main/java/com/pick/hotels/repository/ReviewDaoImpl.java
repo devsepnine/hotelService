@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.ReviewDto;
 import com.pick.hotels.entity.ReviewVO;
+import com.pick.hotels.entity.Review_list_vo;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
@@ -56,6 +57,12 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Override
 	public Float get_avg_star(int hotel_no) {
 		return sqlSession.selectOne("review.getavgstar", hotel_no);
+	}
+
+	@Override
+	public List<Review_list_vo> get_list(int hotel_no) {
+		
+		return sqlSession.selectList("review.h_get_list", hotel_no);
 	}
 
 	
