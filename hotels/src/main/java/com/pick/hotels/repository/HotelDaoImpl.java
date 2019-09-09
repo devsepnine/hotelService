@@ -91,5 +91,10 @@ public class HotelDaoImpl implements HotelDao{
 		return sqlSession.selectList("hotel.monthSalePrice", hotel_no);
 	}
 
+	@Override
+	public String getMonth() {
+		return sqlSession.selectOne("hotel.this_month");
+	}
+
   
 }

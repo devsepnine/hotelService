@@ -2,11 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
-<!-- date picker 소스파일 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <!-- jquery ui -->
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
@@ -24,23 +21,61 @@
 // 			]
 
  			var arr = [];
- 				arr.push(['월', '금액']);
+ 				arr.push(['날짜', '금액']);
  			<c:forEach var="salesPrice" items="${hotel_price}">
  					arr.push(['${salesPrice.monthly}', ${salesPrice.total}]);
  			</c:forEach>
 			
  			var data = google.visualization.arrayToDataTable(arr);
  			var options = {
- 					title : '월별 매출',
+ 					title : '해당월 날짜별 매출',
  					vAxis: {title: 'Price(원)'},
  					hAxis: {title: 'Month'}, 
  					seriesType: 'bars',
  					series: {5: {type: 'line'}}
  				};
-			
- 			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
- 			chart.draw(data, options);
+	 			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	 			chart.draw(data, options);
 		}
+</script>
+<script>
+	window.onload = function () {
+		var arr = [];
+			arr.push(['날짜', '금액']);
+		<c:forEach var="monthPrice" items="${hotel_month_price}">
+				arr.push(['${monthPrice.monthly}', ${monthPrice.total}]);
+		</c:forEach>
+	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled: true,  
+		title:{
+			text: "${this_month}월 날짜별 예약 금액"
+		},
+		axisX:{
+			minimum:"1",
+			maximum: "31"
+		},
+		axisY: {
+			title: "price",
+			valueFormatString: "\###,###,###,##0.##",
+			suffix: "원"
+		},
+		data: [{
+			type: "splineArea",
+			color: "rgba(54,158,173,.7)",
+			markerSize: 10,
+			xValueFormatString: "DD",
+			yValueFormatString: "\#,##0.##",
+			dataPoints: [
+				<c:forEach var="monthPrice" items="${hotel_month_price}">
+					{ x: new Date('${monthPrice.monthly}').getDate() , y: ${monthPrice.total}} ,
+				</c:forEach>
+				
+			]
+		}]
+		});
+	chart.render();
+	
+	}
 </script>
 <style>
 	.chart_page{
@@ -73,8 +108,6 @@
 	.chart_page_title{
 		width: 100%;
 	}
-
-
 	
 </style>
 
@@ -82,8 +115,8 @@
 <div style="height: 20px;"></div>
 <div>
 	<div class="chart_page_title">
-		<div class="chart_name">월별 매출 금액</div>
-		<div class="chart_name">월별 매출 건수</div>
+		<div class="chart_name">${this_month}월 날짜별 매출 금액</div>
+		<div class="chart_name">${this_month}월 날짜별 매출 건수</div>
 	</div>
 	<div class="chart_page">
 		<div class="chart_chart">
@@ -93,7 +126,7 @@
 			<table class="table chart_table_size">
 				<thead>
 					<tr>
-						<th class="menu_month">월</th>
+						<th class="menu_month">날짜</th>
 						<th>건수</th>
 					</tr>
 				</thead>
@@ -110,26 +143,10 @@
 	</div>
 </div>
 
-<div class="chart_page_title" style="margin-top: 150px;">
-	<div style="width: 100%; text-align: center;"><h2 style="margin-bottom: 100px;">내 호텔별 매출</h2></div>
-	<c:forEach var="hdtolist" items="${hdtolist}">
-		<div style="display: inline-block; margin-left: 30px; width: 33%;">
-			<div>
-				<div style="text-align: center">
-					<h3><a href="hotel_sales?hotel_no=${hdtolist.hotel_no}">${hdtolist.hotel_name}</a></h3>
-				</div>
-				
-				<div>
-					<a href="hotel_sales?hotel_no=${hdtolist.hotel_no}">
-						<img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdtolist.hotel_title}" width="100%" height="600px;">
-					</a>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+<div style="width: 100%; text-align: center; margin-top: 100px;p"><h2>(${hdto.hotel_name}) 의 이번달 매출 내역</h2></div>
+<div>
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 </div>
-
-
 
 
 <jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>
