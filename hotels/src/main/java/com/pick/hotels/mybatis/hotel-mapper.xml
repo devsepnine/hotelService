@@ -154,14 +154,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	호텔별 월별 매출 구하기 -->
 	<select id="monthSalePrice" parameterType="int" resultType="hotelSalesVO">
 		select distinct
-		    to_char(RV.reserve_in,'YYYY/MM/DD') monthly, 
-		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY/MM/DD') order by R.hotel_no asc) total
+		    to_char(RV.reserve_in,'YYYY,MM,DD') monthly, 
+		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY,MM,DD') order by R.hotel_no asc) total
 		    from room R 
 		        inner join reserve RV on
 		            R.room_no = RV.reserve_room_no
 		            where R.hotel_no = #{hotel_no} and to_char(RV.reserve_in,'MM') = to_char(sysdate,'MM') and RV.reserve_ok = '예약'
-		    group by to_char(RV.reserve_in,'YYYY/MM/DD'),reserve_price, hotel_no, to_char(RV.reserve_in,'MM')
+		    group by to_char(RV.reserve_in,'YYYY,MM,DD'),reserve_price, hotel_no, to_char(RV.reserve_in,'MM')
 		    order by monthly asc
+	</select>
+	
+	<!-- 해당 월 꺼내오기 -->
+	<select id="this_month" resultType="String">
+		select distinct to_char(sysdate,'MM') month from hotel
 	</select>
 	
 </mapper>

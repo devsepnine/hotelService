@@ -98,12 +98,32 @@ public class SellerController {
 	
 	@GetMapping("/hotel_sales")
 	public String hotel_sales(@RequestParam int hotel_no, Model model) {
-		List<HotelSalesVO> hotel_cnt = hotelDao.monthSales(hotel_no);
-		List<HotelSalesVO> hotel_price = hotelDao.monthSalesPrice(hotel_no);
+
+//		해당월 날짜별 예약 건수
+		List<HotelSalesVO> hotel_month_cnt = hotelDao.monthSales(hotel_no);
+		
+//		해당월 날짜별 매출 금액
+		List<HotelSalesVO> hotel_month_price = hotelDao.monthSalesPrice(hotel_no);
+		
+		
+//		지정호텔 전체 월별 건수
+		List<HotelSalesVO> hotel_cnt = hotelDao.sales(hotel_no);
+		
+//		지정호텔 전체 월별 매출
+		List<HotelSalesVO> hotel_price = hotelDao.salesPrice(hotel_no);
+		
+//		지정호텔 Dto
+		HotelDto hdto = hotelDao.get(hotel_no);
+		
+//		해당 월 가져오기
+		String this_month = hotelDao.getMonth();
 		
 		model.addAttribute("hotel_price", hotel_price);
 		model.addAttribute("hotel_cnt", hotel_cnt);
-		
+		model.addAttribute("hotel_month_cnt", hotel_month_cnt);
+		model.addAttribute("hotel_month_price", hotel_month_price);
+		model.addAttribute("hdto", hdto);
+		model.addAttribute("this_month", this_month);
 		return "seller/hotel_sales";
 	}
 	
