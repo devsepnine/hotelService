@@ -132,6 +132,7 @@ public class RoomController {
 		List<RoomFileDto> list = roomFileDao.getlist(room_no);
 		model.addAttribute("rdto", rdto);
 		model.addAttribute("rfdtolist", list);
+		model.addAttribute("room_no", room_no); 
 		return "room/edit";
 	}
 	
