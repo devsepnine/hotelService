@@ -14,4 +14,6 @@ public interface RoomFileDao {
 
 	RoomFileDto get(int no);
 
+	void delete(int no);
+
 }

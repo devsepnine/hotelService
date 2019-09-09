@@ -241,7 +241,7 @@ public class FileServiceImpl implements FileService{
 		PartnerFileDto pfdto = partnerFileDao.get(no);
 		
 //		HDD에서 지운다
-		File dir = new File("D:/upload/kh16/attraction", pfdto.getP_file_name() );
+		File dir = new File("D:/upload/kh16/partner", pfdto.getP_file_name() );
 		dir.delete();
 		
 //		DB에서 지운다
@@ -259,7 +259,7 @@ public class FileServiceImpl implements FileService{
 		dir.delete();
 		
 //		DB에서 지운다
-		restaurantFileDao.exit(no);
+		roomFileDao.delete(no);
 	}
 
 	

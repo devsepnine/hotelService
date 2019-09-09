@@ -35,6 +35,11 @@ public class RoomFileDaoImpl implements RoomFileDao{
 		return sqlSession.selectOne("roomFile.get", no);
 	}
 
+	@Override
+	public void delete(int no) {
+		sqlSession.delete("roomFile.delete",no);
+	}
+
 
 
 }
