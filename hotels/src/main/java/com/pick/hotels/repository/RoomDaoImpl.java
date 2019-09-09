@@ -46,6 +46,16 @@ public class RoomDaoImpl implements RoomDao{
 		sqlSession.update("room.edit",roomDto);
 	}
 
-	
+	@Override
+	public boolean delete(int room_no) {
+		try {
+			sqlSession.insert("room.delete", room_no);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

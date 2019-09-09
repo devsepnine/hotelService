@@ -56,7 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				room_bath = #{room_bath}, room_hair = #{room_hair}, room_cookoo = #{room_cookoo}, 
 				room_smoking = #{room_smoking}, room_cooking = #{room_cooking}
 			where room_no = #{room_no}
-	</update>  
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete room where room_no = #{room_no}
+	</delete>
 	
                                        
  </mapper>
