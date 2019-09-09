@@ -245,7 +245,7 @@ public class FileServiceImpl implements FileService{
 		dir.delete();
 		
 //		DB에서 지운다
-		attractionFileDao.exit(no);
+		partnerFileDao.delete(no);
 	}
 
 
