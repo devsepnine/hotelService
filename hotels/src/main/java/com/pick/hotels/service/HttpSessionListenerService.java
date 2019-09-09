@@ -13,12 +13,18 @@ import org.slf4j.LoggerFactory;
 public class HttpSessionListenerService implements HttpSessionListener{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	private static Object lock = new Object();
+	
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
 		ServletContext application = se.getSession().getServletContext();
 		Integer usercnt = (Integer) application.getAttribute("usercnt");
 		if (usercnt==null)usercnt=0;
-		usercnt++;
+		
+		synchronized(lock) {
+			usercnt++;
+		}
+		
 		application.setAttribute("usercnt", usercnt);
 		logger.debug("\n"+
 				" _   _ _______        __  __  __ _____ __  __  ____ _____  ____ \r\n" + 
@@ -33,7 +39,11 @@ public class HttpSessionListenerService implements HttpSessionListener{
 		ServletContext application = se.getSession().getServletContext();
 		Integer usercnt = (Integer) application.getAttribute("usercnt");
 		if(usercnt==null || usercnt <= 0)usercnt=1;
-		usercnt--;
+		
+		synchronized(lock) {
+			usercnt--;
+		}
+		
 		application.setAttribute("usercnt", usercnt);
 		logger.debug("\n"+
 				"  ___  _   _ _____   __  __ _____ __  __  ____ _____  ____ \r\n" + 
