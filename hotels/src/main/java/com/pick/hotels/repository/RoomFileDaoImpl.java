@@ -30,6 +30,11 @@ public class RoomFileDaoImpl implements RoomFileDao{
 		return sqlSession.selectList("roomFile.getlist", room_no);
 	}
 
+	@Override
+	public RoomFileDto get(int no) {
+		return sqlSession.selectOne("roomFile.get", no);
+	}
+
 
 
 }

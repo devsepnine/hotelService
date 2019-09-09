@@ -22,6 +22,7 @@ import com.pick.hotels.repository.NoticeDao;
 import com.pick.hotels.repository.PartnerFileDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
+import com.pick.hotels.repository.RoomFileDao;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -49,6 +50,9 @@ public class FileServiceImpl implements FileService{
 	
 	@Autowired
 	private PartnerFileDao partnerFileDao;
+	
+	@Autowired
+	private RoomFileDao roomFileDao;
 	
 	
 //	공지사항 파일 저장
@@ -242,6 +246,20 @@ public class FileServiceImpl implements FileService{
 		
 //		DB에서 지운다
 		attractionFileDao.exit(no);
+	}
+
+
+	@Override
+	public void room_delete(int no) {
+//		번호로 이름을 구한다
+		RoomFileDto rfdto = roomFileDao.get(no);
+		
+//		HDD에서 지운다
+		File dir = new File("D:/upload/kh16/room", rfdto.getR_file_name() );
+		dir.delete();
+		
+//		DB에서 지운다
+		restaurantFileDao.exit(no);
 	}
 
 	
