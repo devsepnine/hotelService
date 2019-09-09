@@ -19,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.CertDto;
+import com.pick.hotels.entity.CouponDto;
+import com.pick.hotels.entity.CouponHistoryDto;
+import com.pick.hotels.entity.CouponVO;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.WishDto;
 import com.pick.hotels.entity.WishListVO;
 import com.pick.hotels.repository.CertDao;
+import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.WishDao;
@@ -45,6 +49,9 @@ public class MemberController {
 	
 	@Autowired
 	private EmailCertDao emailcertDao;
+	
+	@Autowired
+	private CouponDao couponDao;
 	
 	
 	
@@ -370,6 +377,26 @@ public class MemberController {
 			else {
 				resp.getWriter().print("N");
 			}
+	}
+	
+	@GetMapping("/coupon_list")
+	public String coupon_list(Model model, HttpSession session, @ModelAttribute CouponVO couponVO) {
+		 int member_no = (int) session.getAttribute("no");
+		 
+		 List<CouponVO> list = couponDao.coupon_list(member_no);
+		 
+		 model.addAttribute("couponVO", list);
+		return "member/coupon_list";
+	}
+	
+	@GetMapping("/coupon_down")
+	public String coupon_down(Model model, HttpSession session, @ModelAttribute CouponVO couponVO) {
+		 int member_no = (int) session.getAttribute("no");
+		 
+		 List<CouponVO> down_list = couponDao.coupon_down_list(member_no);
+		 
+		 model.addAttribute("couponVO", down_list);
+		return "member/coupon_down";
 	}
 	
 	
