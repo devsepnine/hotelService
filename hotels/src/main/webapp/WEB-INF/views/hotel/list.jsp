@@ -63,7 +63,11 @@
 		<table class="table table-hamburg table-stripe hotel_info">
 			<tbody>
 					<tr>
-						<td rowspan="3" style="width: 180px;"><a href="detail?hotel_no=${hdto.hotel_no}"><img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}" width="240px" height="240px"></a></td>
+						<td rowspan="3" style="width: 180px;">
+							<a href="detail?hotel_no=${hdto.hotel_no}">
+								<img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdto.hotel_title}" width="240px" height="240px">
+							</a>
+						</td>
 						<td class="content_title">호텔 이름
 							<input type="hidden" id="hotel_no" name="hotel_no" value="${hdto.hotel_no}">
 						</td>

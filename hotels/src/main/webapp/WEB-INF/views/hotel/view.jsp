@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
 <!-- 평점 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
@@ -12,7 +13,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
-
+<!-- 다음 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46239c794a7a0438306ca21d387251c8"></script>
+  	
 <!-- 	swiper 소스파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/swiper/swiper.css">
 <script src="${pageContext.request.contextPath}/js/swiper/swiper.js"></script>
@@ -52,9 +55,7 @@
 		url : "${pageContext.request.contextPath}/region",
 		dataType:"json",
 		success: function(data){
-			console.log(data[1].region_kor_name);
 			var size = Object.keys(data).length;
-			console.log(size);
 			for(var i=0; i<size; i++){
 				states.push(data[i].region_kor_name);
 				states.push(data[i].region_eng_name);
@@ -142,7 +143,12 @@ $(function(){
 				autoplay: {
 				      delay: 2500,
 				      disableOnInteraction: false,
-			    }
+			    },
+			    pagination: {
+			        el: '.swiper-pagination',
+			        type:'bullets',
+			        clickable:'true',
+			      }
 		    })
 	})
 </script>
@@ -154,6 +160,18 @@ $(function(){
 	}
 	.room-swiper{
 		height: 100%;
+	}
+	.room-swiper .swiper-pagination{
+		position: relative;
+		text-align: center;
+		bottom: 27px;
+	}
+	.swiper-pagination-bullet{
+		background: white;
+		opacity: 0.7;
+	}
+	.swiper-pagination-bullet-active{
+		background: #007aff;
 	}
 </style>
 
@@ -192,11 +210,50 @@ $(function(){
     	border-bottom: 1px solid lightgray;
     	padding-bottom: 10px;
     }
+    .hotel-content-wrap{
+		padding: 10px;
+		display: flex;
+    }
+    .hotel-content-wrap .hotel-star-wrap{
+    	border: 1px solid lightgray;
+    	border-radius: 5px;
+    	height:180px;
+    	padding: 10px;
+    	flex-grow: 1;
+    	margin-right: 20px;
+    	
+    }
+    .hotel-content-wrap .hotel-content-wrap{
+    	border: 1px solid lightgray;
+    	border-radius: 5px;
+    	flex-grow: 1;
+    }
+    .hotel-star-wrap .hotel-star{
+    	width: 200px;
+    	margin: auto;
+    	margin-top: 40px;
+    }
+    .hotel-star-wrap .hotel-star .star-wrap{
+	    display: inline-block;
+	    width:200px;
+	    height:40px;
+	}
+	.hotel-star-wrap .hotel-star .star-wrap > .star-paint{
+	    width:0%;
+	    height:40px;
+	    background-color:#5392f9;
+	}
+	.hotel-star-wrap .hotel-star .star-wrap > img{
+	    position: absolute;
+	    width:200px;
+	    height:40px;
+	}
 </style>
 <!--  room detail style -->
 <style>
 	.room-detail{
-		display: inline-block;
+		display: flex;
+		flex-flow: column;
 	}
 	.room-header{
 		font-size: 15px;
@@ -205,7 +262,6 @@ $(function(){
 		border: 1px solid #ced4da;
 		border-radius:10px;
 		padding: 5px;
-		margin:auto;
 		width: 750px;
 	}
 	.room-detail >.room-ico-wrap img{
@@ -218,7 +274,30 @@ $(function(){
 	}
 	.room-thumnail{
 		width: 300px;
-		height: 240px;
+		height: 200px;
+		margin-right: 5px;
+	}
+	.room-reserve{
+		display: flex;
+		margin-bottom: 15px;
+	}
+	.room-reserve>div{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+		margin-right: 10px;
+		padding: 10px;
+	}
+	.room-pic img{
+		border-radius: 5px;
+	}
+	.reserve-info{
+		flex-grow: 1;
+	}
+	.room-intro{
+		flex-grow: 3;
+	}
+	.reserve-price{
+		flex-grow: 1;
 	}
 </style>
 <style>
@@ -259,6 +338,7 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
+    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
     		$(".room-area").css("display","none");
@@ -301,6 +381,8 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
+    		var region_uri = encodeURI($("input[name=region]").val());
+    		$("input[name=region]").val(region_uri);
     		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 0){
@@ -473,7 +555,7 @@ $(function(){
     .card 
 </style>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
+
 <script>
 	$(function(){
 		var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
@@ -530,7 +612,7 @@ $(function(){
 	    <option value="5" ${param.people eq 5?"selected":""}>총 인원 5</option>
 	  </select>
 	</div>
-	<input class="btn btn-danger" type="submit" value="호텔 검색">
+	<input class="btn btn-danger" type="submit" value="호텔 재 검색">
 	
 <span style="font-size: 20px;" class="diff"></span>
 </div>
@@ -579,16 +661,21 @@ $(function(){
 			<div class="hotel-addr">
 				<div>${hdto.hotel_basic_addr}</div>
 			</div>
-			<div>
-				<span>${hdto.hotel_content}</span>
-			</div>
 			
-			<div>
-				<div class="hotel-star" style="width: 120px;display: inline-block;">
-			    	<div style="display: inline-block;" data-toggle="tooltip" title="리뷰 평점 : ${hotel_score}" class="star-wrap" data-star="${hotel_score}" >
-			        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
-			        	<div class="star-paint"></div>
-			    	</div>
+			
+			<div class="hotel-content-wrap">
+				<div class="hotel-star-wrap">
+					<div class="hotel-star">
+				    	<div style="display: inline-block;" data-toggle="tooltip" title="리뷰 평점 : ${hotel_score}" class="star-wrap" data-star="${hotel_score}" >
+				        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+				        	<div class="star-paint"></div>
+				    	</div>
+				    	<font style="margin: auto; width: 70px;display: block">리뷰 평점</font>
+					</div>
+				</div>
+				
+				<div class="hotel-content-wrap">
+					<span>${hdto.hotel_content}</span>
 				</div>
 			</div>
 			
@@ -636,17 +723,34 @@ $(function(){
 				    <!-- Additional required wrapper -->
 				    <div class="swiper-wrapper">
 				        <!-- Slides -->
-				        <c:forEach items="${detail_room.room_file_list }" var="room_picture">
+				        <c:forEach items="${detail_room.room_file_list}" var="room_picture">
 				        <div class="swiper-slide"><img height="200px" src="${pageContext.request.contextPath }/img_v/4?img_name=${room_picture.r_file_name}"></div>
 				        </c:forEach>
-				        
 				    </div>
-				    	<img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="BED TYPE" src="${pageContext.request.contextPath}/img/room_ico/bed.png"> : ${detail_room.rdto.room_bed}
+				    <div class="swiper-pagination"></div>
 				</div>
 			</div>
 		</div>
 			<div class="room-detail">
+			
+				<div class="room-reserve">
+					<div class="reserve-info">
+						<img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="침구" src="${pageContext.request.contextPath}/img/room_ico/bed.png"> : ${detail_room.rdto.room_bed}
+						<br>
+						<div><img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="정원" src="${pageContext.request.contextPath}/img/room_ico/people.png"> : ${detail_room.rdto.room_people}</div>
+					</div>
+					<div class="room-intro">
+						<div>${detail_room.rdto.room_content}</div>
+					</div>
+					<div class="reserve-price">
+						<div><div style="font-weight: bold; font-size: 20px;text-align: right;color: black"><fmt:formatNumber value="${detail_room.rdto.room_price}" pattern="#,###" />원</div></div>
+						<div style="text-align: center">세금 및 기타 요금 포함</div>
+						<div><a class="btn btn-reserve btn-block" style="color: white; border-radius: 10px;">예약하러 가기</a></div>
+					</div>
+				</div>
+				
 				<div class="room-ico-wrap">
+					<div style="border-bottom: 1px solid lightgray; margin-bottom: 5px;">서비스 / 혜택</div>
 					<c:if test="${detail_room.rdto.room_breakfast eq 'Y'}">
 					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="조식" src="${pageContext.request.contextPath}/img/room_ico/breakfast.png"></c:if>
 					<c:if test="${detail_room.rdto.room_spa eq 'Y'}">
@@ -669,12 +773,11 @@ $(function(){
 					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="취사가능" src="${pageContext.request.contextPath}/img/room_ico/cooking.png"></c:if>
 					<c:if test="${detail_room.rdto.room_bath eq 'Y'}">
 					<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="욕조" src="${pageContext.request.contextPath}/img/room_ico/bath.png"></c:if>
-					
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>${detail_room}</p>
+<%-- 	<p>${detail_room}</p> --%>
 
 	
 </c:forEach>

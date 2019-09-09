@@ -22,13 +22,11 @@
 // 				['2004/07',  165],
 // 				['2004/08',  165]
 // 			]
-          
+
  			var arr = [];
  				arr.push(['월', '금액']);
- 			<c:forEach var="salesPrice" items="${monthly_price}">
- 				<c:forEach var="con" items="${salesPrice}">
- 					arr.push(['${con.monthly}', ${con.total}]);
- 				</c:forEach>
+ 			<c:forEach var="salesPrice" items="${hotel_price}">
+ 					arr.push(['${salesPrice.monthly}', ${salesPrice.total}]);
  			</c:forEach>
 			
  			var data = google.visualization.arrayToDataTable(arr);
@@ -100,13 +98,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="sales" items="${monthlySales}">
-						<c:forEach var="con" items="${sales}">
-							<tr>
-								<td>${con.monthly}</td>
-								<td>${con.count}</td>
-							</tr>
-						</c:forEach>
+					<c:forEach var="sales" items="${hotel_cnt}">
+						<tr>
+							<td>${sales.monthly}</td>
+							<td>${sales.count}</td>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>

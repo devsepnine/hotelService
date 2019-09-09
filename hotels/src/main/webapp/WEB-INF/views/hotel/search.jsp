@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
+
 <!-- 	date picker width 버그 수정 -->
 <!-- 	date picker width 버그 수정 -->
 <style>
@@ -156,7 +157,7 @@ $(function(){
 	})
 })
 </script>
-
+<!-- 자동완성 스크립트 시작 -->
 <script>
 	var states = [];
 	$.ajax({
@@ -164,9 +165,7 @@ $(function(){
 		url : "${pageContext.request.contextPath}/region",
 		dataType:"json",
 		success: function(data){
-			console.log(data[1].region_kor_name);
 			var size = Object.keys(data).length;
-			console.log(size);
 			for(var i=0; i<size; i++){
 				states.push(data[i].region_kor_name);
 				states.push(data[i].region_eng_name);
@@ -174,7 +173,7 @@ $(function(){
 		}
 	})
 </script>
-<!-- 자동완성 스크립트 -->
+
 <script>
 $(function(){
 	var substringMatcher = function(strs) {
@@ -210,12 +209,14 @@ $(function(){
 	});
 })
 </script>
+<!-- 자동완성 스크립트 종료 -->
+
 
 <form action="search">
 <div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
+		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="" required>
 	</div>
 	
 	<div style="width: 200px;display: inline-block;">
@@ -261,6 +262,8 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
+    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
+    	
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
     		$(".room-area").css("display","none");
@@ -303,6 +306,8 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
+    		var region_uri = encodeURI($("input[name=region]").val());
+    		$("input[name=region]").val(region_uri);
     		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 0){

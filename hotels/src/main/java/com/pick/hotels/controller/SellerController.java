@@ -75,16 +75,36 @@ public class SellerController {
 //		HotelDto hotelDto = hotelDao.getNo(seller_no);
 //		System.out.println(hotelDto);
 		List<HotelDto> hdtoList = hotelDao.getNoList(seller_no);
-		System.out.println(hdtoList);
-		List<List<HotelSalesVO>> monthly = new ArrayList<>();
-		for(HotelDto list : hdtoList) {
-			List<HotelSalesVO> hotel_sales = hotelDao.sales(list.getHotel_no());
-			monthly.add(hotel_sales);
-		}
-		System.out.println(monthly);
-		model.addAttribute("monthlySales", monthly);
 		
+//		월별 건수
+		List<List<HotelSalesVO>> monthly_cnt = new ArrayList<>();
+		for(HotelDto list : hdtoList) {
+			List<HotelSalesVO> hotel_cnt = hotelDao.sales(list.getHotel_no());
+			monthly_cnt.add(hotel_cnt);
+		}
+		
+//		월별 금액
+		List<List<HotelSalesVO>> monthly_price = new ArrayList<>();
+		for(HotelDto pricelist : hdtoList) {
+			List<HotelSalesVO> hotel_price = hotelDao.salesPrice(pricelist.getHotel_no());
+			monthly_price.add(hotel_price);
+		}
+		
+		model.addAttribute("monthly_price", monthly_price);
+		model.addAttribute("monthlySales", monthly_cnt);
+		model.addAttribute("hdtolist", hdtoList);
 		return "seller/main";
+	}
+	
+	@GetMapping("/hotel_sales")
+	public String hotel_sales(@RequestParam int hotel_no, Model model) {
+		List<HotelSalesVO> hotel_cnt = hotelDao.monthSales(hotel_no);
+		List<HotelSalesVO> hotel_price = hotelDao.monthSalesPrice(hotel_no);
+		
+		model.addAttribute("hotel_price", hotel_price);
+		model.addAttribute("hotel_cnt", hotel_cnt);
+		
+		return "seller/hotel_sales";
 	}
 	
 	@GetMapping("/lisence")

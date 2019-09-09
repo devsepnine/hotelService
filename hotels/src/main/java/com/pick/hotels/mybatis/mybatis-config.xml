@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -48,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.AttractionListVO" alias="attractionListVO"/>
 		<typeAlias type="com.pick.hotels.entity.RestaurantListVO" alias="restaurantListVO"/>
 		<typeAlias type="com.pick.hotels.entity.CouponVO" alias="couponVO"/>
+		<typeAlias type="com.pick.hotels.entity.MemberCountVO" alias="memberCountVO"/>
 	</typeAliases>
   
 </configuration>

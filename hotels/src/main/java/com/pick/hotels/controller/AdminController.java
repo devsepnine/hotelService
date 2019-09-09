@@ -22,9 +22,9 @@ import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.AttractionListVO;
 import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.EmailCertDto;
+import com.pick.hotels.entity.MemberCountVO;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.PartnerDto;
-import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.PartnerListVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
@@ -83,10 +83,27 @@ public class AdminController {
 	
 	@Autowired
 	private PartnerFileDao partnerFileDao;
+
+	
+//------------------------------------------------------------------------------------
+//	관광지
+//------------------------------------------------------------------------------------
 	
 //	전체 관리 페이지("main")
 	@GetMapping("/main")
-	public String main() {
+	public String main(Model model, 
+						@ModelAttribute MemberDto memberDto,
+						@ModelAttribute SellerDto sellerDto) {
+		
+		int member_total_count = memberDao.total_count();
+		int recent_member_count = memberDao.recent_count();
+		List<MemberCountVO> member_monthly_count = memberDao.monthly_count();
+		System.out.println(member_monthly_count);
+		
+		model.addAttribute("member_total_count", member_total_count);
+		model.addAttribute("recent_member_count", recent_member_count);
+		model.addAttribute("member_monthly_count", member_monthly_count);
+		
 		return "admin/main";
 	}
 	
@@ -592,7 +609,7 @@ public class AdminController {
 		
 		model.addAttribute("no", no);
 		
-		return "redirect:detail";
+		return "redirect:list";
 	}
 	
 	

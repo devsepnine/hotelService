@@ -156,6 +156,8 @@
 
     	$("form").submit(function(e){
     		e.preventDefault();
+    		var region_uri = encodeURI($("input[name=region]").val());
+    		$("input[name=region]").val(region_uri);
     		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 0){
@@ -212,9 +214,7 @@
 		url : "${pageContext.request.contextPath}/region",
 		dataType:"json",
 		success: function(data){
-			console.log(data[1].region_kor_name);
 			var size = Object.keys(data).length;
-			console.log(size);
 			for(var i=0; i<size; i++){
 				states.push(data[i].region_kor_name);
 				states.push(data[i].region_eng_name);
@@ -264,7 +264,7 @@ $(function(){
 <form action="${pageContext.request.contextPath }/hotel/search">
 <div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;">
 	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control" required>
+		<input type="text" placeholder="지역 검색" name="region" class="form-control" required>
 	</div>
 	
 	<div style="width: 200px;display: inline-block;">

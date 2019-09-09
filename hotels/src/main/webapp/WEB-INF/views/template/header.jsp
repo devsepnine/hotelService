@@ -14,6 +14,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	
   <script>
         $(function(){
         	$('[data-toggle="tooltip"]').tooltip();
@@ -59,9 +60,13 @@
 		right:10px;
         z-index: 999;
         display: none;
-        transition: left .3s ease-in;
         margin: 0px;
+        color: #f1e3c4;
     }
+    .menubtn:hover{
+    	text-shadow: 0px 0px 20px white;
+    	color: lime;
+    }	
     .admin-btn{
     	position:fixed;
     	top : 20px;
@@ -165,7 +170,7 @@
 		</c:when>
 		<c:otherwise>
 			<p><a href="${pageContext.request.contextPath}/reserve/list">예약내역</a></p>
-			<p><a href="${pageContext.request.contextPath}/member/info">내 정보</a></p>
+			<p><a href="${pageContext.request.contextPath}/member/info">${sessionScope.username }님</a></p>
 			<p><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></p>
 		</c:otherwise>
 	</c:choose>
@@ -181,7 +186,7 @@
 </c:if>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
-	<i style="color: #f1e3c4;" class="fa fa-bars fa-3x"></i>
+	<i class="fa fa-bars fa-3x"></i>
 </div>
 </div>
 <div class="content">
