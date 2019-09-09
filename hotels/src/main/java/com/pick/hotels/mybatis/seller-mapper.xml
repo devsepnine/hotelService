@@ -150,4 +150,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				seller_id = #{seller_id}
 	</update>
 	
+	<!-- 전체 판매자 수 -->
+	<select id="total_count" resultType="int">
+		select count(*) from seller
+	</select>
+	
+	<!-- 최근 7일 가입 판매자 수 -->
+	<select id="recent_count" resultType="int">
+		select count(*) from seller where seller_regist between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	<!-- 월별 판매자 가입 수 -->
+	<select id="monthly_count" resultType="sellerCountVO">
+		select 
+  			to_char(seller_regist,'YYYY,MM') monthly, count(*) count
+    			from seller
+   			group by to_char(seller_regist,'YYYY,MM')
+    		order by monthly asc
+	</select>
+	
 </mapper>

@@ -26,9 +26,11 @@ import com.pick.hotels.entity.MemberCountVO;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.PartnerDto;
 import com.pick.hotels.entity.PartnerListVO;
+import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RestaurantListVO;
+import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.AttractionFileDao;
@@ -37,6 +39,7 @@ import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.PartnerDao;
 import com.pick.hotels.repository.PartnerFileDao;
+import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.repository.SellerDao;
@@ -83,6 +86,9 @@ public class AdminController {
 	
 	@Autowired
 	private PartnerFileDao partnerFileDao;
+	
+	@Autowired
+	private ReserveDao reserveDao;
 
 	
 //------------------------------------------------------------------------------------
@@ -98,11 +104,24 @@ public class AdminController {
 		int member_total_count = memberDao.total_count();
 		int recent_member_count = memberDao.recent_count();
 		List<MemberCountVO> member_monthly_count = memberDao.monthly_count();
-		System.out.println(member_monthly_count);
+
+		int seller_total_count = sellerDao.total_count();
+		int recent_seller_count = sellerDao.recent_count();
+		List<SellerCountVO> seller_monthly_count = sellerDao.monthly_count();
+		
+		List<ReserveTotalVO> reserve_total = reserveDao.getTotal();
 		
 		model.addAttribute("member_total_count", member_total_count);
 		model.addAttribute("recent_member_count", recent_member_count);
 		model.addAttribute("member_monthly_count", member_monthly_count);
+		
+		model.addAttribute("seller_total_count", seller_total_count);
+		model.addAttribute("recent_seller_count", recent_seller_count);
+		model.addAttribute("seller_monthly_count", seller_monthly_count);
+		
+		System.out.println(reserve_total);
+		model.addAttribute("reserve_total", reserve_total);
+
 		
 		return "admin/main";
 	}
