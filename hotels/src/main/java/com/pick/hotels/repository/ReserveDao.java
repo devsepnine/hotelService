@@ -24,6 +24,7 @@ public interface ReserveDao {
 
 	List<ReserveVO> cancel_list(int member_no);
 
+//	관리자
 	List<ReserveTotalVO> getTotal();
 
 

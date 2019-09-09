@@ -592,7 +592,7 @@ public class AdminController {
 		
 		model.addAttribute("no", no);
 		
-		return "redirect:detail";
+		return "redirect:list";
 	}
 	
 	
