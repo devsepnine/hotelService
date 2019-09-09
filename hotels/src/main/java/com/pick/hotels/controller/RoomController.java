@@ -105,7 +105,7 @@ public class RoomController {
 		
 		model.addAttribute("room_no",roomDto.getRoom_no());
 		model.addAttribute("hotel_no",hotel_no);
-		return "redirect:content";
+		return "redirect:detail";
 	}
 	
 	@GetMapping("/list")
@@ -132,7 +132,6 @@ public class RoomController {
 		List<RoomFileDto> list = roomFileDao.getlist(room_no);
 		model.addAttribute("rdto", rdto);
 		model.addAttribute("rfdtolist", list);
-		model.addAttribute("room_no", room_no); 
 		return "room/edit";
 	}
 	
