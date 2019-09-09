@@ -728,7 +728,7 @@ $(function(){
 				    <div class="swiper-wrapper">
 				        <!-- Slides -->
 				        <c:forEach items="${detail_room.room_file_list}" var="room_picture">
-				        <div class="swiper-slide"><img height="200px" src="${pageContext.request.contextPath }/img_v/4?img_name=${room_picture.r_file_name}"></div>
+				        <div class="swiper-slide"><img height="200px" width="300px" src="${pageContext.request.contextPath }/img_v/4?img_name=${room_picture.r_file_name}"></div>
 				        </c:forEach>
 				    </div>
 				    <div class="swiper-pagination"></div>
