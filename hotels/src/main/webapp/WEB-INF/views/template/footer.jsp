@@ -36,9 +36,9 @@
 		<span>판매자 아이디 : ${sessionScope.s_ok}</span>
 		<br>
 		<span>세션 정보 : <%=session.getId()%>  <%=session.isNew() %></span><br>
-		<span>동시접속자수 : ${applicationScope.usercnt}</span>
+		<span>동시접속자수 : ${applicationScope.usercnt}</span><br>
 
-<script id="_waur7b">var _wau = _wau || []; _wau.push(["map", "a97laxk81m", "r7b", "308", "154", "dashmap", "spinner-orange"]);</script>
+<script id="_waur7b">var _wau = _wau || []; _wau.push(["map", "a97laxk81m", "r7b", "308", "154", "cart", "target-green"]);</script>
 <script async src="//waust.at/m.js"></script>
 
 	</div>

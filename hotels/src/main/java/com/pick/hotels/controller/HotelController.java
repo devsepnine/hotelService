@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.Review_list_vo;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.repository.HotelDao;
@@ -32,6 +35,7 @@ import com.pick.hotels.repository.RoomFileDao;
 @RequestMapping("/hotel")
 public class HotelController {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private @Autowired HotelDao hotelDao;
 	
@@ -61,17 +65,26 @@ public class HotelController {
 						Model model) {
 		HotelDto hdto = hotelDao.get(hotel_no);
 		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
+		//detail vo 리스트 생성
 		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
-		
+		// room 리스트 받아옴
 		List<RoomDto> rdto_list = roomDao.get_list(hotel_no);
+		//room 리스트 for문
 		for(RoomDto rdto : rdto_list) {
+			// room 번호로 파일 구함
 			int no = rdto.getRoom_no();
+			//room file 리스트 생성
 			List<RoomFileDto> rfdto_list = roomFileDao.get_list(no);
+			//detail room vo 하나 생성
 			Detail_room_vo drv = Detail_room_vo.builder().rdto(rdto).room_file_list(rfdto_list).build();
+			//list에 추가
 			detail_list.add(drv);
 		}
 		Float hotel_score = reviewDao.get_avg_star(hotel_no);
+		List<Review_list_vo> review = reviewDao.get_list(hotel_no);
+		System.out.println(review);
 		
+		model.addAttribute("review_list", review);
 		model.addAttribute("hotel_score", hotel_score);
 		model.addAttribute("detail_list", detail_list);
 		model.addAttribute("hdto", hdto);

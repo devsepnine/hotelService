@@ -5,8 +5,6 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<!-- 자바스크립트를 이용하여 페이지 이동을 처리 -->
-<script src="https://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(function(){
 		//목표 : 페이지 번호를 누르면 해당하는 번호의 페이지로 이동 처리

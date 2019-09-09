@@ -53,4 +53,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getavgstar" parameterType="int" resultType="_float">
 		select round(avg(review_score),1) from review where review_hotel = #{hotel_no}
 	</select>
+	
+	<select id="h_get_list" parameterType="int" resultType="review_list_vo">
+		select r1.review_score, r1.review_content, r1.review_when, r3.room_name
+		from review R1
+		inner join reserve R2
+		on r1.review_reserve = R2.reserve_no
+		inner join Room R3
+		on r2.reserve_room_no = r3.room_no
+		where
+		r1.review_hotel = #{hotel_no} and r1.review_state ='등록'
+		order by r1.review_no desc
+	</select>
 </mapper>

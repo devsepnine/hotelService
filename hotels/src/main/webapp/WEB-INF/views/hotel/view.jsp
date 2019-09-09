@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
 <!-- 평점 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
@@ -778,8 +779,25 @@ $(function(){
 		</div>
 	</div>
 <%-- 	<p>${detail_room}</p> --%>
-
+</c:forEach>
+<div class="hotel_review">
 	
+</div>
+<h2 style="margin: 100px auto 50px; width: 200px;"> 호텔 리뷰 </h2>
+
+<c:forEach var="review"	items="${review_list }">
+<div class="card border-secondary mb-3">
+  <div class="card-header">${review.room_name}&emsp;&emsp;${fn:substring(review.review_when, 0, 16)}</div>
+  <div class="card-body">
+	  <div class="hotel-star" style="width: 120px;display: inline-block;">
+	    	<div style="display: inline-block;" data-toggle="tooltip" title="평점 : ${review.review_score }" class="star-wrap" data-star="${review.review_score}" >
+	        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+	        	<div class="star-paint"></div>
+	    	</div>
+		</div>
+    <h4 class="card-title">${review.review_content}</h4>
+  </div>
+</div>
 </c:forEach>
   		
   			
