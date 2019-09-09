@@ -114,7 +114,7 @@
 	</div>
 </div>
 
-<div class="chart_page_title" style="margin-top: 150px;">
+<div class="chart_page_title" style="margin-top: 100px;">
 	<div style="width: 100%; text-align: center;"><h2 style="margin-bottom: 100px;">내 호텔별 매출</h2></div>
 	<c:forEach var="hdtolist" items="${hdtolist}">
 		<div style="display: inline-block; margin-left: 30px; width: 33%;">
@@ -125,7 +125,7 @@
 				
 				<div>
 					<a href="hotel_sales?hotel_no=${hdtolist.hotel_no}">
-						<img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdtolist.hotel_title}" width="100%" height="600px;">
+						<img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdtolist.hotel_title}" width="100%" height="300px;">
 					</a>
 				</div>
 			</div>
