@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
 
 @Repository
@@ -136,6 +137,24 @@ public class SellerDaoImpl implements SellerDao{
 	@Override
 	public void edit_seller(SellerDto sellerDto) {
 		sqlSession.update("seller.edit_seller", sellerDto);
+	}
+
+//	전체 판매자 수
+	@Override
+	public int total_count() {
+		return sqlSession.selectOne("seller.total_count");
+	}
+
+//	최근 7일 가입 판매자 수
+	@Override
+	public int recent_count() {
+		return sqlSession.selectOne("seller.recent_count");
+	}
+
+//	월별 가입 판매자 수
+	@Override
+	public List<SellerCountVO> monthly_count() {
+		return sqlSession.selectList("seller.monthly_count");
 	}
 
 }

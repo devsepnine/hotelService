@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.ReserveDto;
+import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.ReserveVO;
 
 @Repository
@@ -70,6 +71,11 @@ public class ReserveDaoImpl implements ReserveDao{
 	@Override
 	public List<ReserveVO> cancel_list(int member_no) {
 		return sqlsession.selectList("reserve.cancel_list",member_no);
+	}
+
+	@Override
+	public List<ReserveTotalVO> getTotal() {
+		return sqlsession.selectList("reserve.total");
 	}
 
 
