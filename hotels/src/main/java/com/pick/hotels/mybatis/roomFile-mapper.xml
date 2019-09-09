@@ -26,5 +26,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get" parameterType="int" resultType="roomFileDto">
 		select * from r_file where r_file_no = #{no}
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete r_file where r_file_no = #{no} 
+	</delete>
  	
  </mapper>
