@@ -12,4 +12,6 @@ public interface RoomFileDao {
 
 	List<RoomFileDto> getlist(int room_no);
 
+	RoomFileDto get(int no);
+
 }

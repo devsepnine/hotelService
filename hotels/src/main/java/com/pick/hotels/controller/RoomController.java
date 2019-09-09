@@ -165,7 +165,7 @@ public class RoomController {
 		if(!file1.isEmpty()) {
 		
 			if(r_file_no1 > 0) {
-				fileService.attraction_delete(r_file_no1);
+				fileService.room_delete(r_file_no1);
 			}
 			
 			RoomFileDto rfdto = RoomFileDto.builder()
@@ -180,7 +180,7 @@ public class RoomController {
 		if(!file2.isEmpty()) {
 			
 			if(r_file_no2 > 0) {
-				fileService.attraction_delete(r_file_no2);
+				fileService.room_delete(r_file_no2);
 			}
 			
 			RoomFileDto rfdto = RoomFileDto.builder()
@@ -195,7 +195,7 @@ public class RoomController {
 		if(!file3.isEmpty()) {
 			
 			if(r_file_no3 > 0) {
-				fileService.attraction_delete(r_file_no3);
+				fileService.room_delete(r_file_no3);
 			}
 						
 			RoomFileDto rfdto = RoomFileDto.builder()
@@ -210,7 +210,7 @@ public class RoomController {
 		if(!file4.isEmpty()) {
 			
 			if(r_file_no4 > 0) {
-				fileService.attraction_delete(r_file_no4);
+				fileService.room_delete(r_file_no4);
 			}
 						
 			RoomFileDto rfdto = RoomFileDto.builder()
