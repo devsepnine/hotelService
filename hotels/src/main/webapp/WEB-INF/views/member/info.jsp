@@ -73,6 +73,7 @@
 	<a href="change"><input type="button" style="width: 115px;" class="btn btn-danger" value="개인정보 변경"></a>
 	<a href="delete"><input type="button" style="width: 115px;" class="btn btn-danger" value="회원탈퇴"></a>
 	<a href="${pageContext.request.contextPath}/review/review_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내가 쓴 리뷰"></a>
+	<a href="coupon_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내 쿠폰함"></a>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

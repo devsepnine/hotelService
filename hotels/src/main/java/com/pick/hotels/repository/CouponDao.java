@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.CouponDto;
+import com.pick.hotels.entity.CouponVO;
 
 @Repository
 public interface CouponDao {
@@ -16,5 +17,7 @@ public interface CouponDao {
 	List<CouponDto> blacklist(String type, String keyword, int start, int end);
 	int count(String type, String keyword);
 	int getSequenceNumber();
+	List<CouponVO> coupon_list(int member_no);
+	List<CouponVO> coupon_down_list(int member_no);
 	
 }
