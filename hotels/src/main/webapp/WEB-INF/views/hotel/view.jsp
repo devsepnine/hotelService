@@ -288,6 +288,9 @@ $(function(){
 		margin-right: 10px;
 		padding: 10px;
 	}
+	.room-reserve .room-intro{
+		width: 330px;
+	}
 	.room-pic img{
 		border-radius: 5px;
 	}

@@ -148,6 +148,9 @@
 			background-color: #000080;
 			color: white;
 		}
+		.hotel-wrap{
+			display: flex;
+		}
 	</style>
 <script>
 $(function(){
@@ -418,7 +421,7 @@ $(function(){
 				
 				<div class="detail" style="width: 700px;display: inline-block;">
 					<div class="hotel-title-wrap">
-						<font style="display: inline-block;font-size: 30px;width: 300px;">${h_con.hotel_name }</font>
+						<font style="display: inline-block;font-size: 30px;width: 100%;">${h_con.hotel_name }</font>
 						<div class="hotel-star">
 					    	<div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
 					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
