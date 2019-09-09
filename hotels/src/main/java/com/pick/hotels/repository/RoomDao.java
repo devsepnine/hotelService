@@ -20,6 +20,8 @@ public interface RoomDao {
 
 	public void edit(RoomDto roomDto);
 
+	public boolean delete(int room_no);
+
 	
 	
 }

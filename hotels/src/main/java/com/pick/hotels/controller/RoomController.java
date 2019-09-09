@@ -3,6 +3,8 @@ package com.pick.hotels.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -227,5 +229,16 @@ public class RoomController {
 		return "redirect:detail";
 	}
 	
+	@GetMapping("/delete")
+	public void delete(@RequestParam int room_no,HttpServletResponse resp) throws IOException {
+		boolean result = roomDao.delete(room_no);
+		if(result) {
+			resp.getWriter().print("Y");
+			fileService.room_delete(room_no);
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
 	
 }
