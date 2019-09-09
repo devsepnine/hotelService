@@ -101,7 +101,7 @@ public class CouponDaoImpl implements CouponDao{
 
 	@Override
 	public List<CouponVO> coupon_down_list(int member_no) {
-		return sqlSession.selectList("coupon.coupon_down_list",member_no);
+		return sqlSession.selectList("coupon.coupon_down",member_no);
 	}
 
 
