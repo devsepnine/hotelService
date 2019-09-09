@@ -390,7 +390,7 @@ public class MemberController {
 		return "member/coupon_list";
 	}
 	
-	@GetMapping("/coupon_down_list")
+	@GetMapping("/coupon_down")
 	public String coupon_down(Model model, HttpSession session, @ModelAttribute CouponVO couponVO) {
 		 int member_no = (int) session.getAttribute("no");
 		 
@@ -400,8 +400,23 @@ public class MemberController {
 		return "member/coupon_down";
 	}
 	
-//	@PostMapping("/coupon_down_list")
-//	public String coupon
+	@GetMapping("/coupon_download")
+	public String coupon_download(HttpSession session, @ModelAttribute CouponHistoryDto couponhistoryDto, @RequestParam int coupon_no) {
+		//쿠폰을 발급해주는 처리를 한뒤 내 쿠폰 리스트로 리다이렉트
+		int member_no = (int) session.getAttribute("no");
+		couponhistoryDto.setCoupon_no(coupon_no);
+		couponhistoryDto.setMember_no(member_no);
+		
+		couponDao.coupon_download(couponhistoryDto);
+		
+		
+		return "redirect:coupon_list";
+		
+		
+		
+		
+		
+	}
 	
 	
 	
