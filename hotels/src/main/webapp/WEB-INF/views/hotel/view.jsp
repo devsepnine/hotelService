@@ -58,13 +58,18 @@
 			$.ajax({
 				url : "${pageContext.request.contextPath}/member/wish_in",
 				data : {
-					hotel_no : $(".hotel_no").val()  // 보내는 이름 : 우리가 가져올 값
+					hotel_no : ${hdto.hotel_no}  // 보내는 이름 : 우리가 가져올 값
 				},
 				dataType : "text",
 				success : function(resp) {
-					if (resp == "Y") {
-					}
-					else {
+					if (resp == "dy") {
+						alert("위시리스트에서 제거되었습니다.");
+					} else if(resp == "dn"){
+						alert("위시리스트제거에 실패했습니다.");
+					}else if(resp == "ay"){
+						alert("위시리스트에 추가되었습니다.");
+					}else {
+						alert("위시리스트추가에 실패했습니다.");
 					}
 				}
 			});
@@ -592,7 +597,6 @@ $(function(){
     .card 
 </style>
 
-
 <script>
 	$(function(){
 		var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
@@ -614,7 +618,6 @@ $(function(){
 		var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 	});
 </script>
-
 <form action="../search">
 <div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
@@ -842,8 +845,6 @@ $(function(){
   		
   			
   			
-
-
 </div>
 <!-- 	팝업알림 -->
   <div class="toast" id="date-toast">
