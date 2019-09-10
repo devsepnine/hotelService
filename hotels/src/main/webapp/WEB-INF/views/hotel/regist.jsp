@@ -261,10 +261,10 @@ table{
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">썸네일 사진(필수)</p><input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
+							<p class="Thumbnail"></p><input type="file" name="file" accept = ".jpg, .png, .gif" required>썸네일 사진(필수)<br><br>
 							
-							<p class="Thumbnail">호텔 사진</p>
-							상세사진 (필수)<input type="file" name="file1" accept = ".jpg, .png, .gif" required>
+							<p class="Thumbnail">호텔 사진 (상세사진 1장 필수)</p><br>
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" required>
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" >
 							<input type="file" name="file4" accept = ".jpg, .png, .gif" ><br><br>

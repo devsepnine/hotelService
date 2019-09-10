@@ -203,7 +203,7 @@ table{
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">제휴 사진</p>
+							<p class="Thumbnail">제휴 사진</p><br>
 							<input type="file" name="file1" accept = ".jpg, .png, .gif" required> 메인사진(필수)<br>
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" ><br>
