@@ -109,9 +109,9 @@ public class PartnerDaoImpl implements PartnerDao{
 		return sqlSession.selectList("partner.refuse_list", param);
 	}
 
-//	제휴 리스트 수 카운트
+//	제휴 승인대기 리스트 수 카운트
 	@Override
-	public int count(String type, String keyword) {
+	public int count_waiting(String type, String keyword) {
 		Map<String, String> param = new HashMap<>();
 		
 		if(type != null && keyword != null) {
@@ -119,7 +119,33 @@ public class PartnerDaoImpl implements PartnerDao{
 			param.put("keyword", keyword);
 		}
 		
-		return sqlSession.selectOne("partner.count", param);
+		return sqlSession.selectOne("partner.count_waiting", param);
+	}
+	
+//	제휴 승인완료 리스트 수 카운트
+	@Override
+	public int count_complete(String type, String keyword) {
+		Map<String, String> param = new HashMap<>();
+		
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);
+		}
+		
+		return sqlSession.selectOne("partner.count_complete", param);
+	}
+	
+//	제휴 승인거절 리스트 수 카운트
+	@Override
+	public int count_refuse(String type, String keyword) {
+		Map<String, String> param = new HashMap<>();
+		
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);
+		}
+		
+		return sqlSession.selectOne("partner.count_refuse", param);
 	}
 
 //	제휴 정보 수정

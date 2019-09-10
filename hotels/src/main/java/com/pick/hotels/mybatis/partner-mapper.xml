@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="type != null and keyword != null">
 							AND ${type} like '%'||#{keyword}||'%'
 					</if>
-					and partner_type = '승인대기'
+					and partner_type = '승인대기' order by partner_no asc
 	</select>
 	
 	<!-- 제휴 승인 완료 리스트 -->
@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="type != null and keyword != null">
 							AND ${type} like '%'||#{keyword}||'%'
 					</if>
-					and partner_type = '승인완료'
+					and partner_type = '승인완료' order by partner_no asc
 	</select>
 	
 	<!-- 제휴 승인 거절 리스트 -->
@@ -127,15 +127,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="type != null and keyword != null">
 							AND ${type} like '%'||#{keyword}||'%'
 					</if>
-					and partner_type = '승인거부'
+					and partner_type = '승인거부' order by partner_no asc
 	</select>
 	
-	<!-- 제휴 리스트  카운트 -->
-	<select id="count" parameterType="map" resultType="int">
+	<!-- 제휴 승인 대기 리스트  카운트 -->
+	<select id="count_waiting" parameterType="map" resultType="int">
 		select count(*) from partner
+			where
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'
+			${type} like '%' || #{keyword} || '%' and
 		</if>
+			partner_type = '승인대기'
+	</select>
+	
+	<!-- 제휴 승인 완료 리스트  카운트 -->
+	<select id="count_complete" parameterType="map" resultType="int">
+		select count(*) from partner
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			partner_type = '승인완료'
+	</select>
+	
+	<!-- 제휴 승인 거절 리스트  카운트 -->
+	<select id="count_refuse" parameterType="map" resultType="int">
+		select count(*) from partner
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			partner_type = '승인거절'
 	</select>
 	
 	<!-- 제휴 승인 상태 수정 -->
