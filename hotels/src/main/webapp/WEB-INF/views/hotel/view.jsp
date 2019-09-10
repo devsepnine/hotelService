@@ -13,6 +13,30 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/moment.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
+<!-- 스크롤바 스타일 -->
+<style>
+	.scrollbar{
+		float: left;
+		background: #F5F5F5;
+		overflow-y: scroll;
+	}
+	.scroll-1::-webkit-scrollbar-track
+	{
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: #fff;
+	}
+
+	.scroll-1::-webkit-scrollbar
+	{
+		width: 0px;
+		background-color: #fff;
+	}
+
+	.scroll-1::-webkit-scrollbar-thumb
+	{
+		background-color: #726454;
+	}
+</style>
 
 <!-- 다음 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46239c794a7a0438306ca21d387251c8"></script>
@@ -224,10 +248,15 @@ $(function(){
     	margin-right: 20px;
     	
     }
-    .hotel-content-wrap .hotel-content-wrap{
+    .hotel-content-wrap .hotel-content-desc{
     	border: 1px solid lightgray;
     	border-radius: 5px;
     	flex-grow: 1;
+    	padding: 5px;
+    }
+    .hotel-content-desc > div{
+    	height: 158px;
+    	overflow-y: scroll;
     }
     .hotel-star-wrap .hotel-star{
     	width: 200px;
@@ -678,8 +707,8 @@ $(function(){
 					</div>
 				</div>
 				
-				<div class="hotel-content-wrap">
-					<span>${hdto.hotel_content}</span>
+				<div class="hotel-content-desc ">
+					<div class="scrollbar scroll-1">${hdto.hotel_content}</div>
 				</div>
 			</div>
 			
