@@ -118,6 +118,8 @@
 				<c:if test="${not empty afdtolist[2]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[2].attraction_file_name}">
 				</c:if>
+				<br>
+				<br>
 					${adto.attraction_info}
 				</td>
 			</tr>
