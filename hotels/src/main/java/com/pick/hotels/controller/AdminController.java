@@ -119,7 +119,6 @@ public class AdminController {
 		model.addAttribute("recent_seller_count", recent_seller_count);
 		model.addAttribute("seller_monthly_count", seller_monthly_count);
 		
-		System.out.println(reserve_total);
 		model.addAttribute("reserve_total", reserve_total);
 
 		
