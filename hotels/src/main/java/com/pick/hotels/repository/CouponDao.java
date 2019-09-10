@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.CouponDto;
+import com.pick.hotels.entity.CouponHistoryDto;
 import com.pick.hotels.entity.CouponVO;
 
 @Repository
@@ -19,5 +20,6 @@ public interface CouponDao {
 	int getSequenceNumber();
 	List<CouponVO> coupon_list(int member_no);
 	List<CouponVO> coupon_down_list(int member_no);
+	void coupon_download(CouponHistoryDto couponhistoryDto);
 	
 }
