@@ -43,7 +43,13 @@
 				</tr>
 				<tr>
 					<td>점수</td>
-					<td> </td>
+					<td><select name="review_score" id="email_address" class="form-control" style=width:22%;display:inline-block;>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select></td>
 				</tr>
 				<tr>
 					<td colspan="2"><textarea name="review_content" style="resize: none;" rows="30" cols="150"></textarea></td>
