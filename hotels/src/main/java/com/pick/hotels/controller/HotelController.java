@@ -53,7 +53,6 @@ public class HotelController {
 		if(s_vo.getRegion() != null) {
 			s_vo.setRegion(URLDecoder.decode(s_vo.getRegion(),"UTF-8"));
 			List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
-			System.out.println(h_list);
 			model.addAttribute("h_list",h_list);
 		}
 		return "hotel/search";
@@ -82,7 +81,6 @@ public class HotelController {
 		}
 		Float hotel_score = reviewDao.get_avg_star(hotel_no);
 		List<Review_list_vo> review = reviewDao.get_list(hotel_no);
-		System.out.println(review);
 		
 		model.addAttribute("review_list", review);
 		model.addAttribute("hotel_score", hotel_score);
