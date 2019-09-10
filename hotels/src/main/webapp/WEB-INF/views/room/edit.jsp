@@ -180,9 +180,9 @@ table{
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">객실 사진</p> <input type="file" name="file1"
-							accept=".jpg, .png, .gif" ><br> <input
-							type="file" name="file2" accept=".jpg, .png, .gif"><br>
+							<p class="Thumbnail">객실 사진</p><br> 
+							<input type="file" name="file1" accept=".jpg, .png, .gif" ><br> 
+							<input type="file" name="file2" accept=".jpg, .png, .gif"><br>
 							<input type="file" name="file3" accept=".jpg, .png, .gif"><br>
 							<input type="file" name="file4" accept=".jpg, .png, .gif">
 						</td>

@@ -100,23 +100,77 @@ table{
 					<tr>
 						<td>옵션사항</td>
 						<td>
-							<input type="checkbox" name="room_breakfast" value="Y">조식<br>
-							<input type="checkbox" name="room_spa" value="Y">스파<br>
-							<input type="checkbox" name="room_conditioner" value="Y">에어컨<br>
-							<input type="checkbox" name="room_tv" value="Y">TV<br>
-							<input type="checkbox" name="room_refrigerator" value="Y">냉장고<br>
-							<input type="checkbox" name="room_shower_room" value="Y">샤워실<br>
-							<input type="checkbox" name="room_bath" value="Y">욕조<br>
-							<input type="checkbox" name="room_hair" value="Y">헤어드라이기<br>
-							<input type="checkbox" name="room_cookoo" value="Y">전기밥솥<br>
-							<input type="checkbox" name="room_smoking" value="Y">흡연가능<br>
-							<input type="checkbox" name="room_cooking" value="Y">요리가능
+<div class="custom-control custom-checkbox">
+								<input type="checkbox" name="room_breakfast" value="Y"
+									id="breakfast" class="custom-control-input"> 
+									<label class="custom-control-label" for="breakfast">조식</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="spa" name="room_spa"> 
+								<label class="custom-control-label" for="spa">스파</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="conditioner" name="room_conditioner">
+								<label class="custom-control-label" for="conditioner">에어컨</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="tv" name="room_tv">
+								<label class="custom-control-label" for="tv">TV</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="refrigerator" name="room_refrigerator">
+								<label class="custom-control-label" for="refrigerator">냉장고</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="shower_room" name="room_shower_room">
+								<label class="custom-control-label" for="shower_room">샤워실</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="bath" name="room_bath"> 
+								<label class="custom-control-label" for="bath">욕조</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="hair" name="room_hair"> 
+								<label class="custom-control-label" for="hair">헤어드라이기</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="cookoo" name="room_cookoo"> 
+								<label class="custom-control-label" for="cookoo">전기밥솥</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="smoking" name="room_smoking"> 
+								<label class="custom-control-label" for="smoking">흡연</label>
+							</div>
+							<br>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" value="Y" class="custom-control-input"
+									id="cooking" name="room_cooking"> 
+								<label class="custom-control-label" for="cooking">요리</label>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail">객실 사진</p>
-							메인사진(필수)<input type="file" name="file1" accept = ".jpg, .png, .gif" required><br>
+							<p class="Thumbnail">객실 사진</p><br>
+							<input type="file" name="file1" accept = ".jpg, .png, .gif" required>메인사진(필수)<br>
 							<input type="file" name="file2" accept = ".jpg, .png, .gif" ><br>
 							<input type="file" name="file3" accept = ".jpg, .png, .gif" ><br>
 							<input type="file" name="file4" accept = ".jpg, .png, .gif" >

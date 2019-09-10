@@ -111,8 +111,8 @@
 <div style="height: 20px;"></div>
 <div>
 	<div class="chart_page_title">
-		<div class="chart_name">${this_month}월 날짜별 매출 금액</div>
-		<div class="chart_name">${this_month}월 날짜별 매출 건수</div>
+		<div class="chart_name">월별 매출 금액</div>
+		<div class="chart_name">월별 매출 건수</div>
 	</div>
 	<div class="chart_page">
 		<div class="chart_chart">
