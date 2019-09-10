@@ -11,7 +11,7 @@
 		width: 100%;
 	}
 	 .coupon_list_download {
-      background-image : url('${pageContext.request.contextPath}/resources/image/coupon.png');
+      background-image : url('${pageContext.request.contextPath}/resources/image/coupon2.png');
       width :547px;
       height : 194px;
       text-align: center;
@@ -42,7 +42,7 @@
 						<td style="font-size: 25px; padding-top: 30px;" class="name">${cvo.coupon_name}</td>
 						<td rowspan="4" style="width: 115px;">
 							<div class="down" style="text-align: center;">
-								<a href="#"  style="top: 50px;height: 100%;display: block;"></a>
+								<a href="${pageContext.request.contextPath}/hotel/search"  style="top: 50px;height: 100%;display: block;"></a>
 							</div>
 						</td>
 					</tr>
