@@ -332,6 +332,10 @@ $(function(){
 	.reserve-price{
 		flex-grow: 1;
 	}
+	.btn-reserve{
+		color: white;
+		border-radius: 10px;
+	}
 </style>
 <style>
   .swiper-container {
@@ -766,6 +770,9 @@ $(function(){
 		</div>
 			<div class="room-detail">
 			
+				<form target="" action="${pageContext.request.contextPath}/reserve/regist/${detail_room.rdto.room_no}">
+				<input type="hidden" value="${param.check_in}" name="check_in">
+				<input type="hidden" value="${param.check_out}" name="check_out">
 				<div class="room-reserve">
 					<div class="reserve-info">
 						<img alt="" width="40" height="40" data-toggle="tooltip" data-placement="top" title="" data-original-title="침구" src="${pageContext.request.contextPath}/img/room_ico/bed.png"> : ${detail_room.rdto.room_bed}
@@ -778,9 +785,10 @@ $(function(){
 					<div class="reserve-price">
 						<div><div style="font-weight: bold; font-size: 20px;text-align: right;color: black"><fmt:formatNumber value="${detail_room.rdto.room_price}" pattern="#,###" />원</div></div>
 						<div style="text-align: center">세금 및 기타 요금 포함</div>
-						<div><a class="btn btn-reserve btn-block" style="color: white; border-radius: 10px;">예약하러 가기</a></div>
+						<div><input type="submit" class="btn btn-reserve btn-block" value="예약하러가기"/></div>
 					</div>
 				</div>
+				</form>
 				
 				<div class="room-ico-wrap">
 					<div style="border-bottom: 1px solid lightgray; margin-bottom: 5px;">서비스 / 혜택</div>
@@ -810,7 +818,7 @@ $(function(){
 			</div>
 		</div>
 	</div>
-<%-- 	<p>${detail_room}</p> --%>
+	<p>${detail_room}</p>
 </c:forEach>
 <div class="hotel_review">
 	
