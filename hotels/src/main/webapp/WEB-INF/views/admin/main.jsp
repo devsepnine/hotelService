@@ -20,7 +20,7 @@ var chart = new CanvasJS.Chart("member_count", {
 	},
 	data: [{
 		type: "splineArea",
-		color: "rgba(54,158,173,.7)",
+		color: "rgba(255,152,163,.7)",
 		markerSize: 10,
 		xValueFormatString: "MM월",
 		yValueFormatString: "###,###,###,###",
@@ -43,7 +43,7 @@ var chart = new CanvasJS.Chart("member_count", {
 		},
 		data: [{
 			type: "splineArea",
-			color: "rgba(54,158,173,.7)",
+			color: "rgba(130,179,237,.7)",
 			markerSize: 10,
 			xValueFormatString: "MM월",
 			yValueFormatString:  "###,###,###,###",
@@ -66,7 +66,7 @@ var chart = new CanvasJS.Chart("member_count", {
 		},
 		data: [{
 			type: "splineArea",
-			color: "rgba(255,000,255,.7)",
+			color: "rgba(110,110,110,.7)",
 			markerSize: 5,
 			xValueFormatString: "MM월",
 			yValueFormatString: "\#,##0.##",
