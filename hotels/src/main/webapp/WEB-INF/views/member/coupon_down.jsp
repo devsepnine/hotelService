@@ -42,7 +42,7 @@
 						<td style="font-size: 25px; padding-top: 30px;" class="name">${cvo.coupon_name}</td>
 						<td rowspan="4" style="width: 115px;">
 							<div class="down" style="text-align: center;">
-								<a href="#"  style="top: 50px;height: 100%;display: block;"></a>
+								<a href="coupon_download?coupon_no=${cvo.coupon_no}"  style="top: 50px;height: 100%;display: block;"></a>
 							</div>
 						</td>
 					</tr>
