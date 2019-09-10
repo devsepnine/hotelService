@@ -83,7 +83,8 @@
 					</tr>
 					<tr class="end_line">
 						<td colspan="3">
-							<button class="btn btn-danger delete_btn ">삭제</button>
+							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${rdto.hotel_no}"><button class="btn btn-danger">방 등록</button></a>
+							<button class="btn btn-danger delete_btn">삭제</button>
 						</td>
 					</tr>
 			</tbody>
