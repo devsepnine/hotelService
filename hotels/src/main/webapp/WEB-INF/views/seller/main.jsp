@@ -87,10 +87,13 @@
 		<div class="chart_name">월별 매출 금액</div>
 		<div class="chart_name">월별 매출 건수</div>
 	</div>
+	
 	<div class="chart_page">
+	
 		<div class="chart_chart">
 			<div id="chart_div"></div>
 		</div>
+		
 		<div class="chart_table">
 			<table class="table chart_table_size">
 				<thead>
@@ -111,7 +114,9 @@
 				</tbody>
 			</table>
 		</div>
+		
 	</div>
+	
 </div>
 
 <div class="chart_page_title" style="margin-top: 100px;">
