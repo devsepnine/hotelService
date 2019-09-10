@@ -46,7 +46,6 @@ import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
 
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -124,6 +123,7 @@ public class AdminController {
 		
 		return "admin/main";
 	}
+	
 	
 //------------------------------------------------------------------------------------
 //	관광지
@@ -668,6 +668,7 @@ public class AdminController {
 		return "admin/coupon/list";
 	}
 	
+	
 //	사용만료 쿠폰 리스트 + 검색("/coupon/blacklist")
 	@GetMapping("/coupon/blacklist")
 	public String blacklist_coupon(
@@ -1007,6 +1008,7 @@ public class AdminController {
 		return "redirect:detail";
 	}
 	
+	
 //	제휴 정보 상세보기("/partner/detail")
 	@GetMapping("/partner/detail")
 	public String detail_partner(@RequestParam int no, Model model) {
@@ -1022,6 +1024,7 @@ public class AdminController {
 		
 		return "admin/partner/detail";
 	}
+	
 	
 //	제휴 승인 대기 리스트("/partner/waiting_list")
 	@GetMapping("/partner/waiting_list")
