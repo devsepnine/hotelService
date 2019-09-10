@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,11 +46,24 @@ public class ReserveController {
 	@Autowired
 	private ReviewDao reviewDao;
 	
-	@GetMapping("/regist")
-	public String regist() {
+	@GetMapping("/regist/{room_no}")
+	public String regist(@PathVariable int room_no,
+							Model model,
+							HttpSession session,
+							String check_in,
+							String check_out) {
+		RoomDto rdto = roomDao.get(room_no);
+		int hotel_no = rdto.getHotel_no();
+		HotelDto hdto = hotelDao.get(hotel_no);
+		MemberDto mdto = memberDao.get((String) session.getAttribute("ok"));
+		
+		model.addAttribute("check_in", check_in);
+		model.addAttribute("check_out", check_out);
+		model.addAttribute("mdto", mdto);
+		model.addAttribute("hdto", hdto);
+		model.addAttribute("rdto", rdto);
 		return "reserve/regist";
 	}
-	
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute ReserveDto reserveDto,
 						HttpSession session, Model model

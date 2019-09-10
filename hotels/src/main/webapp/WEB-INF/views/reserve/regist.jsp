@@ -5,7 +5,6 @@
 
 <style>
 	.info-wrap{
-		
 		padding: 100px;
 	}
 	.new_reserver{
@@ -39,46 +38,47 @@
 		});
 	});
 </script>
-
+${rdto}
+${mdto}
+${hdto}
 <div align="center" class="info-wrap">
 <form action="regist" method="get">
 	<h1>1.예약 정보 확인</h1>
 	<table class="table table-hamburg table-stripe" >
 		<tbody>
 			<tr>
-				<td>체크인</td>
+				<td>체크인 : <input type="text" value="${check_in}" name="check_in" readonly></td>
 				<td>몇박</td>
-				<td>체크아웃</td>
+				<td>체크아웃 : <input type="text" value="${check_out}" name="check_out" readonly></td>
 			</tr>
 			<tr>
-				<th colspan="3">객실정보</th>
+				<th colspan="3" style="text-align: center;">객실정보</th>
 			</tr>
 			<tr>
 				<td >호텔이름</td>
-				<td colspan="2">(이름입력)</td>
+				<td colspan="2">${hdto.hotel_name }</td>
 			</tr>
 			<tr>
 				<td>객실타입</td>
-				<td colspan="2">(객실타입입력)</td>
+				<td colspan="2">${rdto.room_name }</td>
 			</tr>
 			<tr>
 				<th colspan="3">예약자 정보</th>
 			</tr>
 			<tr>
 				<td>예약자명</td>
-				<td colspan="2">(예약자명입력)</td>
+				<td colspan="2"><input type="text" value="${mdto.member_name }" readonly> </td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td colspan="2">(연락처입력)</td>
+				<td colspan="2"><input type="text" value="${mdto.member_phone }" readonly> </td>
 			</tr>
 			<tr>
 				<td>이메일</td>
-				<td colspan="2">(이메일 입력)</td>
+				<td colspan="2"><input type="text" value="${mdto.member_email1}@${mdto.member_email2}" readonly></td>
 			</tr>
-			
 			<tr>
-				<td>
+				<td colspan="3">
 					<div class="custom-control custom-checkbox">
 				      <input type="checkbox" class="custom-control-input" id="customCheck1" >
 				      <label class="custom-control-label" for="customCheck1">예약자와 투숙자가 다를경우 체크해 주세요</label>
