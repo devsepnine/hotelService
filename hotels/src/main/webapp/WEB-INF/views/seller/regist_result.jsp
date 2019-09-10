@@ -13,7 +13,7 @@
 		font-style: italic;
 	}
 </style>
-<div class="result_page" align="center">
+<div class="result_page" align="center" style="margin-top: 200px;">
 	<div>
 		<h2>
 			<font class="result_comment">회원 등록이 완료되었습니다</font>
@@ -21,8 +21,17 @@
 	</div>
 	
 	<div align="center" style="text-align: center;">
-		<h3><a href="login">로그인</a></h3>
-		<h3><a href="${pageContext.request.contextPath}">메인으로</a></h3>
+		<h3>
+			<a href="login">
+				<button class="btn btn-danger">로그인</button>
+			</a>
+		</h3>
+		
+		<h3>
+			<a href="${pageContext.request.contextPath}">
+				<button class="btn btn-danger">메인으로</button>
+			</a>
+		</h3>
 	</div>
 </div>
 

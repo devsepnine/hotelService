@@ -4,9 +4,8 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<div align="center" style="padding: 50px;">
-	<h2>당신의 아이디는 [${seller_id}]입니다</h2>
-	<p>확인해보세요^^</p>
+<div align="center" style="padding: 50px; margin-top: 150px;">
+	<h2><font style="font-weight: bold; font-style: italic;">회원님의 아이디는 [${seller_id}]입니다</font></h2>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
