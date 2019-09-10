@@ -93,6 +93,19 @@ $(function(){
 		});
 	});
 </script>
+<script type="text/javascript">
+
+		window.history.forward();
+
+		function noBack() {
+
+			window.history.forward();
+
+		}
+</script>
+
+
+
 <div align="center">
 	<c:if test="${param.error eq 'error'}">
 		<h4>
