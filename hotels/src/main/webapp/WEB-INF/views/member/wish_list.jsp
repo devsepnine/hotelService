@@ -42,14 +42,14 @@
 		<table class="table table-hamburg table-stripe">
 			<tbody>
 					<tr>
-						<td>
+						<td width="770px;">
 						<a href="${pageContext.request.contextPath}/hotel/view/${wishDto.hotel_no}">
 							<img src="${pageContext.request.contextPath}/img_v/3?img_name=${wishDto.hotel_title}" width="200px" height="200px">
 							<font>${wishDto.hotel_name}</font>
 							
 						</a>
 						</td>
-						<td><input type="hidden" class="hotel_no" value="${wishDto.hotel_no}"><input type="button" class="btn btn-danger delete_btn" value="삭제" ></td>
+						<td width="230px;"><input type="hidden" class="hotel_no" value="${wishDto.hotel_no}"><input type="button" class="btn btn-danger delete_btn" value="삭제" ></td>
 					</tr>
 			</tbody>
 		</table>

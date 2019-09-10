@@ -17,6 +17,10 @@
 	}
 </style>
 
+<script>
+
+</script>
+
 <div align="center" class="info-wrap">
 	<h1>${mdto.member_name}님의 정보</h1>
 	<br>
@@ -71,7 +75,7 @@
 	<a href="wish_list"><input type="button"  style="width: 115px;" class="btn btn-danger" value="위시리스트"></a>
 	<a href="change_pw"><input type="button" style="width: 115px;" class="btn btn-danger" value="비밀번호 변경"></a>
 	<a href="change"><input type="button" style="width: 115px;" class="btn btn-danger" value="개인정보 변경"></a>
-	<a href="delete"><input type="button" style="width: 115px;" class="btn btn-danger" value="회원탈퇴"></a>
+	<a href="delete"><input type="button" style="width: 115px;" class="btn btn-danger delete_btn" value="회원탈퇴"></a>
 	<a href="${pageContext.request.contextPath}/review/review_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내가 쓴 리뷰"></a>
 	<a href="coupon_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내 쿠폰함"></a>
 </div>
