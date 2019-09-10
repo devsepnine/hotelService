@@ -64,6 +64,8 @@ public class ReserveController {
 		model.addAttribute("rdto", rdto);
 		return "reserve/regist";
 	}
+	
+	
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute ReserveDto reserveDto,
 						HttpSession session, Model model

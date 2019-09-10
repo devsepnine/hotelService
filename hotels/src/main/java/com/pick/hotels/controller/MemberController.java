@@ -338,17 +338,16 @@ public class MemberController {
 		int member_no = (int) session.getAttribute("no");
 		WishDto wishDto = WishDto.builder().wish_member_no(member_no).wish_hotel_no(hotel_no).build();
 		//이미 위시리스트에 있는지 확인
-		
 		WishDto wdto = wishDao.get(wishDto);
 		
 		if(wdto!=null){
 			boolean out = wishDao.delete(wishDto);
 			
 				if(out) {
-					resp.getWriter().print("Y");
+					resp.getWriter().print("dy");
 				}
 				else {
-					resp.getWriter().print("N");
+					resp.getWriter().print("dn");
 				}
 		}
 		
@@ -356,10 +355,10 @@ public class MemberController {
 			boolean result = wishDao.regist(wishDto);
 			
 				if(result) {
-					resp.getWriter().print("Y");
+					resp.getWriter().print("ay");
 				}
 				else {
-					resp.getWriter().print("N");
+					resp.getWriter().print("an");
 				}
 			
 			}
