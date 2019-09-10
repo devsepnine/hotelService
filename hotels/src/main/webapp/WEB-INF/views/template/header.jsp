@@ -48,9 +48,9 @@
       		font-family:ON-IGothic;
            box-sizing: border-box;
        }
-    a:link { color: black; text-decoration: none;}
-	a:visited { color: black; text-decoration: none;}
-	a:hover { color: black; text-decoration: none;}
+    a:link {  text-decoration: none;}
+	a:visited {  text-decoration: none;}
+	a:hover { text-decoration: none;}
     body{
         margin: 0;
     }

@@ -50,7 +50,7 @@ public class NoticeController {
 			@RequestParam(required = false, defaultValue="1") int page,
 			HttpSession session
 			) {
-		int pagesize = 10;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
