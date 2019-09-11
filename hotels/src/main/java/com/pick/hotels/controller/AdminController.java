@@ -907,7 +907,7 @@ public class AdminController {
 	}
 	
 	
-//	전체 판매자 리스트 + 검색("/seller/list")
+//	일반 판매자 리스트 + 검색("/seller/list")
 	@GetMapping("/seller/list")
 	public String list_seller(
 						@RequestParam(required = false) String type,
@@ -922,6 +922,7 @@ public class AdminController {
 		int blocksize = 5;		//페이지 갯수
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
+		
 		
 		int count = sellerDao.count(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
@@ -961,7 +962,7 @@ public class AdminController {
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = sellerDao.count(type, keyword);
+		int count = sellerDao.count_black(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1043,7 +1044,7 @@ public class AdminController {
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_waiting(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1081,7 +1082,7 @@ public class AdminController {
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_complete(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1119,7 +1120,7 @@ public class AdminController {
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_refuse(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
