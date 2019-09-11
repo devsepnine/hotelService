@@ -54,6 +54,21 @@ public class CouponDaoImpl implements CouponDao{
 		return sqlSession.selectList("coupon.list", param);
 	}
 	
+	
+//	쿠폰 수 세기
+	@Override
+	public int count(String type, String keyword) {
+		Map<String, String> param = new HashMap<>();
+		
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);
+		}
+		
+		return sqlSession.selectOne("coupon.count", param);
+	}
+	
+	
 //	사용만료 쿠폰 리스트
 	@Override
 	public List<CouponDto> blacklist(String type, String keyword, int start, int end) {
@@ -74,9 +89,9 @@ public class CouponDaoImpl implements CouponDao{
 
 
 	
-//	쿠폰 수 세기
+//	사용만료 쿠폰 수 세기
 	@Override
-	public int count(String type, String keyword) {
+	public int count_black(String type, String keyword) {
 		Map<String, String> param = new HashMap<>();
 		
 		if(type != null && keyword != null) {
@@ -84,7 +99,7 @@ public class CouponDaoImpl implements CouponDao{
 			param.put("keyword", keyword);
 		}
 		
-		return sqlSession.selectOne("coupon.count", param);
+		return sqlSession.selectOne("coupon.count_black", param);
 	}
 	
 //	시퀀스 번호 구하기

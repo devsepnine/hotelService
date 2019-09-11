@@ -106,6 +106,7 @@ public class AdminController {
 
 		int seller_total_count = sellerDao.total_count();
 		int recent_seller_count = sellerDao.recent_count();
+		
 		List<SellerCountVO> seller_monthly_count = sellerDao.monthly_count();
 		
 		List<ReserveTotalVO> reserve_total = reserveDao.getTotal();

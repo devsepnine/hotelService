@@ -36,6 +36,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<!-- 사용가능 쿠폰 갯수 -->
+	<select id="count" parameterType="map" resultType="int">
+		select count(*) from coupon
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			coupon_condition = '사용가능'
+	</select>
+	
 	<!-- 사용 만료 쿠폰 리스트 -->
 	<select id="blacklist" parameterType="map" resultType="couponDto">
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
@@ -52,12 +62,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
-	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
-	<select id="count" parameterType="map" resultType="int">
+	<!-- 사용 만료 쿠폰 갯수 -->
+	<select id="count_black" parameterType="map" resultType="int">
 		select count(*) from coupon
+			where
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'
+			${type} like '%' || #{keyword} || '%' and
 		</if>
+			coupon_condition = '사용불가능'
 	</select>
 	
 	<!-- 쿠폰 수정 -->
