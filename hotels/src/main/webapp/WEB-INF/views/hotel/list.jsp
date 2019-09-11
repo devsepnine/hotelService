@@ -30,25 +30,27 @@
 	$(function(){
 		$(".delete_btn").click(
 			function() {
-				//this == button
+				var r = confirm("삭제 하시겠습니까?");
 				var that = this;
-				$.ajax({
-					url : "delete",
-					data : {
-						hotel_no : $(that).parent().parent().prev().prev().prev().find(".hotel_no").val()
-					},
-					dataType : "text",
-					success : function(resp) {
-						//console.log(this);
-						
-						if (resp == "Y") {
- 							$(that).parents(".hotel_info").remove();							
-						}
-						else {
+				if(r==true){
+					$.ajax({
+						url : "delete",
+						data : {
+							hotel_no : $(that).parent().parent().prev().prev().prev().find(".hotel_no").val()
+						},
+						dataType : "text",
+						success : function(resp) {
+							//console.log(this);
 							
+							if (resp == "Y") {
+	 							$(that).parents(".hotel_info").remove();							
+							}
+							else {
+								
+							}
 						}
-					}
-				});
+					});
+				}
 			});
 	});
 </script>
