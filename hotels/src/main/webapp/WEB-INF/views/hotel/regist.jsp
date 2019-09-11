@@ -230,7 +230,6 @@ table{
 						      <input type="checkbox" value="Y" class="custom-control-input" id="lounge" name="hotel_lounge">
 						      <label class="custom-control-label" for="lounge">라운지</label>
 						    </div><br>
-						    <div style="display: block;height: 15px;"></div>
 						    <div class="custom-control custom-checkbox">
 						      <input type="checkbox" value="Y" class="custom-control-input" id="bbq" name="hotel_bbq">
 						      <label class="custom-control-label" for="bbq">바베큐장</label>
@@ -261,7 +260,8 @@ table{
 					</tr>
 					<tr>
 						<td colspan="2">
-							<p class="Thumbnail"></p><input type="file" name="file" accept = ".jpg, .png, .gif" required>썸네일 사진(필수)<br><br>
+							<p class="Thumbnail">썸네일 사진(필수)</p><br>
+							<input type="file" name="file" accept = ".jpg, .png, .gif" required><br><br>
 							
 							<p class="Thumbnail">호텔 사진 (상세사진 1장 필수)</p><br>
 							<input type="file" name="file1" accept = ".jpg, .png, .gif" required>
