@@ -24,7 +24,10 @@ public interface PartnerDao {
 	List<PartnerListVO> waiting_list(String type, String keyword, int start, int end);
 	List<PartnerListVO> complete_list(String type, String keyword, int start, int end);
 	List<PartnerListVO> refuse_list(String type, String keyword, int start, int end);
-	int count(String type, String keyword);
+	int count_waiting(String type, String keyword);
+	int count_complete(String type, String keyword);
+	int count_refuse(String type, String keyword);
 	void edit_partner(PartnerDto partnerDto);
+
 	
 }

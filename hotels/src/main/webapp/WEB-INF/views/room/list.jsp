@@ -35,7 +35,7 @@
 				$.ajax({
 					url : "delete",
 					data : {
-						room_no : $("#room_no").val()
+						room_no : $(that).parent().parent().prev().prev().prev().find().(".room_no").val()
 					},
 					dataType : "text",
 					success : function(resp) {
@@ -67,7 +67,7 @@
 							</a>
 						</td>
 						<td class="content_title">객실 이름
-							<input type="hidden" id="room_no" name="room_no" value="${rdto.room_no}">
+							<input type="hidden" class="room_no" name="room_no" value="${rdto.room_no}">
 						</td>
 						<td>
 							<a href="detail?room_no=${rdto.room_no}">${rdto.room_name}</a>
@@ -83,7 +83,8 @@
 					</tr>
 					<tr class="end_line">
 						<td colspan="3">
-							<button class="btn btn-danger delete_btn ">삭제</button>
+							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${rdto.hotel_no}"><button class="btn btn-danger">방 등록</button></a>
+							<button class="btn btn-danger delete_btn">삭제</button>
 						</td>
 					</tr>
 			</tbody>
