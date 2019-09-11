@@ -35,25 +35,14 @@
 	$(function(){
 		$(".delete_btn").click(
 			function() {
-				//this == button
-				var that = this;
+// 				this == button
 				
-				$.ajax({
-					url : "delete",
-					data : {
-						attraction_no : $("#attraction_no").val()
-					},
-					dataType : "text",
-					success : function(resp) {
-						
-						if (resp == "Y") {
- 							$(that).parents(".attraction_info").remove();							
-						}
-						else {
-							
-						}
-					}
-				});
+				if(confirm("삭제하시겠습니까?")){
+					var no = $(this).data("no");
+// 					var no = $(this).attr("data-no");
+					location.href="${pageContext.request.contextPath}/admin/attraction/exit?no="+no;
+				}
+				
 			});
 	});
 </script>
@@ -187,9 +176,7 @@
 			</a>
 		</td>
 		<td>
-			<a href="exit?no=${adto.attraction_no}">
-				<input type="button" class="btn btn-danger delete_btn" value="DELETE">
-			</a>
+			<input type="button" class="btn btn-danger delete_btn" value="DELETE" data-no="${adto.attraction_no}">
 		</td>
 		</tr>
 		</c:forEach>

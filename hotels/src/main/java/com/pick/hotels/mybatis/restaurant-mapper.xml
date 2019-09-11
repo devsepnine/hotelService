@@ -15,15 +15,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into restaurant values(#{restaurant_no}, #{restaurant_name}, #{restaurant_postcode}, #{restaurant_addr1}, #{restaurant_addr2}, #{restaurant_lat}, #{restaurant_lng}, #{restaurant_info})
  	</insert>
  	
+ 	
  	<!-- 레스토랑 상세보기 -->
  	<select id="get" parameterType="int" resultType="restaurantDto">
 		select * from restaurant where restaurant_no = #{restaurant_no}
  	</select>
  	
+ 	
  	<!-- 레스토랑 삭제 -->
  	<delete id="exit" parameterType="int">
  		delete restaurant where restaurant_no = #{restaurant_no}
  	</delete>
+ 	
  	
  	<!-- 레스토랑 리스트 -->
 	<select id="listVO" resultType="restaurantListVO" parameterType="map">
@@ -49,7 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) WHERE R BETWEEN #{start} and #{end}
 	</select>
 	
-	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
+
+	<!-- 목록/ 검색 각각의 글 수를 구하는 거 -->	
 	<select id="count" parameterType="map" resultType="int">
 		select count(*) from restaurant
 		<if test="type != null and keyword != null">
@@ -57,10 +61,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+	
 	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select restaurant_seq.nextval from dual
 	</select>
+	
 	
 	<!-- 레스토랑 수정 -->
 	<update id="edit" parameterType="restaurantDto">
@@ -68,10 +74,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			set restaurant_name = #{restaurant_name}, restaurant_postcode = #{restaurant_postcode}, restaurant_addr1 = #{restaurant_addr1}, restaurant_addr2 = #{restaurant_addr2}, restaurant_lat = #{restaurant_lat}, restaurant_lng = #{restaurant_lng}, restaurant_info = #{restaurant_info}
 		where restaurant_no = #{restaurant_no}
 	</update>
-	
-	<!-- 레스토랑 리스트에서 수정 -->
-	<delete id="delete" parameterType="int">
-		delete restaurant where restaurant_no = #{restaurant_no}
-	</delete>
+
  	                                                                                
  </mapper>

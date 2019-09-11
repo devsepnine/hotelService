@@ -30,24 +30,26 @@
 	$(function(){
 		$(".delete_btn").click(
 			function() {
+				var r = confirm("삭제 하시겠습니까?");
 				var that = this;
-				
-				$.ajax({
-					url : "delete",
-					data : {
-						room_no : $(that).parent().parent().prev().prev().prev().find().(".room_no").val()
-					},
-					dataType : "text",
-					success : function(resp) {
-						
-						if (resp == "Y") {
- 							$(that).parents(".room_info").remove();							
-						}
-						else {
+				if(r==true){
+					$.ajax({
+						url : "delete",
+						data : {
+							room_no : $(that).parent().parent().prev().prev().prev().find(".room_no").val()
+						},
+						dataType : "text",
+						success : function(resp) {
 							
+							if (resp == "Y") {
+	 							$(that).parents(".room_info").remove();							
+							}
+							else {
+								
+							}
 						}
-					}
-				});
+					});
+				}
 			});
 	});
 </script>
