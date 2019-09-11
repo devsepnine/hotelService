@@ -38,6 +38,16 @@
 	});
 </script>
 
+<script>
+function seller_exit() {
+  var r = confirm("탈퇴 처리하시겠습니까?");
+  if (r == true) {
+	location.href="${pageContext.request.contextPath}/admin/seller/exit?no=${sdto.seller_no}";
+	window.alert("탈퇴 처리 되었습니다");
+  }
+}
+</script>
+
 
 <style>
 	.table_ny_two thead,
@@ -198,7 +208,7 @@
 			<td colspan="2">
 				<div style = "margin-top:40px">
 					<a href ="edit?no=${sdto.seller_no}" style = "margin-right:30px; margin-left:170px"><input type="button" value="판매자 정보 수정" name="edit" class="btn btn-danger"></a>
-					<a href ="exit?no=${sdto.seller_no}" ><input type="button" value="판매자 탈퇴" name="exit" class="btn btn-danger"></a>
+					<input type="button" value="판매자 탈퇴" name="exit" onclick="seller_exit()" class="btn btn-danger">
 				</div>
 			</td>
 		</tr>

@@ -1,6 +1,8 @@
 package com.pick.hotels.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,14 @@ public class RoomDaoImpl implements RoomDao{
 	}
 
 	@Override
-	public List<RoomDto> get_list(int hotel_no) {
-		return sqlSession.selectList("room.get_list", hotel_no);
+	public List<RoomDto> get_list(int hotel_no, String check_in, String check_out, int people) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hotel_no", hotel_no);
+		param.put("check_in",check_in);
+		param.put("check_out", check_out);
+		param.put("people", people);
+		
+		return sqlSession.selectList("room.get_list", param);
 	}
 
 	@Override
