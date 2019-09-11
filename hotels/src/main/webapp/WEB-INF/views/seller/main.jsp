@@ -122,7 +122,7 @@
 <div class="chart_page_title" style="margin-top: 100px;">
 	<div style="width: 100%; text-align: center;"><h2 style="margin-bottom: 100px;">내 호텔별 매출</h2></div>
 	<c:forEach var="hdtolist" items="${hdtolist}">
-		<div style="display: inline-block; margin-left: 30px; width: 33%;">
+		<div style="display: inline-block; padding:10px; width: 33%;">
 			<div>
 				<div style="text-align: center">
 					<h3><a href="hotel_sales?hotel_no=${hdtolist.hotel_no}">${hdtolist.hotel_name}</a></h3>
