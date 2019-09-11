@@ -155,7 +155,9 @@
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
-	<p><a href="${pageContext.request.contextPath}/seller/"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100px" height="100px"></a></p>
+<div style="height: 40px;"></div>
+	<p><a href="${pageContext.request.contextPath}/"><img alt="home" src="${pageContext.request.contextPath}/img/homebtn.png" width="100%"></a></p>
+	<div style="width: 100px; border-bottom: 2px solid #3e2b2c;margin: auto;"></div>
 	<br><br>
 	<p><a href="${pageContext.request.contextPath}/seller/info">판매자 정보</a></p>
 	<p><a href="${pageContext.request.contextPath}/seller/hotel/list">호텔</a></p>
