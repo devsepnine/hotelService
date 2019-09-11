@@ -172,5 +172,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		order by monthly asc
 	</select>
 	
+	<insert id="testinsert" parameterType="memberDto">
+		insert into member values(
+		member_seq.nextval, #{member_name}, #{member_phone},
+		#{member_zip_code}, #{member_basic_addr}, #{member_detail_addr},
+		'일반', to_date(#{member_when}, 'YYYYMMDD'), #{member_email1}, #{member_email2},
+		#{member_id}, #{member_pw}, #{member_birthday},sysdate
+		)
+	</insert>
+	
 	
 </mapper>
