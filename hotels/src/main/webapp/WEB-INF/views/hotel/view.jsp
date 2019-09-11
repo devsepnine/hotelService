@@ -423,11 +423,9 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
-    		var region_uri = encodeURI($("input[name=region]").val());
-    		$("input[name=region]").val(region_uri);
     		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
-    		if(daygap < 0){
+    		if(daygap < 86400000){
     			$('#date-toast').toast({
                     delay: 3000
                 }).toast('show');
