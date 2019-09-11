@@ -282,19 +282,6 @@ public class AdminController {
 	}
 	
 	
-//	관광지 리스트에서 삭제("/attraction/delete")
-	@GetMapping("/attraction/delete")
-	public void delete(@RequestParam int attraction_no, HttpServletResponse resp) throws IOException {
-		boolean result = attractionDao.delete(attraction_no);
-		if(result) {
-			resp.getWriter().print("Y");
-		}
-		else {
-			resp.getWriter().print("N");
-		}
-	}
-	
-	
 //	관광지 상세보기("/attraction/detail")
 	@GetMapping("/attraction/detail")
 	public String content(@RequestParam int no, Model model) {
@@ -437,12 +424,6 @@ public class AdminController {
 		
 		restaurantDao.edit(rdto);
 		
-//		수정을 하게되면 
-//		1. 수정한 글 내용
-//		2. 수정파일1, 2, 3
-//		이 넘어오게 되는데 이것을 받아서 수정 처리를 한다.
-//		-> 글 내용은 그냥 수정
-//		->
 		if(!file1.isEmpty()) {
 		
 			if(restaurant_file_no1 > 0) {
@@ -505,19 +486,6 @@ public class AdminController {
 	}
 	
 	
-//	레스토랑 리스트에서 삭제("/restaurant/delete")
-	@GetMapping("/restaurant/delete")
-	public void delete_rt(@RequestParam int restaurant_no, HttpServletResponse resp) throws IOException {
-		boolean result = restaurantDao.delete(restaurant_no);
-		if(result) {
-			resp.getWriter().print("Y");
-		}
-		else {
-			resp.getWriter().print("N");
-		}
-	}
-	
-	
 //	레스토랑 상세보기("restaurant/detail")
 	@GetMapping("/restaurant/detail")
 	public String content_rt(@RequestParam int no, Model model) {
@@ -539,11 +507,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -640,11 +608,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -678,11 +646,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -783,11 +751,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -916,11 +884,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -955,11 +923,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -1037,11 +1005,11 @@ public class AdminController {
 						Model model
 			) {
 		
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -1075,11 +1043,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -1113,11 +1081,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
