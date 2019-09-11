@@ -60,19 +60,6 @@ public class AttractionDaoImpl implements AttractionDao{
 		sqlSession.update("attraction.edit", atdo);
 	}
 
-//	관광지 리스트에서 삭제
-	@Override
-	public boolean delete(int attraction_no) {
-		try {
-			sqlSession.insert("attraction.delete", attraction_no);
-			return true;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 //	관광지 목록
 	@Override
 	public List<AttractionListVO> listVO(String type, String keyword, int start, int end) {
