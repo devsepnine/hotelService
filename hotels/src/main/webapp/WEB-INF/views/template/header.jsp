@@ -57,7 +57,7 @@
     .menubtn{
     	position:fixed;
     	top : 20px;
-		right:10px;
+		left : 20px;
         z-index: 999;
         display: none;
         margin: 0px;

@@ -14,7 +14,7 @@
 	}
 </style>
 <div class="result_page" align="center" style="margin-top: 200px;">
-	<div>
+	<div align="center">
 		<h2>
 			<font class="result_comment">회원 등록이 완료되었습니다</font>
 		</h2>

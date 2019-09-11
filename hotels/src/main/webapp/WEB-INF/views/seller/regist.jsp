@@ -333,7 +333,7 @@ form label {
 					<tr>
 						<td><label for="s_phone">PHONE</label></td>
 						<td><input class="form-control" onblur="checkPhone();"
-							type="tel" placeholder="-없이 번호만 입력하세요" name="seller_phone" id="s_phone "
+							type="tel" placeholder="-포함한 번호를 입력하세요" name="seller_phone" id="s_phone "
 							pattern="^01[016-9]-[0-9]{3,4}-[0-9]{4}$" required>
 							<div class="s_phoneD"></div></td>
 					</tr>

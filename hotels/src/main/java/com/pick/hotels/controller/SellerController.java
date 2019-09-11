@@ -259,8 +259,8 @@ public class SellerController {
 	public String delete(HttpSession session) {
 		String seller_id = (String) session.getAttribute("s_ok");
 		sellerDao.delete(seller_id);
-		session.removeAttribute("ok");
-		session.removeAttribute("auth");
+		session.removeAttribute("s_ok");
+		session.removeAttribute("s_no");
 		return "seller/goodbye";
 	}
 	
@@ -390,25 +390,24 @@ public class SellerController {
 //		기존 비밀번호와 새로운 비밀번호가 들어옴
 //		[1] 기존 비밀번호가 맞는지 확인
 //		[1-1] new password 암호화
-		
 		String new_pw = BCrypt.hashpw(new_seller_pw, BCrypt.gensalt());
 		
-		
-		
 		//먼저 세션에 있는 계정 정보를 가져옴
+		int seller_no = (int) session.getAttribute("s_no");
 		SellerDto check = sellerDao.getId((String) session.getAttribute("s_ok"));
 	
 		//기존 비밀번호와 입력 비밀번호를 비교하여 확인
 		boolean result = BCrypt.checkpw(sellerDto.getSeller_pw(), check.getSeller_pw());
 		
-		
 		if(result) {
 //		[2] 비밀번호가 맞으면 새로운 비밀번호로 변경
+			sellerDto.setSeller_no(seller_no);
 			sellerDto.setSeller_pw(new_pw);
 			
 			sellerDao.changePw(sellerDto);
-			
-			return "seller/new_pw_result";
+			session.removeAttribute("s_no");
+			session.removeAttribute("s_ok");
+			return "seller/change_pw_result";
 		}
 //		[3] 비밀번호가 다르면 비밀번호 변경 실패 안내
 		else {
