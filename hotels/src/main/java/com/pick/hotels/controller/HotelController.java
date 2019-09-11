@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.Detail_room_vo;
 import com.pick.hotels.entity.H_search_vo;
@@ -61,13 +62,17 @@ public class HotelController {
 	@GetMapping("/view/{hotel_no}")
 	public String view(HttpSession session,
 						@PathVariable int hotel_no,
-						Model model) {
+						Model model,
+						@RequestParam String check_in,
+						@RequestParam String check_out,
+						@RequestParam int people) {
 		HotelDto hdto = hotelDao.get(hotel_no);
 		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
 		//detail vo 리스트 생성
 		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
 		// room 리스트 받아옴
-		List<RoomDto> rdto_list = roomDao.get_list(hotel_no);
+		List<RoomDto> rdto_list = roomDao.get_list(hotel_no,check_in,check_out,people);
+		System.out.println(rdto_list);
 		//room 리스트 for문
 		for(RoomDto rdto : rdto_list) {
 			// room 번호로 파일 구함

@@ -29,8 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>                
 	
 	<!-- 리스트 -->
-	<select id="get_list" parameterType="int" resultType="roomDto">
-		select * from room where hotel_no = ${hotel_no}
+	<select id="get_list" parameterType="map" resultType="roomDto">
+		select * from room R
+		left outer join reserve S 
+		on R.room_no = S.reserve_room_no
+		where
+		R.hotel_no = ${hotel_no}
+		and
+		<![CDATA[
+		R.room_people >= ${people} and
+		(reserve_in >= to_date('${check_out}', 'YYYY/MM/DD')
+		or
+		reserve_out <= to_date('${check_in}', 'YYYY/MM/DD')
+		or reserve_in is null or reserve_out is null)
+		]]>
 	</select>  
 	
 	<!-- 방사진 하나만 가져오는 방 리스트 -->

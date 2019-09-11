@@ -14,7 +14,7 @@ public interface RoomDao {
 
 	public RoomDto get(int room_no);
 
-	public List<RoomDto> get_list(int hotel_no);
+	public List<RoomDto> get_list(int hotel_no, String check_in, String check_out, int people);
 
 	public List<RoomListVO> list(int hotel_no);
 
