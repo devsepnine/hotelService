@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
-
+<script>
+function seller_delete() {
+  var r = confirm("탈퇴 하시겠습니까?");
+  if (r == true) {
+	location.href="${pageContext.request.contextPath}/seller/delete";  
+  }
+ 
+}
+</script>
 <style>
 	.info-wrap{
 		
@@ -64,9 +72,9 @@
 		</tbody>
 	</table>
 	<%-- 회원이 이용할 수 있는 기능들을 링크로 제공 --%>
-	<h3><a href="change_pw">비밀번호 변경</a></h3>
-	<h3><a href="change">개인정보 변경</a></h3>
-	<h3><a href="delete">회원 탈퇴</a></h3>
+	<a href="change_pw"><button class="btn btn-danger">비밀번호 변경</button></a>
+	<a href="change"><button class="btn btn-danger">개인정보 변경</button></a>
+	<a href="delete"><button class="btn btn-danger" onclick="seller_delete()">회원 탈퇴</button></a>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
