@@ -3,14 +3,22 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script>
+function member_delete() {
+  var r = confirm("탈퇴 하시겠습니까?");
+  if (r == true) {
+	location.href="${pageContext.request.contextPath}/member/delete";  
+  }
+ 
+}
+</script>
+
 <style>
 	.info-wrap{
-		
 		padding: 100px;
 	}
 	.info-wrap > a{
 		margin: 10px;
-
 	}
 	.sh > tbody > tr > th{
 		font-size: 20px;
@@ -71,7 +79,7 @@
 	<a href="wish_list"><input type="button"  style="width: 115px;" class="btn btn-danger" value="위시리스트"></a>
 	<a href="change_pw"><input type="button" style="width: 115px;" class="btn btn-danger" value="비밀번호 변경"></a>
 	<a href="change"><input type="button" style="width: 115px;" class="btn btn-danger" value="개인정보 변경"></a>
-	<a href="delete"><input type="button" style="width: 115px;" class="btn btn-danger" value="회원탈퇴"></a>
+	<input type="button" style="width: 115px;" class="btn btn-danger"  onclick="member_delete()" value="회원탈퇴">
 	<a href="${pageContext.request.contextPath}/review/review_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내가 쓴 리뷰"></a>
 	<a href="coupon_list"><input type="button" style="width: 115px;" class="btn btn-danger" value="내 쿠폰함"></a>
 </div>
