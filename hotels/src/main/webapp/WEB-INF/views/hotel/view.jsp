@@ -821,7 +821,7 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<p>${detail_room}</p>
+<%-- 	<p>${detail_room}</p> --%>
 </c:forEach>
 <div class="hotel_review">
 	
