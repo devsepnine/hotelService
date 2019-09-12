@@ -15,7 +15,6 @@
 <style>
 	.scrollbar{
 		float: left;
-		background: #F5F5F5;
 		overflow-y: scroll;
 	}
 	.scroll-1::-webkit-scrollbar-track
@@ -162,6 +161,7 @@
 	    .hotel-desc-wrap{
 	    	height: 110px;
 	    	overflow-y:scroll;
+	    	overflow: auto;
 	    }
 	    .ico-wrap img{
 	    	width: 24px;
@@ -286,7 +286,6 @@ $(function(){
 
 <script type="text/javascript">
     $(function () {
-    	$(".toast").hide();
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
 		});
@@ -339,7 +338,6 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
-    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 86400000){
     			$('#date-toast').toast({
@@ -497,7 +495,7 @@ $(function(){
 
 
 <!-- 	팝업알림 -->
-  <div class="toast" id="date-toast">
+  <div class="toast hide" id="date-toast">
     <div class="toast-header">
       숙박기간
     </div>

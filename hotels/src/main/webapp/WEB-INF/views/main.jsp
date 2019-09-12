@@ -121,7 +121,6 @@
 
 <script type="text/javascript">
     $(function () {
-    	$(".toast").hide();
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
 		});
@@ -156,11 +155,10 @@
 
     	$("form").submit(function(e){
     		e.preventDefault();
-    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 86400000){
     			$('#date-toast').toast({
-                    delay: 3000
+                    delay: 3000,
                 }).toast('show');
     			$("input[name=check_in]").val("");
     			$("input[name=check_in]").focus();
@@ -302,7 +300,7 @@ $(function(){
 
 
 <!-- 	팝업알림 -->
-  <div class="toast" id="date-toast">
+  <div class="toast hide" id="date-toast">
     <div class="toast-header">
       숙박기간
     </div>

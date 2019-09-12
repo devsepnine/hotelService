@@ -17,7 +17,6 @@
 <style>
 	.scrollbar{
 		float: left;
-		background: #F5F5F5;
 		overflow-y: scroll;
 	}
 	.scroll-1::-webkit-scrollbar-track
@@ -262,6 +261,7 @@ $(function(){
     .hotel-content-desc > div{
     	height: 158px;
     	overflow-y: scroll;
+    	overflow: auto;
     }
     .hotel-star-wrap .hotel-star{
     	width: 200px;
@@ -370,7 +370,6 @@ $(function(){
 <!-- 날짜 검색 스크립트 -->
 <script type="text/javascript">
     $(function () {
-    	$(".toast").hide();
     	
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
@@ -423,11 +422,10 @@ $(function(){
 
     	$("form").submit(function(e){
     		e.preventDefault();
-    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
     		if(daygap < 86400000){
     			$('#date-toast').toast({
-                    delay: 3000
+                    delay: 3000,
                 }).toast('show');
     			$("input[name=check_in]").val("");
     			$("input[name=check_in]").focus();
@@ -845,7 +843,7 @@ $(function(){
   			
 </div>
 <!-- 	팝업알림 -->
-  <div class="toast" id="date-toast">
+  <div class="toast hide" id="date-toast">
     <div class="toast-header">
       숙박기간
     </div>
@@ -853,5 +851,6 @@ $(function(){
       Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
     </div>
   </div>
+  
 <input type="hidden" class="hotel_no" value="${param.h_no}">
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
