@@ -11,28 +11,22 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
-<!-- 스크롤바 스타일 -->
+<!-- 호텔 설명 스크롤바 가리는 스타일 -->
 <style>
-	.scrollbar{
-		float: left;
-		overflow-y: scroll;
-	}
-	.scroll-1::-webkit-scrollbar-track
-	{
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar
-	{
-		width: 0px;
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar-thumb
-	{
-		background-color: #726454;
-	}
+	    .hotel-desc-wrap{
+	    	height: 126px;
+	    	width:663px;
+	    	overflow: hidden;
+	    }
+	    .hotel-desc-scroll{
+		    width:680px;
+		    height:100%;
+		    overflow-y:scroll;
+	   }
+	    .hotel-desc-content{
+	    	height: 100%;
+	    	width: 663px;
+	    }
 </style>
 <!-- 	date picker width 버그 수정 -->
 <!-- 	date picker width 버그 수정 -->
@@ -157,11 +151,6 @@
 	    }
 	    .hotel-wrap > .detail{
 	    	padding-left: 20px;
-	    }
-	    .hotel-desc-wrap{
-	    	height: 110px;
-	    	overflow-y:scroll;
-	    	overflow: auto;
 	    }
 	    .ico-wrap img{
 	    	width: 24px;
@@ -473,8 +462,10 @@ $(function(){
 						<c:if test="${h_con.hotel_sauna=='Y'}">
 						<img alt="" data-toggle="tooltip" data-placement="top" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
-					<div class="scroll scroll-1 hotel-desc-wrap">
-						<div class="hotel-desc-content">${h_con.hotel_content}</div>
+					<div class="hotel-desc-wrap">
+						<div class="hotel-desc-scroll">
+							<div class="hotel-desc-content">${h_con.hotel_content}</div>
+						</div>
 					</div>
 				</div>
 				
