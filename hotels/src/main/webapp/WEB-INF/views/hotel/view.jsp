@@ -15,26 +15,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 <!-- 스크롤바 스타일 -->
 <style>
-	.scrollbar{
-		float: left;
-		overflow-y: scroll;
-	}
-	.scroll-1::-webkit-scrollbar-track
-	{
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar
-	{
-		width: 0px;
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar-thumb
-	{
-		background-color: #726454;
-	}
+    .hotel-desc-wrap{
+    	height: 180px;
+    	width:504px;
+    	overflow: hidden;
+    	border: 1px solid lightgray;
+    	border-radius: 5px;
+    	flex-grow: 1;
+    	padding: 5px;
+    }
+    .hotel-desc-scroll{
+	    width:680px;
+	    height:100%;
+	    overflow-y:scroll;
+   }
+    .hotel-desc-content{
+    	height: 100%;
+    	width: 504px;
+    }
 </style>
 
 <!-- 다음 지도 -->
@@ -251,17 +249,6 @@ $(function(){
     	flex-grow: 1;
     	margin-right: 20px;
     	
-    }
-    .hotel-content-wrap .hotel-content-desc{
-    	border: 1px solid lightgray;
-    	border-radius: 5px;
-    	flex-grow: 1;
-    	padding: 5px;
-    }
-    .hotel-content-desc > div{
-    	height: 158px;
-    	overflow-y: scroll;
-    	overflow: auto;
     }
     .hotel-star-wrap .hotel-star{
     	width: 200px;
@@ -709,9 +696,10 @@ $(function(){
 				    	<font style="margin: auto; width: 70px;display: block">리뷰 평점</font>
 					</div>
 				</div>
-				
-				<div class="hotel-content-desc ">
-					<div class="scrollbar scroll-1">${hdto.hotel_content}</div>
+				<div class="hotel-desc-wrap">
+					<div class="hotel-desc-scroll">
+						<div class="hotel-desc-content">${hdto.hotel_content}</div>
+					</div>
 				</div>
 			</div>
 			
