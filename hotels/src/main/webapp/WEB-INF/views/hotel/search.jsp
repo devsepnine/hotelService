@@ -127,12 +127,12 @@
 	    	width: 910px;
 	    	margin: auto;
 	    }
-	    .resdesc-wrap{
+	    .desc-wrap{
 	    	border-top: 1px solid #e6e5de;
 	    	border-bottom: 1px solid #e6e5de;
 	    	height: 300px;
 	    }
-	    .resdesc-wrap>.resdesc{
+	    .desc-wrap > .desc-con{
 	    	width: 500px;
 	    	margin: auto;
 	    	text-align: center;
@@ -429,10 +429,6 @@ $(function(){
 </div>
 </form>
 <br>
-<div class="resdesc-wrap">
-<div class="resdesc">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
-</div>
-
 <div class="room-area">
 	<div class="pick-hotel">
 		<ul class="hotel-list">
@@ -493,6 +489,20 @@ $(function(){
 </div>
 
 
+
+
+<c:if test="${empty h_list} && ${param.region}">
+<div class="h-empty desc-wrap">
+<div class="empty-desc desc-con">
+	<p>"${param.region}" 에 대한 검색 결과가 없습니다.</p>
+	<p> 다시 입력해주세요. </p>
+</div>
+</div>
+</c:if>
+
+<div class="resdesc-wrap desc-wrap">
+<div class="resdesc desc-con">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
+</div>
 
 <!-- 	팝업알림 -->
   <div class="toast hide" id="date-toast">
