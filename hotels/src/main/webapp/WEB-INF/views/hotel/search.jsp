@@ -490,8 +490,7 @@ $(function(){
 
 
 
-
-<c:if test="${empty h_list} && ${param.region}">
+<c:if test="${empty h_list and not empty param.region}">
 <div class="h-empty desc-wrap">
 <div class="empty-desc desc-con">
 	<p>"${param.region}" 에 대한 검색 결과가 없습니다.</p>
