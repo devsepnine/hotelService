@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,12 +68,14 @@ public class HotelController {
 						@RequestParam String check_out,
 						@RequestParam int people) {
 		HotelDto hdto = hotelDao.get(hotel_no);
+		if(ObjectUtils.isEmpty(hdto)) {
+			return "err/hotel_no_find";
+		}
 		List<HotelFileDto> hflist = hotelFileDao.getlist(hotel_no);
 		//detail vo 리스트 생성
 		List<Detail_room_vo> detail_list = new ArrayList<Detail_room_vo>();
 		// room 리스트 받아옴
 		List<RoomDto> rdto_list = roomDao.get_list(hotel_no,check_in,check_out,people);
-		System.out.println(rdto_list);
 		//room 리스트 for문
 		for(RoomDto rdto : rdto_list) {
 			// room 번호로 파일 구함
