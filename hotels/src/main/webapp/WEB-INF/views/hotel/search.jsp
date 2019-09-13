@@ -22,6 +22,7 @@
 		    width:680px;
 		    height:100%;
 		    overflow-y:scroll;
+		    overflow-x:hidden;
 	   }
 	    .hotel-desc-content{
 	    	height: 100%;
@@ -494,6 +495,11 @@ $(function(){
 <div class="resdesc desc-con">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
 </div>
 
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
+
 <!-- 	팝업알림 -->
   <div class="toast hide" id="date-toast">
     <div class="toast-header">
@@ -503,4 +509,3 @@ $(function(){
       Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
     </div>
   </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -298,6 +298,10 @@ $(function(){
 
 <span> 여기에 메인 내용을 넣으시면 됩니다.</span>
 
+  
+</div>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
 
 <!-- 	팝업알림 -->
   <div class="toast hide" id="date-toast">
@@ -308,6 +312,3 @@ $(function(){
       Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
     </div>
   </div>
-  
-</div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

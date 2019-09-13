@@ -62,7 +62,7 @@ public class ReviewController {
 						Model model) throws IOException {
 		
 			int member_no = (int) session.getAttribute("no");
-			reviewDto.setReview_member_no(member_no);
+			reviewDto.setReview_writer(member_no);
 			
 			model.addAttribute("reserve_no", reviewDto.getReview_reserve());
 			reviewDao.write(reviewDto);
@@ -83,7 +83,7 @@ public class ReviewController {
 	@GetMapping("/review_delete")
 	public void review_delete(@RequestParam int review_no, @ModelAttribute ReviewDto reviewDto , HttpSession session, HttpServletResponse resp) throws IOException {
 		int member_no = (int) session.getAttribute("no");
-		reviewDto.setReview_member_no(member_no);
+		reviewDto.setReview_writer(member_no);
 		reviewDto.setReview_no(review_no);
 		boolean result = reviewDao.change(reviewDto);
 		
