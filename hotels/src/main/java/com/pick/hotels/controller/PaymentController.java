@@ -47,6 +47,9 @@ public class PaymentController {
 				int member_no = (int) session.getAttribute("no");
 				int order_id = reserveDao.getseq_no();
 				HotelDto hdto = hotelDao.get(payment_VO.getReserve_hotel_no());
+				if(payment_VO.getReserve_price()>=1000000) {
+					return "err/card_refuse";
+				}
 				
 //				서버에서 다른 서버를 호출하려면 RestTemplate이 필요
 				RestTemplate template = new RestTemplate();
