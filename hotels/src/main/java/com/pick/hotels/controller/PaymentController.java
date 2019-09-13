@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.Payment_VO;
+import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.kakaopay.KakaoPayReturnVo;
 import com.pick.hotels.entity.kakaopay.KakaoPaySuccessVO;
 import com.pick.hotels.repository.HotelDao;
@@ -34,7 +35,6 @@ public class PaymentController {
 	private @Autowired HotelDao hotelDao;
 	
 	
-
 	
 	@PostMapping("/order")
 	public String payment(@ModelAttribute Payment_VO payment_VO,
@@ -119,8 +119,24 @@ public class PaymentController {
 		
 		//최종 승인 요청
 		KakaoPaySuccessVO success = template.postForObject(uri, send, KakaoPaySuccessVO.class);
-		
+		Payment_VO pv = (Payment_VO) session.getAttribute("payment_VO");
+		System.out.println(pv);
 		//결제 완료로 DB에 저장하고 사용자에게 결과 알림
+		ReserveDto rdto = ReserveDto.builder()
+											.reserve_hotel_no(pv.getReserve_hotel_no())
+											.reserve_room_no(pv.getReserve_room_no())
+											.reserve_people(pv.getReserve_people())
+											.reserve_in(pv.getReserve_in())
+											.reserve_out(pv.getReserve_out())
+											.reserve_member_no((int)session.getAttribute("no"))
+											.reserve_name(pv.getReserve_name())
+											.reserve_no((int) session.getAttribute("order_id"))
+											.reserve_phone(pv.getReserve_phone())
+											.reserve_cancel(null)
+											.reserve_pay_type("카카오페이")
+											.reserve_price(pv.getReserve_price())
+											.build();
+		reserveDao.regist(rdto);
 		
 		model.addAttribute("success", success);
 		

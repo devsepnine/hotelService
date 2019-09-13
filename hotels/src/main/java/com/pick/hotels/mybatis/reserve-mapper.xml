@@ -12,9 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 예약하기 -->
 	<insert id="regist" parameterType="reserveDto">
 		insert into reserve values(
-		reserve_seq.nextval, #{reserve_member_no}, #{reserve_hotel_no},
-		#{reserve_when},#{reserve_name},#{reserve_phone},sysdate, #{reserve_cansel}, #{reserve_in}, #{reserve_out},
-		#{reserve_visit}, #{reserve_ok}
+		#{reserve_no}, #{reserve_member_no}, #{reserve_hotel_no}, #{reserve_room_no},${reserve_people}, #{reserve_name}, #{reserve_phone}, 
+		sysdate, null, #{reserve_in}, #{reserve_out},'예약', #{reserve_price}, #{reserve_pay_type}
 		)
 	</insert>
 	
