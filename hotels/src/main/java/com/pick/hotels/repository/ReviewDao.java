@@ -22,4 +22,10 @@ public interface ReviewDao {
 
 	List<Review_list_vo> get_list(int hotel_no);
 
+	//관리자 리뷰 리스트
+	List<ReviewVO> admin_review_list(String type, String keyword, int start, int end);
+	int count_review_list(String type, String keyword);
+	List<ReviewVO> admin_review_blacklist(String type, String keyword, int start, int end);
+	int count_review_blacklist(String type, String keyword);
+	
 }

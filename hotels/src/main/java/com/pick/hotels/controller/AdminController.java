@@ -30,6 +30,7 @@ import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RestaurantListVO;
+import com.pick.hotels.entity.ReviewVO;
 import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
@@ -42,6 +43,7 @@ import com.pick.hotels.repository.PartnerFileDao;
 import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
+import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
@@ -89,9 +91,11 @@ public class AdminController {
 	@Autowired
 	private ReserveDao reserveDao;
 
+	@Autowired
+	private ReviewDao reviewDao;
 	
 //------------------------------------------------------------------------------------
-//	관광지
+//	관리자 메인 페이지
 //------------------------------------------------------------------------------------
 	
 //	전체 관리 페이지("main")
@@ -1109,4 +1113,52 @@ public class AdminController {
 		
 		return "admin/partner/refuse_list";
 	}
+	
+	
+//------------------------------------------------------------------------------------
+// 리뷰
+//------------------------------------------------------------------------------------	
+
+//	리뷰 리스트("/review/list")
+	@GetMapping("/review/list")
+	public String review_list(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 5;
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = reviewDao.count_review_list(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<ReviewVO> list = reviewDao.admin_review_list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/review/list";
+	}
+	
+	
+
 }
+
+
+
