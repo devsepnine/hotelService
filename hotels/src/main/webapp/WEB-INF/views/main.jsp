@@ -170,8 +170,8 @@
 		function dateMath() {
 			if(startday != null && lastday!=null){
 				var diff = dateDiff(new Date($("#datetimepicker1 input").val()), new Date($("#datetimepicker2 input").val()))
-				if(diff>30){
-					alert("기간은 30일 이하로 선택해주세요.")
+				if(diff>7){
+					alert("기간은 7일 이하로 선택해주세요.")
 					$("#datetimepicker2 input").val('');
 				}
 			}
