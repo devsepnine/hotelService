@@ -101,14 +101,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, s.* from(select * from seller 
+    		select rownum r, s.* from(select * from seller where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'N'
+			seller_blacklist = 'N' order by seller_no desc )s)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	
@@ -129,14 +128,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, s.* from(select * from seller 
+    		select rownum r, s.* from(select * from seller where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'Y'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+			seller_blacklist = 'Y' order by seller_no desc )s)  where r >= #{start} and r <= #{end}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 		]]>
 	</select>
 	
