@@ -50,6 +50,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from review
 	</select>
 	
+	
+	<!-- 호텔 뷰에서 사용할 리뷰 mapper 시작 -->
 	<select id="getavgstar" parameterType="int" resultType="_float">
 		select round(avg(review_score),1) from review where review_hotel = #{hotel_no}
 	</select>
@@ -66,6 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by r1.review_no desc
 	</select>
 	
+	<!-- 호텔 뷰에서 사용할 리뷰 mapper 종료 -->
 
 
 	<!--  관리자   -->
@@ -105,4 +108,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 			review_state = '등록'
 	</select>
+	
+
 </mapper>
