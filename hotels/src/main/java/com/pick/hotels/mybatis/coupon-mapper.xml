@@ -34,14 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, c.* from(select * from coupon 
+    		select rownum r, c.* from(select * from coupon where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용가능'
+			coupon_condition = '사용가능' order by coupon_no desc )c)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	
@@ -62,14 +61,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, c.* from(select * from coupon 
+    		select rownum r, c.* from(select * from coupon where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용불가능'
+			coupon_condition = '사용불가능' order by coupon_no desc )c)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	

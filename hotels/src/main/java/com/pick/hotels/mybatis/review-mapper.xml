@@ -67,6 +67,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		r1.review_hotel = #{hotel_no} and r1.review_state ='등록'
 		order by r1.review_no desc
 	</select>
-	
 	<!-- 호텔 뷰에서 사용할 리뷰 mapper 종료 -->
+  
+  	<!--  관리자   -->
+	
+	<!-- 리뷰 리스트  -->
+	<select id="admin_review_list" parameterType="map" resultType="reviewVO">
+		SELECT * FROM (
+				SELECT rownum rn, a. * FROM(
+					    SELECT 
+					       H.hotel_name,
+					        R.room_name,
+					        RV.reserve_in,
+					        RV.reserve_out,
+					        RW.review_score,
+					        RW.review_content,
+					        RW.review_when,
+					        RW.review_no
+					FROM 
+					        hotel H 
+					        inner join room R on R.hotel_no = H.hotel_no
+					        inner join reserve RV on  RV.reserve_room_no = R.room_no
+					        inner join review RW on  RW.review_reserve = RV.reserve_no
+					 WHERE review_state = '등록'
+							<if test="type != null and keyword != null">
+									AND ${type} like '%'||#{keyword}||'%'
+							</if>
+							order by review_no desc)a
+			) WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 리뷰 리스트  카운트 -->
+	<select id="count_review_list" parameterType="map" resultType="int">
+		select count(*) from review
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			review_state = '등록'
+	</select>
 </mapper>
