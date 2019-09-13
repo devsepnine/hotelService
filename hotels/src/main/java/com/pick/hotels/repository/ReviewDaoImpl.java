@@ -139,5 +139,17 @@ public class ReviewDaoImpl implements ReviewDao{
 		return sqlSession.selectOne("review.count_review_blacklist", param);
 	}
 
-	
+//	리뷰 블랙리스트 처리
+	@Override
+	public void edit(ReviewDto reviewDto) {
+		sqlSession.update("review.edit", reviewDto);
+	}
+
+//	리뷰 정보
+	@Override
+	public ReviewDto get(int no) {
+		return sqlSession.selectOne("review.get", no);
+	}
+
+	 
 }

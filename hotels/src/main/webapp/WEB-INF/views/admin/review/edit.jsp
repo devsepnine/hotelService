@@ -6,9 +6,9 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script>
-	//partner_type 옵션값 선택
+	//review_state 옵션값 선택
 	$(function(){//문서가 다 생기면
-		$("select[name=partner_type]").val("${pdto.partner_type}");
+		$("select[name=review_state]").val("${rdto.review_state}");
 	});
 </script>
 <%-- 
@@ -18,11 +18,11 @@
 	--%>
 
 <style>
-	.admin_partner_wrap > *{
+	.admin_review_wrap > *{
 		color:black;
 	}
 	
-	.admin_partner_wrap > .table_ny_one {
+	.admin_review_wrap > .table_ny_one {
 		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
@@ -31,18 +31,18 @@
   		max-width: 800px;
 	}
 	
-	.admin_partner_wrap > .table_ny_one > thead > tr > th,
-	.admin_partner_wrap > .table_ny_one > tbody > tr > th,
-	.admin_partner_wrap > .table_ny_one > tfoot > tr > th {
+	.admin_review_wrap > .table_ny_one > thead > tr > th,
+	.admin_review_wrap > .table_ny_one > tbody > tr > th,
+	.admin_review_wrap > .table_ny_one > tfoot > tr > th {
 		border: none;
   		padding:10px 10px;
   		font-size: 16px;
   		text-align: center;
 	}
 	
-	.admin_partner_wrap > .table_ny_one > thead > tr > td,
-	.admin_partner_wrap > .table_ny_one > tbody > tr > td,
-	.admin_partner_wrap > .table_ny_one > tfoot > tr > td {
+	.admin_review_wrap > .table_ny_one > thead > tr > td,
+	.admin_review_wrap > .table_ny_one > tbody > tr > td,
+	.admin_review_wrap > .table_ny_one > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -84,12 +84,12 @@
 
 
 <form action="edit" method="post">
-<input type="hidden" name="partner_no" value="${pdto.partner_no}">
+<input type="hidden" name="review_no" value="${rdto.review_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
-<div class="admin_partner_wrap">
+<div class="admin_review_wrap">
 <div class="headtit">
-<h3>[ ${pdto.partner_name} ]</h3>
+<h3>&emsp;</h3>
 </div>
 		<table class="table_ny_one" align="center" >
 			<tbody>
@@ -97,29 +97,28 @@
 					<th style="width:180px">
 						<label>호텔 번호</label>
 					</th>
-					<td class="td-line">${pdto.hotel_no}</td>
+					<td class="td-line">${rdto.review_hotel}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>제휴 전화번호</label>
+						<label>예약 번호</label>
 					</th>
-					<td class="td-line">${pdto.partner_tel}</td>
+					<td class="td-line">${rdto.review_reserve}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>주소</label>
+						<label>리뷰 내용</label>
 					</th>
-					<td class="td-line">${pdto.partner_basic_addr}&emsp;${pdto.partner_detail_addr}</td>
+					<td class="td-line">${rdto.review_content}</td>
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>승인 상태</label>
+						<label>리뷰 상태</label>
 					</th>
 					<td>
-						<select id="partner_type" style="width:160px;" class="form-control" name="partner_type">
-							<option value="승인대기">승인 대기</option>
-							<option value="승인완료">승인 완료</option>
-							<option value="승인거부">승인 거절</option>
+						<select id="review_state" style="width:160px;" class="form-control" name="review_state">
+							<option value="등록">clean</option>
+							<option value="블랙">black</option>
 						</select>
 					</td>
 				</tr>
@@ -127,7 +126,7 @@
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2"  style="text-align: right;">
-						<input type="submit" style="width:70px" class="btn btn-danger" value="제휴 수정">
+						<input type="submit" style="width:70px" class="btn btn-danger" value="리뷰 수정">
 					</td>
 				</tr>
 			</tfoot>

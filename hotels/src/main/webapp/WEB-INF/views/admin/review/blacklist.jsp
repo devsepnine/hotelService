@@ -33,14 +33,14 @@
 </script>
 
 <style>
-	.table_ny_three thead,
-	.table_ny_three tbody{
+	.table_ny_two thead,
+	.table_ny_two tbody{
 		color:black;
 	}
-	.table_ny_three > thead > tr > th {
+	.table_ny_two > thead > tr > th {
 		font-size: 15px;
 	}
-	.table_ny_three tbody > tr > td{
+	.table_ny_two tbody > tr > td{
 		font-size: 13px;
 	}
 	
@@ -69,14 +69,16 @@
 		text-align: center;
 	}
 	
-	.list_headtit{
+	.headtit{
 		border-bottom: #432c10 solid 10px;
 		max-width:1100px;
 		margin:auto;
 		text-align: left;
+		margin-bottom: 50px;
 	}
 	
-	.list_wrap > .table-box > .table_ny_three {
+	.list_wrap > .table-box > .table_ny_two {
+		margin-top : 50px;
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
    		border-left: none;
@@ -84,12 +86,12 @@
   		max-width: 1100px;
 	}
 	
-	.list_wrap > .table-box > .table_ny_three > thead > tr > th,
-	.list_wrap > .table-box > .table_ny_three > thead > tr > td,
-	.list_wrap > .table-box > .table_ny_three > tbody > tr > th,
-	.list_wrap > .table-box > .table_ny_three > tbody > tr > td,
-	.list_wrap > .table-box > .table_ny_three > tfoot > tr > th,
-	.list_wrap > .table-box > .table_ny_three > tfoot > tr > td {
+	.list_wrap > .table-box > .table_ny_two > thead > tr > th,
+	.list_wrap > .table-box > .table_ny_two > thead > tr > td,
+	.list_wrap > .table-box > .table_ny_two > tbody > tr > th,
+	.list_wrap > .table-box > .table_ny_two > tbody > tr > td,
+	.list_wrap > .table-box > .table_ny_two > tfoot > tr > th,
+	.list_wrap > .table-box > .table_ny_two > tfoot > tr > td {
 		border: 1px solid #432c10;
 		border-left: none;
   		border-right: none;
@@ -103,77 +105,60 @@
 		margin: auto;
 		padding: 20px 10px;
 		box-shadow: 2px 2px 10px #EAEAEA;
-	}
 	
+	}
 	.table-box{
-		max-width: 1000px;
+		max-width: 1100px;
 		margin: auto;
 	}
-	
-	.table_ny_three{
+	.table_ny_two{
 		width:100%;
 		text-align: center;
 		margin: auto;
 	}
-	
 	.custom-select{
 		display:inline-block;
 		width:100px;
 	}
-	
 	input[name=keyword]{
 		display:inline-block;
 		max-width: 200px;
 	}
-	
 	.btn-danger{
 		height: 45px;
 	}
-	
-	input[name=BLACK_LIST]{
-		margin-top:20px;
-		margin-bottom: 20px;
- 		margin-right : 850px;
-	}
-	
-	.btn-blacklist {
-	  color: #fff;
-	  background-color: black;
-	  border-color: #d9534f;
-	}
-	
 </style>
 
+<input type="hidden" id="review_no" value="${rvo.review_no}">
 <div style="height: 100px;"></div>
 <div class="content-line">
 <div class="list_wrap">
-<div class="list_headtit">
-<h3>판매자 리스트</h3>
+<div class="headtit">
+<h3>리뷰 리스트</h3>
 </div>
-	<a href="blacklist">
-		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="BLACK LIST">
-	</a>
 <div class="table-box">
-<table class="table_ny_three" border="1" >
+<table class="table_ny_two" border="1" >
 	<thead>
 		<tr>
-			<th width="15%">판매자 번호</th>
-			<th width="20%">아이디</th>
-			<th width="20%">이름</th>
-			<th width="25%">사업자 번호</th>
-			<th width="20%">상세 정보</th>
+			<th width="5%">리뷰 번호</th>
+			<th width="15%">호텔 이름</th>
+			<th width="15%">방 이름</th>
+			<th width="45%">리뷰내용</th>
+			<th width="10%">리뷰 작성일</th>
+			<th width="10%">리뷰 필터</th>
 		</tr>
 	</thead>
 	<tbody align="center">
-		<c:forEach var="sdto" items="${list}">
+		<c:forEach var="rvo" items="${list}">
 		<tr>
-			<td>${sdto.seller_no}</td>
-			<td>${sdto.seller_id}</td>
-			<td>${sdto.seller_name}</td>
-			<td>${sdto.seller_lisence}</td>
+			<td>${rvo.review_no}</td>
+			<td>${rvo.hotel_name}</td>
+			<td>${rvo.room_name}</td>
+			<td>${rvo.review_content}</td>
+			<td>${rvo.review_when.substring(2,10)}</td>
 			<td>
-				<a href="detail?no=${sdto.seller_no}">
-					<input type="button" class="btn btn-danger" value="DETAIL">
+				<a href="edit?no=${rvo.review_no}">
+					<input type="button" class="btn btn-danger" value="CLEAN">
 				</a>
 			</td>
 		</tr>
@@ -185,14 +170,14 @@
 
 <div class="empty"></div>
 
-<form class="form" action="list" method="get">
+<form class="form" action="blacklist" method="get">
 
 <input type="hidden" name="page" value="1">
 
-<select name="type" class="custom-select" style="width:140px">
-	<option value="seller_id">아이디</option>
-	<option value="seller_name">이름</option>
-	<option value="seller_lisence">사업자 번호</option>
+<select name="type" class="custom-select" style="width:120px">
+<!-- 	<option value="hotel_name">호텔 이름</option> -->
+<!-- 	<option value="room_name">방 이름</option> -->
+	<option value="review_content">리뷰 내용</option>
 </select>
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">
@@ -207,10 +192,10 @@
 	<c:if test="${startBlock > 1}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
+				<li><a href="blacklist?page=${startBlock - 1}&type=${param.type}&keyword=${param.keyword}">&lt;&lt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${startBlock - 1}">&lt;&lt;</a></li>		
+				<li><a href="blacklist?page=${startBlock - 1}">&lt;&lt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>
@@ -219,10 +204,10 @@
 	<c:if test="${page > 1}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${page-1}&type=${param.type}&keyword=${param.keyword}">&lt;</a></li>		
+				<li><a href="blacklist?page=${page-1}&type=${param.type}&keyword=${param.keyword}">&lt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${page-1}">&lt;</a></li>		
+				<li><a href="blacklist?page=${page-1}">&lt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>
@@ -231,10 +216,10 @@
 	<c:forEach var="i" begin="${startBlock}" end="${endBlock}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
+				<li><a href="blacklist?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${i}">${i}</a></li>		
+				<li><a href="blacklist?page=${i}">${i}</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -243,10 +228,10 @@
 	<c:if test="${page < pageCount}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${page+1}&type=${param.type}&keyword=${param.keyword}">&gt;</a></li>		
+				<li><a href="blacklist?page=${page+1}&type=${param.type}&keyword=${param.keyword}">&gt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${page+1}">&gt;</a></li>	
+				<li><a href="blacklist?page=${page+1}">&gt;</a></li>	
 			</c:otherwise>
 		</c:choose>
 		
@@ -256,10 +241,10 @@
 	<c:if test="${endBlock < pageCount}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="list?page=${endBlock + 1}&type=${param.type}&keyword=${param.keyword}">&gt;&gt;</a></li>		
+				<li><a href="blacklist?page=${endBlock + 1}&type=${param.type}&keyword=${param.keyword}">&gt;&gt;</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="list?page=${endBlock + 1}">&gt;&gt;</a></li>		
+				<li><a href="blacklist?page=${endBlock + 1}">&gt;&gt;</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:if>

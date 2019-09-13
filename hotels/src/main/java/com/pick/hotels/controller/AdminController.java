@@ -30,6 +30,7 @@ import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RestaurantListVO;
+import com.pick.hotels.entity.ReviewDto;
 import com.pick.hotels.entity.ReviewVO;
 import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
@@ -1127,7 +1128,7 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
@@ -1157,6 +1158,63 @@ public class AdminController {
 	}
 	
 	
+//	리뷰 블랙리스트("/review/list")
+	@GetMapping("/review/blacklist")
+	public String review_blacklist(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = reviewDao.count_review_blacklist(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<ReviewVO> list = reviewDao.admin_review_blacklist(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/review/blacklist";
+	}
+	
+	
+//	리뷰 블랙리스트 처리("/review/edit")
+	@GetMapping("/review/edit")
+	public String review_edit(@RequestParam int no, Model model) {
+
+		ReviewDto reviewDto = reviewDao.get(no);
+		
+		model.addAttribute("rdto", reviewDto);
+		
+		return "admin/review/edit";
+	}
+	
+	@PostMapping("/review/edit")
+	public String review_edit(@ModelAttribute ReviewDto reviewDto) {
+		
+		reviewDao.edit(reviewDto);
+		
+		return "redirect:list";
+	}
+
 
 }
 

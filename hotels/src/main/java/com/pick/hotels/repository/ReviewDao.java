@@ -27,5 +27,7 @@ public interface ReviewDao {
 	int count_review_list(String type, String keyword);
 	List<ReviewVO> admin_review_blacklist(String type, String keyword, int start, int end);
 	int count_review_blacklist(String type, String keyword);
+	void edit(ReviewDto reviewDto);
+	ReviewDto get(int no);
 	
 }
