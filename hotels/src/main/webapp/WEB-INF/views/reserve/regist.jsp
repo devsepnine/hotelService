@@ -104,7 +104,7 @@
 <%-- ${mdto} --%>
 <%-- ${hdto} --%>
 <div style="height: 60px;"></div>
-<form action="${pageContext.request.contextPath}/">
+<form action="${pageContext.request.contextPath}/payment/order" method="post">
 <div class="reserve-wrap">
 	<div class="left-wrap">
 		<h3>예약자 정보</h3>
@@ -175,7 +175,7 @@
 		<div class="right-con">
 			<div class="right-title">객실이름/기간</div>
 			<div class="right-desc">${rdto.room_name} /  <span class="term"></span>박</div>
-			<input type="hidden" name="reserve_room_no" value="rdto.room_no">
+			<input type="hidden" name="reserve_room_no" value="${rdto.room_no}">
 			<input type="hidden" name="">
 		</div>
 		

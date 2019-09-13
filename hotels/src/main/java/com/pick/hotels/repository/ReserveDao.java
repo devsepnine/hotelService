@@ -27,6 +27,9 @@ public interface ReserveDao {
 //	관리자
 	List<ReserveTotalVO> getTotal();
 
+	// 결제시 시퀀스 꺼내옴
+	int getseq_no();
+
 
 
 }

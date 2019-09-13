@@ -81,6 +81,13 @@ public class ReserveDaoImpl implements ReserveDao{
 		return sqlsession.selectList("reserve.total");
 	}
 
+	
+	//결제시 시퀀스 생성
+	@Override
+	public int getseq_no() {
+		return sqlsession.selectOne("reserve.seq_no");
+	}
+
 
 
 
