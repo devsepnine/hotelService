@@ -53,6 +53,9 @@ public class ReserveController {
 							String check_in,
 							String check_out) {
 		RoomDto rdto = roomDao.get(room_no);
+		if(rdto == null) {
+			return "err/hotel_no_find";
+		}
 		int hotel_no = rdto.getHotel_no();
 		HotelDto hdto = hotelDao.get(hotel_no);
 		MemberDto mdto = memberDao.get((String) session.getAttribute("ok"));
