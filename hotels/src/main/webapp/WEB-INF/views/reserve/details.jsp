@@ -132,10 +132,6 @@
 				<td colspan="2">${memberDto.member_email1}@${memberDto.member_email2}</td>
 			</tr>
 			<tr>
-				<td>방문방법</td>
-				<td colspan="2">${rdto.reserve_visit}</td>
-			</tr>
-			<tr>
 				<td colspan="3">2. 결제 금액 정보</td>
 			</tr>
 			<tr>

@@ -20,14 +20,8 @@ public class ReserveDaoImpl implements ReserveDao{
 
 	@Override
 	public boolean regist(ReserveDto reserveDto) {
-		try {
-			sqlsession.insert("reserve.regist", reserveDto);
-			return true;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
+		return sqlsession.insert("reserve.regist", reserveDto) > 0;
+				
 	}
 
 	@Override
