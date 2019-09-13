@@ -608,7 +608,7 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
@@ -646,7 +646,7 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
@@ -751,11 +751,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -884,11 +884,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -923,11 +923,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		

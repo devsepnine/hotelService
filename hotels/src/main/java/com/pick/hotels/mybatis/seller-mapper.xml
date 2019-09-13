@@ -190,4 +190,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<!-- 테스트 판매자 가입  -->
+	<insert id="testinsert" parameterType="sellerDto">
+		insert into seller values(
+		seller_seq.nextval, #{seller_id}, #{seller_pw}, #{seller_phone}, #{seller_name},
+		#{seller_lisence}, #{seller_zip_code}, #{seller_basic_addr}, #{seller_detail_addr},
+		#{seller_birth}, #{seller_email_id}, #{seller_email_addr}, to_date(#{seller_regist}, 'YYYYMMDD'), 'N'
+		)
+	</insert>
+	
+	
 </mapper>

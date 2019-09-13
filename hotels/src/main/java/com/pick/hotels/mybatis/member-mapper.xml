@@ -172,6 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		order by monthly asc
 	</select>
 	
+	<!-- 테스트 회원 가입  -->
 	<insert id="testinsert" parameterType="memberDto">
 		insert into member values(
 		member_seq.nextval, #{member_name}, #{member_phone},
