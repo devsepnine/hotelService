@@ -71,7 +71,7 @@
 	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/coupon/list">쿠폰 관리</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="${pageContext.request.contextPath}">메인 화면</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/admin/review/list">리뷰 관리</a>
 	      </li>
 	    </ul>
 	  </div>
