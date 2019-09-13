@@ -148,7 +148,7 @@
 <div class="content-line">
 <div class="list_wrap">
 <div class="list_headtit">
-<h3>판매자 리스트</h3>
+<h3>리뷰 리스트</h3>
 </div>
 	<a href="blacklist">
 		<input type="button" class="btn btn-blacklist" name="BLACK_LIST" value="BLACK LIST">
@@ -157,23 +157,25 @@
 <table class="table_ny_three" border="1" >
 	<thead>
 		<tr>
-			<th width="15%">판매자 번호</th>
-			<th width="20%">아이디</th>
-			<th width="20%">이름</th>
-			<th width="25%">사업자 번호</th>
-			<th width="20%">상세 정보</th>
+			<th width="5%">리뷰 번호</th>
+			<th width="15%">호텔 이름</th>
+			<th width="15%">방 이름</th>
+			<th width="40%">리뷰내용</th>
+			<th width="10%">리뷰 작성일</th>
+			<th width="15%">리뷰 필터</th>
 		</tr>
 	</thead>
 	<tbody align="center">
-		<c:forEach var="sdto" items="${list}">
+		<c:forEach var="rvo" items="${list}">
 		<tr>
-			<td>${sdto.seller_no}</td>
-			<td>${sdto.seller_id}</td>
-			<td>${sdto.seller_name}</td>
-			<td>${sdto.seller_lisence}</td>
+			<td>${rvo.review_no}</td>
+			<td>${rvo.hotel_name}</td>
+			<td>${rvo.room_name}</td>
+			<td>${rvo.review_content}</td>
+			<td>${rvo.review_when.substring(2,10)}</td>
 			<td>
-				<a href="detail?no=${sdto.seller_no}">
-					<input type="button" class="btn btn-danger" value="DETAIL">
+				<a href="edit?no=${rvo.review_no}">
+					<input type="button" class="btn btn-danger" value="BLACK">
 				</a>
 			</td>
 		</tr>
@@ -189,11 +191,12 @@
 
 <input type="hidden" name="page" value="1">
 
-<select name="type" class="custom-select" style="width:140px">
-	<option value="seller_id">아이디</option>
-	<option value="seller_name">이름</option>
-	<option value="seller_lisence">사업자 번호</option>
+<select name="type" class="custom-select" style="width:120px">
+<!-- 	<option value="hotel_name">호텔 이름</option> -->
+<!-- 	<option value="room_name">방 이름</option> -->
+	<option value="review_content">리뷰 내용</option>
 </select>
+
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">
 
