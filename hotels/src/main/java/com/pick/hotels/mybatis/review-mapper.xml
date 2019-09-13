@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="review">
 	<insert id="write" parameterType="reviewDto">
 		insert into review values(
-		review_seq.nextval, #{review_member_no}, #{review_hotel}, #{review_reserve}, 
+		review_seq.nextval, #{review_writer}, #{review_hotel}, #{review_reserve}, 
 		#{review_score}, #{review_content}, sysdate, '등록')
 	</insert>
 	

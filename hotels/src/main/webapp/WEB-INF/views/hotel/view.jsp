@@ -28,6 +28,7 @@
 	    width:680px;
 	    height:100%;
 	    overflow-y:scroll;
+	    overflow-x:hidden;
    }
     .hotel-desc-content{
     	height: 100%;
@@ -601,6 +602,27 @@ $(function(){
 		var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
 	});
 </script>
+<!-- 리뷰 디자인 -->
+<style>
+	.hotel-review-line{
+		width: 400px;
+		text-align: center;
+		color: black;
+		font-size: 30px;
+		font-weight: bold;
+		margin: auto;
+		padding: 30px;
+	}
+	#all_review .modal-dialog{
+		max-width: 800px;
+	}
+	#all_review .modal-content{
+		max-height: 1080px;
+		overflow-y:scroll;
+		overflow: auto; 
+	}
+</style>
+
 <form action="../search">
 <div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
@@ -693,7 +715,7 @@ $(function(){
 				        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
 				        	<div class="star-paint"></div>
 				    	</div>
-				    	<font style="margin: auto; width: 70px;display: block">리뷰 평점</font>
+				    	<font style="margin: auto; width: 70px;display: block">${hotel_score > 0?"리뷰 평점":"리뷰가<br>없습니다."}</font>
 					</div>
 				</div>
 				<div class="hotel-desc-wrap">
@@ -807,12 +829,11 @@ $(function(){
 	</div>
 <%-- 	<p>${detail_room}</p> --%>
 </c:forEach>
-<div class="hotel_review">
-	
+<div class="hotel-review-line">
+호텔 리뷰
 </div>
-<h2 style="margin: 100px auto 50px; width: 200px;"> 호텔 리뷰 </h2>
 
-<c:forEach var="review"	items="${review_list }">
+<c:forEach var="review"	items="${review_list}" begin="0" end="2" step="1">
 <div class="card border-secondary mb-3">
   <div class="card-header">${review.room_name}&emsp;&emsp;${fn:substring(review.review_when, 0, 16)}</div>
   <div class="card-body">
@@ -826,10 +847,19 @@ $(function(){
   </div>
 </div>
 </c:forEach>
-  		
+<c:if test="${review_list.size() > 3 }">
+	<button type="button" class="btn btn-reserve btn-block" data-toggle="modal" data-target="#all_review">호텔 리뷰 더보기</button>
+</c:if>
+<c:if test="${empty review_list}">
+	<span>리뷰가 없습니다..</span>
+</c:if>
   			
   			
 </div>
+<input type="hidden" class="hotel_no" value="${param.h_no}">
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
 <!-- 	팝업알림 -->
   <div class="toast hide" id="date-toast">
     <div class="toast-header">
@@ -840,5 +870,40 @@ $(function(){
     </div>
   </div>
   
-<input type="hidden" class="hotel_no" value="${param.h_no}">
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+    <!-- 댓글 모달 -->
+  <div class="modal" id="all_review">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 800px;">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">리뷰 전체보기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<c:forEach var="review"	items="${review_list}">
+				<div class="card border-secondary mb-3">
+				  <div class="card-header">${review.room_name}&emsp;&emsp;${fn:substring(review.review_when, 0, 16)}</div>
+				  <div class="card-body">
+					  <div class="hotel-star" style="width: 120px;display: inline-block;">
+					    	<div style="display: inline-block;" data-toggle="tooltip" title="평점 : ${review.review_score }" class="star-wrap" data-star="${review.review_score}" >
+					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+					        	<div class="star-paint"></div>
+					    	</div>
+						</div>
+				    <h4 class="card-title">${review.review_content}</h4>
+				  </div>
+				</div>
+			</c:forEach>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
