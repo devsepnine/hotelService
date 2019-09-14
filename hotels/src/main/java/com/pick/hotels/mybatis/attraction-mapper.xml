@@ -89,5 +89,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where attraction_no = #{attraction_no}
 	</update>
 
+<!-- 	인근 관광지 -->
+	<select id="near_by" parameterType="map" resultType="attractionDto">
+		select * from attraction
+		where
+		(
+		#{lat_p} > attraction_LAT
+		and
+		attraction_LAT > #{lat_m}
+		)
+		and
+		(
+		#{long_p} > attraction_Lng
+		and
+		attraction_Lng > #{long_m}
+		)
+	</select>
  	                                                                                
  </mapper>

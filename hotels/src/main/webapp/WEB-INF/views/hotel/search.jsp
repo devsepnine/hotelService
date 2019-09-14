@@ -288,12 +288,8 @@ $(function(){
     	
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
-    		$(".room-area").css("display","none");
-    		$(".resdesc-wrap").css("display","block");
     	}else{
     		$(".keywordArea").css("display","block");
-    		$(".room-area").css("display","block");
-    		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
 	    var now = new Date();
@@ -491,10 +487,12 @@ $(function(){
 </div>
 </c:if>
 
+
+<c:if test="${empty param.region }">
 <div class="resdesc-wrap desc-wrap">
 <div class="resdesc desc-con">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
 </div>
-
+</c:if>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 

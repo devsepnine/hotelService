@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.AttractionListVO;
+import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantListVO;
 
@@ -81,6 +82,19 @@ public class RestaurantDaoImpl implements RestaurantDao{
 		List<RestaurantListVO> list = sqlSession.selectList("restaurant.listVO", param);
 		
 		return list;
+	}
+
+	
+//	인근 레스토랑 목록
+	@Override
+	public List<RestaurantDto> near_by(HotelDto hdto) {
+		Map<String, Float> param = new HashMap<String, Float>();
+		param.put("lat_p", (float) (hdto.getHotel_latitude()+0.2));
+		param.put("lat_m", (float) (hdto.getHotel_latitude()-0.2));
+		param.put("long_p", (float) (hdto.getHotel_longitude()+0.2));
+		param.put("long_m", (float) (hdto.getHotel_longitude()-0.2));
+		
+		return sqlSession.selectList("restaurant.near_by", param);
 	}
 
 }

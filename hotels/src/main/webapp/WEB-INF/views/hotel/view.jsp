@@ -622,7 +622,69 @@ $(function(){
 		overflow: auto; 
 	}
 </style>
-
+<!-- 광광지 식당 스타일 -->
+<style>
+	.addon-wrap{
+		width: 1000px;
+		height:410px;
+		margin: auto;
+	}
+</style>
+<!-- 주변관광지&레스토랑 -->
+<script>
+	$(function(){
+		//마커 표기할 위치 배열 생성
+		var positions = [];
+		<c:forEach items="${attraction_list}" var="attraction">
+			positions.push({content: '<div>관광지 : ${attraction.attraction_name}</div>', latlng: new kakao.maps.LatLng(${attraction.attraction_lat}, ${attraction.attraction_lng})});
+		</c:forEach>
+		<c:forEach items="${restaurant_list}" var="restaurant">
+			positions.push({content: '<div>레스토랑 : ${restaurant.restaurant_name}</div>', latlng: new kakao.maps.LatLng(${restaurant.restaurant_lat}, ${restaurant.restaurant_lng})});
+		</c:forEach>
+		
+		var mapContainer = document.getElementById('addon-map'), // 지도를 표시할 div  
+	    mapOption = { 
+			center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 지도의 중심좌표
+	        level: 8 // 지도의 확대 레벨
+	    };
+	
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+		for (var i = 0; i < positions.length; i ++) {
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+		        position: positions[i].latlng // 마커의 위치
+		    });
+	
+		    // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content: positions[i].content // 인포윈도우에 표시할 내용
+		    });
+	
+		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		}
+	
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+	
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}
+		
+	});
+</script>
 <form action="../search">
 <div style="height: 20px;"></div>
 <div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
@@ -851,9 +913,14 @@ $(function(){
 	<button type="button" class="btn btn-reserve btn-block" data-toggle="modal" data-target="#all_review">호텔 리뷰 더보기</button>
 </c:if>
 <c:if test="${empty review_list}">
-	<span>리뷰가 없습니다..</span>
+	<div style="width: 600px;text-align: center; margin: auto;">
+	<p>리뷰가 없습니다..</p>
+	</div>
 </c:if>
-  			
+
+
+<div class="addon-wrap" id="addon-map">
+</div>
   			
 </div>
 <input type="hidden" class="hotel_no" value="${param.h_no}">
