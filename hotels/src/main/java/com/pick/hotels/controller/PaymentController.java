@@ -47,6 +47,11 @@ public class PaymentController {
 							HttpSession session) throws URISyntaxException {
 		System.out.println(payment_VO);
 //		예약 가능한지 먼저 검증
+		int roomcheck = roomDao.room_check(payment_VO);
+		System.out.println(roomcheck);
+		if(roomcheck==0) {
+			return "err/room_already_reserve";
+		}
 		if(payment_VO.getCoupon_history()!=0) {
 			CouponDto cdto = couponDao.get(payment_VO.getCoupon_no());
 			payment_VO.setReserve_price(payment_VO.getReserve_price()-cdto.getCoupon_price());			

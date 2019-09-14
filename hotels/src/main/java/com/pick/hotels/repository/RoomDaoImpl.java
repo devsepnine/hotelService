@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomListVO;
 import com.pick.hotels.entity.HotelSalesVO;
+import com.pick.hotels.entity.Payment_VO;
 
 @Repository
 public class RoomDaoImpl implements RoomDao{
@@ -64,6 +65,11 @@ public class RoomDaoImpl implements RoomDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public int room_check(Payment_VO payment_VO) {
+		return sqlSession.selectOne("room.room_check", payment_VO);
 	}
 
 }
