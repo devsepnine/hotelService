@@ -158,11 +158,11 @@
 	<thead>
 		<tr>
 			<th width="5%">리뷰 번호</th>
-			<th width="15%">호텔 이름</th>
-			<th width="15%">방 이름</th>
-			<th width="40%">리뷰내용</th>
+			<th width="17.5%">호텔 이름</th>
+			<th width="17.5%">방 이름</th>
+			<th width="37.5%">리뷰내용</th>
 			<th width="10%">리뷰 작성일</th>
-			<th width="15%">리뷰 필터</th>
+			<th width="12.5%">리뷰 필터</th>
 		</tr>
 	</thead>
 	<tbody align="center">
