@@ -37,5 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from attraction_file where attraction_no = #{attraction_no}
 	</select>
  	    
+ 	    
+<!--  	뷰페이지 이미지 하나 -->
+ 	<select id="one_view" parameterType="int" resultType="attractionFileDto">
+ 		select * from attraction_file where attraction_no = #{no} and rownum = 1
+ 	</select>
  	                                                                                
  </mapper>

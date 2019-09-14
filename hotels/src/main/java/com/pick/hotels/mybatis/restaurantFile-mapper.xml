@@ -29,5 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getlist" parameterType="int" resultType="restaurantFileDto">
 		select * from restaurant_file where restaurant_no = #{restaurant_no}
 	</select>
+ 	              
+<!--  	뷰페이지 하나 -->
+	<select id="one_view" parameterType="int" resultType="restaurantFileDto">
+		select * from restaurant_file where restaurant_no = #{no} and rownum = 1
+	</select>
  	                                                                                
  </mapper>

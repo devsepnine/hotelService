@@ -86,9 +86,9 @@ public class PaymentController {
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
 				params.add("tax_free_amount", "0"); //비과세 금액 integer 
-				params.add("approval_url", "http://localhost:8080/hotels/payment/kakao/success");
-				params.add("cancel_url", "http://localhost:8080/hotels/payment/kakao/fail");
-				params.add("fail_url", "http://localhost:8080/hotels/payment/kakao/cancel");
+				params.add("approval_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/success");
+				params.add("cancel_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/fail");
+				params.add("fail_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/cancel");
 				
 //				headers와 params를 합쳐서 전송할 객체를 생성
 				HttpEntity<MultiValueMap<String, String>> send = new HttpEntity<MultiValueMap<String, String>>(params, headers);

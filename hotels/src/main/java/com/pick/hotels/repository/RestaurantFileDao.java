@@ -13,4 +13,5 @@ public interface RestaurantFileDao {
 	RestaurantFileDto get(int no);
 	void exit(int no);
 	List<RestaurantFileDto> getlist(int no);
+	RestaurantFileDto one_view(int no);
 }

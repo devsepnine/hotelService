@@ -23,19 +23,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pick.hotels.entity.AttractionDto;
+import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.Detail_room_vo;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.entity.RestaurantDto;
+import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.Review_list_vo;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
+import com.pick.hotels.entity.View_attraction;
+import com.pick.hotels.entity.View_restaurant;
 import com.pick.hotels.repository.AttractionDao;
+import com.pick.hotels.repository.AttractionFileDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.repository.RestaurantDao;
+import com.pick.hotels.repository.RestaurantFileDao;
 import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.RoomFileDao;
@@ -59,6 +65,10 @@ public class HotelController {
 	private @Autowired AttractionDao attractionDao;
 	
 	private @Autowired RestaurantDao restaurantDao;
+	
+	private @Autowired AttractionFileDao attractionFileDao;
+	
+	private @Autowired RestaurantFileDao restaurantFileDao;
 	
 	@GetMapping("/search")
 	public String search(Model model,
@@ -101,8 +111,23 @@ public class HotelController {
 		List<Review_list_vo> review = reviewDao.get_list(hotel_no);
 		List<AttractionDto> attraction_list = attractionDao.near_by(hdto);
 		List<RestaurantDto> restaurant_list = restaurantDao.near_by(hdto);
-		model.addAttribute("attraction_list", attraction_list);
-		model.addAttribute("restaurant_list", restaurant_list);
+		List<View_attraction> v_at = new ArrayList<View_attraction>();
+		for(AttractionDto at : attraction_list) {
+			int no = at.getAttraction_no();
+			AttractionFileDto atf = attractionFileDao.one_view(no);
+			View_attraction va = View_attraction.builder().attractionDto(at).attractionFileDto(atf).build();
+			v_at.add(va);
+		}
+		List<View_restaurant> v_rt = new ArrayList<View_restaurant>();
+		for(RestaurantDto rt : restaurant_list) {
+			int no = rt.getRestaurant_no();
+			RestaurantFileDto rtf = restaurantFileDao.one_view(no);
+			View_restaurant vr = View_restaurant.builder().restaurantDto(rt).restaurantFileDto(rtf).build();
+			v_rt.add(vr);
+		}
+		
+		model.addAttribute("v_at", v_at);
+		model.addAttribute("v_rt", v_rt);
 		model.addAttribute("review_list", review);
 		model.addAttribute("hotel_score", hotel_score);
 		model.addAttribute("detail_list", detail_list);
