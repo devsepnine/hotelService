@@ -34,13 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left outer join reserve S 
 		on R.room_no = S.reserve_room_no
 		where
-		R.hotel_no = ${hotel_no}
+		R.hotel_no = #{hotel_no}
 		and
 		<![CDATA[
-		R.room_people >= ${people} and
-		(reserve_in >= to_date('${check_out}', 'YYYY/MM/DD')
+		R.room_people >= #{people} and
+		(reserve_in >= to_date(#{check_out}, 'YYYY/MM/DD')
 		or
-		reserve_out <= to_date('${check_in}', 'YYYY/MM/DD')
+		reserve_out <= to_date(#{check_in}, 'YYYY/MM/DD')
 		or reserve_in is null or reserve_out is null)
 		]]>
 	</select>  
@@ -73,6 +73,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="int">
 		delete room where room_no = #{room_no}
 	</delete>
-	
+		
+<!-- 	예약 없는 방인지 확인 -->
+	<select id="room_check" parameterType="payment_VO" resultType="int">
+		select count(*) from room R
+		left outer join reserve S 
+		on R.room_no = S.reserve_room_no
+		where
+		R.hotel_no = #{reserve_hotel_no}
+		and
+		r.room_no = #{reserve_room_no}
+		and
+		<![CDATA[
+		(reserve_in >= to_date(#{reserve_out}, 'YYYY/MM/DD')
+		or
+		reserve_out <= to_date(#{reserve_in}, 'YYYY/MM/DD')
+		or reserve_in is null or reserve_out is null)
+		]]>
+	</select>
                                        
  </mapper>

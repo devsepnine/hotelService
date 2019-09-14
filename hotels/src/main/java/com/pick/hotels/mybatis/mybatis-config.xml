@@ -53,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.ReserveTotalVO" alias="reserveTotalVO"/>
 		<typeAlias type="com.pick.hotels.entity.Review_list_vo" alias="review_list_vo"/>
 		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponhistoryDto"/>
+		<typeAlias type="com.pick.hotels.entity.Payment_VO" alias="payment_VO"/>
 	</typeAliases>
   
 </configuration>
