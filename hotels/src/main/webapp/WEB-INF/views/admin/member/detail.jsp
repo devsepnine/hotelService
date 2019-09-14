@@ -142,12 +142,12 @@ function member_exit() {
 		display:inline-block;
 		max-width: 200px;
 	}
-	.btn-danger{
+	.table_ny_two .btn-danger{
 		height: 45px;
 		width: 130px;
 	}
 	
-	.newpw_btn{
+	.table_ny_two .newpw_btn{
 		width : 200px;
 	}
 </style>

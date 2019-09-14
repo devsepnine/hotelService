@@ -207,7 +207,7 @@ function checkPhone(){
 		display:inline-block;
 		max-width: 200px;
 	}
-	.btn-danger{
+	.table_ny_two .btn-danger{
 		height: 45px;
 		width: 118px;
 	}
