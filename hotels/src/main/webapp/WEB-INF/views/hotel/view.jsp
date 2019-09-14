@@ -631,15 +631,16 @@ $(function(){
 	}
 </style>
 <!-- 주변관광지&레스토랑 -->
+
 <script>
 	$(function(){
 		//마커 표기할 위치 배열 생성
 		var positions = [];
-		<c:forEach items="${attraction_list}" var="attraction">
-			positions.push({content: '<div>관광지 : ${attraction.attraction_name}</div>', latlng: new kakao.maps.LatLng(${attraction.attraction_lat}, ${attraction.attraction_lng})});
+		<c:forEach items="${v_at}" var="at">
+			positions.push({content: '<div style="width:200px; height:200px;overflow: hidden;">관광지 : ${at.attractionDto.attraction_name}<img width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/1?img_name=${at.attractionFileDto.attraction_file_name}"></div>', latlng: new kakao.maps.LatLng(${at.attractionDto.attraction_lat}, ${at.attractionDto.attraction_lng})});
 		</c:forEach>
-		<c:forEach items="${restaurant_list}" var="restaurant">
-			positions.push({content: '<div>레스토랑 : ${restaurant.restaurant_name}</div>', latlng: new kakao.maps.LatLng(${restaurant.restaurant_lat}, ${restaurant.restaurant_lng})});
+		<c:forEach items="${v_rt}" var="rt">
+			positions.push({content: '<div style="width:200px; height:200px;overflow: hidden;">레스토랑 : ${rt.restaurantDto.restaurant_name}<img width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/2?img_name=${rt.restaurantFileDto.restaurant_file_name}"></div>', latlng: new kakao.maps.LatLng(${rt.restaurantDto.restaurant_lat}, ${rt.restaurantDto.restaurant_lng})});
 		</c:forEach>
 		
 		var mapContainer = document.getElementById('addon-map'), // 지도를 표시할 div  
@@ -919,6 +920,10 @@ $(function(){
 </c:if>
 
 
+<hr>
+<c:forEach items="${v_at }"  var="at">
+	${at.attractionDto.attraction_name} ${at.attractionFileDto.attraction_file_name }<hr>
+</c:forEach>
 <div class="addon-wrap" id="addon-map">
 </div>
   			

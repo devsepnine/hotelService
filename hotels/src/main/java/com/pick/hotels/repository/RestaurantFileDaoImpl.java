@@ -37,4 +37,9 @@ public class RestaurantFileDaoImpl implements RestaurantFileDao{
 	public List<RestaurantFileDto> getlist(int no) {
 		return sqlSession.selectList("restaurantFile.getlist", no);
 	}
+
+	@Override
+	public RestaurantFileDto one_view(int no) {
+		return sqlSession.selectOne("restaurantFile.one_view", no);
+	}
 }
