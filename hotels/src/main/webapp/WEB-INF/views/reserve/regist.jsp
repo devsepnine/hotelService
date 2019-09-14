@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery_number/jquery_number_min.js"></script>
 <style>
@@ -28,10 +29,10 @@
 		padding: 10px;
 	}
 	.left-con{
-		margin-bottom: 40px;
+		margin-bottom: 20px;
 	}
 	.right-con{
-		margin-bottom: 40px;
+		margin-bottom: 20px;
 	}
 	.right-title{
 		font-size: 18px;
@@ -62,6 +63,7 @@
  <!-- 기간 구하는 스크립트 -->
 <script>
 	$(function(){
+		console.log($(".coupon-select").val())
 		var check_in = new Date($(".check-in").text());
 		var check_out = new Date($(".check-out").text());
 		var gap = check_out - check_in;
@@ -70,10 +72,18 @@
 			location.href="${pageContext.request.contextPath}";
 		}else{
 			$(".term").text(gap/24/3600/1000)
-			var total_price = (gap/24/3600/1000) * ${rdto.room_price};
+			var total_price = (gap/24/3600/1000) * ${rdto.room_price} - $(".coupon-select").val();
 			$(".vat-price").text($.number(total_price));
 			$(".reserve_price").val(total_price);
 		}
+		
+		<!--쿠폰 변경시-->
+		$(".coupon-select").change(function(){
+			var total_price = (gap/24/3600/1000) * ${rdto.room_price} - $(".coupon-select option:selected").attr("data-price");
+			$(".vat-price").text($.number(total_price));
+			$("input[name=coupon_history]").val($(".coupon-select option:selected").val());
+			$("input[name=coupon_no]").val($(".coupon-select option:selected").attr("data-coupon"));
+		})
 	})
 </script>
 
@@ -98,11 +108,18 @@
 </script>
 <!-- form 점검 -->
 <script>
-	
+	$(function(){
+		$("form").submit(function(e){
+			e.preventDefault();
+			
+			if($(".reserve_pay").val()==11){
+				alert("네이버페이는 서비스 준비 중입니다.");
+				return;
+			}
+			this.submit();
+		})
+	})
 </script>
-<%-- ${rdto} --%>
-<%-- ${mdto} --%>
-<%-- ${hdto} --%>
 <div style="height: 60px;"></div>
 <form action="${pageContext.request.contextPath}/payment/order" method="post">
 <div class="reserve-wrap">
@@ -127,12 +144,23 @@
 		<h3>결제수단 선택</h3>
 		
 		<div class="left-con">
-			<select class="reserve_pay form-control" name="reserve_pay_type" style="width: 150px;">
+			<select class="reserve_pay form-control" name="reserve_pay_type" style="width: 200px;">
 				<option value="10">카카오페이</option>
 				<option value="11">네이버페이</option>
 			</select>
 		</div>
-		
+		${cplist }
+		<h4>쿠폰 선택</h4>
+		<div class="left-con">
+			<select class="coupon-select form-control" name="reserve-using-coupon" style="width: 300px;">
+				<option value="0" data-coupon="0" data-price="0">사용 안함</option>
+				<c:forEach	var="coupon" items="${cplist}">
+					<option value="${coupon.coupon_history_no}" data-coupon="${coupon.coupon_no}" data-price="${coupon.coupon_price}">${coupon.coupon_name}(${coupon.coupon_price}원)</option>
+				</c:forEach>
+			</select>
+			<input type="hidden" value="0" name="coupon_history">
+			<input type="hidden" value="0" name="coupon_no">
+		</div>
 		<div class="left-con agree-box">
 			<div class="custom-control custom-checkbox">
 		      <input type="checkbox" class="custom-control-input" id="a_check" required=true>

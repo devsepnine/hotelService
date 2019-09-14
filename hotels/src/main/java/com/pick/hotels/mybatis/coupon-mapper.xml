@@ -152,4 +152,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+<!-- 	결제 시에 사용가능한 쿠폰 가져오는 쿼리문 -->
+	<select id="payment_coupon_list" parameterType="int" resultType="couponVO">
+		select * from coupon C
+		inner join coupon_history CH
+		on c.coupon_no = ch.coupon_no
+		where
+		ch.member_no=#{member_no}
+		and
+		CH.coupon_used = '사용전'
+		and
+		sysdate>=c.coupon_date1
+		and
+		c.coupon_date2>=sysdate
+	</select>
+	<!-- 쿠폰 사용 완료 처리 -->
+	<update id="used_coupon" parameterType="int">
+		update coupon_history set coupon_used = '사용완료' where coupon_history_no = #{coupon_history}
+	</update>
+	
  </mapper>
