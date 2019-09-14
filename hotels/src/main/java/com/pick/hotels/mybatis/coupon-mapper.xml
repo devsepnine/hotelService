@@ -91,6 +91,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	<!-- 사용가능 쿠폰 건 수 -->
+	<select id="available_coupont_count" resultType="int">
+		select count(*) from coupon where coupon_condition = '사용가능'
+	</select>
+	
+	
+	<!-- 최근 7일 쿠폰 발급 건 수 -->
+	<select id="recent_take_coupon_count" resultType="int">
+		select count(*) from coupon_history where coupon_get_date between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	
+	<!-- 최근 7일 발급된 쿠폰 이용 건 수 -->
+	<select id="recent_used_coupon_count" resultType="int">
+		select count(*) from coupon_history where coupon_used = '사용완료' and coupon_get_date between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	
 	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select coupon_seq.nextval from dual
@@ -166,6 +184,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 		c.coupon_date2>=sysdate
 	</select>
+	
+	
 	<!-- 쿠폰 사용 완료 처리 -->
 	<update id="used_coupon" parameterType="int">
 		update coupon_history set coupon_used = '사용완료' where coupon_history_no = #{coupon_history}

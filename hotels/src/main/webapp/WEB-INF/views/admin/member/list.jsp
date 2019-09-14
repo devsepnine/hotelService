@@ -178,6 +178,9 @@
 <select name="type" class="custom-select" style="width:120px">
 	<option value="member_id">아이디</option>
 	<option value="member_name">이름</option>
+	<option value="member_email1">이메일</option>
+	<option value="member_phone">핸드폰번호</option>
+	<option value="member_auth">권한</option>
 </select>
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">
