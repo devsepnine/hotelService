@@ -75,5 +75,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where restaurant_no = #{restaurant_no}
 	</update>
 
- 	                                                                                
+ 	             
+<!-- 	인근 레스토랑 -->
+	<select id="near_by" parameterType="map" resultType="restaurantDto">
+		select * from RESTAURANT
+		where
+		(
+		#{lat_p} > RESTAURANT_LAT
+		and
+		RESTAURANT_LAT > #{lat_m}
+		)
+		and
+		(
+		#{long_p} > RESTAURANT_Lng
+		and
+		RESTAURANT_Lng > #{long_m}
+		)
+	</select>
  </mapper>

@@ -2,7 +2,10 @@ package com.pick.hotels.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,16 +22,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.Detail_room_vo;
 import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
 import com.pick.hotels.entity.HotelListVo;
+import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.Review_list_vo;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
+import com.pick.hotels.repository.AttractionDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
+import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.RoomFileDao;
@@ -49,11 +56,14 @@ public class HotelController {
 	
 	private @Autowired ReviewDao reviewDao;
 	
+	private @Autowired AttractionDao attractionDao;
+	
+	private @Autowired RestaurantDao restaurantDao;
+	
 	@GetMapping("/search")
 	public String search(Model model,
 						 @ModelAttribute H_search_vo s_vo) throws UnsupportedEncodingException {
 		if(s_vo.getRegion() != null) {
-			s_vo.setRegion(URLDecoder.decode(s_vo.getRegion(),"UTF-8"));
 			List<HotelListVo> h_list = hotelDao.get_h_list(s_vo);
 			model.addAttribute("h_list",h_list);
 		}
@@ -89,7 +99,10 @@ public class HotelController {
 		}
 		Float hotel_score = reviewDao.get_avg_star(hotel_no);
 		List<Review_list_vo> review = reviewDao.get_list(hotel_no);
-		
+		List<AttractionDto> attraction_list = attractionDao.near_by(hdto);
+		List<RestaurantDto> restaurant_list = restaurantDao.near_by(hdto);
+		model.addAttribute("attraction_list", attraction_list);
+		model.addAttribute("restaurant_list", restaurant_list);
 		model.addAttribute("review_list", review);
 		model.addAttribute("hotel_score", hotel_score);
 		model.addAttribute("detail_list", detail_list);

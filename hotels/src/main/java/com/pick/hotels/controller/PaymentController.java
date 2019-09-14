@@ -54,7 +54,11 @@ public class PaymentController {
 		}
 		if(payment_VO.getCoupon_history()!=0) {
 			CouponDto cdto = couponDao.get(payment_VO.getCoupon_no());
-			payment_VO.setReserve_price(payment_VO.getReserve_price()-cdto.getCoupon_price());			
+			int c_price = payment_VO.getReserve_price()-cdto.getCoupon_price();
+			if(c_price < 0) {
+				c_price = 1000;
+			}
+			payment_VO.setReserve_price(c_price);			
 		}
 		if(check_agree.size()==4) {
 			if(payment_VO.getReserve_pay_type()==10) {
