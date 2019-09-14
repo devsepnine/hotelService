@@ -378,9 +378,9 @@ $(function(){
     		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
+    	var now = new Date();
+    	now.setDate(now.getDate()+1);
     	if(!map.get('check_in')){
-	    	var now = new Date();
-	    	now.setDate(now.getDate()+1);
 	    	startday = now;
     	}else{
     		startday = map.get('check_in');

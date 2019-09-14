@@ -116,6 +116,23 @@
 				alert("네이버페이는 서비스 준비 중입니다.");
 				return;
 			}
+// 			날짜 파라미터 체크(수정했을시)
+			var now = new Date();
+			now  = new Date(now.getFullYear(),now.getMonth(),now.getDate(),09,00,00);
+			var check_in = new Date($(".check-in").text());
+			var gap = check_in - now;
+			console.log(gap);
+			if(gap<=0){
+				alert("잘못된 접근입니다.")
+				location.href = '${pageContext.request.contextPath}/err/reserve'
+				return;
+			}
+			
+			if($(".term").text() > 7){
+				alert("잘못된 접근입니다.")
+				location.href = '${pageContext.request.contextPath}/err/reserve'
+				return;
+			}
 			this.submit();
 		})
 	})
@@ -149,7 +166,6 @@
 				<option value="11">네이버페이</option>
 			</select>
 		</div>
-		${cplist }
 		<h4>쿠폰 선택</h4>
 		<div class="left-con">
 			<select class="coupon-select form-control" name="reserve-using-coupon" style="width: 300px;">
