@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="regist" parameterType="reserveDto">
 		insert into reserve values(
 		#{reserve_no}, #{reserve_member_no}, #{reserve_hotel_no}, #{reserve_room_no},${reserve_people}, #{reserve_name}, #{reserve_phone}, 
-		sysdate, null, #{reserve_in}, #{reserve_out},'예약', #{reserve_price}, #{reserve_pay_type}
+		sysdate, null, #{reserve_in}, #{reserve_out},'예약', #{reserve_price}, #{reserve_pay_type}, #{reserve_coupon_use}
 		)
 	</insert>
 	

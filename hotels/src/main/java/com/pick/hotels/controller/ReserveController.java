@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pick.hotels.entity.CouponVO;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.MemberDto;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.ReserveVO;
 import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.MemberDao;
 import com.pick.hotels.repository.ReserveDao;
@@ -46,6 +48,10 @@ public class ReserveController {
 	@Autowired
 	private ReviewDao reviewDao;
 	
+	@Autowired
+	private CouponDao couponDao;
+	
+	
 	@GetMapping("/regist/{room_no}")
 	public String regist(@PathVariable int room_no,
 							Model model,
@@ -59,7 +65,9 @@ public class ReserveController {
 		int hotel_no = rdto.getHotel_no();
 		HotelDto hdto = hotelDao.get(hotel_no);
 		MemberDto mdto = memberDao.get((String) session.getAttribute("ok"));
+		List<CouponVO> couponList = couponDao.payment_coupon_list((int)session.getAttribute("no"));
 		
+		model.addAttribute("cplist", couponList);
 		model.addAttribute("check_in", check_in);
 		model.addAttribute("check_out", check_out);
 		model.addAttribute("mdto", mdto);

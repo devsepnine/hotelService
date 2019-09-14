@@ -126,5 +126,16 @@ public class CouponDaoImpl implements CouponDao{
 		
 	}
 
+	@Override
+	public List<CouponVO> payment_coupon_list(int member_no) {
+		return sqlSession.selectList("coupon.payment_coupon_list", member_no);
+	}
+
+	@Override
+	public void used_coupon(int coupon_history) {
+		sqlSession.update("coupon.used_coupon", coupon_history);
+		return;
+	}
+
 
 }
