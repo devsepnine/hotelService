@@ -105,7 +105,7 @@ chart2.render();
 	}
 	
 	.stripe > tbody > tr:nth-child(2n-1){
-		background-color : #D5D5D5;
+		background-color : #c9d6de;
 	}
 	
 </style>
