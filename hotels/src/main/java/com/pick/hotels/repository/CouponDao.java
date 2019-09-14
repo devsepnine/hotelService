@@ -18,6 +18,9 @@ public interface CouponDao {
 	List<CouponDto> blacklist(String type, String keyword, int start, int end);
 	int count(String type, String keyword);
 	int count_black(String type, String keyword);
+	int available_coupont_count();
+	int recent_take_coupon_count();
+	int recent_used_coupon_count();
 	int getSequenceNumber();
 	List<CouponVO> coupon_list(int member_no);
 	List<CouponVO> coupon_down_list(int member_no);

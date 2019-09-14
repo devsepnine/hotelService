@@ -73,18 +73,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 관리자 -->
+	
 	<!-- 월별 전체 호텔 매출 -->
 	<select id="total" resultType="reserveTotalVO">
 	 select 
-	    sum(reserve_price) total , to_char(reserve_in,'YYYY,MM') monthly 
+	    sum(reserve_price) total , to_char(reserve_when,'YYYY,MM') monthly 
 	    from reserve
-	    group by to_char(reserve_in,'YYYY,MM') 
+	    group by to_char(reserve_when,'YYYY,MM') 
 	    order by monthly asc
 	</select>
 	
 	
 	
-<!-- 	결제시 시퀀스 생성 -->
+	<!-- 결제시 시퀀스 생성 -->
 	<select id="seq_no" resultType="int">
 		select reserve_seq.nextval from dual
 	</select>

@@ -214,4 +214,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	<!-- 제휴 승인 대기 건 수 -->
+	<select id="waiting_count" resultType="int">
+		select count(*) from partner where partner_type = '승인대기'
+	</select>
+	
+	
+	<!-- 최근 7일 제휴 승인 완료 건 수 -->
+<!-- 	<select id="recent_complete_count" resultType="int"> -->
+<!-- 		select count(*) from partner where partner_type = '승인완료' and partner_response between (sysdate-7) and (sysdate+1) -->
+<!-- 	</select> -->
+	
+	
+	<!-- 최근 7일 제휴 승인 거절 건 수 -->
+<!-- 	<select id="recent_refuse_count" resultType="int"> -->
+<!-- 		select count(*) from partner where partner_type = '승인거절' and partner_response between (sysdate-7) and (sysdate+1) -->
+<!-- 	</select> -->
+	
  </mapper>

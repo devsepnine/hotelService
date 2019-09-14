@@ -203,6 +203,7 @@
 <select name="type" class="custom-select" style="width:120px">
 	<option value="coupon_name">쿠폰 이름</option>
 	<option value="coupon_price">할인 가격</option>
+	<option value="coupon_minimum">최소 결제 금액</option>
 </select>
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">

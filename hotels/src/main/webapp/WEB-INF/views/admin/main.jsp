@@ -85,7 +85,7 @@ chart2.render();
 </script>
 
 <style>
-	.regist_count_table {
+	.admin_count_table {
 		color:black;
 	}
 	
@@ -93,15 +93,19 @@ chart2.render();
 		height:100px;
 	}
 	
-	.regist_count_table{
+	.admin_count_table{
 		border-top: 3px solid #432c10;
   		border-bottom: 3px solid #432c10;
    		border-left: none;
   		border-right: none;
 	}
 	
-	.regist_count_table thead tr th {
+	.admin_count_table thead tr th {
 		font-size: 28px;
+	}
+	
+	.stripe > tbody > tr:nth-child(2n-1){
+		background-color : #D5D5D5;
 	}
 	
 </style>
@@ -110,10 +114,10 @@ chart2.render();
 
 <div>
 	<div style="display: inline-block; width: 49%; text-align: right;">
-		<table class="regist_count_table"  style="margin-left: 350px">
+		<table class="admin_count_table"  style="margin-left: 350px">
 			<thead>
 				<tr>
-					<th colspan="2">
+					<th colspan="2", style="padding:10px;">
 						&emsp;[ 회원 가입 수 ]&emsp;
 					</th>
 				</tr>
@@ -121,20 +125,20 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td>전체 회원 수</td>
-					<td>${member_total_count}명</td>
+					<td align="right">${member_total_count}명</td>
 				</tr>
 				<tr>
 					<td>최근 7일 가입 회원 수</td>
-					<td>${recent_member_count}명</td>
+					<td align="right">${recent_member_count}명</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div style="display: inline-block; width: 49%; text-align: right;">
-		<table class="regist_count_table" style="margin-left: 320px">
+		<table class="admin_count_table" style="margin-left: 320px">
 			<thead>
 				<tr>
-					<th colspan="2">
+					<th colspan="2", style="padding:10px;">
 						&emsp;[ 판매자 가입 수 ]&emsp;
 					</th>
 				</tr>
@@ -142,18 +146,18 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td>전체 판매자 수</td>
-					<td>${seller_total_count}명</td>
+					<td align="right">${seller_total_count}명</td>
 				</tr>
 				<tr>
 					<td>최근 7일 가입 판매자 수</td>
-					<td>${recent_seller_count}명</td>
+					<td align="right">${recent_seller_count}명</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
 
-<div style="height: 10px"></div>
+<div style="height: 20px"></div>
 
 <div style="width: 100%;">
 <div id="member_count" style="height: 370px; width: 45%; display: inline-block; margin-left : 35px; margin-right : 50px;" ></div>
@@ -167,5 +171,61 @@ chart2.render();
 <div id="hotel_price" style="height: 470px; width: 90%; margin-left : 50px; margin-right : 50px;" ></div>
 </div>
 
+<div class="empty"></div>
+
+<div>
+	<div style="display: inline-block; width: 49%; text-align: center;">
+		<table class="admin_count_table stripe" style="margin-left: 200px">
+			<thead>
+				<tr>
+					<th colspan="2", style="padding:15px;">
+						&emsp;&emsp;[ 제휴 승인 건 수 ]&emsp;&emsp;
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="padding:5px;">제휴 승인 대기 건 수</td>
+					<td align="right">${waiting_partner_count}건</td>
+				</tr>
+				<tr>
+					<td style="padding:5px;">최근 7일 승인 완료 건 수</td>
+<%-- 					<td>${recent_complete_partner_count}건</td> --%>
+					<td align="right">널 만난건</td>
+				</tr>
+				<tr>
+					<td style="padding:5px;">최근 7일 승인 거절 건 수</td>
+<%-- 					<td>${recent_refuse_partner_count}건</td> --%>
+					<td align="right">내 행복이였던건</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div style="display: inline-block; width: 49%; text-align: center;">
+		<table class="admin_count_table stripe" style="margin-left: 170px">
+			<thead>
+				<tr>
+					<th colspan="2", style="padding:15px;">
+						&emsp;&emsp;&emsp;[ 쿠폰 건 수 ]&emsp;&emsp;&emsp;
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="padding:5px;">사용가능 쿠폰 갯수</td>
+					<td text-align="right">${available_coupon_count}개</td>
+				</tr>
+				<tr>
+					<td style="padding:5px;">최근 7일 쿠폰 발급 갯수</td>
+					<td>${recent_take_coupon_count}개</td>
+				</tr>
+				<tr>
+					<td style="padding:5px;">최근 7일 발급 쿠폰 이용 갯수</td>
+					<td>${recent_used_coupon_count}개</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

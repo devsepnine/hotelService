@@ -102,6 +102,27 @@ public class CouponDaoImpl implements CouponDao{
 		return sqlSession.selectOne("coupon.count_black", param);
 	}
 	
+	
+//	사용가능 쿠폰 건 수
+	@Override
+	public int available_coupont_count() {
+		return sqlSession.selectOne("coupon.available_coupont_count");
+	}
+
+	
+//	최근 7일 쿠폰 발급 건 수
+	@Override
+	public int recent_take_coupon_count() {
+		return sqlSession.selectOne("coupon.recent_take_coupon_count");
+	}
+
+	
+//	최근 7일 발급된 쿠폰 이용 건 수
+	@Override
+	public int recent_used_coupon_count() {
+		return sqlSession.selectOne("coupon.recent_used_coupon_count");
+	}
+	
 //	시퀀스 번호 구하기
 	@Override
 	public int getSequenceNumber() {
