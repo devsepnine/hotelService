@@ -643,14 +643,32 @@ $(function(){
 			positions.push({content: '<div style="width:200px; height:200px;overflow: hidden;">레스토랑 : ${rt.restaurantDto.restaurant_name}<img width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/2?img_name=${rt.restaurantFileDto.restaurant_file_name}"></div>', latlng: new kakao.maps.LatLng(${rt.restaurantDto.restaurant_lat}, ${rt.restaurantDto.restaurant_lng})});
 		</c:forEach>
 		
+
+		
 		var mapContainer = document.getElementById('addon-map'), // 지도를 표시할 div  
 	    mapOption = { 
 			center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 지도의 중심좌표
-	        level: 8 // 지도의 확대 레벨
+	        level: 8, // 지도의 확대 레벨
 	    };
 	
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
+		
+// 		호텔 마커 이미지 변경 찎기
+		var imageSrc = '${pageContext.request.contextPath}/img/marker/marker_hotel.png', // 마커이미지의 주소입니다    
+	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	    markerPosition = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); // 마커가 표시될 위치입니다
+	 	// 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        position: markerPosition, 
+	        image: markerImage // 마커이미지 설정 
+	    });
+	    marker.setMap(map);  
+	    //여기까지 호텔 마커
+	    
 		for (var i = 0; i < positions.length; i ++) {
 		    // 마커를 생성합니다
 		    var marker = new kakao.maps.Marker({
@@ -919,11 +937,8 @@ $(function(){
 	</div>
 </c:if>
 
-
 <hr>
-<c:forEach items="${v_at }"  var="at">
-	${at.attractionDto.attraction_name} ${at.attractionFileDto.attraction_file_name }<hr>
-</c:forEach>
+<div style="width: 300px; color:#726454;font-size: 30px; text-align: center;margin: auto;">인근 관광지/레스토랑</div>
 <div class="addon-wrap" id="addon-map">
 </div>
   			
