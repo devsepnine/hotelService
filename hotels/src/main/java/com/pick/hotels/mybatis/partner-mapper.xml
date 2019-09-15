@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into partner values (
 			#{hotel_no}, #{partner_no}, #{partner_name}, #{partner_longitude}, #{partner_latitude},
 			#{partner_tel}, #{partner_content}, '승인대기', #{partner_zip_code}, #{partner_basic_addr},
-			#{partner_detail_addr}
+			#{partner_detail_addr}, ''
  		)
  	</insert>   
  	
@@ -221,14 +221,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 최근 7일 제휴 승인 완료 건 수 -->
-<!-- 	<select id="recent_complete_count" resultType="int"> -->
-<!-- 		select count(*) from partner where partner_type = '승인완료' and partner_response between (sysdate-7) and (sysdate+1) -->
-<!-- 	</select> -->
+	<select id="recent_complete_count" resultType="int">
+		select count(*) from partner where partner_type = '승인완료' and partner_response between (sysdate-7) and (sysdate+1)
+	</select>
 	
 	
 	<!-- 최근 7일 제휴 승인 거절 건 수 -->
-<!-- 	<select id="recent_refuse_count" resultType="int"> -->
-<!-- 		select count(*) from partner where partner_type = '승인거절' and partner_response between (sysdate-7) and (sysdate+1) -->
-<!-- 	</select> -->
+	<select id="recent_refuse_count" resultType="int">
+		select count(*) from partner where partner_type = '승인거절' and partner_response between (sysdate-7) and (sysdate+1)
+	</select>
 	
  </mapper>

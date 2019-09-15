@@ -161,16 +161,16 @@ public class PartnerDaoImpl implements PartnerDao{
 	}
 
 //	최근 7일 제휴 승인 완료 건 수
-//	@Override
-//	public int recent_complete_count() {
-//		return sqlSession.selectOne("partner.recent_complete_count");
-//	}
+	@Override
+	public int recent_complete_count() {
+		return sqlSession.selectOne("partner.recent_complete_count");
+	}
 
 //	최근 7일 제휴 거절 완료 건 수
-//	@Override
-//	public int recent_refuse_count() {
-//		return sqlSession.selectOne("partner.recent_refuse_count");
-//	}
+	@Override
+	public int recent_refuse_count() {
+		return sqlSession.selectOne("partner.recent_refuse_count");
+	}
 
 
 }
