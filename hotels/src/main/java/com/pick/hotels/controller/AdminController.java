@@ -119,8 +119,8 @@ public class AdminController {
 		List<ReserveTotalVO> reserve_total = reserveDao.getTotal();
 		
 		int waiting_partner_count = partnerDao.waiting_count();
-//		int recent_complete_partner_count = partnerDao.recent_complete_count();
-//		int recent_refuse_partner_count = partnerDao.recent_refuse_count();
+		int recent_complete_partner_count = partnerDao.recent_complete_count();
+		int recent_refuse_partner_count = partnerDao.recent_refuse_count();
 		
 		int available_coupon_count = couponDao.available_coupont_count();
 		int recent_take_coupon_count = couponDao.recent_take_coupon_count();
@@ -137,8 +137,8 @@ public class AdminController {
 		model.addAttribute("reserve_total", reserve_total);
 
 		model.addAttribute("waiting_partner_count", waiting_partner_count);
-//		model.addAttribute("recent_complete_partner_count", recent_complete_partner_count);
-//		model.addAttribute("recent_refuse_partner_count", recent_refuse_partner_count);
+		model.addAttribute("recent_complete_partner_count", recent_complete_partner_count);
+		model.addAttribute("recent_refuse_partner_count", recent_refuse_partner_count);
 		
 		model.addAttribute("available_coupon_count", available_coupon_count);
 		model.addAttribute("recent_take_coupon_count", recent_take_coupon_count);

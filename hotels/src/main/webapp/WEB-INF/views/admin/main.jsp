@@ -190,13 +190,13 @@ chart2.render();
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 승인 완료 건 수</td>
-<%-- 					<td>${recent_complete_partner_count}건</td> --%>
-					<td align="right">널 만난건</td>
+					<td align="right">${recent_complete_partner_count}건</td>
+<!-- 					<td align="right">널 만난건</td> -->
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 승인 거절 건 수</td>
-<%-- 					<td>${recent_refuse_partner_count}건</td> --%>
-					<td align="right">내 행복이였던건</td>
+					<td align="right">${recent_refuse_partner_count}건</td>
+<!-- 					<td align="right">내 행복이였던건</td> -->
 				</tr>
 			</tbody>
 		</table>
