@@ -144,6 +144,7 @@ public class NoticeController {
 //	 글 수정
 	@GetMapping("/edit")
 	public String edit(Model model, @RequestParam int no) {
+		
 		model.addAttribute("ndto", noticeDao.get(no));
 		return "notice/edit";
 	}

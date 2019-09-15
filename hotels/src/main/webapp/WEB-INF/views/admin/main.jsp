@@ -213,15 +213,15 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td style="padding:5px;">사용가능 쿠폰 갯수</td>
-					<td text-align="right">${available_coupon_count}개</td>
+					<td align="right">${available_coupon_count}개</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 쿠폰 발급 갯수</td>
-					<td>${recent_take_coupon_count}개</td>
+					<td align="right">${recent_take_coupon_count}개</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 발급 쿠폰 이용 갯수</td>
-					<td>${recent_used_coupon_count}개</td>
+					<td align="right">${recent_used_coupon_count}개</td>
 				</tr>
 			</tbody>
 		</table>
