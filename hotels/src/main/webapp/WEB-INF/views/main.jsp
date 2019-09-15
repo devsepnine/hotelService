@@ -294,12 +294,60 @@ $(function(){
 </div>
 </form>
 
-<div style="text-align: center;">
+<style>
+	.main-offer{
+		width: 1100px;
+		height: 611px;
+		margin: auto;
+	}
+	.main-offer:after{
+		clear: both;
+	}
+	.left-offer-1{
+		float: left;
+		width: 695px;
+		height: 300px;
+		margin-bottom: 10px;
+		overflow: hidden;
+	}
+	.left-offer-2{
+		float: left;
+		width: 342px;
+		height: 300px;
+		margin-right: 11px;
+		overflow: hidden;
+	}
+	.left-offer-3{
+		float: left;
+		width: 342px;
+		height: 300px;
+		overflow: hidden;
+	}
+	.right-offer-1{
+		float: right;
+		width:395px;
+		height: 611px;
+		overflow: hidden;
+	}
+</style>
 
-<span> 여기에 메인 내용을 넣으시면 됩니다.</span>
 
-  
+<div class="main-offer">
+	<div class="right-offer-1">
+		<a href="${pageContext.request.contextPath}/direct/제주" ><img style="width: 100%;height: 100%;" alt="제주도" src="https://media.discordapp.net/attachments/580262264620318720/622794114173239316/c2f69b103ee8df3fe73e72947ed71390.png"></a>
+	</div>
+	<div class="left-offer-1">
+		<a href="${pageContext.request.contextPath}/direct/부산"><img style="width: 100%;height: 100%;" alt="부산" src="https://media.discordapp.net/attachments/580262264620318720/622794388795424778/0ED8AB9EC84B1EC9DB4EBAFB8ECA780.png"></a>
+	</div>
+	<div class="left-offer-2">
+		<a href="${pageContext.request.contextPath}/direct/서울"><img style="width: 100%;height: 100%;" alt="서울" src="https://cdn.discordapp.com/attachments/580262264620318720/622794763690835999/dongdaemun-gate-by-night.png"></a>
+	</div>
+	<div class="left-offer-3">
+		<a href="${pageContext.request.contextPath}/direct/강원"><img style="width: 100%;height: 100%;" alt="강원" src="https://cdn.discordapp.com/attachments/580262264620318720/622795049977249813/5773_7632_64.png"></a>
+	</div>
+
 </div>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 
