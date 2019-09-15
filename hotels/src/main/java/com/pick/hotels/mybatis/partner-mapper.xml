@@ -208,9 +208,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="edit_partner" parameterType="partnerDto">
 		update partner
 			set
-				partner_type = #{partner_type}
+				partner_type = #{partner_type}, partner_response = sysdate
 			where
-				partner_no = #{partner_no}
+				partner_no = #{partner_no} 
 	</update>
 	
 	
