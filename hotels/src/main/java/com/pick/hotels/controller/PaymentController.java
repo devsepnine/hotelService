@@ -45,10 +45,8 @@ public class PaymentController {
 	public String payment(@ModelAttribute Payment_VO payment_VO,
 							@RequestParam(value = "check_agree", required = true) List<String> check_agree,
 							HttpSession session) throws URISyntaxException {
-		System.out.println(payment_VO);
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
-		System.out.println(roomcheck);
 		if(roomcheck==0) {
 			return "err/room_already_reserve";
 		}
@@ -86,9 +84,9 @@ public class PaymentController {
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
 				params.add("tax_free_amount", "0"); //비과세 금액 integer 
-				params.add("approval_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/success");
-				params.add("cancel_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/fail");
-				params.add("fail_url", "http://n0chatt3r.mynetgear.com/hotels/payment/kakao/cancel");
+				params.add("approval_url", "http://localhost:8080/hotels/payment/kakao/success");
+				params.add("cancel_url", "http://localhost:8080/hotels/payment/kakao/fail");
+				params.add("fail_url", "http://localhost:8080/hotels/payment/kakao/cancel");
 				
 //				headers와 params를 합쳐서 전송할 객체를 생성
 				HttpEntity<MultiValueMap<String, String>> send = new HttpEntity<MultiValueMap<String, String>>(params, headers);
@@ -142,11 +140,12 @@ public class PaymentController {
 		//최종 승인 요청
 		KakaoPaySuccessVO success = template.postForObject(uri, send, KakaoPaySuccessVO.class);
 		Payment_VO pv = (Payment_VO) session.getAttribute("payment_VO");
-		System.out.println(pv);
 //		쿠폰 사용여부 확인후 사용완료처리
 		if(pv.getCoupon_history()!=0) {
 			couponDao.used_coupon(pv.getCoupon_history());
 		}
+		
+		System.out.println(success);
 		//결제 완료로 DB에 저장하고 사용자에게 결과 알림
 		ReserveDto rdto = ReserveDto.builder()
 											.reserve_no((int) session.getAttribute("order_id"))
@@ -181,10 +180,14 @@ public class PaymentController {
 		
 		return "payment/kakaopay/success";
 	}
+	
+	
 	@RequestMapping("/kakao/fail")
 	public String kakao_fail() {
 		return "payment/kakaopay/fail";
 	}
+	
+	
 	@RequestMapping("/kakao/cancel")
 	public String kakao_cancel() {
 		return "payment/kakaopay/cancel";

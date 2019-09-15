@@ -180,6 +180,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 		CH.coupon_used = '사용전'
 		and
+		c.coupon_condition='사용가능'
+        and
 		sysdate>=c.coupon_date1
 		and
 		c.coupon_date2>=sysdate
