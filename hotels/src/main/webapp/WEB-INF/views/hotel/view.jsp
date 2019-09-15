@@ -585,23 +585,28 @@ $(function(){
 
 <script>
 	$(function(){
-		var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
-	
-		// 이미지 지도에 표시할 마커입니다
-		// 이미지 지도에 표시할 마커는 Object 형태입니다
-		var marker = {
-		    position: markerPosition
-		};
-	
 		var staticMapContainer  = document.getElementById('hotel-map'), // 이미지 지도를 표시할 div  
 		    staticMapOption = { 
 		        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
-		        level: 6, // 이미지 지도의 확대 레벨
-		        marker: marker // 이미지 지도에 표시할 마커 
+		        level: 6 // 이미지 지도의 확대 레벨
 		    };    
 	
 		// 이미지 지도를 생성합니다
-		var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+		var staticMap = new kakao.maps.Map(staticMapContainer, staticMapOption);
+// 		호텔 마커 이미지 변경 찎기
+		var imageSrc = '${pageContext.request.contextPath}/img/marker/marker_hotel.png', // 마커이미지의 주소입니다    
+	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	    markerPosition = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); // 마커가 표시될 위치입니다
+	 	// 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        position: markerPosition, 
+	        image: markerImage // 마커이미지 설정 
+	    });
+	    marker.setMap(staticMap);  
+	    //여기까지 호텔 마커
 	});
 </script>
 <!-- 리뷰 디자인 -->
