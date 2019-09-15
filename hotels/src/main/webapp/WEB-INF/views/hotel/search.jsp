@@ -284,7 +284,7 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
-    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
+    	if(map.get("region")) $("input[name=region]").val(map.get("region"));
     	
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
@@ -322,6 +322,8 @@ $(function(){
             dateMath();
         });
 
+        if(map.get("check_in")) $("input[name=check_in]").val(map.get("check_in"));
+        
     	$("form").submit(function(e){
     		e.preventDefault();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
