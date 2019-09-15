@@ -29,8 +29,8 @@ public interface PartnerDao {
 	int count_refuse(String type, String keyword);
 	void edit_partner(PartnerDto partnerDto);
 	int waiting_count();
-//	int recent_complete_count();
-//	int recent_refuse_count();
+	int recent_complete_count();
+	int recent_refuse_count();
 
 	
 }

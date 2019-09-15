@@ -105,7 +105,7 @@ chart2.render();
 	}
 	
 	.stripe > tbody > tr:nth-child(2n-1){
-		background-color : #D5D5D5;
+		background-color : #c9d6de;
 	}
 	
 </style>
@@ -190,13 +190,13 @@ chart2.render();
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 승인 완료 건 수</td>
-<%-- 					<td>${recent_complete_partner_count}건</td> --%>
-					<td align="right">널 만난건</td>
+					<td align="right">${recent_complete_partner_count}건</td>
+<!-- 					<td align="right">널 만난건</td> -->
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 승인 거절 건 수</td>
-<%-- 					<td>${recent_refuse_partner_count}건</td> --%>
-					<td align="right">내 행복이였던건</td>
+					<td align="right">${recent_refuse_partner_count}건</td>
+<!-- 					<td align="right">내 행복이였던건</td> -->
 				</tr>
 			</tbody>
 		</table>
@@ -213,15 +213,15 @@ chart2.render();
 			<tbody>
 				<tr>
 					<td style="padding:5px;">사용가능 쿠폰 갯수</td>
-					<td text-align="right">${available_coupon_count}개</td>
+					<td align="right">${available_coupon_count}개</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 쿠폰 발급 갯수</td>
-					<td>${recent_take_coupon_count}개</td>
+					<td align="right">${recent_take_coupon_count}개</td>
 				</tr>
 				<tr>
 					<td style="padding:5px;">최근 7일 발급 쿠폰 이용 갯수</td>
-					<td>${recent_used_coupon_count}개</td>
+					<td align="right">${recent_used_coupon_count}개</td>
 				</tr>
 			</tbody>
 		</table>
