@@ -155,7 +155,7 @@
 		
 		<div class="left-con">
 			<label for="reserve_people">총 인원 수 (최대인원 : ${rdto.room_people})</label>
-			<input class="form-control" type="number" id="reserve_people" name="reserve_people" placeholder="체크인시 필요한 정보입니다." max="${rdto.room_people}" required>
+			<input class="form-control" type="number" id="reserve_people" name="reserve_people" placeholder="체크인시 필요한 정보입니다." min="1" max="${rdto.room_people}" required>
 		</div>
 		
 		<h3>결제수단 선택</h3>
