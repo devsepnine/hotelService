@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
 <!-- 평점 소스파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/star/star.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/star/star.css" />

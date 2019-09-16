@@ -11,6 +11,8 @@
 		margin: auto;
 	}
 	.reserve-wrap:after {
+		content:"";
+		display:block;
 		clear: both;
 	}
 	.reserve-wrap h3{

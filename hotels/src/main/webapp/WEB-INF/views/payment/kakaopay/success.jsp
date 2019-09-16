@@ -14,8 +14,10 @@
             width: 1050px;
             margin: auto;
         }
-        .kakao-info-wrap::after{
+        .kakao-info-wrap:after{
             clear: both;
+            display: block;
+            content: "";
         }
         .left-wrap{
             float: left;
