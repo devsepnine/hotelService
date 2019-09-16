@@ -71,7 +71,7 @@ table{
         	var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
         	    staticMapOption = { 
         	        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
-        	        level: 3, // 이미지 지도의 확대 레벨
+        	        level: 4, // 이미지 지도의 확대 레벨
         	        marker: marker // 이미지 지도에 표시할 마커 
         	    };    
 
@@ -112,7 +112,7 @@ table{
 					<tr>
 						<td class="left_info"><label>소개</label></td>
 						<td>
-							<textarea class="form-control" readonly>${hdto.hotel_content}</textarea>
+							<textarea class="form-control" readonly style="resize: none;" rows="7">${hdto.hotel_content}</textarea>
 						</td>
 					</tr>
 					<tr>

@@ -67,7 +67,7 @@ table{
 						<td>소개</td>
 						<td>
 							<textarea class="form-control" placeholder="방 소개글을 입력하세요" 
-							name="room_content"></textarea>
+							name="room_content" style="resize: none;" rows="7"></textarea>
 						</td>
 					</tr>
 					<tr>

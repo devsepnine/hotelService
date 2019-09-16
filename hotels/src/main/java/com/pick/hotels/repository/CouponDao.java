@@ -27,5 +27,6 @@ public interface CouponDao {
 	void coupon_download(CouponHistoryDto couponhistoryDto);
 	List<CouponVO> payment_coupon_list(int attribute); //결제 시 사용가능한 쿠폰 가져옴
 	void used_coupon(int coupon_history);
+	void update();
 	
 }

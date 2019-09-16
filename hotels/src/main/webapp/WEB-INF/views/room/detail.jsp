@@ -75,7 +75,7 @@ table{
 					<tr>
 						<td><label>소개</label></td>
 						<td>
-							<textarea class="form-control" readonly>${rdto.room_content }</textarea>
+							<textarea class="form-control" readonly style="resize: none;" rows="7">${rdto.room_content }</textarea>
 						</td>
 					</tr>
 					<tr>

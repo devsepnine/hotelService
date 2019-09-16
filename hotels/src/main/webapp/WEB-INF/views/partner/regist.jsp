@@ -192,7 +192,7 @@ table{
 						<td><label>소개</label></td>
 						<td>
 							<textarea class="form-control" placeholder="제휴 소개글을 입력하세요" 
-							name="partner_content"></textarea>
+							name="partner_content" style="resize: none;" rows="7"></textarea>
 						</td>
 					</tr>
 					<tr>

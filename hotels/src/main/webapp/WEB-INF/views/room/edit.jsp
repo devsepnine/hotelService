@@ -70,7 +70,7 @@ table{
 					</tr>
 					<tr>
 						<td>소개</td>
-						<td><textarea class="form-control" name="room_content">${rdto.room_content}</textarea>
+						<td><textarea class="form-control" name="room_content" style="resize: none;" rows="7">${rdto.room_content}</textarea>
 						</td>
 					</tr>
 					<tr>

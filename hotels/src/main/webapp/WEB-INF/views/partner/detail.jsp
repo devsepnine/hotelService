@@ -94,7 +94,7 @@ $(function(){
 					<tr>
 						<td><label>소개</label></td>
 						<td>
-							<textarea class="form-control" readonly>${pdto.partner_content}</textarea>
+							<textarea class="form-control" readonly style="resize: none;" rows="7">${pdto.partner_content}</textarea>
 						</td>
 					</tr>
 					<tr>
