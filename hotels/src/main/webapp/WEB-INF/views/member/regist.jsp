@@ -131,7 +131,7 @@ $(function() {
 				var m_phone = $("#m_phone").val();
 				var regex =/^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
 
-				//정규표현식으로 m_id값 검사
+				//정규표현식으로 m_phone값 검사
 				var result = regex.test(m_phone);
 			
 				if($("input[name=member_phone]").val().length>0){
