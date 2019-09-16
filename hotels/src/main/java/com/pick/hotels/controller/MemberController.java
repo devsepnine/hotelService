@@ -98,7 +98,7 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("/phone_check")
+	@GetMapping("/check_phone")
 	public void phone_check(@RequestParam String member_phone, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/plain");
 		MemberDto mdto = memberDao.checkphone(member_phone);
