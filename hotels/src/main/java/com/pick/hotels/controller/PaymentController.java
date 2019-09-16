@@ -4,9 +4,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.HotelDto;
@@ -31,6 +36,7 @@ import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RoomDao;
+import com.pick.hotels.util.ServerConstant;
 
 @Controller
 @RequestMapping("/payment")
@@ -39,12 +45,16 @@ public class PaymentController {
 	private @Autowired HotelDao hotelDao;
 	private @Autowired RoomDao roomDao;
 	private @Autowired CouponDao couponDao;
-
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private Environment env;	
 	@PostMapping("/order")
 	public String payment(@ModelAttribute Payment_VO payment_VO,
 							@RequestParam(value = "check_agree", required = true) List<String> check_agree,
-							HttpSession session) throws URISyntaxException {
+							HttpSession session,
+							HttpServletRequest request) throws URISyntaxException {
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
 		if(roomcheck==0) {
@@ -83,10 +93,12 @@ public class PaymentController {
 				params.add("item_name", hdto.getHotel_name()+"["+rdto.getRoom_name()+"]"); //호텔이름 상품명 최대 100자
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
-				params.add("tax_free_amount", "0"); //비과세 금액 integer 
-				params.add("approval_url", "http://localhost:8080/hotels/payment/kakao/success");
-				params.add("cancel_url", "http://localhost:8080/hotels/payment/kakao/fail");
-				params.add("fail_url", "http://localhost:8080/hotels/payment/kakao/cancel");
+				params.add("tax_free_amount", "0"); //비과세 금액 integer
+				String url = ServletUriComponentsBuilder.fromCurrentContextPath().port(ServerConstant.port).toUriString();
+				logger.debug("호스트 주소 {}",url);
+				params.add("approval_url", url+"/payment/kakao/success");
+				params.add("cancel_url", url+"/payment/kakao/cancel");
+				params.add("fail_url", url+"/payment/kakao/fail");
 				
 //				headers와 params를 합쳐서 전송할 객체를 생성
 				HttpEntity<MultiValueMap<String, String>> send = new HttpEntity<MultiValueMap<String, String>>(params, headers);

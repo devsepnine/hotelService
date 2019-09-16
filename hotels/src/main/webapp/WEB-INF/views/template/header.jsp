@@ -45,8 +45,7 @@
    <style>
    	@font-face{
    		font-family: hotel;
-   		 src: url("/resources/DXMobrRExtraBold.ttf"),
-   		 	url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
+   		 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
    		 }
 
    *{

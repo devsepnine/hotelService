@@ -3,7 +3,6 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
 
 <style>
 .list-wrap{

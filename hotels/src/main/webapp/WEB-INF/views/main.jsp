@@ -297,11 +297,14 @@ $(function(){
 <style>
 	.main-offer{
 		width: 1100px;
-		height: 611px;
 		margin: auto;
+		
+		
 	}
 	.main-offer:after{
+		content:"";
 		clear: both;
+		display: block;
 	}
 	.left-offer-1{
 		float: left;
@@ -329,21 +332,29 @@ $(function(){
 		height: 611px;
 		overflow: hidden;
 	}
+	.special{
+		width:326px;
+		height:106px;
+		margin: auto;
+		margin-top:50px;
+		margin-bottom:50px;
+		background-image: url('${pageContext.request.contextPath}/img/main/special.jpg'); 
+	}
 </style>
 
-
+<div class="special"></div>
 <div class="main-offer">
 	<div class="right-offer-1">
-		<a href="${pageContext.request.contextPath}/direct/제주" ><img style="width: 100%;height: 100%;" alt="제주도" src="https://media.discordapp.net/attachments/580262264620318720/622794114173239316/c2f69b103ee8df3fe73e72947ed71390.png"></a>
+		<a href="${pageContext.request.contextPath}/direct/제주" ><img style="width: auto;height: 100%;" alt="제주도" src="${pageContext.request.contextPath}/img/main/jeju.png"></a>
 	</div>
 	<div class="left-offer-1">
-		<a href="${pageContext.request.contextPath}/direct/부산"><img style="width: 100%;height: 100%;" alt="부산" src="https://media.discordapp.net/attachments/580262264620318720/622794388795424778/0ED8AB9EC84B1EC9DB4EBAFB8ECA780.png"></a>
+		<a href="${pageContext.request.contextPath}/direct/부산"><img style="width: 100%;height: 100%;" alt="부산" src="${pageContext.request.contextPath}/img/main/busan.png"></a>
 	</div>
 	<div class="left-offer-2">
-		<a href="${pageContext.request.contextPath}/direct/서울"><img style="width: 100%;height: 100%;" alt="서울" src="https://cdn.discordapp.com/attachments/580262264620318720/622794763690835999/dongdaemun-gate-by-night.png"></a>
+		<a href="${pageContext.request.contextPath}/direct/서울"><img style="width: 100%;height: 100%;" alt="서울" src="${pageContext.request.contextPath}/img/main/seoul.jpg"></a>
 	</div>
 	<div class="left-offer-3">
-		<a href="${pageContext.request.contextPath}/direct/강원"><img style="width: 100%;height: 100%;" alt="강원" src="https://cdn.discordapp.com/attachments/580262264620318720/622795049977249813/5773_7632_64.png"></a>
+		<a href="${pageContext.request.contextPath}/direct/강원"><img style="width: 100%;height: 100%;" alt="강원" src="${pageContext.request.contextPath}/img/main/ganwon.jpg"></a>
 	</div>
 
 </div>
