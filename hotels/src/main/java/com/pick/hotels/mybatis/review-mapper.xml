@@ -99,12 +99,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 리뷰 리스트  카운트 -->
 	<select id="count_review_list" parameterType="map" resultType="int">
-		select count(*) from review
-			where
+		SELECT COUNT(*) FROM(
+					    SELECT 
+					       H.hotel_name,
+					        R.room_name,
+					        RV.reserve_in,
+					        RV.reserve_out,
+					        RW.review_score,
+					        RW.review_content,
+					        RW.review_when,
+					        RW.review_no
+					FROM 
+					        hotel H 
+					        inner join room R on R.hotel_no = H.hotel_no
+					        inner join reserve RV on  RV.reserve_room_no = R.room_no
+					        inner join review RW on  RW.review_reserve = RV.reserve_no
+					 WHERE
 		<if test="type != null and keyword != null">
 			${type} like '%' || #{keyword} || '%' and
 		</if>
-			review_state = '등록'
+			review_state = '등록')
 	</select>
 	
 	<!-- 리뷰 블랙리스트  -->
@@ -135,12 +149,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 리뷰 블랙리스트  카운트 -->
 	<select id="count_review_blacklist" parameterType="map" resultType="int">
-		select count(*) from review
-			where
+		SELECT COUNT(*) FROM(
+					    SELECT 
+					       H.hotel_name,
+					        R.room_name,
+					        RV.reserve_in,
+					        RV.reserve_out,
+					        RW.review_score,
+					        RW.review_content,
+					        RW.review_when,
+					        RW.review_no
+					FROM 
+					        hotel H 
+					        inner join room R on R.hotel_no = H.hotel_no
+					        inner join reserve RV on  RV.reserve_room_no = R.room_no
+					        inner join review RW on  RW.review_reserve = RV.reserve_no
+					 WHERE
 		<if test="type != null and keyword != null">
 			${type} like '%' || #{keyword} || '%' and
 		</if>
-			review_state = '블랙'
+			review_state = '블랙')
 	</select>
 	
 	<!-- 리뷰 블랙리스트 처리 -->
