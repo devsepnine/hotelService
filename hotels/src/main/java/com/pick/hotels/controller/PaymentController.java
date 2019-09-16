@@ -74,8 +74,8 @@ public class PaymentController {
 		
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
-		System.out.println(roomcheck);
-		if(roomcheck!=1) {
+		logger.debug("예약된 방이 있는가? : {}", roomcheck);
+		if(roomcheck>0) {
 			return "err/room_already_reserve";
 		}
 		if(payment_VO.getCoupon_history()!=0) {
