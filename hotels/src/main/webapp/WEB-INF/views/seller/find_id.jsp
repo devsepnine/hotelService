@@ -10,6 +10,39 @@
 		min-width: 625px;
 	}
 </style>
+<script>
+	$(function(){
+		$("input[name=seller_name]").blur(function(){
+			var s_name = $("input[name=seller_name]").val();
+			var regex = /^[가-힣]{2,7}$/;
+			
+			var result = regex.test(s_name);
+			var div = document.querySelector(".s_Name");
+			
+			if(result){
+				div.innerHTML = ""
+			}
+			else{
+				div.innerHTML = "2~7자의 한글 이름을 입력해주세요"
+			}
+		});
+		
+		$("input[name=seller_phone]").blur(function(){
+			var s_phone = $("input[name=seller_phone]").val();
+			var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
+			
+			var result = regex.test(s_phone);
+			var div = document.querySelector(".s_Phone");
+			
+			if(result){
+				div.innerHTML = ""
+			}
+			else{
+				div.innerHTML = "- 포함한 번호를 작성해주세요"
+			}
+		});
+	});
+</script>
 
 <%-- error 파라미터 유무에 따라 오류메시지를 출력 --%>
 <div align="center" class="find_pw-wrap">
@@ -25,11 +58,11 @@
 			<table>
 				<tr>
 				<td><label>이름</label></td>
-					<td><input class="form-control"  type="text" name="seller_name" placeholder="이름" required autocomplete="off"></td>
+					<td><input class="form-control"  type="text" name="seller_name" placeholder="이름" required autocomplete="off"><div class="s_Name"></div></td>
 				</tr>
 				<tr>
 					<td><label>핸드폰 번호</label></td>
-					<td><input class="form-control" type="text" name="seller_phone" placeholder="핸드폰 번호" required autocomplete="off"></td>
+					<td><input class="form-control" type="text" name="seller_phone" placeholder="핸드폰 번호" required autocomplete="off"><div class="s_Phone"></div></td>
 				</tr>
 				<tr>
 					<td><label>생년월일</label></td>
