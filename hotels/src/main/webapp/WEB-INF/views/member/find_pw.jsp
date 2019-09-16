@@ -11,6 +11,39 @@
 	}
 </style>
 
+<script>
+$(function(){
+	$("input[name=member_id]").blur(function(){
+		var m_id = $("input[name=member_id]").val();
+		var regex = /^[a-z0-9]{8,15}$/;
+		
+		var result = regex.test(m_id);
+		var div = document.querySelector(".m_idD");
+		
+		if(result){
+			div.innerHTML = ""
+		}
+		else{
+			div.innerHTML = "8~15자의 영문 소문자, 숫자로 입력해주세요"
+		}
+	});
+	
+	$("input[name=member_phone]").blur(function(){
+		var s_phone = $("input[name=member_phone]").val();
+		var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
+		
+		var result = regex.test(s_phone);
+		var div = document.querySelector(".m_phoneD");
+		
+		if(result){
+			div.innerHTML = ""
+		}
+		else{
+			div.innerHTML = "- 포함한 번호를 작성해주세요"
+		}
+	});
+});
+</script>
 
 <%-- error 파라미터 유무에 따라 오류메시지를 출력 --%>
 
@@ -27,11 +60,13 @@
 			<table>
 				<tr>
 				<td><label>아이디</label></td>
-					<td><input class="form-control" display: inline-block;" type="text" name="member_id" placeholder="아이디" required autocomplete="off"></td>
+					<td><input class="form-control"  type="text" name="member_id" placeholder="아이디" required autocomplete="off"><div class="m_idD"></div>
+					</td>
 				</tr>
 				<tr>
 					<td><label>핸드폰 번호</label></td>
-					<td><input class="form-control" display: inline-block;" type="text" name="member_phone" placeholder="핸드폰 번호" required autocomplete="off"></td>
+					<td><input class="form-control"  type="text" name="member_phone" placeholder="핸드폰 번호" required autocomplete="off"><div class="m_phoneD"></div>
+					</td>
 				</tr>
 				<tr>
 					<td><label>생년월일</label></td>
