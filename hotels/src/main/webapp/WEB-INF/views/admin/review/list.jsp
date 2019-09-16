@@ -200,8 +200,7 @@
 <input type="hidden" name="page" value="1">
 
 <select name="type" class="custom-select" style="width:120px">
-<!-- 	<option value="hotel_name">호텔 이름</option> -->
-<!-- 	<option value="room_name">방 이름</option> -->
+	<option value="hotel_name">호텔 이름</option>
 	<option value="review_content">리뷰 내용</option>
 </select>
 
