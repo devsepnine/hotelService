@@ -610,8 +610,9 @@ public class SellerController {
 			Model model) throws IllegalStateException, IOException {
 		
 		int hotel_no = hotelDto.getHotel_no();
-		if(hotel_file != null) {
-			fileService.hotel_delete(hotel_file);
+		System.out.println(hotel_file);
+		if(!file.isEmpty()) {
+			fileService.hotel_delete(hotelDto);
 			HotelDto saveResult =  fileService.hotel_title_save(file);
 			hotelDto.setHotel_title(saveResult.getHotel_title());
 		}
@@ -627,6 +628,7 @@ public class SellerController {
 		if(hotelDto.getHotel_parking()==null) hotelDto.setHotel_parking("N");
 		if(hotelDto.getHotel_pool()==null) hotelDto.setHotel_pool("N");
 		if(hotelDto.getHotel_sauna()==null) hotelDto.setHotel_sauna("N");
+		hotelDto.setHotel_title(hotel_file);
 		hotelDao.edit(hotelDto);
 		
 		if(!file1.isEmpty()) {

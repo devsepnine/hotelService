@@ -158,5 +158,10 @@ public class CouponDaoImpl implements CouponDao{
 		return;
 	}
 
+	@Override
+	public void update() {
+		sqlSession.update("coupon.update");
+	}
+
 
 }

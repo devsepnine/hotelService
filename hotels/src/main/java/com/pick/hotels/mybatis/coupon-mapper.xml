@@ -194,4 +194,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update coupon_history set coupon_used = '사용완료' where coupon_history_no = #{coupon_history}
 	</update>
 	
+	<!-- 쿠폰 사용 기간 체크 -->
+	<update id="update">
+		<![CDATA[
+			update coupon 
+				set coupon_condition = '사용불가능'
+				where coupon_date2 < sysdate
+		]]>
+	</update>
+	
  </mapper>
