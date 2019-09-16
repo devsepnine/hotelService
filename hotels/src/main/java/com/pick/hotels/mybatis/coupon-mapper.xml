@@ -125,13 +125,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             C.coupon_date2,
             C.coupon_minimum,
             C.coupon_condition,
+            CH.coupon_used,
             CH.coupon_history_no,
             CH.member_no,
             CH.coupon_get_date
     from
             coupon C
            left outer join coupon_history CH on CH.coupon_no = C.coupon_no
-    where CH.member_no =#{member_no} and C.coupon_used='사용전'
+    where CH.member_no =#{member_no} and CH.coupon_used='사용전'
    
 	</select>
 	
