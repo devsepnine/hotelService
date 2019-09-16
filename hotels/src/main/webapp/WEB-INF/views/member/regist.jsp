@@ -362,7 +362,7 @@ $(function() {
 				<tr>
 							<td><label for="m_birth">BIRTH</label></td>
 							<td>
-								<input class="form-control" type="date" name="member_birthday" id="m_birth" value="2019-07-08" required>
+								<input class="form-control" type="date" name="member_birthday" id="m_birth"  required>
 							</td>
 						</tr>
 				<tr>
