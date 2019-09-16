@@ -8,7 +8,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kakaopayment">
 
 	<insert id="insert" parameterType="kakaoPayMentDto">
-		insert into kakaopayment values(#{kakaopay_reserve_no}, kakaopayment_seq.nextval, #{kakaopay_cid}, #{kakaopay_tid}, #{kakaopay_cancel_amount}, #{kakaopay_tax_free_amount})
+		insert into kakaopayment values(#{kakaopay_reserve_no}, kakaopayment_seq.nextval, #{kakaopay_cid}, #{kakaopay_tid}, #{kakaopay_cancel_amount}, #{kakaopay_tax_free_amount}, '결제완료')
 	</insert>
 
+
+	<select id="select_order" parameterType="int" resultType="kakaoPayMentDto">
+		select * from kakaopayment where kakaopay_reserve_no = #{order_id}
+	</select>
+	
+	<update id="update_canceled" parameterType="int">
+		update kakaopayment set state = '취소완료' where kakaopay_reserve_no = #{order_id}
+	</update>
 </mapper>

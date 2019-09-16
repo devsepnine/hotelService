@@ -55,22 +55,38 @@
 				//this == button
 				var that = this;
 				var reserve_no = $(this).prev(".reserve_no").val();
+				console.log(reserve_no)
 				$.ajax({
-					url : "${pageContext.request.contextPath}/reserve/reserve_delete",
+					url : "${pageContext.request.contextPath}/payment/kakao/canceled",
 					data : {
-						reserve_no : reserve_no
+						order_id : reserve_no
 					},
 					dataType : "text",
-					success : function(resp) {
-						if (resp == "Y") {
-							$(".reserve_ok").text("취소");
-							$(".delete_btn").css("display",'none');
-						}
-						else {
-							
+					success : function(resp){
+						if (resp == "success"){
+							$.ajax({
+								url : "${pageContext.request.contextPath}/reserve/reserve_delete",
+								data : {
+									reserve_no : reserve_no
+								},
+								dataType : "text",
+								success : function(resp) {
+									if (resp == "Y") {
+										$(".reserve_ok").text("취소");
+										$(".delete_btn").css("display",'none');
+										alert("결제가 취소되었습니다.")
+									}
+									else {
+										
+									}
+								}
+							});
+						}else{
+							alert(resp);
+							return;
 						}
 					}
-				});
+				})
 			});
 	});
 	
