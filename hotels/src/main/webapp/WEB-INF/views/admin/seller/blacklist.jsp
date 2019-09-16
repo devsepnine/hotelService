@@ -65,6 +65,14 @@
 	    text-align: center;
 	}
 	
+	.navigator .current {
+		background-color : #726454;
+	}
+	
+	.navigator .current a{
+		color: white;
+	}
+	
 	.list_wrap {
 		text-align: center;
 	}
@@ -233,10 +241,10 @@
 	<c:forEach var="i" begin="${startBlock}" end="${endBlock}">
 		<c:choose>
 			<c:when test="${param.type != null and param.keyword != null}">
-				<li><a href="blacklist?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
+				<li class="${page == i?'current':''}"><a href="blacklist?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></li>		
 			</c:when>
 			<c:otherwise>
-				<li><a href="blacklist?page=${i}">${i}</a></li>		
+				<li class="${page == i?'current':''}"><a href="blacklist?page=${i}">${i}</a></li>		
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
