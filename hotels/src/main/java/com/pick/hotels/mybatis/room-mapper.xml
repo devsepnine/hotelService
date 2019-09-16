@@ -46,34 +46,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	</select>   -->
 	
 	<select id="get_list" parameterType="map" resultType="roomDto">
-		select distinct * from(
-			select
-			    R.*
-			from
-			    room R
-			        left outer join reserve S on R.room_no = S.reserve_room_no
-			    where R.hotel_no = #{hotel_no} and r.room_people >= #{people}
-			minus
-			select
-			    R.*
-			from
-			    room R
-			        left outer join reserve S on R.room_no = S.reserve_room_no
-			where
-			    R.hotel_no = #{hotel_no}
-			    and
-			    S.reserve_in between to_date(#{check_in}, 'YYYY/MM/DD') and to_date(#{check_out}, 'YYYY/MM/DD')
-			    or
-			    S.reserve_out between to_date(#{check_in}, 'YYYY/MM/DD') and to_date(#{check_out}, 'YYYY/MM/DD')
-			    or
-			    ( 
-			    <![CDATA[
-			    S.reserve_in < to_date(#{check_in}, 'YYYY/MM/DD')
-			    ]]>
-			    and
-			    S.reserve_out > to_date(#{check_out}, 'YYYY/MM/DD')
-			    )
-		)
+		select * from room where hotel_no = #{hotel_no}
+		minus
+		select 
+        R.*
+        from room R
+		left outer join reserve S 
+		on R.room_no = S.reserve_room_no
+		where
+		R.hotel_no = #{hotel_no}
+		and
+        s.reserve_ok = '예약'
+        and
+		<!--     1번 경우 : 시작일만 겹치는 경우 -->
+		<!--     2번 경우 : 종료일만 겹치는 경우 -->
+		<!--     3번 경우 : 검색기간 안의 예약 조회 -->
+		<!--     4번 경우 : 검색기간을 포함하는 예약 조회 --> 
+		<![CDATA[
+
+        (
+            to_date(#{check_in}, 'YYYY/MM/DD') between S.reserve_in and S.reserve_out
+            or 
+
+            to_date(#{check_out}, 'YYYY/MM/DD') between S.reserve_in and S.reserve_out
+            or
+
+            to_date(#{check_in}, 'YYYY/MM/DD') <= S.reserve_in and to_date(#{check_out}, 'YYYY/MM/DD') >= S.reserve_out
+            or
+
+            to_date(#{check_in}, 'YYYY/MM/DD') >= S.reserve_in and to_date(#{check_out}, 'YYYY/MM/DD') <= S.reserve_out
+        )
+        ]]>
 	</select>  
 	
 	<!-- 방사진 하나만 가져오는 방 리스트 -->
