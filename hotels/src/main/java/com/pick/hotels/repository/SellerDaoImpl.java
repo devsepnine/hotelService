@@ -133,6 +133,19 @@ public class SellerDaoImpl implements SellerDao{
 		return sqlSession.selectList("seller.blacklist", param);
 	}
 	
+//	블랙판매자리스트 구하기
+	@Override
+	public int count_black(String type, String keyword) {
+		Map<String, String> param = new HashMap<>();
+		
+		if(type != null && keyword != null) {
+			param.put("type", type.replace("+", "||"));
+			param.put("keyword", keyword);
+		}
+		
+		return sqlSession.selectOne("seller.count_black", param);
+	}
+	
 //	관리자 판매자 정보 수정
 	@Override
 	public void edit_seller(SellerDto sellerDto) {

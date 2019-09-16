@@ -30,6 +30,8 @@ import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantFileDto;
 import com.pick.hotels.entity.RestaurantListVO;
+import com.pick.hotels.entity.ReviewDto;
+import com.pick.hotels.entity.ReviewVO;
 import com.pick.hotels.entity.SellerCountVO;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.AttractionDao;
@@ -42,6 +44,7 @@ import com.pick.hotels.repository.PartnerFileDao;
 import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RestaurantDao;
 import com.pick.hotels.repository.RestaurantFileDao;
+import com.pick.hotels.repository.ReviewDao;
 import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
@@ -89,26 +92,39 @@ public class AdminController {
 	@Autowired
 	private ReserveDao reserveDao;
 
+	@Autowired
+	private ReviewDao reviewDao;
 	
 //------------------------------------------------------------------------------------
-//	관광지
+//	관리자 메인 페이지
 //------------------------------------------------------------------------------------
 	
 //	전체 관리 페이지("main")
 	@GetMapping("/main")
 	public String main(Model model, 
 						@ModelAttribute MemberDto memberDto,
-						@ModelAttribute SellerDto sellerDto) {
+						@ModelAttribute SellerDto sellerDto,
+						@ModelAttribute PartnerDto partnerDto) {
 		
 		int member_total_count = memberDao.total_count();
 		int recent_member_count = memberDao.recent_count();
+		
 		List<MemberCountVO> member_monthly_count = memberDao.monthly_count();
 
 		int seller_total_count = sellerDao.total_count();
 		int recent_seller_count = sellerDao.recent_count();
+		
 		List<SellerCountVO> seller_monthly_count = sellerDao.monthly_count();
 		
 		List<ReserveTotalVO> reserve_total = reserveDao.getTotal();
+		
+		int waiting_partner_count = partnerDao.waiting_count();
+		int recent_complete_partner_count = partnerDao.recent_complete_count();
+		int recent_refuse_partner_count = partnerDao.recent_refuse_count();
+		
+		int available_coupon_count = couponDao.available_coupont_count();
+		int recent_take_coupon_count = couponDao.recent_take_coupon_count();
+		int recent_used_coupon_count = couponDao.recent_used_coupon_count();
 		
 		model.addAttribute("member_total_count", member_total_count);
 		model.addAttribute("recent_member_count", recent_member_count);
@@ -120,6 +136,13 @@ public class AdminController {
 		
 		model.addAttribute("reserve_total", reserve_total);
 
+		model.addAttribute("waiting_partner_count", waiting_partner_count);
+		model.addAttribute("recent_complete_partner_count", recent_complete_partner_count);
+		model.addAttribute("recent_refuse_partner_count", recent_refuse_partner_count);
+		
+		model.addAttribute("available_coupon_count", available_coupon_count);
+		model.addAttribute("recent_take_coupon_count", recent_take_coupon_count);
+		model.addAttribute("recent_used_coupon_count", recent_used_coupon_count);
 		
 		return "admin/main";
 	}
@@ -281,19 +304,6 @@ public class AdminController {
 	}
 	
 	
-//	관광지 리스트에서 삭제("/attraction/delete")
-	@GetMapping("/attraction/delete")
-	public void delete(@RequestParam int attraction_no, HttpServletResponse resp) throws IOException {
-		boolean result = attractionDao.delete(attraction_no);
-		if(result) {
-			resp.getWriter().print("Y");
-		}
-		else {
-			resp.getWriter().print("N");
-		}
-	}
-	
-	
 //	관광지 상세보기("/attraction/detail")
 	@GetMapping("/attraction/detail")
 	public String content(@RequestParam int no, Model model) {
@@ -436,12 +446,6 @@ public class AdminController {
 		
 		restaurantDao.edit(rdto);
 		
-//		수정을 하게되면 
-//		1. 수정한 글 내용
-//		2. 수정파일1, 2, 3
-//		이 넘어오게 되는데 이것을 받아서 수정 처리를 한다.
-//		-> 글 내용은 그냥 수정
-//		->
 		if(!file1.isEmpty()) {
 		
 			if(restaurant_file_no1 > 0) {
@@ -504,19 +508,6 @@ public class AdminController {
 	}
 	
 	
-//	레스토랑 리스트에서 삭제("/restaurant/delete")
-	@GetMapping("/restaurant/delete")
-	public void delete_rt(@RequestParam int restaurant_no, HttpServletResponse resp) throws IOException {
-		boolean result = restaurantDao.delete(restaurant_no);
-		if(result) {
-			resp.getWriter().print("Y");
-		}
-		else {
-			resp.getWriter().print("N");
-		}
-	}
-	
-	
 //	레스토랑 상세보기("restaurant/detail")
 	@GetMapping("/restaurant/detail")
 	public String content_rt(@RequestParam int no, Model model) {
@@ -538,11 +529,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -639,11 +630,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -677,11 +668,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -782,11 +773,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
@@ -907,7 +898,7 @@ public class AdminController {
 	}
 	
 	
-//	전체 판매자 리스트 + 검색("/seller/list")
+//	일반 판매자 리스트 + 검색("/seller/list")
 	@GetMapping("/seller/list")
 	public String list_seller(
 						@RequestParam(required = false) String type,
@@ -915,13 +906,14 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
+		
 		
 		int count = sellerDao.count(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
@@ -953,15 +945,15 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 10;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = sellerDao.count(type, keyword);
+		int count = sellerDao.count_black(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1035,15 +1027,15 @@ public class AdminController {
 						Model model
 			) {
 		
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_waiting(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1073,15 +1065,15 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_complete(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1111,15 +1103,15 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
-		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
+		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
 		
-		int blocksize = 5;		//페이지 갯수
+		int blocksize = 5;
 		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
 		int endBlock = startBlock + (blocksize -1);
 		
-		int count = partnerDao.count(type, keyword);
+		int count = partnerDao.count_refuse(type, keyword);
 		int pageCount = (count -1) / pagesize + 1;
 		
 		if(endBlock > pageCount) {
@@ -1139,4 +1131,109 @@ public class AdminController {
 		
 		return "admin/partner/refuse_list";
 	}
+	
+	
+//------------------------------------------------------------------------------------
+// 리뷰
+//------------------------------------------------------------------------------------	
+
+//	리뷰 리스트("/review/list")
+	@GetMapping("/review/list")
+	public String review_list(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = reviewDao.count_review_list(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<ReviewVO> list = reviewDao.admin_review_list(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/review/list";
+	}
+	
+	
+//	리뷰 블랙리스트("/review/list")
+	@GetMapping("/review/blacklist")
+	public String review_blacklist(
+						@RequestParam(required = false) String type,
+						@RequestParam(required = false) String keyword,
+						@RequestParam(required = false, defaultValue="1") int page,
+						Model model
+			) {
+		int pagesize = 10;
+		int start = pagesize * page - (pagesize -1);
+		int end = pagesize * page;
+		
+		int blocksize = 5;
+		int startBlock = (page - 1 ) / blocksize * blocksize + 1;
+		int endBlock = startBlock + (blocksize -1);
+		
+		int count = reviewDao.count_review_blacklist(type, keyword);
+		int pageCount = (count -1) / pagesize + 1;
+		
+		if(endBlock > pageCount) {
+			endBlock = pageCount;
+		}
+		
+		model.addAttribute("page", page);
+		model.addAttribute("startBlock", startBlock);
+		model.addAttribute("endBlock", endBlock);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("start", start);
+		model.addAttribute("end", end);
+		
+		List<ReviewVO> list = reviewDao.admin_review_blacklist(type, keyword, start, end);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/review/blacklist";
+	}
+	
+	
+//	리뷰 블랙리스트 처리("/review/edit")
+	@GetMapping("/review/edit")
+	public String review_edit(@RequestParam int no, Model model) {
+
+		ReviewDto reviewDto = reviewDao.get(no);
+		
+		model.addAttribute("rdto", reviewDto);
+		
+		return "admin/review/edit";
+	}
+	
+	@PostMapping("/review/edit")
+	public String review_edit(@ModelAttribute ReviewDto reviewDto) {
+		
+		reviewDao.edit(reviewDto);
+		
+		return "redirect:list";
+	}
+
+
 }
+
+
+

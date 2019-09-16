@@ -193,6 +193,8 @@
 	<option value="seller_id">아이디</option>
 	<option value="seller_name">이름</option>
 	<option value="seller_lisence">사업자 번호</option>
+	<option value="seller_email_id">이메일</option>
+	<option value="seller_phone">핸드폰번호</option>
 </select>
 
 <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요" required value="${param.keyword}">

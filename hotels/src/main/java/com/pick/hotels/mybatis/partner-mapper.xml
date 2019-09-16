@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into partner values (
 			#{hotel_no}, #{partner_no}, #{partner_name}, #{partner_longitude}, #{partner_latitude},
 			#{partner_tel}, #{partner_content}, '승인대기', #{partner_zip_code}, #{partner_basic_addr},
-			#{partner_detail_addr}
+			#{partner_detail_addr}, ''
  		)
  	</insert>   
  	
@@ -54,97 +54,181 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 제휴 승인 대기 리스트 -->
 	<select id="waiting_list" parameterType="map" resultType="partnerListVO">
-		SELECT 
-			*
-			FROM (
-			    SELECT 
-			        P.hotel_no,
-			        H.hotel_name,
-			        P.partner_no,
-			        PF.p_file_no,
-			        P.partner_name,
-			        PF.p_file_name,
-			        P.partner_basic_addr, 
-			        P.partner_detail_addr,
-			        P.partner_type,
-			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
-			FROM 
-			        partner P inner join p_file PF on P.partner_no = PF.partner_no
-			        inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE rn = 1 
-					<if test="type != null and keyword != null">
-							AND ${type} like '%'||#{keyword}||'%'
-					</if>
-					and partner_type = '승인대기'
+		SELECT * FROM (
+			SELECT rownum rn2, TMP.* FROM(
+				SELECT 
+				*
+				FROM (
+				    SELECT 
+				        P.hotel_no,
+				        H.hotel_name,
+				        P.partner_no,
+				        PF.p_file_no,
+				        P.partner_name,
+				        PF.p_file_name,
+				        P.partner_basic_addr, 
+				        P.partner_detail_addr,
+				        P.partner_type,
+				        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
+				FROM 
+				        partner P inner join p_file PF on P.partner_no = PF.partner_no
+				        inner join hotel H on P.hotel_no = H.hotel_no
+				) WHERE rn = 1 
+						<if test="type != null and keyword != null">
+								AND ${type} like '%'||#{keyword}||'%'
+						</if>
+						and partner_type = '승인대기' order by partner_no asc
+			)TMP
+		) WHERE rn2 BETWEEN #{start} and #{end}
 	</select>
+	
 	
 	<!-- 제휴 승인 완료 리스트 -->
 	<select id="complete_list" parameterType="map" resultType="partnerListVO">
-        SELECT 
-			*
-			FROM (
-			    SELECT 
-			        P.hotel_no,
-			        H.hotel_name,
-			        P.partner_no,
-			        PF.p_file_no,
-			        P.partner_name,
-			        PF.p_file_name,
-			        P.partner_basic_addr, 
-			        P.partner_detail_addr,
-			        P.partner_type,
-			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
-			FROM 
-			        partner P inner join p_file PF on P.partner_no = PF.partner_no
-                    inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE rn = 1
-					<if test="type != null and keyword != null">
-							AND ${type} like '%'||#{keyword}||'%'
-					</if>
-					and partner_type = '승인완료'
+        SELECT * FROM (
+			SELECT rownum rn2, TMP.* FROM(
+				SELECT 
+				*
+				FROM (
+				    SELECT 
+				        P.hotel_no,
+				        H.hotel_name,
+				        P.partner_no,
+				        PF.p_file_no,
+				        P.partner_name,
+				        PF.p_file_name,
+				        P.partner_basic_addr, 
+				        P.partner_detail_addr,
+				        P.partner_type,
+				        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
+				FROM 
+				        partner P inner join p_file PF on P.partner_no = PF.partner_no
+				        inner join hotel H on P.hotel_no = H.hotel_no
+				) WHERE rn = 1 
+						<if test="type != null and keyword != null">
+								AND ${type} like '%'||#{keyword}||'%'
+						</if>
+						and partner_type = '승인완료' order by partner_no asc
+			)TMP
+		) WHERE rn2 BETWEEN #{start} and #{end}
 	</select>
+	
 	
 	<!-- 제휴 승인 거절 리스트 -->
 	<select id="refuse_list" parameterType="map" resultType="partnerListVO">
-		SELECT 
-			*
-			FROM (
-			    SELECT 
-			        P.hotel_no,
-			        H.hotel_name,
-			        P.partner_no,
-			        PF.p_file_no,
-			        P.partner_name,
-			        PF.p_file_name,
-			        P.partner_basic_addr, 
-			        P.partner_detail_addr,
-			        P.partner_type,
-			        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
-			FROM 
-			        partner P inner join p_file PF on P.partner_no = PF.partner_no
-			        inner join hotel H on P.hotel_no = H.hotel_no
-			) WHERE rn = 1
-					<if test="type != null and keyword != null">
-							AND ${type} like '%'||#{keyword}||'%'
-					</if>
-					and partner_type = '승인거부'
+		SELECT * FROM (
+			SELECT rownum rn2, TMP.* FROM(
+				SELECT 
+				*
+				FROM (
+				    SELECT 
+				        P.hotel_no,
+				        H.hotel_name,
+				        P.partner_no,
+				        PF.p_file_no,
+				        P.partner_name,
+				        PF.p_file_name,
+				        P.partner_basic_addr, 
+				        P.partner_detail_addr,
+				        P.partner_type,
+				        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn
+				FROM 
+				        partner P inner join p_file PF on P.partner_no = PF.partner_no
+				        inner join hotel H on P.hotel_no = H.hotel_no
+				) WHERE rn = 1 
+						<if test="type != null and keyword != null">
+								AND ${type} like '%'||#{keyword}||'%'
+						</if>
+						and partner_type = '승인거부' order by partner_no asc
+			)TMP
+		) WHERE rn2 BETWEEN #{start} and #{end}
 	</select>
 	
-	<!-- 제휴 리스트  카운트 -->
-	<select id="count" parameterType="map" resultType="int">
+	
+	<!-- 제휴 승인 대기 리스트  카운트 -->
+<!-- 	<select id="count_waiting" parameterType="map" resultType="int"> -->
+<!-- 		select count(*) from ( -->
+<!-- 				SELECT rownum rn, a. * FROM ( -->
+<!-- 				    SELECT  -->
+<!-- 				        P.hotel_no, -->
+<!-- 				        H.hotel_name, -->
+<!-- 				        P.partner_no, -->
+<!-- 				        PF.p_file_no, -->
+<!-- 				        P.partner_name, -->
+<!-- 				        PF.p_file_name, -->
+<!-- 				        P.partner_basic_addr,  -->
+<!-- 				        P.partner_detail_addr, -->
+<!-- 				        P.partner_type, -->
+<!-- 				        ROW_NUMBER() OVER(PARTITION BY P.partner_no ORDER BY PF.p_file_no ASC) as rn -->
+<!-- 				FROM  -->
+<!-- 				        partner P inner join p_file PF on P.partner_no = PF.partner_no -->
+<!-- 				        inner join hotel H on P.hotel_no = H.hotel_no  -->
+                        
+<!-- 				)a where rn = 1 and -->
+<!-- 					<if test="type != null and keyword != null"> -->
+<!-- 						${type} like '%' || #{keyword} || '%' and -->
+<!-- 					</if> -->
+<!-- 						partner_type = '승인대기') ; -->
+<!-- 	</select> -->
+	
+	
+	<!-- 제휴 승인 대기 리스트  카운트 -->
+	<select id="count_waiting" parameterType="map" resultType="int">
 		select count(*) from partner
+			where
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'
+			${type} like '%' || #{keyword} || '%' and
 		</if>
+			partner_type = '승인대기'
 	</select>
+	
+	<!-- 제휴 승인 완료 리스트  카운트 -->
+	<select id="count_complete" parameterType="map" resultType="int">
+		select count(*) from partner
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			partner_type = '승인완료'
+	</select>
+	
+	
+	<!-- 제휴 승인 거절 리스트  카운트 -->
+	<select id="count_refuse" parameterType="map" resultType="int">
+		select count(*) from partner
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			partner_type = '승인거절'
+	</select>
+	
 	
 	<!-- 제휴 승인 상태 수정 -->
 	<update id="edit_partner" parameterType="partnerDto">
 		update partner
 			set
-				partner_type = #{partner_type}
+				partner_type = #{partner_type}, partner_response = sysdate
 			where
-				partner_no = #{partner_no}
+				partner_no = #{partner_no} 
 	</update>
+	
+	
+	<!-- 제휴 승인 대기 건 수 -->
+	<select id="waiting_count" resultType="int">
+		select count(*) from partner where partner_type = '승인대기'
+	</select>
+	
+	
+	<!-- 최근 7일 제휴 승인 완료 건 수 -->
+	<select id="recent_complete_count" resultType="int">
+		select count(*) from partner where partner_type = '승인완료' and partner_response between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	
+	<!-- 최근 7일 제휴 승인 거절 건 수 -->
+	<select id="recent_refuse_count" resultType="int">
+		select count(*) from partner where partner_type = '승인거절' and partner_response between (sysdate-7) and (sysdate+1)
+	</select>
 	
  </mapper>

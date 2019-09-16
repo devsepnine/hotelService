@@ -53,7 +53,7 @@
 		text-align: right;
 	}
 	
-	.btn{
+	.table_ny_one .btn{
 		width: 50px;
 		height: 40px;
 		padding: 0px;
@@ -119,10 +119,12 @@
 				</c:if>
 				<c:if test="${not empty pfdtolist[1]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/5?img_name=${pfdtolist[1].p_file_name}">
-				</c:if><br>
+				</c:if>
 				<c:if test="${not empty pfdtolist[2]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/5?img_name=${pfdtolist[2].p_file_name}">
 				</c:if>
+				<br>
+				<br>
 					${pdto.partner_content}
 				</td>
 			</tr>

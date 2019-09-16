@@ -38,6 +38,18 @@
 	});
 </script>
 
+
+<script>
+function member_exit() {
+  var r = confirm("탈퇴 처리하시겠습니까?");
+  if (r == true) {
+	location.href="${pageContext.request.contextPath}/admin/member/exit?no=${mdto.member_no}";
+	window.alert("탈퇴 처리 되었습니다");
+  }
+}
+</script>
+
+
 <style>
 	.table_ny_two thead,
 	.table_ny_two tbody{
@@ -130,12 +142,12 @@
 		display:inline-block;
 		max-width: 200px;
 	}
-	.btn-danger{
+	.table_ny_two .btn-danger{
 		height: 45px;
 		width: 130px;
 	}
 	
-	.newpw_btn{
+	.table_ny_two .newpw_btn{
 		width : 200px;
 	}
 </style>
@@ -202,7 +214,7 @@
 			<td colspan="2">
 				<div style = "margin-top:40px">
 					<a href ="edit?no=${mdto.member_no}" style = "margin-right:30px; margin-left:200px"><input type="button" value="회원 정보 수정" name="edit" class="btn btn-danger"></a>
-					<a href ="exit?no=${mdto.member_no}" ><input type="button" value="회원 탈퇴" name="exit" class="btn btn-danger"></a>
+					<input type="button" value="회원 탈퇴" name="exit" onclick="member_exit()" class="btn btn-danger">
 				</div>
 			</td>
 		</tr>

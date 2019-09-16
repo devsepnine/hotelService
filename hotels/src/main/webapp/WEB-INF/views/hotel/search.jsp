@@ -11,29 +11,23 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datepicker/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 
-<!-- 스크롤바 스타일 -->
+<!-- 호텔 설명 스크롤바 가리는 스타일 -->
 <style>
-	.scrollbar{
-		float: left;
-		background: #F5F5F5;
-		overflow-y: scroll;
-	}
-	.scroll-1::-webkit-scrollbar-track
-	{
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar
-	{
-		width: 0px;
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar-thumb
-	{
-		background-color: #726454;
-	}
+	    .hotel-desc-wrap{
+	    	height: 126px;
+	    	width:663px;
+	    	overflow: hidden;
+	    }
+	    .hotel-desc-scroll{
+		    width:680px;
+		    height:100%;
+		    overflow-y:scroll;
+		    overflow-x:hidden;
+	   }
+	    .hotel-desc-content{
+	    	height: 100%;
+	    	width: 663px;
+	    }
 </style>
 <!-- 	date picker width 버그 수정 -->
 <!-- 	date picker width 버그 수정 -->
@@ -128,12 +122,12 @@
 	    	width: 910px;
 	    	margin: auto;
 	    }
-	    .resdesc-wrap{
+	    .desc-wrap{
 	    	border-top: 1px solid #e6e5de;
 	    	border-bottom: 1px solid #e6e5de;
 	    	height: 300px;
 	    }
-	    .resdesc-wrap>.resdesc{
+	    .desc-wrap > .desc-con{
 	    	width: 500px;
 	    	margin: auto;
 	    	text-align: center;
@@ -158,10 +152,6 @@
 	    }
 	    .hotel-wrap > .detail{
 	    	padding-left: 20px;
-	    }
-	    .hotel-desc-wrap{
-	    	height: 110px;
-	    	overflow-y:scroll;
 	    }
 	    .ico-wrap img{
 	    	width: 24px;
@@ -286,7 +276,6 @@ $(function(){
 
 <script type="text/javascript">
     $(function () {
-    	$(".toast").hide();
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
 		});
@@ -295,21 +284,17 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
-    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
+    	if(map.get("region")) $("input[name=region]").val(map.get("region"));
     	
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
-    		$(".room-area").css("display","none");
-    		$(".resdesc-wrap").css("display","block");
     	}else{
     		$(".keywordArea").css("display","block");
-    		$(".room-area").css("display","block");
-    		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
+	    var now = new Date();
+    	now.setDate(now.getDate()+1);
     	if(!map.get('check_in')){
-	    	var now = new Date();
-	    	now.setDate(now.getDate()+1);
 	    	startday = now;
     	}else{
     		startday = map.get('check_in');
@@ -337,13 +322,12 @@ $(function(){
             dateMath();
         });
 
+        if(map.get("check_in")) $("input[name=check_in]").val(map.get("check_in"));
+        
     	$("form").submit(function(e){
     		e.preventDefault();
-    		var region_uri = encodeURI($("input[name=region]").val());
-    		$("input[name=region]").val(region_uri);
-    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
-    		if(daygap < 0){
+    		if(daygap < 86400000){
     			$('#date-toast').toast({
                     delay: 3000
                 }).toast('show');
@@ -357,8 +341,8 @@ $(function(){
 		function dateMath() {
 			if(startday != null && lastday!=null){
 				var diff = dateDiff(new Date($("#datetimepicker1 input").val()), new Date($("#datetimepicker2 input").val()))
-				if(diff>30){
-					alert("기간은 30일 이하로 선택해주세요.")
+				if(diff>7){
+					alert("기간은 7일 이하로 선택해주세요.")
 					$("#datetimepicker2 input").val('');
 				}
 			}
@@ -433,10 +417,6 @@ $(function(){
 </div>
 </form>
 <br>
-<div class="resdesc-wrap">
-<div class="resdesc">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
-</div>
-
 <div class="room-area">
 	<div class="pick-hotel">
 		<ul class="hotel-list">
@@ -481,8 +461,10 @@ $(function(){
 						<c:if test="${h_con.hotel_sauna=='Y'}">
 						<img alt="" data-toggle="tooltip" data-placement="top" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
-					<div class="scroll scroll-1 hotel-desc-wrap">
-						<div class="hotel-desc-content">${h_con.hotel_content}</div>
+					<div class="hotel-desc-wrap">
+						<div class="hotel-desc-scroll">
+							<div class="hotel-desc-content">${h_con.hotel_content}</div>
+						</div>
 					</div>
 				</div>
 				
@@ -498,8 +480,28 @@ $(function(){
 
 
 
+<c:if test="${empty h_list and not empty param.region}">
+<div class="h-empty desc-wrap">
+<div class="empty-desc desc-con">
+	<p>"${param.region}" 에 대한 검색 결과가 없습니다.</p>
+	<p> 다시 입력해주세요. </p>
+</div>
+</div>
+</c:if>
+
+
+<c:if test="${empty param.region }">
+<div class="resdesc-wrap desc-wrap">
+<div class="resdesc desc-con">예약을 원하는 지역, 날짜, 인원을 선택후 호텔 검색 버튼을 눌러주세요.</div>
+</div>
+</c:if>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
+
 <!-- 	팝업알림 -->
-  <div class="toast" id="date-toast">
+  <div class="toast hide" id="date-toast">
     <div class="toast-header">
       숙박기간
     </div>
@@ -507,4 +509,3 @@ $(function(){
       Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
     </div>
   </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.RestaurantDto;
 import com.pick.hotels.entity.RestaurantListVO;
 
@@ -16,6 +17,6 @@ public interface RestaurantDao {
 	int count(String type, String keyword);
 	int getSequenceNumber();
 	void edit(RestaurantDto restaurantDto);
-	boolean delete(int restaurant_no);
 	List<RestaurantListVO> listVO(String type, String keyword, int start, int end);
+	List<RestaurantDto> near_by(HotelDto hdto);
 }

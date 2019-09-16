@@ -3,6 +3,9 @@ package com.pick.hotels.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,5 +80,19 @@ public class MainController {
 					                 .contentLength(data.length)
 					                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ URLEncoder.encode(img_name,"utf-8"))
 					                 .body(resource);
+   }
+   
+   @GetMapping("/direct/{region}")
+   public String redirectsearch(@PathVariable String region, Model model) {
+	   
+	   Calendar now = Calendar.getInstance();
+	   now.add(Calendar.DATE, 1);
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	   String check_in = sdf.format(now.getTime());
+	   now.add(Calendar.DATE, 1);
+	   String check_out = sdf.format(now.getTime());
+	   model.addAttribute("region", region);
+	   String redirect = "redirect:/hotel/search?check_in="+check_in+"&check_out="+check_out+"&people=1";
+	   return redirect;
    }
 }

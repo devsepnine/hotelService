@@ -1,6 +1,8 @@
 package com.pick.hotels.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomListVO;
 import com.pick.hotels.entity.HotelSalesVO;
+import com.pick.hotels.entity.Payment_VO;
 
 @Repository
 public class RoomDaoImpl implements RoomDao{
@@ -32,8 +35,14 @@ public class RoomDaoImpl implements RoomDao{
 	}
 
 	@Override
-	public List<RoomDto> get_list(int hotel_no) {
-		return sqlSession.selectList("room.get_list", hotel_no);
+	public List<RoomDto> get_list(int hotel_no, String check_in, String check_out, int people) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hotel_no", hotel_no);
+		param.put("check_in",check_in);
+		param.put("check_out", check_out);
+		param.put("people", people);
+		
+		return sqlSession.selectList("room.get_list", param);
 	}
 
 	@Override
@@ -56,6 +65,11 @@ public class RoomDaoImpl implements RoomDao{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public int room_check(Payment_VO payment_VO) {
+		return sqlSession.selectOne("room.room_check", payment_VO);
 	}
 
 }

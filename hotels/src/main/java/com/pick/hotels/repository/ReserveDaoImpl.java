@@ -20,14 +20,8 @@ public class ReserveDaoImpl implements ReserveDao{
 
 	@Override
 	public boolean regist(ReserveDto reserveDto) {
-		try {
-			sqlsession.insert("reserve.regist", reserveDto);
-			return true;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
+		return sqlsession.insert("reserve.regist", reserveDto) > 0;
+				
 	}
 
 	@Override
@@ -79,6 +73,13 @@ public class ReserveDaoImpl implements ReserveDao{
 	@Override
 	public List<ReserveTotalVO> getTotal() {
 		return sqlsession.selectList("reserve.total");
+	}
+
+	
+	//결제시 시퀀스 생성
+	@Override
+	public int getseq_no() {
+		return sqlsession.selectOne("reserve.seq_no");
 	}
 
 

@@ -56,7 +56,7 @@
 		text-align: right;
 	}
 	
-	.btn{
+	.table_ny_one .btn{
 		width: 50px;
 		height: 40px;
 		padding: 0px;
@@ -123,6 +123,8 @@
 				<c:if test="${not empty rfdtolist[2]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[2].restaurant_file_name}">
 				</c:if>
+				<br>
+				<br>
 					${rdto.restaurant_info}
 				</td>
 			</tr>

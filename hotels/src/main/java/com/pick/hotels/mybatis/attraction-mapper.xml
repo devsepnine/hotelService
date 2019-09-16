@@ -12,18 +12,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  	<!-- 관광지 등록하기 -->
  	<insert id="regist" parameterType="attractionDto">
- 		insert into attraction values(#{attraction_no}, #{attraction_name}, #{attraction_postcode}, #{attraction_addr1}, #{attraction_addr2}, #{attraction_lat}, #{attraction_lng}, #{attraction_info})
+ 		insert into attraction values(
+ 										#{attraction_no},
+ 										#{attraction_name},
+ 										#{attraction_postcode},
+ 										#{attraction_addr1},
+ 										#{attraction_addr2},
+ 										#{attraction_lat},
+ 										#{attraction_lng},
+ 										#{attraction_info})
  	</insert>
+ 	
  	
  	<!-- 관광지 상세보기 -->
  	<select id="get" parameterType="int" resultType="attractionDto">
 		select * from attraction where attraction_no = #{attraction_no}
  	</select>
  	
+ 	
  	<!-- 관광지 삭제 -->
  	<delete id="exit" parameterType="int">
  		delete attraction where attraction_no = #{attraction_no}
  	</delete>
+ 	
  	
  	<!-- 관광지 리스트 -->
 	<select id="listVO" resultType="attractionListVO" parameterType="map">
@@ -49,7 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) WHERE R BETWEEN #{start} and #{end}
 	</select>
 	
-	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
+	
+	<!-- 목록/ 검색 각각의 글 수를 구하는 거 -->
 	<select id="count" parameterType="map" resultType="int">
 		select count(*) from attraction
 		<if test="type != null and keyword != null">
@@ -57,21 +69,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+	
 	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select attraction_seq.nextval from dual
 	</select>
 	
+	
 	<!-- 관광지 수정 -->
 	<update id="edit" parameterType="attractionDto">
 		update attraction 
-			set attraction_name = #{attraction_name}, attraction_postcode = #{attraction_postcode}, attraction_addr1 = #{attraction_addr1}, attraction_addr2 = #{attraction_addr2}, attraction_lat = #{attraction_lat}, attraction_lng = #{attraction_lng}, attraction_info = #{attraction_info}
+			set attraction_name = #{attraction_name},
+			attraction_postcode = #{attraction_postcode},
+			attraction_addr1 = #{attraction_addr1},
+			attraction_addr2 = #{attraction_addr2},
+			attraction_lat = #{attraction_lat},
+			attraction_lng = #{attraction_lng},
+			attraction_info = #{attraction_info}
 		where attraction_no = #{attraction_no}
 	</update>
-	
-	<!-- 관광지 리스트에서 삭제 -->
-	<delete id="delete" parameterType="int">
-		delete attraction where attraction_no = #{attraction_no}
-	</delete>
+
+<!-- 	인근 관광지 -->
+	<select id="near_by" parameterType="map" resultType="attractionDto">
+		select * from attraction
+		where
+		(
+		#{lat_p} > attraction_LAT
+		and
+		attraction_LAT > #{lat_m}
+		)
+		and
+		(
+		#{long_p} > attraction_Lng
+		and
+		attraction_Lng > #{long_m}
+		)
+	</select>
  	                                                                                
  </mapper>

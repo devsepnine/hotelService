@@ -30,26 +30,27 @@
 	$(function(){
 		$(".delete_btn").click(
 			function() {
-				//this == button
+				var r = confirm("삭제 하시겠습니까?");
 				var that = this;
-				
-				$.ajax({
-					url : "delete",
-					data : {
-						hotel_no : $("#hotel_no").val()
-					},
-					dataType : "text",
-					success : function(resp) {
-						//console.log(this);
-						
-						if (resp == "Y") {
- 							$(that).parents(".hotel_info").remove();							
-						}
-						else {
+				if(r==true){
+					$.ajax({
+						url : "delete",
+						data : {
+							hotel_no : $(that).parent().parent().prev().prev().prev().find(".hotel_no").val()
+						},
+						dataType : "text",
+						success : function(resp) {
+							//console.log(this);
 							
+							if (resp == "Y") {
+	 							$(that).parents(".hotel_info").remove();							
+							}
+							else {
+								
+							}
 						}
-					}
-				});
+					});
+				}
 			});
 	});
 </script>
@@ -69,7 +70,7 @@
 							</a>
 						</td>
 						<td class="content_title">호텔 이름
-							<input type="hidden" id="hotel_no" name="hotel_no" value="${hdto.hotel_no}">
+							<input type="hidden" class="hotel_no" name="hotel_no" value="${hdto.hotel_no}">
 						</td>
 						<td><a href="detail?hotel_no=${hdto.hotel_no}">${hdto.hotel_name}</a></td>
 					</tr>
@@ -87,7 +88,7 @@
 							<a href="${pageContext.request.contextPath}/seller/hotel/partner/list?hotel_no=${hdto.hotel_no}"><button class="btn btn-danger">제휴목록</button></a>
 							<a href="${pageContext.request.contextPath}/room/regist?hotel_no=${hdto.hotel_no}"><button class="btn btn-warning">방 추가  </button></a>
 							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}"><button class="btn btn-warning">방 목록</button></a>
-							<button class="btn btn-danger delete_btn ">삭제</button>
+							<button class="btn btn-danger delete_btn">삭제</button>
 						</td>
 					</tr>
 			</tbody>

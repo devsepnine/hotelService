@@ -13,4 +13,5 @@ public interface AttractionFileDao {
 	AttractionFileDto get(int no);
 	void exit(int no);
 	List<AttractionFileDto> getlist(int no);
+	AttractionFileDto one_view(int no);
 }

@@ -6,7 +6,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script>
-	//partner_tyㅔe 옵션값 선택
+	//partner_type 옵션값 선택
 	$(function(){//문서가 다 생기면
 		$("select[name=partner_type]").val("${pdto.partner_type}");
 	});
@@ -113,7 +113,7 @@
 				</tr>
 				<tr>
 					<th style="width:180px">
-						<label>쿠폰 상태</label>
+						<label>승인 상태</label>
 					</th>
 					<td>
 						<select id="partner_type" style="width:160px;" class="form-control" name="partner_type">

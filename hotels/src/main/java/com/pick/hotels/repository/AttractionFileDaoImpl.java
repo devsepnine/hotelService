@@ -37,4 +37,9 @@ public class AttractionFileDaoImpl implements AttractionFileDao{
 	public List<AttractionFileDto> getlist(int no) {
 		return sqlSession.selectList("attractionFile.getlist", no);
 	}
+
+	@Override
+	public AttractionFileDto one_view(int no) {
+		return sqlSession.selectOne("attractionFile.one_view", no);
+	}
 }

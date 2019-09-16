@@ -22,9 +22,9 @@
 
 .table input[name=btn] {
 	width: 100px;
-	align: center;
-	margin-left: 120px;
+	margin-left: 230px;
 }
+
 </style>
 <script>
 //비밀번호 검사 후 형식에 안맞을시 보조메세지 출력	
@@ -93,6 +93,17 @@ $(function(){
 		});
 	});
 </script>
+
+<script type="text/javascript">
+
+		window.history.forward();
+
+		function noBack() {
+
+			window.history.forward();
+
+		}
+</script>
 <div align="center">
 	<c:if test="${param.error eq 'error'}">
 		<h4>
@@ -124,11 +135,11 @@ $(function(){
 						<td><label>PASSWORD CHECK</label></td>
 						<td><input class="form-control" type="password" id="chpass"
 							name="pw_check" placeholder="비밀번호 확인" required> <font
-							name="check" size="3" color="red"></font></td>
+							size="3" color="red"></font></td>
 
 					</tr>
 					<tr>
-						<td colspan="2"><input class="btn btn-danger btn-block"
+						<td colspan="2" class="end_btn"><input class="btn btn-danger btn-block"
 							type="submit" value="확인" name="btn"></td>
 					</tr>
 				</tbody>

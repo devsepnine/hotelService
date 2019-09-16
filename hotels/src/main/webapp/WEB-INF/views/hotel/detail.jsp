@@ -41,14 +41,19 @@ form label {
 
 .buttonclass{
 	text-align: right;
+	
 }
 .btnstyle{
-	width: 100px;
+	
+	width: 80px;
 	background: black;
 	color: white;
 }
 table{
 	width: 70%;
+}
+.a_btn{
+	text-align:center;
 }
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6577d0e4ec93da30c028985f6927308&libraries=services"></script>
@@ -212,21 +217,16 @@ table{
 								</c:if>
 						</td>
 					</tr>
-					
-					<tr>
-						<td colspan="2" class="buttonclass">
-							<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}">
-								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="방 목록">
-							</a>
-							<a href="${pageContext.request.contextPath}/seller/hotel/partner/list?hotel_no=${hdto.hotel_no}">
-								<input class="btn btn-danger btnstyle" type="button" style="margin-top: 30px;" value="제휴 목록">
-							</a>
-						</td>
-					</tr>
 				</tbody>
 			</table>
+			<div style="height: 70px"></div>
+				<div style="text-align: right; width: 560px;margin: auto;">
+					<a href="${pageContext.request.contextPath}/seller/hotel/edit?hotel_no=${hdto.hotel_no}" class="btn btn-primary">호텔수정</a>
+					<a href="${pageContext.request.contextPath}/seller/hotel/list" class="btn btn-primary">호텔목록</a>
+					<a href="${pageContext.request.contextPath}/room/list?hotel_no=${hdto.hotel_no}" class="btn btn-primary">방 목록</a>
+					<a href="${pageContext.request.contextPath}/seller/hotel/partner/list?hotel_no=${hdto.hotel_no}" class="btn btn-primary">제휴목록</a>
+				</div>			
 		</div>
-	</form>
 </div>
 
 

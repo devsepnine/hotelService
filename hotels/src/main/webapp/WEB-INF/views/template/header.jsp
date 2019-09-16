@@ -43,11 +43,16 @@
       
     </script>
    <style>
-   		@font-face { font-family: 'ON-IGothic'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eleven@1.0/ON-IGothic.woff') format('woff'); font-weight: normal; font-style: normal; }
-      *{
-      		font-family:ON-IGothic;
-           box-sizing: border-box;
-       }
+   	@font-face{
+   		font-family: hotel;
+   		 src: url("/resources/DXMobrRExtraBold.ttf"),
+   		 	url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
+   		 }
+
+   *{
+      	font-family:hotel;
+        box-sizing: border-box;
+    }
     a:link {  text-decoration: none;}
 	a:visited {  text-decoration: none;}
 	a:hover { text-decoration: none;}
@@ -57,7 +62,7 @@
     .menubtn{
     	position:fixed;
     	top : 20px;
-		right:10px;
+		left : 20px;
         z-index: 999;
         display: none;
         margin: 0px;

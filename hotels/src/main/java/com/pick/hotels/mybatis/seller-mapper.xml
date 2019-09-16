@@ -93,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	
 	<!-- 관리자 -->
 	
 	<!-- 판매자 리스트 -->
@@ -100,40 +101,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, s.* from(select * from seller 
+    		select rownum r, s.* from(select * from seller where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'N'
+			seller_blacklist = 'N' order by seller_no desc )s)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
+	
 	
 	<!-- 목록/ 검색일때 리스트 갯수 구하는거  -->
 	<select id="count" parameterType="map" resultType="int">
 		select count(*) from seller
+			where
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'
+			${type} like '%' || #{keyword} || '%' and
 		</if>
+			seller_blacklist = 'N'
 	</select>
+	
 	
 	<!-- 판매자 블랙리스트 -->
 	<select id="blacklist" parameterType="map" resultType="sellerDto">
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, s.* from(select * from seller 
+    		select rownum r, s.* from(select * from seller where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by seller_no desc )s)  where r >= #{start} and r <= #{end} and seller_blacklist = 'Y'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+			seller_blacklist = 'Y' order by seller_no desc )s)  where r >= #{start} and r <= #{end}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 		]]>
 	</select>
+	
+	
+	<!-- 목록/ 검색일때 블랙리스트 갯수 구하는거  -->
+	<select id="count_black" parameterType="map" resultType="int">
+		select count(*) from seller
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			seller_blacklist = 'Y'
+	</select>
+	
 	
 	<!-- 관리자의 판매자 정보 수정  -->
 	<update id="edit_seller" parameterType="sellerDto">
@@ -150,15 +165,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				seller_id = #{seller_id}
 	</update>
 	
+	
 	<!-- 전체 판매자 수 -->
 	<select id="total_count" resultType="int">
 		select count(*) from seller
 	</select>
 	
+	
 	<!-- 최근 7일 가입 판매자 수 -->
 	<select id="recent_count" resultType="int">
 		select count(*) from seller where seller_regist between (sysdate-7) and (sysdate+1)
 	</select>
+	
 	
 	<!-- 월별 판매자 가입 수 -->
 	<select id="monthly_count" resultType="sellerCountVO">
@@ -168,5 +186,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    			group by to_char(seller_regist,'YYYY,MM')
     		order by monthly asc
 	</select>
+	
+	
+	<!-- 테스트 판매자 가입  -->
+	<insert id="testinsert" parameterType="sellerDto">
+		insert into seller values(
+		seller_seq.nextval, #{seller_id}, #{seller_pw}, #{seller_phone}, #{seller_name},
+		#{seller_lisence}, #{seller_zip_code}, #{seller_basic_addr}, #{seller_detail_addr},
+		#{seller_birth}, #{seller_email_id}, #{seller_email_addr}, to_date(#{seller_regist}, 'YYYYMMDD'), 'N'
+		)
+	</insert>
+	
 	
 </mapper>

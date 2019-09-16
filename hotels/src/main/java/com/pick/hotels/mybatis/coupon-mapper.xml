@@ -12,53 +12,76 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  	<!-- 쿠폰 등록하기 -->
  	<insert id="regist" parameterType="couponDto">
- 		insert into coupon values(#{coupon_no}, #{coupon_name}, #{coupon_price}, #{coupon_date1}, #{coupon_date2}, #{coupon_minimum}, #{coupon_condition})
+ 		insert into coupon values(
+ 									#{coupon_no},
+ 									#{coupon_name},
+ 									#{coupon_price},
+ 									#{coupon_date1},
+ 									#{coupon_date2},
+ 									#{coupon_minimum},
+ 									#{coupon_condition})
  	</insert>
+ 
  
  	<!-- 쿠폰 상세보기 -->
  	<select id="get" parameterType="int" resultType="couponDto">
 		select * from coupon where coupon_no = #{coupon_no}
  	</select>
  	
+ 	
  	<!-- 쿠폰 리스트 -->
 	<select id="list" parameterType="map" resultType="couponDto">
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, c.* from(select * from coupon 
+    		select rownum r, c.* from(select * from coupon where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용가능'
+			coupon_condition = '사용가능' order by coupon_no desc )c)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
+	
+	
+	<!-- 사용가능 쿠폰 갯수 -->
+	<select id="count" parameterType="map" resultType="int">
+		select count(*) from coupon
+			where
+		<if test="type != null and keyword != null">
+			${type} like '%' || #{keyword} || '%' and
+		</if>
+			coupon_condition = '사용가능'
+	</select>
+	
 	
 	<!-- 사용 만료 쿠폰 리스트 -->
 	<select id="blacklist" parameterType="map" resultType="couponDto">
 		<!-- 부등호 등 태그 형식에서 사용 불가한 글자를 허용하는 지역 생성 -->
 		<![CDATA[
 		select *  from(
-    		select rownum r, c.* from(select * from coupon 
+    		select rownum r, c.* from(select * from coupon where
 		]]>
 			<if test="type != null and keyword != null">
-			where
-				${type} like '%' || #{keyword} || '%'
+				${type} like '%' || #{keyword} || '%' and
 			</if>
 		<![CDATA[
-			 order by coupon_no desc )c)  where r >= #{start} and r <= #{end} and coupon_condition = '사용불가능'
+			coupon_condition = '사용불가능' order by coupon_no desc )c)  where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 	
-	<!-- 목록/ 검색일 경우 각각의 게시글 수를 구하는 거 -->
-	<select id="count" parameterType="map" resultType="int">
+	
+	<!-- 사용 만료 쿠폰 갯수 -->
+	<select id="count_black" parameterType="map" resultType="int">
 		select count(*) from coupon
+			where
 		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'
+			${type} like '%' || #{keyword} || '%' and
 		</if>
+			coupon_condition = '사용불가능'
 	</select>
+	
 	
 	<!-- 쿠폰 수정 -->
 	<update id="edit" parameterType="couponDto">
@@ -67,11 +90,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where coupon_no = #{coupon_no}
 	</update>
 	
+	
+	<!-- 사용가능 쿠폰 건 수 -->
+	<select id="available_coupont_count" resultType="int">
+		select count(*) from coupon where coupon_condition = '사용가능'
+	</select>
+	
+	
+	<!-- 최근 7일 쿠폰 발급 건 수 -->
+	<select id="recent_take_coupon_count" resultType="int">
+		select count(*) from coupon_history where coupon_get_date between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	
+	<!-- 최근 7일 발급된 쿠폰 이용 건 수 -->
+	<select id="recent_used_coupon_count" resultType="int">
+		select count(*) from coupon_history where coupon_used = '사용완료' and coupon_get_date between (sysdate-7) and (sysdate+1)
+	</select>
+	
+	
 	<!-- 시퀀스 번호 -->
 	<select id="seq" resultType="int">
 		select coupon_seq.nextval from dual
 	</select>
-	
 	
 	
 	<!-- 회원 내 쿠폰 리스트 -->
@@ -94,35 +135,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
 	</select>
 	
+
+	<!-- 쿠폰 다운로드 함 -->
 	<select id="coupon_down" parameterType="int" resultType="couponVO">
-	select  
-	    C.coupon_no,
-	    C.coupon_name,
-	    C.coupon_price,
-	    C.coupon_date1,
-	    C.coupon_date2,
-	    C.coupon_minimum,
-	    C.coupon_condition
-	    from coupon C
-	    where  C.coupon_condition ='사용가능'
-	minus
-	select 
-	    C.coupon_no,
-	    C.coupon_name,
-	    C.coupon_price,
-	    C.coupon_date1,
-	    C.coupon_date2,
-	    C.coupon_minimum,
-	    C.coupon_condition
-   from 
-	 coupon C inner join coupon_history CH on C.coupon_no = CH.coupon_no where CH.member_no=#{member_no}
-		
+		select  
+		    C.coupon_no,
+		    C.coupon_name,
+		    C.coupon_price,
+		    C.coupon_date1,
+		    C.coupon_date2,
+		    C.coupon_minimum,
+		    C.coupon_condition
+		    from coupon C
+		    where  C.coupon_condition ='사용가능'
+		minus
+		select 
+		    C.coupon_no,
+		    C.coupon_name,
+		    C.coupon_price,
+		    C.coupon_date1,
+		    C.coupon_date2,
+		    C.coupon_minimum,
+		    C.coupon_condition
+	   from 
+		 coupon C inner join coupon_history CH on C.coupon_no = CH.coupon_no where CH.member_no=#{member_no}
+			
 	</select>
 	
+	
+	<!-- 내 쿠폰 함 -->
 	<insert id="coupon_download" parameterType="couponhistoryDto">
 		insert into coupon_history values(coupon_history_seq.nextval, #{coupon_no}, #{member_no}, sysdate,'사용전')
 	</insert>
 	
 	
+	
+<!-- 	결제 시에 사용가능한 쿠폰 가져오는 쿼리문 -->
+	<select id="payment_coupon_list" parameterType="int" resultType="couponVO">
+		select * from coupon C
+		inner join coupon_history CH
+		on c.coupon_no = ch.coupon_no
+		where
+		ch.member_no=#{member_no}
+		and
+		CH.coupon_used = '사용전'
+		and
+		c.coupon_condition='사용가능'
+        and
+		sysdate>=c.coupon_date1
+		and
+		c.coupon_date2>=sysdate
+	</select>
+	
+	
+	<!-- 쿠폰 사용 완료 처리 -->
+	<update id="used_coupon" parameterType="int">
+		update coupon_history set coupon_used = '사용완료' where coupon_history_no = #{coupon_history}
+	</update>
 	
  </mapper>

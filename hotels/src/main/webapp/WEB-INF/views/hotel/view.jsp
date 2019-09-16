@@ -15,27 +15,25 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/datepicker/tempusdominus-bootstrap-4.min.css" />
 <!-- 스크롤바 스타일 -->
 <style>
-	.scrollbar{
-		float: left;
-		background: #F5F5F5;
-		overflow-y: scroll;
-	}
-	.scroll-1::-webkit-scrollbar-track
-	{
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar
-	{
-		width: 0px;
-		background-color: #fff;
-	}
-
-	.scroll-1::-webkit-scrollbar-thumb
-	{
-		background-color: #726454;
-	}
+    .hotel-desc-wrap{
+    	height: 180px;
+    	width:504px;
+    	overflow: hidden;
+    	border: 1px solid lightgray;
+    	border-radius: 5px;
+    	flex-grow: 1;
+    	padding: 5px;
+    }
+    .hotel-desc-scroll{
+	    width:680px;
+	    height:100%;
+	    overflow-y:scroll;
+	    overflow-x:hidden;
+   }
+    .hotel-desc-content{
+    	height: 100%;
+    	width: 504px;
+    }
 </style>
 
 <!-- 다음 지도 -->
@@ -253,16 +251,6 @@ $(function(){
     	margin-right: 20px;
     	
     }
-    .hotel-content-wrap .hotel-content-desc{
-    	border: 1px solid lightgray;
-    	border-radius: 5px;
-    	flex-grow: 1;
-    	padding: 5px;
-    }
-    .hotel-content-desc > div{
-    	height: 158px;
-    	overflow-y: scroll;
-    }
     .hotel-star-wrap .hotel-star{
     	width: 200px;
     	margin: auto;
@@ -370,7 +358,6 @@ $(function(){
 <!-- 날짜 검색 스크립트 -->
 <script type="text/javascript">
     $(function () {
-    	$(".toast").hide();
     	
     	$("input[name=check_in]").focus(function(){
     	    $("#datetimepicker1").datetimepicker("show");
@@ -380,7 +367,7 @@ $(function(){
 		});
     	
     	var map = new URLSearchParams(window.location.search);
-    	if(map.get("region")) $("input[name=region]").val(decodeURI(map.get("region")));
+    	if(map.get("region")) $("input[name=region]").val(map.get("region"));
     	if(!map.get('check_out')){
     		$(".keywordArea").css("display","none");
     		$(".room-area").css("display","none");
@@ -391,9 +378,9 @@ $(function(){
     		$(".resdesc-wrap").css("display","none");
     	}
     	var startday = null;
+    	var now = new Date();
+    	now.setDate(now.getDate()+1);
     	if(!map.get('check_in')){
-	    	var now = new Date();
-	    	now.setDate(now.getDate()+1);
 	    	startday = now;
     	}else{
     		startday = map.get('check_in');
@@ -420,16 +407,15 @@ $(function(){
             lastday = $("#datetimepicker2 input").val();
             dateMath();
         });
-
+        
+        if(map.get("check_in")) $("input[name=check_in]").val(map.get("check_in"));
+        
     	$("form").submit(function(e){
     		e.preventDefault();
-    		var region_uri = encodeURI($("input[name=region]").val());
-    		$("input[name=region]").val(region_uri);
-    		$(".toast").show();
     		var daygap = new Date($("#datetimepicker2 input").val()) - new Date($("#datetimepicker1 input").val());
-    		if(daygap < 0){
+    		if(daygap < 86400000){
     			$('#date-toast').toast({
-                    delay: 3000
+                    delay: 3000,
                 }).toast('show');
     			$("input[name=check_in]").val("");
     			$("input[name=check_in]").focus();
@@ -441,8 +427,8 @@ $(function(){
 		function dateMath() {
 			if(startday != null && lastday!=null){
 				var diff = dateDiff(new Date($("#datetimepicker1 input").val()), new Date($("#datetimepicker2 input").val()));
-				if(diff>30){
-					alert("기간은 30일 이하로 선택해주세요.")
+				if(diff>7){
+					alert("기간은 7일 이하로 선택해주세요.")
 					$("#datetimepicker2 input").val('');
 				}
 			}
@@ -599,23 +585,130 @@ $(function(){
 
 <script>
 	$(function(){
-		var markerPosition  = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); 
-	
-		// 이미지 지도에 표시할 마커입니다
-		// 이미지 지도에 표시할 마커는 Object 형태입니다
-		var marker = {
-		    position: markerPosition
-		};
-	
 		var staticMapContainer  = document.getElementById('hotel-map'), // 이미지 지도를 표시할 div  
 		    staticMapOption = { 
 		        center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 이미지 지도의 중심좌표
-		        level: 6, // 이미지 지도의 확대 레벨
-		        marker: marker // 이미지 지도에 표시할 마커 
+		        level: 6 // 이미지 지도의 확대 레벨
 		    };    
 	
 		// 이미지 지도를 생성합니다
-		var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+		var staticMap = new kakao.maps.Map(staticMapContainer, staticMapOption);
+// 		호텔 마커 이미지 변경 찎기
+		var imageSrc = '${pageContext.request.contextPath}/img/marker/marker_hotel.png', // 마커이미지의 주소입니다    
+	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	    markerPosition = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); // 마커가 표시될 위치입니다
+	 	// 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        position: markerPosition, 
+	        image: markerImage // 마커이미지 설정 
+	    });
+	    marker.setMap(staticMap);  
+	    //여기까지 호텔 마커
+	});
+</script>
+<!-- 리뷰 디자인 -->
+<style>
+	.hotel-review-line{
+		width: 400px;
+		text-align: center;
+		color: black;
+		font-size: 30px;
+		font-weight: bold;
+		margin: auto;
+		padding: 30px;
+	}
+	#all_review .modal-dialog{
+		max-width: 800px;
+	}
+	#all_review .modal-content{
+		max-height: 1080px;
+		overflow-y:scroll;
+		overflow: auto; 
+	}
+</style>
+<!-- 광광지 식당 스타일 -->
+<style>
+	.addon-wrap{
+		width: 1000px;
+		height:410px;
+		margin: auto;
+	}
+</style>
+<!-- 주변관광지&레스토랑 -->
+
+<script>
+	$(function(){
+		//마커 표기할 위치 배열 생성
+		var positions = [];
+		<c:forEach items="${v_at}" var="at">
+			positions.push({content: '<div style="width:200px; height:200px;overflow: hidden;">관광지 : ${at.attractionDto.attraction_name}<img width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/1?img_name=${at.attractionFileDto.attraction_file_name}"></div>', latlng: new kakao.maps.LatLng(${at.attractionDto.attraction_lat}, ${at.attractionDto.attraction_lng})});
+		</c:forEach>
+		<c:forEach items="${v_rt}" var="rt">
+			positions.push({content: '<div style="width:200px; height:200px;overflow: hidden;">레스토랑 : ${rt.restaurantDto.restaurant_name}<img width="200px" height="200px" src="${pageContext.request.contextPath}/img_v/2?img_name=${rt.restaurantFileDto.restaurant_file_name}"></div>', latlng: new kakao.maps.LatLng(${rt.restaurantDto.restaurant_lat}, ${rt.restaurantDto.restaurant_lng})});
+		</c:forEach>
+		
+
+		
+		var mapContainer = document.getElementById('addon-map'), // 지도를 표시할 div  
+	    mapOption = { 
+			center: new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}), // 지도의 중심좌표
+	        level: 8, // 지도의 확대 레벨
+	    };
+	
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+		
+// 		호텔 마커 이미지 변경 찎기
+		var imageSrc = '${pageContext.request.contextPath}/img/marker/marker_hotel.png', // 마커이미지의 주소입니다    
+	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	    markerPosition = new kakao.maps.LatLng(${hdto.hotel_latitude}, ${hdto.hotel_longitude}); // 마커가 표시될 위치입니다
+	 	// 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        position: markerPosition, 
+	        image: markerImage // 마커이미지 설정 
+	    });
+	    marker.setMap(map);  
+	    //여기까지 호텔 마커
+	    
+		for (var i = 0; i < positions.length; i ++) {
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+		        position: positions[i].latlng // 마커의 위치
+		    });
+	
+		    // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content: positions[i].content // 인포윈도우에 표시할 내용
+		    });
+	
+		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		}
+	
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+	
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}
+		
 	});
 </script>
 <form action="../search">
@@ -710,12 +803,13 @@ $(function(){
 				        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
 				        	<div class="star-paint"></div>
 				    	</div>
-				    	<font style="margin: auto; width: 70px;display: block">리뷰 평점</font>
+				    	<font style="margin: auto; width: 70px;display: block">${hotel_score > 0?"리뷰 평점":"리뷰가<br>없습니다."}</font>
 					</div>
 				</div>
-				
-				<div class="hotel-content-desc ">
-					<div class="scrollbar scroll-1">${hdto.hotel_content}</div>
+				<div class="hotel-desc-wrap">
+					<div class="hotel-desc-scroll">
+						<div class="hotel-desc-content">${hdto.hotel_content}</div>
+					</div>
 				</div>
 			</div>
 			
@@ -821,14 +915,13 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<p>${detail_room}</p>
+<%-- 	<p>${detail_room}</p> --%>
 </c:forEach>
-<div class="hotel_review">
-	
+<div class="hotel-review-line">
+호텔 리뷰
 </div>
-<h2 style="margin: 100px auto 50px; width: 200px;"> 호텔 리뷰 </h2>
 
-<c:forEach var="review"	items="${review_list }">
+<c:forEach var="review"	items="${review_list}" begin="0" end="2" step="1">
 <div class="card border-secondary mb-3">
   <div class="card-header">${review.room_name}&emsp;&emsp;${fn:substring(review.review_when, 0, 16)}</div>
   <div class="card-body">
@@ -842,12 +935,27 @@ $(function(){
   </div>
 </div>
 </c:forEach>
-  		
-  			
+<c:if test="${review_list.size() > 3 }">
+	<button type="button" class="btn btn-reserve btn-block" data-toggle="modal" data-target="#all_review">호텔 리뷰 더보기</button>
+</c:if>
+<c:if test="${empty review_list}">
+	<div style="width: 600px;text-align: center; margin: auto;">
+	<p>리뷰가 없습니다..</p>
+	</div>
+</c:if>
+
+<hr>
+<div style="width: 300px; color:#726454;font-size: 30px; text-align: center;margin: auto;">인근 관광지/레스토랑</div>
+<div class="addon-wrap" id="addon-map">
+</div>
   			
 </div>
+<input type="hidden" class="hotel_no" value="${param.h_no}">
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
 <!-- 	팝업알림 -->
-  <div class="toast" id="date-toast">
+  <div class="toast hide" id="date-toast">
     <div class="toast-header">
       숙박기간
     </div>
@@ -855,5 +963,41 @@ $(function(){
       Check In 날짜가 Check Out 날짜보다 후일일 수 없습니다.
     </div>
   </div>
-<input type="hidden" class="hotel_no" value="${param.h_no}">
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+  
+    <!-- 댓글 모달 -->
+  <div class="modal" id="all_review">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 800px;">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">리뷰 전체보기</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<c:forEach var="review"	items="${review_list}">
+				<div class="card border-secondary mb-3">
+				  <div class="card-header">${review.room_name}&emsp;&emsp;${fn:substring(review.review_when, 0, 16)}</div>
+				  <div class="card-body">
+					  <div class="hotel-star" style="width: 120px;display: inline-block;">
+					    	<div style="display: inline-block;" data-toggle="tooltip" title="평점 : ${review.review_score }" class="star-wrap" data-star="${review.review_score}" >
+					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
+					        	<div class="star-paint"></div>
+					    	</div>
+						</div>
+				    <h4 class="card-title">${review.review_content}</h4>
+				  </div>
+				</div>
+			</c:forEach>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

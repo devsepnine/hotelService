@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pick.hotels.entity.AttractionDto;
 import com.pick.hotels.entity.AttractionListVO;
+import com.pick.hotels.entity.HotelDto;
 
 @Repository
 public class AttractionDaoImpl implements AttractionDao{
@@ -60,19 +61,6 @@ public class AttractionDaoImpl implements AttractionDao{
 		sqlSession.update("attraction.edit", atdo);
 	}
 
-//	관광지 리스트에서 삭제
-	@Override
-	public boolean delete(int attraction_no) {
-		try {
-			sqlSession.insert("attraction.delete", attraction_no);
-			return true;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 //	관광지 목록
 	@Override
 	public List<AttractionListVO> listVO(String type, String keyword, int start, int end) {
@@ -91,6 +79,17 @@ public class AttractionDaoImpl implements AttractionDao{
 		List<AttractionListVO> list = sqlSession.selectList("attraction.listVO", param);
 		
 		return list;
+	}
+
+	@Override
+	public List<AttractionDto> near_by(HotelDto hdto) {
+		Map<String, Float> param = new HashMap<String, Float>();
+		param.put("lat_p", (float) (hdto.getHotel_latitude()+0.2));
+		param.put("lat_m", (float) (hdto.getHotel_latitude()-0.2));
+		param.put("long_p", (float) (hdto.getHotel_longitude()+0.2));
+		param.put("long_m", (float) (hdto.getHotel_longitude()-0.2));
+		
+		return sqlSession.selectList("attraction.near_by", param);
 	}
 
 }
