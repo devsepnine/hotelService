@@ -171,18 +171,45 @@ form label {
 
 		//정규표현식으로 s_phone값 검사
 		var result = regex.test(s_phone);
-
-		var div = document.querySelector(".s_phoneD");
-
-		if (result) {
-			div.innerHTML = ""
+		
+		if($("input[name=seller_phone]").val().length>0){
+			if(result){	
+		
+				$.ajax({
+					url : "phone_check",
+					data : {
+						seller_phone : $("input[name=seller_phone]").val()
+					},
+					dataType : "text",
+					success : function(resp) {
+						if (resp == "N") {
+							window.alert("이미 사용중인 번호입니다");
+							$("input[name=seller_phone]").val('');
+							$("input[name=seller_phone]").select();
+						}
+						//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
+						else {
+							window.alert("사용 가능한 번호입니다");
+						}
+					}
+				});
+			}
+			else{
+				window.alert("-포함 숫자로 입력해주세요");
+			}
 		}
+		
+// 		var div = document.querySelector(".s_phoneD");
 
-		//s_phone이 형식에 맞지 않으면 메세지 춮력
-		else {
-			div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
+// 		if (result) {
+// 			div.innerHTML = ""
+// 		}
 
-		}
+// 		//s_phone이 형식에 맞지 않으면 메세지 춮력
+// 		else {
+// 			div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
+
+// 		}
 	}
 
 	//이메일 검사 후 형식에 안맞을시 보조메세지 출력

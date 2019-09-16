@@ -29,4 +29,5 @@ public interface SellerDao {
 	int total_count();
 	int recent_count();
 	List<SellerCountVO> monthly_count();
+	SellerDto getPhone(String seller_phone);
 }
