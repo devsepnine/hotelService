@@ -68,9 +68,7 @@ public class PaymentController {
 							@RequestParam(value = "check_agree", required = true) List<String> check_agree,
 							HttpSession session,
 							HttpServletRequest request) throws URISyntaxException {
-		
-		
-		
+
 		
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
