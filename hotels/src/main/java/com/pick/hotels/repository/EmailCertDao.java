@@ -11,6 +11,9 @@ public interface EmailCertDao {
 	void delete(String seller_email_cert);
 
 	void clear();
+	
+	
+	void delete_m(String member_email_cert);
 
 
 

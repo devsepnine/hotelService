@@ -138,6 +138,7 @@ public class ReserveController {
 //		날짜계산
 		int count = reserveDao.timeCnt(reserveDto);
 		
+		
 //		리뷰작성 확인
 		boolean check = reviewDao.check(reserve_no);
 		
