@@ -74,6 +74,7 @@
 									if (resp == "Y") {
 										$(".reserve_ok").text("취소");
 										$(".delete_btn").css("display",'none');
+										alert("결제가 취소되었습니다.")
 									}
 									else {
 										
