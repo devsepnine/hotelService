@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     from
             coupon C
            left outer join coupon_history CH on CH.coupon_no = C.coupon_no
-    where CH.member_no =#{member_no} and C.coupon_condition = '사용가능'
+    where CH.member_no =#{member_no} and C.coupon_used='사용전'
    
 	</select>
 	
