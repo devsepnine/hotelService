@@ -1,11 +1,12 @@
 package com.pick.hotels.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -33,6 +34,8 @@ import com.pick.hotels.entity.KakaoPayMentDto;
 import com.pick.hotels.entity.Payment_VO;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.entity.kakaopay.KakaoPayCanceledAmount;
+import com.pick.hotels.entity.kakaopay.KakaoPayCanceledVo;
 import com.pick.hotels.entity.kakaopay.KakaoPayReturnVo;
 import com.pick.hotels.entity.kakaopay.KakaoPaySuccessVO;
 import com.pick.hotels.repository.CouponDao;
@@ -234,8 +237,43 @@ public class PaymentController {
 	}
 	
 	@RequestMapping("/kakao/canceled")
-	public String kakao_canceled() {
+	public void kakao_canceled(@RequestParam int order_id, HttpServletResponse resp) throws URISyntaxException, IOException {
 		
-		return null;
+		resp.setCharacterEncoding("UTF-8");		
+		
+		KakaoPayMentDto kdto = kakaoPayMentDao.selectOne(order_id);
+		
+//		서버에서 다른 서버를 호출하려면 RestTemplate이 필요
+		RestTemplate template = new RestTemplate();
+//		template에 headears와 params를 추가하여 전송->응답발생
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 1124d036778859d79c95a9a804ee78bd");
+		headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=utf-8");
+		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", kdto.getKakaopay_cid());
+		params.add("tid", kdto.getKakaopay_tid());
+		params.add("cancel_amount", String.valueOf(kdto.getKakaopay_cancel_amount()));
+		params.add("cancel_tax_free_amount", String.valueOf(kdto.getKakaopay_tax_free_amount()));
+		
+		HttpEntity<MultiValueMap<String, String>> send = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/cancel");
+		
+//		전송:반환값을 저장할수 있는 객체가 필요
+		try {
+			KakaoPayCanceledVo canceled = template.postForObject(uri, send, KakaoPayCanceledVo.class);
+			
+			if(canceled.getStatus().equalsIgnoreCase("CANCEL_PAYMENT")) {
+				kakaoPayMentDao.update_canceled(order_id);
+				resp.getWriter().print("success");
+			}else {
+				resp.getWriter().print(canceled.getStatus());
+			}
+		}catch(Exception e) {
+			
+			resp.getWriter().print("이미 취소되었거나, 알수없는 정보입니다.");
+		}
 	}
 }

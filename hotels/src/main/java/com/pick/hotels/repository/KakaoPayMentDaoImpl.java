@@ -17,4 +17,16 @@ public class KakaoPayMentDaoImpl implements KakaoPayMentDao{
 		
 	}
 
+	@Override
+	public KakaoPayMentDto selectOne(int order_id) {
+		
+		return sqlSession.selectOne("kakaopayment.select_order", order_id);
+	}
+
+	@Override
+	public void update_canceled(int order_id) {
+		sqlSession.update("kakaopayment.update_canceled", order_id);
+		
+	}
+
 }
