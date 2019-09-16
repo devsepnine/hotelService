@@ -148,7 +148,7 @@ form label {
 		var s_pw = document.querySelector("#s_pw").value;
 		var regex = /^[a-zA-Z0-9!@#$\-_]{8,15}$/;
 
-		//정규표현식으로 m_pw값 검사
+		//정규표현식으로 s_pw값 검사
 		var result = regex.test(s_pw);
 
 		var div = document.querySelector(".s_pwD");
@@ -157,7 +157,7 @@ form label {
 			div.innerHTML = ""
 		}
 
-		//m_pw가 형식에 맞지 않으면 메세지 출 력
+		//s_pw가 형식에 맞지 않으면 메세지 출 력
 		else {
 			div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 대소문자, 숫자, 특수문자(!@#$-_)로 입력해주세요</font>"
 
@@ -169,7 +169,7 @@ form label {
 		var s_phone = document.querySelector("#s_phone").value;
 		var regex = /^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
 
-		//정규표현식으로 m_phone값 검사
+		//정규표현식으로 s_phone값 검사
 		var result = regex.test(s_phone);
 
 		var div = document.querySelector(".s_phoneD");
@@ -178,7 +178,7 @@ form label {
 			div.innerHTML = ""
 		}
 
-		//m_phone이 형식에 맞지 않으면 메세지 춮력
+		//s_phone이 형식에 맞지 않으면 메세지 춮력
 		else {
 			div.innerHTML = "<font color = 'gray' size = '2'> -포함 숫자로 입력해주세요</font>"
 
