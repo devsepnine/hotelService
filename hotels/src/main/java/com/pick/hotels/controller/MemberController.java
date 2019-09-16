@@ -98,6 +98,18 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("/phone_check")
+	public void phone_check(@RequestParam String member_phone, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		MemberDto mdto = memberDao.checkphone(member_phone);
+		if(mdto==null) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("ok");

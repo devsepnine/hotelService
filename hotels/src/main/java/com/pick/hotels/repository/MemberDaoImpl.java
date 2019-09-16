@@ -87,6 +87,11 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.check_pw", memberDto);
 	}
 	
+	@Override
+	public MemberDto checkphone(String member_phone) {
+		return sqlSession.selectOne("member.check_phone", member_phone);
+	}
+	
 	
 //------------------------------------------------------------------------------------
 //	관리자
@@ -147,5 +152,7 @@ public class MemberDaoImpl implements MemberDao{
 	public List<MemberCountVO> monthly_count() {
 		return sqlSession.selectList("member.monthly_count");
 	}
+
+	
 
 }

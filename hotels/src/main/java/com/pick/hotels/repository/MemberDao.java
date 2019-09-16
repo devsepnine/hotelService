@@ -17,6 +17,7 @@ public interface MemberDao {
 	void changePw(MemberDto memberDto);
 	MemberDto findId(MemberDto memberDto);
 	MemberDto checkPw(MemberDto memberDto);
+	MemberDto checkphone(String member_phone);
 	
 	
 //------------------------------------------------------------------------------------

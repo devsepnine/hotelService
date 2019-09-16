@@ -24,11 +24,14 @@ public interface ReserveDao {
 
 	List<ReserveVO> cancel_list(int member_no);
 
+	void update();
+	
 //	관리자
 	List<ReserveTotalVO> getTotal();
 
 	// 결제시 시퀀스 꺼내옴
 	int getseq_no();
+
 
 
 
