@@ -76,7 +76,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 <!-- 	예약 없는 방인지 확인 -->
 	<select id="room_check" parameterType="payment_VO" resultType="int">
-		select count(*) from room R
+		select 
+        count(*)
+        from room R
 		left outer join reserve S 
 		on R.room_no = S.reserve_room_no
 		where
@@ -84,12 +86,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 		r.room_no = #{reserve_room_no}
 		and
+		<!--     1번 경우 : 시작일만 겹치는 경우 -->
+		<!--     2번 경우 : 종료일만 겹치는 경우 -->
+		<!--     3번 경우 : 검색기간 안의 예약 조회 -->
+		<!--     4번 경우 : 검색기간을 포함하는 예약 조회 --> 
 		<![CDATA[
-		(reserve_in >= to_date(#{reserve_out}, 'YYYY/MM/DD')
-		or
-		reserve_out <= to_date(#{reserve_in}, 'YYYY/MM/DD')
-		or reserve_in is null or reserve_out is null)
-		]]>
+
+        (
+            to_date(#{reserve_in}, 'YYYY/MM/DD') between S.reserve_in and S.reserve_out
+            or 
+
+            to_date(#{reserve_out}, 'YYYY/MM/DD') between S.reserve_in and S.reserve_out
+            or
+
+            to_date(#{reserve_in}, 'YYYY/MM/DD') <= S.reserve_in and to_date(#{reserve_out}, 'YYYY/MM/DD') >= S.reserve_out
+            or
+
+            to_date(#{reserve_in}, 'YYYY/MM/DD') >= S.reserve_in and to_date(#{reserve_out}, 'YYYY/MM/DD') <= S.reserve_out
+        )
+        ]]>
 	</select>
                                        
  </mapper>
