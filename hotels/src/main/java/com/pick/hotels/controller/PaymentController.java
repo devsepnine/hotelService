@@ -29,6 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.HotelDto;
+import com.pick.hotels.entity.KakaoPayMentDto;
 import com.pick.hotels.entity.Payment_VO;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.RoomDto;
@@ -36,6 +37,7 @@ import com.pick.hotels.entity.kakaopay.KakaoPayReturnVo;
 import com.pick.hotels.entity.kakaopay.KakaoPaySuccessVO;
 import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.HotelDao;
+import com.pick.hotels.repository.KakaoPayMentDao;
 import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RoomDao;
 
@@ -46,6 +48,7 @@ public class PaymentController {
 	private @Autowired HotelDao hotelDao;
 	private @Autowired RoomDao roomDao;
 	private @Autowired CouponDao couponDao;
+	private @Autowired KakaoPayMentDao kakaoPayMentDao;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -68,7 +71,8 @@ public class PaymentController {
 		
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
-		if(roomcheck==0) {
+		System.out.println(roomcheck);
+		if(roomcheck!=1) {
 			return "err/room_already_reserve";
 		}
 		if(payment_VO.getCoupon_history()!=0) {
@@ -192,6 +196,17 @@ public class PaymentController {
 			rdto.setReserve_coupon_use(cdto.getCoupon_name());
 		}
 		reserveDao.regist(rdto);
+		
+		KakaoPayMentDto kdto = KakaoPayMentDto.builder()
+														.kakaopay_reserve_no((int) session.getAttribute("order_id"))
+														.kakaopay_cid(success.getCid())
+														.kakaopay_tid(success.getTid())
+														.kakaopay_cancel_amount(success.getAmount().getTotal())
+														.kakaopay_tax_free_amount(success.getAmount().getTax_free())
+														.build();
+		System.out.println(kdto);
+		kakaoPayMentDao.inster_pay(kdto);
+		
 		HotelDto hdto = hotelDao.get(pv.getReserve_hotel_no());
 		RoomDto room = roomDao.get(pv.getReserve_room_no());
 		model.addAttribute("success", success);
@@ -216,5 +231,11 @@ public class PaymentController {
 	@RequestMapping("/kakao/cancel")
 	public String kakao_cancel() {
 		return "payment/kakaopay/cancel";
+	}
+	
+	@RequestMapping("/kakao/canceled")
+	public String kakao_canceled() {
+		
+		return null;
 	}
 }

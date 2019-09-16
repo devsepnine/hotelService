@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이파일은 sql 명령만 보관하는파일  -->
+<!-- 찾아올수 있도록 namespace 지정 -->
+<mapper namespace="kakaopayment">
+
+	<insert id="insert" parameterType="kakaoPayMentDto">
+		insert into kakaopayment values(#{kakaopay_reserve_no}, kakaopayment_seq.nextval, #{kakaopay_cid}, #{kakaopay_tid}, #{kakaopay_cancel_amount}, #{kakaopay_tax_free_amount})
+	</insert>
+
+</mapper>
