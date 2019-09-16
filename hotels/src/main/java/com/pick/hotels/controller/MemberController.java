@@ -319,7 +319,7 @@ public class MemberController {
 		}
 		else {
 			resp.getWriter().print("Y");
-			emailcertDao.delete(member_email_cert);
+			emailcertDao.delete_m(member_email_cert);
 		}
 	}
 	
