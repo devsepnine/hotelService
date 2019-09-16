@@ -4,12 +4,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,7 +38,6 @@ import com.pick.hotels.repository.CouponDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.ReserveDao;
 import com.pick.hotels.repository.RoomDao;
-import com.pick.hotels.util.ServerConstant;
 
 @Controller
 @RequestMapping("/payment")
@@ -50,11 +51,21 @@ public class PaymentController {
 	
 	@Autowired
 	private Environment env;	
+	
+	
+//	컨트롤러에서 프로퍼티 데이터 가져옴
+	@Value("#{server['server.port']}")
+	private String server_port;
+	
 	@PostMapping("/order")
 	public String payment(@ModelAttribute Payment_VO payment_VO,
 							@RequestParam(value = "check_agree", required = true) List<String> check_agree,
 							HttpSession session,
 							HttpServletRequest request) throws URISyntaxException {
+		
+		
+		
+		
 //		예약 가능한지 먼저 검증
 		int roomcheck = roomDao.room_check(payment_VO);
 		if(roomcheck==0) {
@@ -86,6 +97,8 @@ public class PaymentController {
 				headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=utf-8");
 				headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 				
+				
+				System.out.println(server_port);
 				MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 				params.add("cid", "TC0ONETIME"); //가맹점 코드 10자
 				params.add("partner_order_id", String.valueOf(order_id));// 주문번호 최대 100자
@@ -94,7 +107,7 @@ public class PaymentController {
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
 				params.add("tax_free_amount", "0"); //비과세 금액 integer
-				String url = ServletUriComponentsBuilder.fromCurrentContextPath().port(ServerConstant.port).toUriString();
+				String url = ServletUriComponentsBuilder.fromCurrentContextPath().port(server_port).toUriString();
 				logger.debug("호스트 주소 {}",url);
 				params.add("approval_url", url+"/payment/kakao/success");
 				params.add("cancel_url", url+"/payment/kakao/cancel");
