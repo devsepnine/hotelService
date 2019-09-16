@@ -202,7 +202,7 @@ function callmap(){
 						<td>소개</td>
 						<td>
 							<textarea class="form-control" placeholder="호텔 소개글을 입력하세요" 
-							name="hotel_content" id="h_content">${hdto.hotel_content}</textarea>
+							name="hotel_content" id="h_content" style="resize: none;" rows="7">${hdto.hotel_content}</textarea>
 						</td>
 					</tr>
 					<tr>

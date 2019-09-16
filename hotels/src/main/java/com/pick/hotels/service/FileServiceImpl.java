@@ -221,16 +221,11 @@ public class FileServiceImpl implements FileService{
 
 
 	@Override
-	public void hotel_delete(String hotel_file) {
-//		번호로 이름을 구한다
-		HotelFileDto hfdto = hotelFileDao.get(hotel_file);
+	public void hotel_delete(HotelDto hotelDto) {
 		
 //		HDD에서 지운다
-		File dir = new File("D:/upload/kh16/hotel", hfdto.getH_file_name());
+		File dir = new File("D:/upload/kh16/hotel", hotelDto.getHotel_title());
 		dir.delete();
-		
-//		DB에서 지운다
-		hotelFileDao.delete(hotel_file);
 		
 	}
 

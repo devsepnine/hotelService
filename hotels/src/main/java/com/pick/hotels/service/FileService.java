@@ -37,7 +37,7 @@ public interface FileService {
 
 	void hotel_delete(int no);
 
-	void hotel_delete(String hotel_file);
+	void hotel_delete(HotelDto hotelDto);
 
 	void partner_delete(int partner_no);
 
