@@ -13,6 +13,8 @@ public interface EmailCertDao {
 	void clear();
 	
 	
+	EmailCertDto get_m(String member_email_cert);
+	
 	void delete_m(String member_email_cert);
 
 

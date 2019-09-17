@@ -27,6 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</delete>
 	
+	<select id="get_m" parameterType="String" resultType="EmailCertDto">
+		select * from emailcert where member_email_cert = #{email_cert_no}
+	</select>
+	
+	<delete id="delete_m" parameterType="String">
+		delete emailcert where member_email_cert = #{email_cert_no}
+	</delete>
+	
 	
 	
 </mapper>
