@@ -350,10 +350,15 @@ public class SellerController {
 			Model model) throws IOException {
 		SellerCertDto sellerCertDto = SellerCertDto.builder().seller_cert_who(seller_no).seller_cert_no(no).build();
 		boolean result = sellerCertDao.validate(sellerCertDto);
-		sellerCertDao.delete(sellerCertDto);
 		SellerDto sdto = sellerDao.get(seller_no);
+		System.out.println("---------------------------------------------------");
+		System.out.println(sdto);
+		System.out.println(result);
+		System.out.println("---------------------------------------------------");
 		if(result && sdto != null) {
 			model.addAttribute("seller_no", seller_no);
+			System.out.println("이프가 트루일때");
+			sellerCertDao.delete(sellerCertDto);
 			return "seller/new_pw";
 		}
 		else {
