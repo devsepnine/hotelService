@@ -399,9 +399,9 @@ $(function() {
 							</td>
 						</tr>
 				<tr>
-						<td><label for="s_email">EMAIL</label></td>
+						<td><label for="m_email">EMAIL</label></td>
 						<td><input class="form-control" style=width:30%;display:inline-block; onblur="checkEmail();"
-								type="text" name="member_email1" id="s_email"
+								type="text" name="member_email1" id="m_email"
 										pattern="^[a-z0-9]{8,15}$" required> 
 							<span>@</span> 
 							<input class="form-control" style=width:30%;display:inline-block; type="text" name="member_email2"
