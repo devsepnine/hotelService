@@ -11,9 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.MemberDto;
+import com.pick.hotels.entity.SellerCertDto;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.CertDao;
 import com.pick.hotels.repository.EmailCertDao;
+import com.pick.hotels.repository.SellerCertDao;
 import com.pick.hotels.util.CertNo;
 
 @Service
@@ -33,6 +35,9 @@ public class GmailMemberService implements EmailService{
 	
 	@Autowired
 	private CertNo certNo;
+	
+	@Autowired
+	private SellerCertDao sellerCertDao;
 
 	@Override
 	public void find_pw(MemberDto mdto) throws MessagingException {
@@ -115,8 +120,8 @@ public class GmailMemberService implements EmailService{
 		String no = randomStringService.generate(128);
 		String email = sdto.getSeller_email_id()+"@"+sdto.getSeller_email_addr();
 		
-		CertDto cdto = CertDto.builder().cert_who(sdto.getSeller_no()).cert_no(no).build();
-		certDao.insert(cdto);
+		SellerCertDto scdto = SellerCertDto.builder().seller_cert_who(sdto.getSeller_no()).seller_cert_no(no).build();
+		sellerCertDao.insert(scdto);
 		
 		MimeMessage mail = sender.createMimeMessage();
 		MimeMessageHelper helper = 
