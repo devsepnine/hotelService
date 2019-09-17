@@ -115,7 +115,6 @@ $(function() {
 								$("input[name=member_id]").val('');
 								$("input[name=member_id]").select();
 							}
-							//중복검사해서 사용할 수 있는 아이디이면 가입버튼 활성화
 							else {
 								window.alert("사용 가능한 아이디입니다");
 							}
@@ -123,6 +122,40 @@ $(function() {
 					});
 					}else{
 						window.alert("8~15자의 영문 소문자, 숫자로 입력해주세요");
+						}
+					}
+
+			});
+	$("input[name=member_phone]").blur(
+			function() {
+				var m_phone = $("#m_phone").val();
+				var regex =/^01[016-9]-[0-9]{3,4}-[0-9]{4}$/;
+
+				//정규표현식으로 m_phone값 검사
+				var result = regex.test(m_phone);
+			
+				if($("input[name=member_phone]").val().length>0){
+					if(result){	
+				
+					$.ajax({
+						url : "check_phone",
+						data : {
+							member_phone : $("input[name=member_phone]").val()
+						},
+						dataType : "text",
+						success : function(resp) {
+							if (resp == "N") {
+								window.alert("이미 사용중인 핸드폰 번호입니다");
+								$("input[name=member_phone]").val('');
+								$("input[name=member_phone]").select();
+							}
+							else {
+								window.alert("사용 가능한 핸드폰 번호입니다");
+							}
+						}
+					});
+					}else{
+						window.alert("- 포함 번호를 입력해 주세요");
 						}
 					}
 

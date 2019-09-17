@@ -197,5 +197,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<select id="getPhone" parameterType="String" resultType="sellerDto">
+		select * from seller where seller_phone = #{seller_phone}
+	</select>
+	
 	
 </mapper>

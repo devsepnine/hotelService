@@ -170,4 +170,9 @@ public class SellerDaoImpl implements SellerDao{
 		return sqlSession.selectList("seller.monthly_count");
 	}
 
+	@Override
+	public SellerDto getPhone(String seller_phone) {
+		return sqlSession.selectOne("seller.getPhone",seller_phone);
+	}
+
 }

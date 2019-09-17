@@ -26,6 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member where member_id = #{member_id}
 	</select>
 	
+	<!-- 핸드폰 중복검사 -->
+	<select id="check_phone" parameterType="String" resultType="memberDto">
+		select * from member where member_phone = #{member_phone}
+	</select>
+	
 	<!-- 로그인 -->
 	<select id="login" parameterType="memberDto" resultType="memberDto">
 		select * from member where id = #{member_id} and pw = #{member_pw}

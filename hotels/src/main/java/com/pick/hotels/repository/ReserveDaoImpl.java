@@ -67,6 +67,11 @@ public class ReserveDaoImpl implements ReserveDao{
 		return sqlsession.selectList("reserve.cancel_list",member_no);
 	}
 
+	@Override
+	public void update() {
+		int result = sqlsession.update("reserve.update");
+		System.out.println("result = "+result);
+	}
 	
 //	관리자
 //	월별 호텔 전체 매출
@@ -75,15 +80,10 @@ public class ReserveDaoImpl implements ReserveDao{
 		return sqlsession.selectList("reserve.total");
 	}
 
-	
 	//결제시 시퀀스 생성
 	@Override
 	public int getseq_no() {
 		return sqlsession.selectOne("reserve.seq_no");
 	}
-
-
-
-
 
 }

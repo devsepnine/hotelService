@@ -175,6 +175,18 @@ public class SellerController {
 		
 	}
 	
+	@GetMapping("/phone_check")
+	public void phone_check(@RequestParam String seller_phone, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		SellerDto sdto = sellerDao.getPhone(seller_phone);
+		if(sdto==null) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	@GetMapping("/lisence_check")
 	public void lisence_check(@RequestParam String seller_lisence, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/plain");
