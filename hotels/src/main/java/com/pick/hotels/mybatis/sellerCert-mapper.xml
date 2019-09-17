@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이파일은 sql 명령만 보관하는파일  -->
+<!-- 찾아올수 있도록 namespace 지정 -->
+<mapper namespace="sellerCert">
+
+	<insert id="insert" parameterType="sellerCertDto">
+		insert into seller_cert values(#{seller_cert_who}, #{seller_cert_no}, sysdate)
+	</insert>
+	
+	<select id="validate" parameterType="sellerCertDto" resultType="certDto">
+		select * from seller_cert where seller_cert_who = #{seller_cert_who} and seller_cert_no = #{seller_cert_no}
+	</select>
+	
+	<delete id="delete" parameterType="sellerCertDto">
+		delete seller_cert where seller_cert_who = #{seller_cert_who} and seller_cert_no = #{seller_cert_no}
+	</delete>
+	
+	<delete id="clear">
+		<![CDATA[
+			delete seller_cert
+				where seller_cert_when < sysdate - 5 / 24 / 60
+		]]>
+	</delete>
+</mapper>

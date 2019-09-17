@@ -55,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.CouponHistoryDto" alias="couponhistoryDto"/>
 		<typeAlias type="com.pick.hotels.entity.Payment_VO" alias="payment_VO"/>
 		<typeAlias type="com.pick.hotels.entity.KakaoPayMentDto" alias="kakaoPayMentDto"/>
+		<typeAlias type="com.pick.hotels.entity.SellerCertDto" alias="sellerCertDto"/>
 	</typeAliases>
   
 </configuration>

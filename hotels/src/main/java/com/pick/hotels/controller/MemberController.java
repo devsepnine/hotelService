@@ -330,7 +330,7 @@ public class MemberController {
 	@GetMapping("/email_cert_check")
 	public void email_cert_check(@RequestParam String member_email_cert, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/plain");
-		EmailCertDto ecdto = emailcertDao.get(member_email_cert);
+		EmailCertDto ecdto = emailcertDao.get_m(member_email_cert);
 		if(ecdto==null) {
 			resp.getWriter().print("N");
 		}
