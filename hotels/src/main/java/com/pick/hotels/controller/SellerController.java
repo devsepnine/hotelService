@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pick.hotels.entity.CertDto;
 import com.pick.hotels.entity.EmailCertDto;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelFileDto;
@@ -28,13 +27,14 @@ import com.pick.hotels.entity.HotelSalesVO;
 import com.pick.hotels.entity.PartnerDto;
 import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.PartnerListVO;
-	import com.pick.hotels.entity.SellerDto;
-import com.pick.hotels.repository.CertDao;
+import com.pick.hotels.entity.SellerCertDto;
+import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.EmailCertDao;
 import com.pick.hotels.repository.HotelDao;
 import com.pick.hotels.repository.HotelFileDao;
 import com.pick.hotels.repository.PartnerDao;
 import com.pick.hotels.repository.PartnerFileDao;
+import com.pick.hotels.repository.SellerCertDao;
 import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.EmailService;
 import com.pick.hotels.service.FileService;
@@ -340,7 +340,7 @@ public class SellerController {
 	
 	
 	@Autowired
-	private CertDao certDao;
+	private SellerCertDao sellerCertDao;
 	
 	@GetMapping("/new_pw")
 	public String newPassword(
@@ -348,12 +348,17 @@ public class SellerController {
 			@RequestParam String no,
 			HttpServletResponse response,
 			Model model) throws IOException {
-		CertDto certDto = CertDto.builder().cert_who(seller_no).cert_no(no).build();
-		boolean result = certDao.validate(certDto);
-		certDao.delete(certDto);
+		SellerCertDto sellerCertDto = SellerCertDto.builder().seller_cert_who(seller_no).seller_cert_no(no).build();
+		boolean result = sellerCertDao.validate(sellerCertDto);
 		SellerDto sdto = sellerDao.get(seller_no);
+		System.out.println("---------------------------------------------------");
+		System.out.println(sdto);
+		System.out.println(result);
+		System.out.println("---------------------------------------------------");
 		if(result && sdto != null) {
 			model.addAttribute("seller_no", seller_no);
+			System.out.println("이프가 트루일때");
+			sellerCertDao.delete(sellerCertDto);
 			return "seller/new_pw";
 		}
 		else {

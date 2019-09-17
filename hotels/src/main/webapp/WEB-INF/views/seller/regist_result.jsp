@@ -7,6 +7,8 @@
 		text-align: center;
 		width: 800px;
 		height: 600px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.result_comment{
 		font-weight: bold;
