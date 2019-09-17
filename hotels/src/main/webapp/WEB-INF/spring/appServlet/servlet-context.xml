@@ -60,6 +60,7 @@
 			<exclude-mapping path="/member/email_cert_check"/>
 			<exclude-mapping path="/member/id_check"/>
 			<exclude-mapping path="/member/check_phone"/>
+			<exclude-mapping path="/member/new_pw"/>
     		<beans:bean class="com.pick.hotels.interceptor.MemberLoggingInterceptor"></beans:bean>
     	</interceptor>
     </interceptors>
@@ -81,6 +82,7 @@
 			<exclude-mapping path="/seller/email_cert_check"/>
 			<exclude-mapping path="/seller/id_check"/>
 			<exclude-mapping path="/seller/check_phone"/>
+			<exclude-mapping path="/seller/new_pw"/>
     		<beans:bean class="com.pick.hotels.interceptor.SellerLoggingInterceptor"></beans:bean>
     	</interceptor>
     </interceptors>

@@ -52,7 +52,6 @@ input[name=m_id], input[name=m_pw]{
 	}
 
 </style>
-
 <div style="height: 100px"></div>
 <div style="width: 510px;margin: auto;">
 	<a><span style="width: 250px;" class="btn btn-danger">회원</span></a>

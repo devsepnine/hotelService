@@ -18,7 +18,7 @@ public class MemberLoggingInterceptor extends HandlerInterceptorAdapter{
 		String user_id = (String) request.getSession().getAttribute("ok");
 		if(user_id == null) {
 			response.sendRedirect(request.getContextPath()+"/member/login");
-			return false;			
+			return false;
 		}else {
 			return true;
 		}
