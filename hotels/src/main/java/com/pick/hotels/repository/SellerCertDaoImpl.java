@@ -21,8 +21,11 @@ public class SellerCertDaoImpl implements SellerCertDao{
 	
 	@Override
 	public boolean validate(SellerCertDto sellerCertDto) {
-		CertDto cdto = sqlSession.selectOne("sellerCert.validate", sellerCertDto);
-		return cdto != null;
+		SellerCertDto scdto = sqlSession.selectOne("sellerCert.validate", sellerCertDto);
+		System.out.println("-------------------------------------------");
+		System.out.println(scdto);
+		System.out.println("-------------------------------------------");
+		return scdto != null;
 	}
 
 	@Override

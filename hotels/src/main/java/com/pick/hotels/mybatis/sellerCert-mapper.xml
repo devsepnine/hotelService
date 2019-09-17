@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into seller_cert values(#{seller_cert_who}, #{seller_cert_no}, sysdate)
 	</insert>
 	
-	<select id="validate" parameterType="sellerCertDto" resultType="certDto">
+	<select id="validate" parameterType="sellerCertDto" resultType="sellerCertDto">
 		select * from seller_cert where seller_cert_who = #{seller_cert_who} and seller_cert_no = #{seller_cert_no}
 	</select>
 	
