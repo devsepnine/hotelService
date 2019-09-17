@@ -34,7 +34,7 @@
 
 
 <h1>비밀번호 변경</h1>
-<div style="width: 800px;">
+<div style="width: 800px; margin-left: auto; margin-right: auto;" align="center">
 	<form class="form" action="new_pw" method="post">
 		<%-- hidden은 사용자에게 표시되지 않으면서 전송이 가능 --%>
 		<input class="form-control"  type="hidden" name="seller_no" value="${seller_no}">
