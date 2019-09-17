@@ -44,6 +44,7 @@
 <!--     	</interceptor> -->
 <!--     </interceptors> -->
     
+<!--     회원 인터셉터 -->
     <interceptors>
     	<interceptor>
 			<mapping path="/member/**"/>
@@ -62,7 +63,7 @@
     		<beans:bean class="com.pick.hotels.interceptor.MemberLoggingInterceptor"></beans:bean>
     	</interceptor>
     </interceptors>
-    
+<!--     판매자 인터셉터 -->
     <interceptors>
     	<interceptor>
 			<mapping path="/seller/**"/>
@@ -83,7 +84,16 @@
     		<beans:bean class="com.pick.hotels.interceptor.SellerLoggingInterceptor"></beans:bean>
     	</interceptor>
     </interceptors>
-    
+<!--     관리자 인터셉터 -->
+    <interceptors>
+    	<interceptor>
+			<mapping path="/admin/**"/>
+			<mapping path="/notice/write"/>
+			<mapping path="/notice/edit"/>
+			<mapping path="/notice/delete"/>
+    		<beans:bean class="com.pick.hotels.interceptor.AdminInterceptor"></beans:bean>
+    	</interceptor>
+    </interceptors>
 	<context:component-scan base-package="com.pick.hotels" >
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RequestMapping"/>
 	</context:component-scan>
