@@ -30,5 +30,11 @@ public class SellerCertDaoImpl implements SellerCertDao{
 		sqlSession.delete("sellerCert.delete", sellerCertDto);
 	}
 
+	@Override
+	public void clear() {
+		sqlSession.delete("sellerCert.clear");
+		
+	}
+
 
 }

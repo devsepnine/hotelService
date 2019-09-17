@@ -18,4 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="sellerCertDto">
 		delete seller_cert where seller_cert_who = #{seller_cert_who} and seller_cert_no = #{seller_cert_no}
 	</delete>
+	
+	<delete id="clear">
+		<![CDATA[
+			delete seller_cert
+				where seller_cert_when < sysdate - 5 / 24 / 60
+		]]>
+	</delete>
 </mapper>
