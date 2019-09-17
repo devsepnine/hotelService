@@ -36,10 +36,51 @@
         <beans:property name="maxUploadSizePerFile" value="10485760"></beans:property>
     </beans:bean>
     
+<!--    		반복 새로고침 차단 -->
+<!--     <interceptors> -->
+<!--     	<interceptor> -->
+<!--     		<mapping path="/*/"/> -->
+<!--     		<beans:bean class="com.pick.hotels.interceptor.ProtectInterceptor"></beans:bean> -->
+<!--     	</interceptor> -->
+<!--     </interceptors> -->
+    
     <interceptors>
     	<interceptor>
-    		<mapping path="/*/"/>
-    		<beans:bean class="com.pick.hotels.interceptor.ProtectInterceptor"></beans:bean>
+			<mapping path="/member/**"/>
+			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/regist"/>
+			<exclude-mapping path="/member/find_id"/>
+			<exclude-mapping path="/member/find_pw"/>
+			<exclude-mapping path="/member/find_id_result"/>
+			<exclude-mapping path="/member/find_pw_result"/>
+			<exclude-mapping path="/member/goodbye"/>
+			<exclude-mapping path="/member/agree"/>
+			<exclude-mapping path="/member/emailcert"/>
+			<exclude-mapping path="/member/email_cert_check"/>
+			<exclude-mapping path="/member/id_check"/>
+			<exclude-mapping path="/member/check_phone"/>
+    		<beans:bean class="com.pick.hotels.interceptor.MemberLoggingInterceptor"></beans:bean>
+    	</interceptor>
+    </interceptors>
+    
+    <interceptors>
+    	<interceptor>
+			<mapping path="/seller/**"/>
+			<mapping path="/room/**"/>			
+			<exclude-mapping path="/seller/login"/>
+			<exclude-mapping path="/seller/regist"/>
+			<exclude-mapping path="/seller/find_id"/>
+			<exclude-mapping path="/seller/find_pw"/>
+			<exclude-mapping path="/seller/find_id_result"/>
+			<exclude-mapping path="/seller/find_pw_result"/>
+			<exclude-mapping path="/seller/goodbye"/>
+			<exclude-mapping path="/seller/lisence"/>
+			<exclude-mapping path="/seller/lisence_check"/>
+			<exclude-mapping path="/seller/emailcert"/>
+			<exclude-mapping path="/seller/email_cert_check"/>
+			<exclude-mapping path="/seller/id_check"/>
+			<exclude-mapping path="/seller/check_phone"/>
+    		<beans:bean class="com.pick.hotels.interceptor.SellerLoggingInterceptor"></beans:bean>
     	</interceptor>
     </interceptors>
     
