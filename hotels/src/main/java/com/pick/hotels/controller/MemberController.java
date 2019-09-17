@@ -118,7 +118,11 @@ public class MemberController {
 		return"redirect:/";
 	}
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request,
+						Model model) {
+		String Referer = request.getHeader("Referer");
+		if(Referer == null) Referer = request.getContextPath();
+		model.addAttribute("referer", Referer);
 		return "member/login";
 	}
 	
@@ -127,7 +131,8 @@ public class MemberController {
 			@ModelAttribute MemberDto memberDto,
 			@RequestParam(required=false) String remember,
 			HttpSession session,
-			HttpServletResponse response) {
+			HttpServletResponse response,
+			HttpServletRequest request) {
 //		암호화 적용 전
 //		MemberDto result = memberDao.login(memberDto);
 //		if(result != null) {

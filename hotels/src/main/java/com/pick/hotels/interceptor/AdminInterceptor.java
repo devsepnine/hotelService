@@ -16,9 +16,12 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String auth = (String) request.getSession().getAttribute("auth");
-		if(auth == null || !auth.equalsIgnoreCase("관리자")) {
+		if(auth == null) {
 			response.sendError(403);
 			return false;			
+		}else if(!auth.equalsIgnoreCase("관리자")){
+			response.sendRedirect(request.getContextPath()+"/member/login");
+			return false;
 		}else {
 			return true;
 		}
