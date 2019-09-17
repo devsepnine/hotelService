@@ -36,6 +36,11 @@ public class EmailCertDaoImpl implements EmailCertDao{
 	public void delete_m(String member_email_cert) {
 		sqlSession.delete("emailcert.delete",member_email_cert);
 		
+	}
+
+	@Override
+	public EmailCertDto get_m(String member_email_cert) {
+		return sqlSession.selectOne("emailcert.get",member_email_cert);
 	}	
 
 
