@@ -49,5 +49,29 @@
 	        <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- 
+		4xx 오류 처리
+		- 400(Bad Request) 	 			컨트롤러에서 요청하는 파라미터 미충족
+		- 403(Forbidden)				권한 부족
+		- 404(Not Found)				해당 페이지 없음
+		- 405(Method Not Allowed)		처리할 수 없는 메소드
+	-->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/err/400</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/err/403</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/err/404</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/err/405</location>
+	</error-page>
+	
 	
 </web-app>
