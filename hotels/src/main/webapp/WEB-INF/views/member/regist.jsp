@@ -246,7 +246,7 @@ function checkPhone(){
 	//이메일 검사 후 형식에 안맞을시 보조메세지 출력
 function checkEmail(){
     var m_email = document.querySelector("#m_email").value;
-    var regex = /^[a-z0-9]{8,15}$/;
+    var regex = /^[a-z0-9]{5,15}$/;
     
   	//정규표현식으로 m_email값 검사
     var result = regex.test(m_email);
@@ -258,7 +258,7 @@ function checkEmail(){
     }
   	//m_email이 형식에 맞지 않으면 메세지 춮력
     else {
-        div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
+        div.innerHTML = "<font color = 'gray' size = '2'>5~15자의 영문 소문자, 숫자로 입력해주세요</font>"
     }
 }
 $(function() {
