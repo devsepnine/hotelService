@@ -129,7 +129,7 @@ public class GmailMemberService implements EmailService{
 		
 		helper.setFrom("HOTEL");
 		helper.setTo(email);
-		helper.setSubject("[] 비밀번호 변경 메일 입니다");
+		helper.setSubject("[호텔 델꾸와] 비밀번호 변경 메일 입니다");
 		String address = ServletUriComponentsBuilder
 													.fromCurrentContextPath()
 													.port(8080)
