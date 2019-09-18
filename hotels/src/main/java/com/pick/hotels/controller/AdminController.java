@@ -326,6 +326,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+		
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 5;		//한 페이지에 보여줄 게시글 갯수
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -340,6 +345,8 @@ public class AdminController {
 		if(endBlock > pageCount) {
 			endBlock = pageCount;
 		}
+		
+		
 		
 		model.addAttribute("page", page);
 		model.addAttribute("startBlock", startBlock);
@@ -529,6 +536,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -630,6 +642,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -669,6 +686,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -777,6 +799,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -909,6 +936,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -948,6 +980,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -978,32 +1015,32 @@ public class AdminController {
 	}
 	
 	
-////	비밀번호 변경 메일 발송
-//	@GetMapping("/emailcert")
-//	public void emailcert_seller(@RequestParam String seller_email_id, @RequestParam String seller_email_addr, HttpServletResponse resp) throws IOException, MessagingException {
-//			boolean result = emailService.sendCertNo(seller_email_id, seller_email_addr);
-//			if(result) {
-//				resp.getWriter().print("Y");
-//			}
-//			else {
-//				resp.getWriter().print("N");
-//			}
-//		}
-//	
-//	
-////	비밀번호 변경 메일 인증 여부 체크
-//	@GetMapping("/email_cert_check")
-//	public void email_cert_seller_check(@RequestParam String seller_email_cert, HttpServletResponse resp) throws IOException {
-//		resp.setContentType("text/plain");
-//		EmailCertDto ecdto = emailcertDao.get(seller_email_cert);
-//		if(ecdto==null) {
-//			resp.getWriter().print("N");
-//		}
-//		else {
-//			resp.getWriter().print("Y");
-//			emailcertDao.delete(seller_email_cert);
-//		}
-//	}
+//	비밀번호 변경 메일 발송
+	@GetMapping("/emailcert_seller")
+	public void emailcert_seller(@RequestParam String seller_email_id, @RequestParam String seller_email_addr, HttpServletResponse resp) throws IOException, MessagingException {
+			boolean result = emailService.sendCertNo(seller_email_id, seller_email_addr);
+			if(result) {
+				resp.getWriter().print("Y");
+			}
+			else {
+				resp.getWriter().print("N");
+			}
+		}
+	
+	
+//	비밀번호 변경 메일 인증 여부 체크
+	@GetMapping("/email_cert_check_seller")
+	public void email_cert_seller_check(@RequestParam String seller_email_cert, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		EmailCertDto ecdto = emailcertDao.get(seller_email_cert);
+		if(ecdto==null) {
+			resp.getWriter().print("N");
+		}
+		else {
+			resp.getWriter().print("Y");
+			emailcertDao.delete(seller_email_cert);
+		}
+	}
 	
 //------------------------------------------------------------------------------------
 //	제휴 관리
@@ -1056,6 +1093,10 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
 		
 		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
@@ -1095,6 +1136,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -1133,6 +1179,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 5;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -1175,6 +1226,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
@@ -1213,6 +1269,11 @@ public class AdminController {
 						@RequestParam(required = false, defaultValue="1") int page,
 						Model model
 			) {
+
+		if(page <= 0) {
+			page = 1;
+		}
+		
 		int pagesize = 10;
 		int start = pagesize * page - (pagesize -1);
 		int end = pagesize * page;
