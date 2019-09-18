@@ -10,6 +10,7 @@ import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.entity.HotelSalesVO;
+import com.pick.hotels.entity.ReserverListVO;
 
 @Repository
 public class HotelDaoImpl implements HotelDao{
@@ -77,7 +78,7 @@ public class HotelDaoImpl implements HotelDao{
 	}
 
 	@Override
-	public List<HotelSalesVO> salesPrice(int hotel_no) {
+	public List<HotelSalesVO> salesPrice(List<HotelDto> hotel_no) {
 		return sqlSession.selectList("hotel.salesPrice",hotel_no);
 	}
 
@@ -94,6 +95,17 @@ public class HotelDaoImpl implements HotelDao{
 	@Override
 	public String getMonth() {
 		return sqlSession.selectOne("hotel.this_month");
+	}
+
+	@Override
+	public List<ReserverListVO> getReserver(int hotel_no) {
+		return sqlSession.selectList("hotel.getReserver",hotel_no);
+	}
+
+
+	@Override
+	public List<HotelSalesVO> hotelsalesPrice(int hotel_no) {
+		return sqlSession.selectList("hotel.hotelsalesPrice", hotel_no);
 	}
 
   

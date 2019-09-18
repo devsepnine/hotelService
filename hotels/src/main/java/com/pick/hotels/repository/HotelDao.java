@@ -6,6 +6,7 @@ import com.pick.hotels.entity.H_search_vo;
 import com.pick.hotels.entity.HotelDto;
 import com.pick.hotels.entity.HotelListVo;
 import com.pick.hotels.entity.HotelSalesVO;
+import com.pick.hotels.entity.ReserverListVO;
 
 public interface HotelDao {
 
@@ -33,8 +34,12 @@ public interface HotelDao {
 
 	List<HotelSalesVO> monthSalesPrice(int hotel_no);
 
-	List<HotelSalesVO> salesPrice(int hotel_no);
+	List<HotelSalesVO> salesPrice(List<HotelDto> hotel_no);
 
 	public String getMonth();
+
+	public List<ReserverListVO> getReserver(int hotel_no);
+
+	public List<HotelSalesVO> hotelsalesPrice(int hotel_no);
 
 }
