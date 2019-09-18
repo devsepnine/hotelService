@@ -117,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from hotel where seller_no = #{seller_no}
 	</select>
 	
-<!-- 호텔 전체	월별 건수 구하기 -->
+<!-- 호텔 월별 건수 구하기 -->
 	<select id="sales" parameterType="int" resultType="hotelSalesVO">
 		select to_char(RV.reserve_in,'YYYY/MM') monthly, count(reserve_no) count
 		    from room R 
@@ -128,15 +128,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    order by monthly asc
 	</select>  
 	
-<!-- 	호텔 전체 월별 매출 구하기 -->
-	<select id="salesPrice" parameterType="int" resultType="hotelSalesVO">
+<!-- 	호텔 월별 매출 구하기 -->
+	<select id="hotelsalesPrice" parameterType="int" resultType="hotelSalesVO">
 		select distinct
 		    to_char(RV.reserve_in,'YYYY/MM') monthly, 
 		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY/MM') order by R.hotel_no asc) total, R.hotel_no
 		    from room R 
 		        inner join reserve RV on
 		            R.room_no = RV.reserve_room_no
-		            where R.hotel_no = #{hotel_no} and RV.reserve_ok = '예약'
+		    where 
+				R.hotel_no = #{hotel_no} 
+				and 
+				RV.reserve_ok = '예약'
+		    group by to_char(RV.reserve_in,'YYYY/MM'),reserve_price, hotel_no
+		    order by monthly asc
+	</select>
+
+	
+<!-- 	호텔 전체 월별 매출 구하기 -->
+	<select id="salesPrice" parameterType="list" resultType="hotelSalesVO">
+		select distinct
+		    to_char(RV.reserve_in,'YYYY/MM') monthly, 
+		    sum(count(RV.reserve_no) * RV.reserve_price) over(partition by to_char(RV.reserve_in,'YYYY/MM') order by R.hotel_no asc) total, R.hotel_no
+		    from room R 
+		        inner join reserve RV on
+		            R.room_no = RV.reserve_room_no
+		    where 
+				<foreach collection="list" item="hotel" separator="or">
+					R.hotel_no = #{hotel.hotel_no}
+				</foreach> 
+				and 
+				RV.reserve_ok = '예약'
 		    group by to_char(RV.reserve_in,'YYYY/MM'),reserve_price, hotel_no
 		    order by monthly asc
 	</select>
@@ -170,4 +192,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select distinct to_char(sysdate,'MM') month from hotel
 	</select>
 	
+	<!-- 호텔별 예약 고객 명단 가져오기 -->
+	<select id="getReserver" parameterType="int" resultType="reserverListVO">
+		select * 
+		    from room R
+		    inner join reserve RV on 
+		        R.room_no = RV.reserve_room_no
+		    where R.hotel_no = #{hotel_no}
+	</select>
 </mapper>

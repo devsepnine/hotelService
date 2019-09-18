@@ -27,6 +27,7 @@ import com.pick.hotels.entity.HotelSalesVO;
 import com.pick.hotels.entity.PartnerDto;
 import com.pick.hotels.entity.PartnerFileDto;
 import com.pick.hotels.entity.PartnerListVO;
+import com.pick.hotels.entity.ReserverListVO;
 import com.pick.hotels.entity.SellerCertDto;
 import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.EmailCertDao;
@@ -76,6 +77,10 @@ public class SellerController {
 //		System.out.println(hotelDto);
 		List<HotelDto> hdtoList = hotelDao.getNoList(seller_no);
 		
+//		호텔 목록에서 호텔 번호만 모아서 Sql에 전송 ----> List<HotelSaleVO>가 나오면 Model에 담아서 View에 전달
+		List<HotelSalesVO> salesList = hotelDao.salesPrice(hdtoList);
+		model.addAttribute("salesList", salesList);
+		
 //		월별 건수
 		List<List<HotelSalesVO>> monthly_cnt = new ArrayList<>();
 		for(HotelDto list : hdtoList) {
@@ -84,14 +89,15 @@ public class SellerController {
 		}
 		
 //		월별 금액
-		List<List<HotelSalesVO>> monthly_price = new ArrayList<>();
-		for(HotelDto pricelist : hdtoList) {
-			List<HotelSalesVO> hotel_price = hotelDao.salesPrice(pricelist.getHotel_no());
-			monthly_price.add(hotel_price);
-		}
+//		List<List<HotelSalesVO>> monthly_price = new ArrayList<>();
+//		for(HotelDto pricelist : hdtoList) {
+//			List<HotelSalesVO> hotel_price = hotelDao.salesPrice(pricelist.getHotel_no());
+//			monthly_price.add(hotel_price);
+//		}
 		
-		model.addAttribute("monthly_price", monthly_price);
+//		model.addAttribute("monthly_price", monthly_price);
 		model.addAttribute("monthlySales", monthly_cnt);
+		
 		model.addAttribute("hdtolist", hdtoList);
 		return "seller/main";
 	}
@@ -110,7 +116,7 @@ public class SellerController {
 		List<HotelSalesVO> hotel_cnt = hotelDao.sales(hotel_no);
 		
 //		지정호텔 전체 월별 매출
-		List<HotelSalesVO> hotel_price = hotelDao.salesPrice(hotel_no);
+		List<HotelSalesVO> hotel_price = hotelDao.hotelsalesPrice(hotel_no);
 		
 //		지정호텔 Dto
 		HotelDto hdto = hotelDao.get(hotel_no);
@@ -900,6 +906,16 @@ public class SellerController {
 		model.addAttribute("pfdtolist", partnerFileDao.getlist(partner_no));
 		
 		return "/partner/detail";
+	}
+	
+	@GetMapping("/hotel/reserverlist")
+	public String reserve_list(@RequestParam int hotel_no, Model model) {
+		HotelDto hdto = hotelDao.get(hotel_no);
+		List<ReserverListVO> rlist = hotelDao.getReserver(hotel_no);
+		
+		model.addAttribute("hdto", hdto);
+		model.addAttribute("rlist", rlist);
+		return "/hotel/reserverlist";
 	}
 
 }

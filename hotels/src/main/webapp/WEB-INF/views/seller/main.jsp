@@ -25,10 +25,8 @@
           
  			var arr = [];
  				arr.push(['월', '금액']);
- 			<c:forEach var="salesPrice" items="${monthly_price}">
- 				<c:forEach var="con" items="${salesPrice}">
+ 			<c:forEach var="con" items="${salesList}">
  					arr.push(['${con.monthly}', ${con.total}]);
- 				</c:forEach>
  			</c:forEach>
 			
  			var data = google.visualization.arrayToDataTable(arr);
@@ -132,6 +130,9 @@
 					<a href="hotel_sales?hotel_no=${hdtolist.hotel_no}">
 						<img src="${pageContext.request.contextPath}/img_v/3?img_name=${hdtolist.hotel_title}" width="100%" height="300px;">
 					</a>
+				</div>
+				<div align="center" style="margin-left: auto; margin-right: auto;">
+					<a class="btn btn-danger" href="${pageContext.request.contextPath}/seller/hotel/reserverlist?hotel_no=${hdtolist.hotel_no}">예약자목록</a>
 				</div>
 			</div>
 		</div>
