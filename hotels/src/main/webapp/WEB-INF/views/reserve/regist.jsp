@@ -124,23 +124,29 @@
 			var check_in = new Date($(".check-in").text());
 			var gap = check_in - now;
 			console.log(gap);
-			if(gap<=0){
+			if(gap<=0 || $(".term").text() > 7){
 				alert("잘못된 접근입니다.")
 				location.href = '${pageContext.request.contextPath}/err/reserve'
 				return;
 			}
 			
-			if($(".term").text() > 7){
-				alert("잘못된 접근입니다.")
-				location.href = '${pageContext.request.contextPath}/err/reserve'
-				return;
+			var form = document.querySelector("#payment-form");
+
+			var childrenWindow = window.open('', 'payment', 'width=430,height=500');
+			
+			if(!childrenWindow){
+				alert("팝업 차단 설정을 해제해 주세요");
 			}
-			this.submit();
+			else{
+				form.target = 'payment';//새창을 타겟으로 설정
+				form.submit();
+			}
+			
 		})
 	})
 </script>
 <div style="height: 60px;"></div>
-<form action="${pageContext.request.contextPath}/payment/order" method="post">
+<form action="${pageContext.request.contextPath}/payment/order" method="post" id="payment-form">
 <div class="reserve-wrap">
 	<div class="left-wrap">
 		<h3>예약자 정보</h3>
@@ -256,3 +262,6 @@
 </div>
 </form>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
+<
