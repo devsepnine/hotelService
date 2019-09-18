@@ -119,6 +119,7 @@ public class GmailMemberService implements EmailService{
 //		인증번호 생성
 		String no = randomStringService.generate(128);
 		String email = sdto.getSeller_email_id()+"@"+sdto.getSeller_email_addr();
+
 		
 		SellerCertDto scdto = SellerCertDto.builder().seller_cert_who(sdto.getSeller_no()).seller_cert_no(no).build();
 		sellerCertDao.insert(scdto);

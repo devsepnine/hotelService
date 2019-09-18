@@ -857,7 +857,6 @@ public class AdminController {
 	public String new_pw_seller(@RequestParam int no, Model model) throws MessagingException {
 		
 		SellerDto sellerDto = sellerDao.get(no);
-		
 		model.addAttribute("sdto", sellerDto);
 		
 		emailService.find_pw(sellerDto);

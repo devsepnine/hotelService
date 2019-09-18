@@ -63,6 +63,10 @@ public class ReviewController {
 		
 			int member_no = (int) session.getAttribute("no");
 			reviewDto.setReview_writer(member_no);
+			int score = reviewDto.getReview_score();
+			if(score<=1) score = 1;
+			if(score>=5) score = 5;
+			reviewDto.setReview_score(score);
 			
 			model.addAttribute("reserve_no", reviewDto.getReview_reserve());
 			reviewDao.write(reviewDto);
