@@ -103,8 +103,6 @@ public class ReserveController {
 		int member_no = (int) session.getAttribute("no");
 		
 		List<ReserveVO> list = reserveDao.list(member_no);
-		System.out.println(list);
-		
 		model.addAttribute("reserveVO", list);
 		
 		return "reserve/list";
