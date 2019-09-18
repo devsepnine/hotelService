@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
     <style>
     	.error_image {
     		margin : auto;
@@ -8,9 +7,16 @@
     		width : 404px;
     		height : 423px;
     		background-image: url("${pageContext.request.contextPath}/img/err/404.png");
+    		background-repeat: no-repeat;
+    	}
+    	.home{
+    		margin: auto;
+    		width:88px;
     	}
     </style>
-
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.css">
     <div class="error_image">
     </div>
-<jsp:include page="/WEB-INF/views/seller/seller_template/footer.jsp"></jsp:include>
+    <div class="home">
+    	<a href="${pageContext.request.contextPath}" class="btn btn-reserve">HOME</a>
+    </div>
