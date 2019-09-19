@@ -48,6 +48,8 @@
     <interceptors>
     	<interceptor>
 			<mapping path="/member/**"/>
+			<mapping path="/reserve/**"/>
+			<mapping path="/payment/**"/>
 			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/regist"/>
 			<exclude-mapping path="/member/find_id"/>

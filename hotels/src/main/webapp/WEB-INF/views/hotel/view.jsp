@@ -755,6 +755,7 @@ $(function(){
 		<div style="flex-grow: 1"></div>
 </div>
 </form>
+
 <div class="hotel-info-wrap" style="width: 1100px; margin: auto;">
 	<div style="height: 20px;"></div>
   <div class="gallary">
