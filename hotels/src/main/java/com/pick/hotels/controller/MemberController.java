@@ -176,6 +176,7 @@ public class MemberController {
 		return "member/info";
 	}
 	
+
 	@GetMapping("/delete")
 	public String delete(HttpSession session) {
 		String member_id = (String) session.getAttribute("ok");
