@@ -229,9 +229,6 @@ public class SellerController {
 			HttpSession session,
 			HttpServletResponse response,
 			Model model) {
-//		암호화 적용 전
-//		MemberDto result = memberDao.login(memberDto);
-//		if(result != null) {
 //		암호화 적용 후
 //		1. DB에서 회원정보를 불러온다
 		SellerDto result = sellerDao.getId(sellerDto.getSeller_id());
@@ -265,6 +262,22 @@ public class SellerController {
 		}
 	}
 	
+	@GetMapping("/checkDelete")
+	public void checkDelete(HttpSession session,@RequestParam String seller_pw, HttpServletResponse resp) throws IOException {
+		SellerDto sellerDto = sellerDao.getId((String)session.getAttribute("s_ok"));
+		System.out.println(seller_pw);
+		System.out.println(sellerDto.getSeller_pw());
+		if(BCrypt.checkpw(seller_pw,sellerDto.getSeller_pw())) {
+			sellerDao.delete((String)session.getAttribute("s_ok"));
+			session.removeAttribute("s_ok");
+			session.removeAttribute("s_no");
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	@GetMapping("/info")
 	public String info(HttpSession session, Model model) {
 		String seller_id = (String) session.getAttribute("s_ok");
@@ -280,7 +293,7 @@ public class SellerController {
 		session.removeAttribute("s_ok");
 		session.removeAttribute("s_no");
 		return "seller/goodbye";
-	}
+	} 
 	
 	@GetMapping("/change")
 	public String change(HttpSession session, Model model) {
@@ -917,5 +930,6 @@ public class SellerController {
 		model.addAttribute("rlist", rlist);
 		return "/hotel/reserverlist";
 	}
+	
 
 }
