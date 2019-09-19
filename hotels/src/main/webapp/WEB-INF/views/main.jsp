@@ -256,14 +256,20 @@ $(function(){
 </script>
 
 <div style="height: 20px;"></div>
-
+<style>
+	.search-box{
+		display: flex;
+		max-width: 1100px;
+		margin: auto;
+	}
+</style>
 <form action="${pageContext.request.contextPath }/hotel/search">
-<div style="max-width: 1100px;min-width:355px ;margin: auto; text-align: center;">
-	<div class="form-group" style="width: 150px;display: inline-block;">
+<div class="search-box">
+	<div style="flex-grow: 1"></div>
+	<div class="form-group" style="width: 150px;">
 		<input type="text" placeholder="지역 검색" name="region" class="form-control" required>
 	</div>
-	
-	<div style="width: 200px;display: inline-block;">
+	<div style="width: 200px;">
           <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" placeholder="체크인" name="check_in" autocomplete="off" required/>
                <div class="input-group-append check_in_btn" data-target="#datetimepicker1" data-toggle="datetimepicker">
@@ -272,7 +278,7 @@ $(function(){
            </div>
 	</div>
 	
-	<div style="width: 200px;display: inline-block;">
+	<div style="width: 200px;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="체크아웃" name="check_out" autocomplete="off" required/>
                <div class="input-group-append check_out_btn" data-target="#datetimepicker2" data-toggle="datetimepicker">
@@ -280,8 +286,8 @@ $(function(){
                </div>
            </div>
        </div>
-    <div style="width: 150px;display: inline-block;">
-		  <select class="custom-select"  name="people" required style="margin-bottom: 3px;">
+    <div style="width: 150px;">
+		  <select class="custom-select"  name="people" required>
 		    <option value="1">총 인원 1</option>
 		    <option value="2">총 인원 2</option>
 		    <option value="3">총 인원 3</option>
@@ -289,8 +295,8 @@ $(function(){
 		    <option value="5">총 인원 5</option>
 		  </select>
 	</div>
-		<input class="btn btn-danger" type="submit" style="margin-bottom: 3px;" value="호텔 검색">
-<span style="font-size: 20px;" class="diff"></span>
+		<input class="btn btn-danger" type="submit" value="호텔 검색">
+		<div style="flex-grow: 1"></div>
 </div>
 </form>
 

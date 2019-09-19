@@ -711,43 +711,48 @@ $(function(){
 		
 	});
 </script>
-<form action="../search">
-<div style="height: 20px;"></div>
-<div style="max-width: 100%;min-width:355px ;margin: auto; text-align: center;padding: 40px 10px 30px 10px; background-color: #f1f1f1; vertical-align: middle;">
-	<div class="form-group" style="width: 150px;display: inline-block;">
-		<input type="text" placeholder="지역 선택" name="region" class="form-control" value="${param.region}" required>
+<div style="height: 60px;"></div>
+<style>
+	.search-box{
+		display: flex;
+		max-width: 1100px;
+		margin: auto;
+	}
+</style>
+<form action="${pageContext.request.contextPath}/hotel/search">
+<div class="search-box">
+	<div style="flex-grow: 1"></div>
+	<div class="form-group" style="width: 150px;">
+		<input type="text" placeholder="지역 검색" name="region" class="form-control" value="${param.region}" required>
 	</div>
-	
-	<div style="width: 200px;display: inline-block;">
-          <div class="input-group date" id="datetimepicker1" data-target-input="nearest" >
-               <input type="text" name="check_in" class="form-control datetimepicker-input" value="${param.check_in}" placeholder="체크 인" data-target="#datetimepicker1" autocomplete="off" required/>
+	<div style="width: 200px;">
+          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="${param.check_in}" placeholder="체크인" name="check_in" autocomplete="off" required/>
                <div class="input-group-append check_in_btn" data-target="#datetimepicker1" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
            </div>
 	</div>
 	
-	<div style="width: 200px;display: inline-block;">
+	<div style="width: 200px;">
           <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-               <input type="text" name="check_out" class="form-control datetimepicker-input" value="${param.check_out}" placeholder="체크 아웃" data-target="#datetimepicker2" autocomplete="off" required/>
+               <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" value="${param.check_out}" placeholder="체크아웃" name="check_out" autocomplete="off" required/>
                <div class="input-group-append check_out_btn" data-target="#datetimepicker2" data-toggle="datetimepicker">
                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                </div>
            </div>
        </div>
-       
-    <div class="form-group" style="width: 150px;display: inline-block;">
-	  <select class="custom-select" name="people" >
+    <div style="width: 150px;">
+		  <select class="custom-select"  name="people" required>
 	    <option value="1" ${param.people eq 1?"selected":""}>총 인원 1</option>
 	    <option value="2" ${param.people eq 2?"selected":""}>총 인원 2</option>
 	    <option value="3" ${param.people eq 3?"selected":""}>총 인원 3</option>
 	    <option value="4" ${param.people eq 4?"selected":""}>총 인원 4</option>
 	    <option value="5" ${param.people eq 5?"selected":""}>총 인원 5</option>
-	  </select>
+		  </select>
 	</div>
-	<input class="btn btn-danger" type="submit" value="호텔 재 검색">
-	
-<span style="font-size: 20px;" class="diff"></span>
+		<input class="btn btn-danger" type="submit" value="호텔 검색">
+		<div style="flex-grow: 1"></div>
 </div>
 </form>
 <div class="hotel-info-wrap" style="width: 1100px; margin: auto;">

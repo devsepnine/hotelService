@@ -25,15 +25,15 @@
 	
 	.navbar-light .navbar-nav .nav-link{
 		color : #555;
+		border-bottom: 4px solid #f1e3c4;
 	}
 	.navbar-light .navbar-nav .nav-link:hover{
 		color: #555;
-		border-bottom: 2px solid #555;
+		border-bottom: 4px solid #555;
 	}
 	.navbar{
-		padding: 0.6rem 1rem;
-		min-width: 1300px;
-		min-height: 55px;
+		min-width: 1320px;
+		height:80px;
 	}
 	.admin-main-wrap{
 		width: 1400px;

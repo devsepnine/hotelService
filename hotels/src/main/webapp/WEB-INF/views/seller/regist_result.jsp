@@ -23,13 +23,13 @@
 	</div>
 	
 	<div align="center" style="text-align: center;">
-		<h3>
+		<h3 style="display: inline-block;">
 			<a href="login">
 				<button class="btn btn-danger">로그인</button>
 			</a>
 		</h3>
 		
-		<h3>
+		<h3 style="display: inline-block;">
 			<a href="${pageContext.request.contextPath}">
 				<button class="btn btn-danger">메인으로</button>
 			</a>
