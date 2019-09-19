@@ -2,6 +2,7 @@
     display: inline-block;
     width:100px;
     height:20px;
+    overflow: hidden;
 }
 .star-wrap > .star-paint{
     width:0%;

@@ -112,7 +112,11 @@ public class PaymentController {
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
 				params.add("tax_free_amount", "0"); //비과세 금액 integer
-				String url = ServletUriComponentsBuilder.fromCurrentContextPath().port(server_port).toUriString();
+				String url = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+				if(!server_port.isEmpty()) {
+					System.out.println("포트있음");
+					url = ServletUriComponentsBuilder.fromCurrentContextPath().port(server_port).toUriString();
+				}
 				logger.debug("호스트 주소 {}",url);
 				params.add("approval_url", url+"/payment/kakao/success");
 				params.add("cancel_url", url+"/payment/kakao/cancel");
