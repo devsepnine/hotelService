@@ -25,12 +25,12 @@
           
  			var arr = [];
  				arr.push(['월', '금액']);
- 			<c:if test="${salesList!=null}">
+ 			<c:if test="${salesList.size()>0 and salesList!=null}">
 	 			<c:forEach var="con" items="${salesList}">
 	 					arr.push(['${con.monthly}', ${con.total}]);
 	 			</c:forEach>
 	 		</c:if>
-			
+	 		console.log(${salesList})
  			var data = google.visualization.arrayToDataTable(arr);
  			var options = {
  					title : '월별 매출',

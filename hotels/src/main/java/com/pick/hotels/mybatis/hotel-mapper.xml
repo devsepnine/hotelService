@@ -155,8 +155,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            R.room_no = RV.reserve_room_no
 		    where 
 				RV.reserve_ok = '예약'
-				<if test="list != null">
 					and 
+				<if test="list != null and list.size()>0">
 					<foreach collection="list" item="hotel" separator="or">
 						R.hotel_no = #{hotel.hotel_no}
 					</foreach> 

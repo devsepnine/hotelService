@@ -76,10 +76,13 @@ public class SellerController {
 //		HotelDto hotelDto = hotelDao.getNo(seller_no);
 //		System.out.println(hotelDto);
 		List<HotelDto> hdtoList = hotelDao.getNoList(seller_no);
+		System.out.println(hdtoList);
 		
 //		호텔 목록에서 호텔 번호만 모아서 Sql에 전송 ----> List<HotelSaleVO>가 나오면 Model에 담아서 View에 전달
-		List<HotelSalesVO> salesList = hotelDao.salesPrice(hdtoList);
-		model.addAttribute("salesList", salesList);
+		if(hdtoList.size()>0) {
+			List<HotelSalesVO> salesList = hotelDao.salesPrice(hdtoList);
+			model.addAttribute("salesList", salesList);
+		}
 		
 //		월별 건수
 		List<List<HotelSalesVO>> monthly_cnt = new ArrayList<>();
@@ -272,10 +275,15 @@ public class SellerController {
 			session.removeAttribute("s_ok");
 			session.removeAttribute("s_no");
 			resp.getWriter().print("Y");
+			
 		}
 		else {
 			resp.getWriter().print("N");
 		}
+	}
+	@GetMapping("/goodbye")
+	public String goodbye() {
+		return "seller/goodbye";
 	}
 	
 	@GetMapping("/info")
