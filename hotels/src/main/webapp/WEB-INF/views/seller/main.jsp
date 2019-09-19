@@ -25,10 +25,12 @@
           
  			var arr = [];
  				arr.push(['월', '금액']);
- 			<c:forEach var="con" items="${salesList}">
- 					arr.push(['${con.monthly}', ${con.total}]);
- 			</c:forEach>
-			
+ 			<c:if test="${salesList.size()>0 and salesList!=null}">
+	 			<c:forEach var="con" items="${salesList}">
+	 					arr.push(['${con.monthly}', ${con.total}]);
+	 			</c:forEach>
+	 		</c:if>
+	 		console.log(${salesList})
  			var data = google.visualization.arrayToDataTable(arr);
  			var options = {
  					title : '월별 매출',
@@ -80,6 +82,7 @@
 
 <jsp:include page="/WEB-INF/views/hotel/hotel_template/hotel_header.jsp"></jsp:include>
 <div style="height: 20px;"></div>
+
 <div>
 	<div class="chart_page_title">
 		<div class="chart_name">월별 매출 금액</div>

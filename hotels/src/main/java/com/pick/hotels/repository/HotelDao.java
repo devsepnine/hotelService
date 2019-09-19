@@ -34,7 +34,7 @@ public interface HotelDao {
 
 	List<HotelSalesVO> monthSalesPrice(int hotel_no);
 
-	List<HotelSalesVO> salesPrice(List<HotelDto> hotel_no);
+	List<HotelSalesVO> salesPrice(List<HotelDto> list);
 
 	public String getMonth();
 

@@ -154,11 +154,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        inner join reserve RV on
 		            R.room_no = RV.reserve_room_no
 		    where 
-				<foreach collection="list" item="hotel" separator="or">
-					R.hotel_no = #{hotel.hotel_no}
-				</foreach> 
-				and 
 				RV.reserve_ok = '예약'
+					and 
+				<if test="list != null and list.size()>0">
+					<foreach collection="list" item="hotel" separator="or">
+						R.hotel_no = #{hotel.hotel_no}
+					</foreach> 
+				</if>
 		    group by to_char(RV.reserve_in,'YYYY/MM'),reserve_price, hotel_no
 		    order by monthly asc
 	</select>
