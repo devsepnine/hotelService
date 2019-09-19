@@ -222,7 +222,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="type != null and keyword != null">
 						${type} like '%' || #{keyword} || '%' and
 					</if>
-						partner_type = '승인거절')
+						partner_type = '승인거부')
 	</select>
 	
 	
@@ -250,7 +250,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 최근 7일 제휴 승인 거절 건 수 -->
 	<select id="recent_refuse_count" resultType="int">
-		select count(*) from partner where partner_type = '승인거절' and partner_response between (sysdate-7) and (sysdate+1)
+		select count(*) from partner where partner_type = '승인거부' and partner_response between (sysdate-7) and (sysdate+1)
 	</select>
 	
  </mapper>
