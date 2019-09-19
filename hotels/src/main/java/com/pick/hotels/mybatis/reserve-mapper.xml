@@ -33,7 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			inner join hotel H on
 			R.reserve_hotel_no = H.hotel_no
 			where R.reserve_member_no = #{member_no}
-            and sysdate - 60 <=reserve_out and reserve_ok = '예약'
+            and 
+            sysdate - 60 <=reserve_out 
+           	and 
+            reserve_ok != '취소'
             order by reserve_no desc
             ]]>
 	</select>
@@ -70,6 +73,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="count" parameterType="int" resultType="int">
 		select count (*) from reserve where reserve_member_no = #{reserve_member_no}
 	</select>
+	
+	<update id="update">
+		<![CDATA[
+			update reserve set reserve_ok = '사용완료' where reserve_in < sysdate and reserve_ok != '사용완료'
+		]]>
+	</update>
 	
 	
 	<!-- 관리자 -->
