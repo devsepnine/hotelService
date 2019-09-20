@@ -5,6 +5,7 @@ import java.util.List;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.ReserveVO;
+import com.pick.hotels.entity.V_reserve;
 
 public interface ReserveDao {
 
@@ -31,6 +32,8 @@ public interface ReserveDao {
 
 	// 결제시 시퀀스 꺼내옴
 	int getseq_no();
+
+	V_reserve getV_reserve(int order_no);
 
 
 

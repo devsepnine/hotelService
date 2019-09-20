@@ -99,4 +99,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select reserve_seq.nextval from dual
 	</select>
 	
+	
+<!-- 	예약 상세 내역 보는것 -->
+	<!-- 리스트 -->
+	<select id="get_reserve" parameterType="int" resultType="v_reserve">
+		select * from v_reserve where reserve_no = ${order_no}
+	</select>	
 </mapper>

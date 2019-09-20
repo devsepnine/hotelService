@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,7 @@ import com.pick.hotels.entity.KakaoPayMentDto;
 import com.pick.hotels.entity.Payment_VO;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.RoomDto;
+import com.pick.hotels.entity.V_reserve;
 import com.pick.hotels.entity.kakaopay.KakaoPayCanceledAmount;
 import com.pick.hotels.entity.kakaopay.KakaoPayCanceledVo;
 import com.pick.hotels.entity.kakaopay.KakaoPayReturnVo;
@@ -212,12 +214,7 @@ public class PaymentController {
 		System.out.println(kdto);
 		kakaoPayMentDao.inster_pay(kdto);
 		
-		HotelDto hdto = hotelDao.get(pv.getReserve_hotel_no());
-		RoomDto room = roomDao.get(pv.getReserve_room_no());
-		model.addAttribute("success", success);
-		model.addAttribute("rdto", rdto);
-		model.addAttribute("hdto", hdto);
-		model.addAttribute("room", room);
+		model.addAttribute("order_id", (int) session.getAttribute("order_id"));
 		//세션 정리
 		session.removeAttribute("payment_VO"); // 주문 정보
 		session.removeAttribute("order_id"); // 주문 번호
@@ -226,6 +223,17 @@ public class PaymentController {
 		return "payment/kakaopay/success";
 	}
 	
+	@RequestMapping("/kakao/r_success/{order_no}")
+	public String r_success(@PathVariable String order_no,Model model,HttpSession session) {
+		System.out.println(order_no);
+		V_reserve v_r = reserveDao.getV_reserve(Integer.parseInt(order_no));
+		if((int) session.getAttribute("no") == v_r.getReserve_member_no()) {
+			model.addAttribute("v_r", v_r);
+			return "payment/kakaopay/result_success";
+		}else
+			return "err/403";
+		
+	}
 	
 	@RequestMapping("/kakao/fail")
 	public String kakao_fail() {
