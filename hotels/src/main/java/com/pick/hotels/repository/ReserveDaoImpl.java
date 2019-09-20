@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.ReserveTotalVO;
 import com.pick.hotels.entity.ReserveVO;
+import com.pick.hotels.entity.V_reserve;
 
 @Repository
 public class ReserveDaoImpl implements ReserveDao{
@@ -84,6 +85,11 @@ public class ReserveDaoImpl implements ReserveDao{
 	@Override
 	public int getseq_no() {
 		return sqlsession.selectOne("reserve.seq_no");
+	}
+
+	@Override
+	public V_reserve getV_reserve(int order_no) {
+		return sqlsession.selectOne("reserve.get_reserve", order_no);
 	}
 
 }

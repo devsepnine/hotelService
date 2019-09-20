@@ -57,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.pick.hotels.entity.KakaoPayMentDto" alias="kakaoPayMentDto"/>
 		<typeAlias type="com.pick.hotels.entity.SellerCertDto" alias="sellerCertDto"/>
 		<typeAlias type="com.pick.hotels.entity.ReserverListVO" alias="reserverListVO"/>
+		<typeAlias type="com.pick.hotels.entity.V_reserve" alias="v_reserve"/>
 	</typeAliases>
   
 </configuration>

@@ -12,7 +12,10 @@
 		text-align: right;
 		width: 100%;
 	}
-
+	.reserve-list-wrap{
+		width: 800px;
+		margin: auto;
+	}
 </style>
 <script>
 
@@ -24,6 +27,7 @@
 	<div class="reserve-cancel-wrap">
 	<a href="cancel_list" class="btn btn-danger can_btn" >예약취소 내역</a>
 	</div>
+	<div class="reserve-list-wrap">
 <c:forEach var = "reserveVO" items="${reserveVO}"> 
 		<table class="table table-hamburg table-stripe">
 			<tbody>
@@ -44,10 +48,10 @@
 				</tr>
 			</tbody>
 		</table>
-		<a href="details?reserve_no=${reserveVO.reserve_no}"><input type="button" class="btn btn-danger" value="상세보기"></a>
+		<a href="details?reserve_no=${reserveVO.reserve_no}"><input type="button" class="btn btn-danger btn-block" value="상세보기"></a>
 
 </c:forEach>
-
+</div>
 
 
 </div>
