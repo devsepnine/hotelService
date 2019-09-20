@@ -2,17 +2,32 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/seller/seller_template/header.jsp"></jsp:include>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/core-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
 <script>
-function seller_delete() {
-  var r = confirm("탈퇴 하시겠습니까?");
-  if(r==true) {
-	location.href="${pageContext.request.contextPath}/seller/delete";  
-  }
-  else{
-	  
-  }
- 
-}
+	$(function(){
+		$(".cdbtn").click(function(){
+			var pw = $("input[name=seller_pw]").val();
+			var encPw = CryptoJS.SHA256(pw).toString();
+			$.ajax({
+				url : "checkDelete",
+				data : {
+					seller_pw : encPw
+				},
+				dataType : "text",
+				success : function(resp) {
+					if (resp == "Y") {
+						location.href="${pageContext.request.contextPath}/seller/goodbye"
+					}
+					else {
+						window.alert("비밀번호가 일치하지 않습니다")
+					}
+				}
+			});
+		});
+		
+	});
+	
 </script>
 <style>
 	.info-wrap{
@@ -77,15 +92,49 @@ function seller_delete() {
 	<%-- 회원이 이용할 수 있는 기능들을 링크로 제공 --%>
 	<a href="change_pw" class="btn btn-danger">비밀번호 변경</a>
 	<a href="change" class="btn btn-danger">개인정보 변경</a>
-	<button class="btn btn-danger" onclick="seller_delete()">회원 탈퇴</button>
+	<button class="btn btn-danger">회원 탈퇴</button>
+
+	<button type="button" id = "deleteOpenModal" class="btn btn-danger btn-lg" data-toggle="modal" data-target= "#deleteCheckModal" data-title="data">회원 탈퇴</button>
+
+
 </div>
+
+
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 
 
 
-
+<!-- 공지사항 게시글 삭제할 때 삭제할건지 확인하는 모달 시작 -->
+<!--modal 참고 url : https://getbootstrap.com/docs/4.0/components/modal/ -->
+<div class="modal fade" id="deleteCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">비밀번호 확인</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+			<div class="modal-body">
+			회원님의 비밀번호를 입력후 확인을 누르시면 삭제됩니다
+			<!--해당 글 삭제하는 주소값받는 input 태그-->
+				<label for="s_pw">PASSWORD</label>
+				<input type="password" class="form-control" name="seller_pw" id="s_pw" placeholder="PASSWORD를 입력하세요" required>
+				<img id="deleteUrl" src="">
+			
+			</div>
+			<div class="modal-footer">
+			
+				<button type="button" class="btn btn-primary cdbtn" id="delete">확인</button>
+				
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
