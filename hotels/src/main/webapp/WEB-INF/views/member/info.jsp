@@ -7,7 +7,7 @@
 function member_delete() {
   var r = confirm("탈퇴 하시겠습니까?");
   if (r == true) {
-	location.href="${pageContext.request.contextPath}/member/delete";  
+	location.href="${pageContext.request.contextPath}/member/check_pw";  
   }
  
 }

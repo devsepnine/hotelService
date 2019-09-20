@@ -428,15 +428,31 @@ public class MemberController {
 		couponDao.coupon_download(couponhistoryDto);
 		
 		
-		return "redirect:coupon_list";
-		
-		
-		
-		
-		
+		return "redirect:coupon_list";	
 	}
 	
+	@GetMapping("/check_pw")
+	public String check_pw() {
+		return "member/check_pw";
+	}
 	
+	@PostMapping("/check_pw")
+	public String check_pw(HttpSession session, @RequestParam String pw) {
+		String member_id = (String) session.getAttribute("ok");
+		MemberDto memberDto = memberDao.get(member_id);
+		
+		//DB에 있는 비밀번호
+		String member_pw = memberDto.getMember_pw();
+		
+		//입력받은 비밀번호 = pw  이거랑 DB에 있는 비밀번호랑 비교
+		if(BCrypt.checkpw(pw, member_pw)) {
+			
+			return "redirect:delete";
+		}
+		else {
+			return "member/check_pw?error";
+		}
+	}
 	
 	
 	
