@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -774,6 +776,26 @@ public class AdminController {
 		model.addAttribute("no", memberDto.getMember_no());
 		
 		return "redirect:detail";
+	}
+	
+	
+//	회원 탈퇴 처리시 비밀번호 확인
+	@PostMapping("/check_pw_member")
+	public void check_pw_member(HttpSession session,@RequestParam String pw, HttpServletResponse resp) throws IOException {
+
+		String member_id = (String) session.getAttribute("ok");
+		
+		MemberDto memberDto = memberDao.get(member_id);
+		
+		//DB에 있는 비밀번호
+		String member_pw = memberDto.getMember_pw();
+		
+		if(BCrypt.checkpw(pw, member_pw)) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
 	}
 	
 	
