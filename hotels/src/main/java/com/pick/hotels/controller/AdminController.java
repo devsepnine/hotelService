@@ -295,6 +295,27 @@ public class AdminController {
 	}
 	
 	
+	
+//	관광지 삭제 처리시 비밀번호 확인
+	@PostMapping("/check_pw_attraction")
+	public void check_pw_attraction(HttpSession session,@RequestParam String pw, HttpServletResponse resp) throws IOException {
+
+		String member_id = (String) session.getAttribute("ok");
+		
+		MemberDto memberDto = memberDao.get(member_id);
+		
+		//DB에 있는 비밀번호
+		String member_pw = memberDto.getMember_pw();
+		
+		if(BCrypt.checkpw(pw, member_pw)) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
+	
 //	관광지 삭제("/attraction/exit")
 	@GetMapping("/attraction/exit")
 	public String exit(@RequestParam int no) {
@@ -504,6 +525,27 @@ public class AdminController {
 		
 		return "redirect:detail";
 	}
+	
+	
+//	레스토랑 삭제 처리시 비밀번호 확인
+	@PostMapping("/check_pw_restaurant")
+	public void check_pw_restaurant(HttpSession session,@RequestParam String pw, HttpServletResponse resp) throws IOException {
+
+		String member_id = (String) session.getAttribute("ok");
+		
+		MemberDto memberDto = memberDao.get(member_id);
+		
+		//DB에 있는 비밀번호
+		String member_pw = memberDto.getMember_pw();
+		
+		if(BCrypt.checkpw(pw, member_pw)) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	
 	
 	
 //	레스토랑 삭제("/restaurant/exit")
@@ -933,6 +975,26 @@ public class AdminController {
 		model.addAttribute("no", sellerDto.getSeller_no());
 		
 		return "redirect:detail";
+	}
+	
+	
+//	판매자 탈퇴 처리시 비밀번호 확인
+	@PostMapping("/check_pw_seller")
+	public void check_pw_seller(HttpSession session,@RequestParam String pw, HttpServletResponse resp) throws IOException {
+
+		String member_id = (String) session.getAttribute("ok");
+		
+		MemberDto memberDto = memberDao.get(member_id);
+		
+		//DB에 있는 비밀번호
+		String member_pw = memberDto.getMember_pw();
+		
+		if(BCrypt.checkpw(pw, member_pw)) {
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
 	}
 	
 	

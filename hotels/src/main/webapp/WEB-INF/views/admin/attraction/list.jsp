@@ -7,6 +7,8 @@
 
 <!-- 자바스크립트를 이용하여 페이지 이동을 처리 -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/core-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
 <script>
 	$(function(){
 		//목표 : 페이지 번호를 누르면 해당하는 번호의 페이지로 이동 처리
@@ -31,20 +33,33 @@
 	});
 	
 </script>
+
 <script>
 	$(function(){
-		$(".delete_btn").click(
-			function() {
-// 				this == button
-				
-				if(confirm("삭제하시겠습니까?")){
-					var no = $(this).data("no");
-// 					var no = $(this).attr("data-no");
-					location.href="${pageContext.request.contextPath}/admin/attraction/exit?no="+no;
+		$("#deleteBtn").click(function(){
+			var pw = $("input[name=pw]").val();
+			var encPw = CryptoJS.SHA256(pw).toString();
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/admin/check_pw_attraction",
+				type: "post",
+				data : {
+					pw : encPw
+				},
+				dataType : "text",
+				success : function(resp) {
+					if (resp == "Y") {
+						location.href="${pageContext.request.contextPath}/admin/attraction/exit?no=${adto.attraction_no}"
+					}
+					else {
+						window.alert("비밀번호가 일치하지 않습니다")
+					}
 				}
-				
 			});
+		});
+		
 	});
+	
 </script>
 
 <style>
@@ -184,7 +199,7 @@
 			</a>
 		</td>
 		<td>
-			<input type="button" class="btn btn-danger delete_btn" value="DELETE" data-no="${adto.attraction_no}">
+			<button type="button" name="exitbtn"  class="btn btn-danger exitbtn" data-toggle="modal" data-target="#deleteCheckModal">DELETE</button>
 		</td>
 		</tr>
 		</c:forEach>
@@ -285,3 +300,31 @@
 </div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+<!-- 삭제할 때 삭제할건지 확인하는 모달 시작 -->
+<!--modal 참고 url : https://getbootstrap.com/docs/4.0/components/modal/ -->
+<div class="modal" id="deleteCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">비밀번호 확인</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+			<div class="modal-body">
+			비밀번호를 입력후 확인을 누르시면 삭제됩니다
+			<!--해당 글 삭제하는 주소값받는 input 태그-->
+				<input type="password" class="form-control" name="pw" id="pw" placeholder="PASSWORD를 입력하세요" required>
+				<img id="deleteUrl" src="">
+			
+			</div>
+			<div class="modal-footer">
+			
+				<button type="button" class="btn btn-primary" id="deleteBtn">확인</button>
+				
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
