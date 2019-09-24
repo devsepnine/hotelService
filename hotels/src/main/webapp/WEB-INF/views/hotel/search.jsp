@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/typeahead/typeahead.js"></script>
@@ -473,9 +476,11 @@ $(function(){
 					</div>
 				</div>
 				
-				<div class="price-review" style="width: 95px;display: inline-block;">
-					<p>객실 수 : ${h_con.room_cnt }</p>
-					<font>가격 : ${h_con.min_price } <i class="fi fi-h-currency"></i></font>
+				<div class="price-review" style="width: 250px;display: inline-block;">
+					<div style="height: 20px;"></div>
+					<p style="font-size: 20px;">객실 수 : ${h_con.room_cnt }</p>
+				<font style="font-size: 24px;color: #4a433b;"><br><fmt:formatNumber value="${h_con.min_price }" pattern="#,###" />원~<br>
+					<fmt:formatNumber value="${h_con.max_price }" pattern="#,###" />원</font>
 				</div>
 			</li>
 			</c:forEach>
