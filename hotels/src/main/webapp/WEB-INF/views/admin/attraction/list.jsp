@@ -36,10 +36,17 @@
 
 <script>
 	$(function(){
+// 		삭제버튼눌럿을때 span에 해당 번호 추가 
+		$(".exitbtn").click(function(){
+			var attr_no = $(this).attr("data-attraction_no");
+			$(".del-attr-no").text(attr_no);
+		})
+		
 		$("#deleteBtn").click(function(){
 			var pw = $("input[name=pw]").val();
 			var encPw = CryptoJS.SHA256(pw).toString();
-			
+// 			번호 가져와서 삭제작업 보냄
+			var attr_no = $(".del-attr-no").text();
 			$.ajax({
 				url : "${pageContext.request.contextPath}/admin/check_pw_attraction",
 				type: "post",
@@ -49,7 +56,7 @@
 				dataType : "text",
 				success : function(resp) {
 					if (resp == "Y") {
-						location.href="${pageContext.request.contextPath}/admin/attraction/exit?no=${adto.attraction_no}"
+						location.href="${pageContext.request.contextPath}/admin/attraction/exit?no="+attr_no;
 					}
 					else {
 						window.alert("비밀번호가 일치하지 않습니다")
@@ -199,7 +206,8 @@
 			</a>
 		</td>
 		<td>
-			<button type="button" name="exitbtn"  class="btn btn-danger exitbtn" data-toggle="modal" data-target="#deleteCheckModal">DELETE</button>
+<!-- 		data-attr_no 에 번호 추가 -->
+			<button type="button" name="exitbtn"  class="btn btn-danger exitbtn" data-toggle="modal" data-target="#deleteCheckModal" data-attraction_no="${adto.attraction_no}">DELETE</button>
 		</td>
 		</tr>
 		</c:forEach>
@@ -320,7 +328,8 @@
 			
 			</div>
 			<div class="modal-footer">
-			
+<!-- 				리스트번호전달을 위해 스펜에 값 입력 -->
+				<span class="del-attr-no" style="display: none;"></span> 
 				<button type="button" class="btn btn-primary" id="deleteBtn">확인</button>
 				
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
