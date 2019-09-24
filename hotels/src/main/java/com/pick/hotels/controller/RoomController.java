@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pick.hotels.entity.AttractionFileDto;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.RoomFileDto;
 import com.pick.hotels.entity.RoomListVO;
+import com.pick.hotels.entity.SellerDto;
 import com.pick.hotels.repository.RoomDao;
 import com.pick.hotels.repository.RoomFileDao;
+import com.pick.hotels.repository.SellerDao;
 import com.pick.hotels.service.FileService;
 
 @Controller
@@ -29,6 +32,9 @@ public class RoomController {
 	
 	@Autowired
 	private RoomDao roomDao;
+	
+	@Autowired
+	private SellerDao sellerDao;
 	
 	@Autowired
 	private RoomFileDao roomFileDao;
@@ -235,6 +241,20 @@ public class RoomController {
 		if(result) {
 			resp.getWriter().print("Y");
 			fileService.room_delete(room_no);
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
+	@PostMapping("/roomDelete")
+	public void roomDelete(
+			HttpSession session,@RequestParam String seller_pw, 
+			HttpServletResponse resp, @RequestParam int room_no) throws IOException {
+		
+		SellerDto sellerDto = sellerDao.getId((String)session.getAttribute("s_ok"));
+		if(BCrypt.checkpw(seller_pw,sellerDto.getSeller_pw())) {
+			roomDao.delete(room_no);
+			resp.getWriter().print("Y");
 		}
 		else {
 			resp.getWriter().print("N");

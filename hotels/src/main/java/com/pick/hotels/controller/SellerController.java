@@ -265,7 +265,7 @@ public class SellerController {
 		}
 	}
 	
-	@GetMapping("/checkDelete")
+	@PostMapping("/checkDelete")
 	public void checkDelete(HttpSession session,@RequestParam String seller_pw, HttpServletResponse resp) throws IOException {
 		SellerDto sellerDto = sellerDao.getId((String)session.getAttribute("s_ok"));
 		System.out.println(seller_pw);
@@ -619,6 +619,20 @@ public class SellerController {
 			resp.getWriter().print("N");
 		}
 	}
+	@PostMapping("/hotel/hotelDelete")
+	public void hotelDelete(
+			HttpSession session,@RequestParam String seller_pw, 
+			HttpServletResponse resp, @RequestParam int hotel_no) throws IOException {
+		
+		SellerDto sellerDto = sellerDao.getId((String)session.getAttribute("s_ok"));
+		if(BCrypt.checkpw(seller_pw,sellerDto.getSeller_pw())) {
+			hotelDao.delete(hotel_no);
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
+	}
 	
 	@GetMapping("/hotel/edit")
 	public String edit(@RequestParam int hotel_no, Model model) {
@@ -937,6 +951,21 @@ public class SellerController {
 		model.addAttribute("hdto", hdto);
 		model.addAttribute("rlist", rlist);
 		return "/hotel/reserverlist";
+	}
+	
+	@PostMapping("/hotel/partner/partnerDelete")
+	public void partnerDelete(
+			HttpSession session,@RequestParam String seller_pw, 
+			HttpServletResponse resp, @RequestParam int partner_no) throws IOException {
+		
+		SellerDto sellerDto = sellerDao.getId((String)session.getAttribute("s_ok"));
+		if(BCrypt.checkpw(seller_pw,sellerDto.getSeller_pw())) {
+			partnerDao.delete(partner_no);
+			resp.getWriter().print("Y");
+		}
+		else {
+			resp.getWriter().print("N");
+		}
 	}
 	
 
