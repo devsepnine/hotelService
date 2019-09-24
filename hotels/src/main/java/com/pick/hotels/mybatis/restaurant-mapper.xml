@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <mapper namespace="restaurant">
  
- 	<!-- 레스토랑 등록하기 -->
+ 	<!-- 레스토랑 등록하기  -->
  	<insert id="regist" parameterType="restaurantDto">
  		insert into restaurant values(#{restaurant_no}, #{restaurant_name}, #{restaurant_postcode}, #{restaurant_addr1}, #{restaurant_addr2}, #{restaurant_lat}, #{restaurant_lng}, #{restaurant_info})
  	</insert>
@@ -55,10 +55,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 목록/ 검색 각각의 글 수를 구하는 거 -->	
 	<select id="count" parameterType="map" resultType="int">
-		select count(*) from restaurant
-		<if test="type != null and keyword != null">
-			where ${type} like '%' || #{keyword} || '%'		
-		</if>
+		SELECT count(*) FROM (
+			SELECT ROWNUM R, TMP.* FROM(
+				SELECT 
+					*
+				FROM (
+			    	SELECT 
+			        	RT.restaurant_name,
+				        RT.restaurant_addr1, 
+				        RT.restaurant_addr2, 
+				        RT.restaurant_no, 
+				        RTF.restaurant_file_name,
+				        ROW_NUMBER() OVER(PARTITION BY RT.restaurant_no ORDER BY RTF.restaurant_file_no ASC) as rn
+					FROM 
+			        	restaurant RT inner join restaurant_file RTF on RT.restaurant_no = RTF.restaurant_no
+				) WHERE rn=1 
+				<if test="type != null and keyword != null">
+					AND ${type} like '%'||#{keyword}||'%'
+				</if>
+			)TMP
+		)
 	</select>
 	
 	

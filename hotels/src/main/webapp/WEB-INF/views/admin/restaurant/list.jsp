@@ -36,12 +36,16 @@
 
 <script>
 	$(function(){
+		$(".exitbtn").click(function(){
+			var rest_no = $(this).attr("data-restaurant_no");
+			$(".del-rest-no").text(rest_no);
+		})
+		
 		$("#deleteBtn").click(function(){
 			var pw = $("input[name=pw]").val();
 			var encPw = CryptoJS.SHA256(pw).toString();
-			
+			var rest_no = $(".del-rest-no").text();
 			$.ajax({
-// 				url : "../check_pw_restaurant",
 				url : "${pageContext.request.contextPath}/admin/check_pw_restaurant",
 				type: "post",
 				data : {
@@ -50,7 +54,7 @@
 				dataType : "text",
 				success : function(resp) {
 					if (resp == "Y") {
-						location.href="${pageContext.request.contextPath}/admin/restaurant/exit?no=${rdto.restaurant_no}"
+						location.href="${pageContext.request.contextPath}/admin/restaurant/exit?no="+rest_no;
 					}
 					else {
 						window.alert("비밀번호가 일치하지 않습니다")
@@ -200,7 +204,7 @@
 			</a>
 			</td>
 			<td>
-				<button type="button" name="exitbtn"  class="btn btn-danger exitbtn" data-toggle="modal" data-target="#deleteCheckModal">DELETE</button>
+				<button type="button" name="exitbtn"  class="btn btn-danger exitbtn" data-toggle="modal" data-target="#deleteCheckModal" data-restaurant_no="${rdto.restaurant_no}">DELETE</button>
 			</td>
 		</tr>
 		</c:forEach>
@@ -321,7 +325,8 @@
 			
 			</div>
 			<div class="modal-footer">
-			
+<!-- 				리스트번호전달을 위해 스펜에 값 입력 -->
+				<span class="del-rest-no" style="display: none;"></span> 
 				<button type="button" class="btn btn-primary" id="deleteBtn">확인</button>
 				
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

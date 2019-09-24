@@ -8,7 +8,7 @@
 <script src="${pageContext.request.contextPath}/js/cryptojs/components/sha256-min.js"></script>
 
 
-<script>
+<script> 
 	$(function(){
 		$("#deleteBtn").click(function(){
 			var pw = $("input[name=pw]").val();
