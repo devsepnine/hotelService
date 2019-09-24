@@ -161,7 +161,7 @@
   		border-right: none;
   		padding:10px 10px;
 	}
-	
+	 
 	.headtit{
 		border-bottom: #432c10 solid 10px;
 		width:1100px;

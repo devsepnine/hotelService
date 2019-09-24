@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <mapper namespace="restaurant">
  
- 	<!-- 레스토랑 등록하기 -->
+ 	<!-- 레스토랑 등록하기  -->
  	<insert id="regist" parameterType="restaurantDto">
  		insert into restaurant values(#{restaurant_no}, #{restaurant_name}, #{restaurant_postcode}, #{restaurant_addr1}, #{restaurant_addr2}, #{restaurant_lat}, #{restaurant_lng}, #{restaurant_info})
  	</insert>

@@ -309,7 +309,7 @@
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
-<!-- 삭제할 때 삭제할건지 확인하는 모달 시작 -->
+<!-- 삭제할 때 삭제할건지 확인하는 모달 시작 --> 
 <!--modal 참고 url : https://getbootstrap.com/docs/4.0/components/modal/ -->
 <div class="modal" id="deleteCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
