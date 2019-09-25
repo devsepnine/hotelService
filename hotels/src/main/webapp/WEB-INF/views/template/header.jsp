@@ -22,13 +22,21 @@
                                 console.log($(window).width())
                                 $(".sidebar").toggleClass("active")
                                 $(".content").toggleClass("active")
+                                $(".menubtn").toggleClass("active")
+                                $(".backbtn").toggleClass("active")
                                 })
-            
+            $(".backbtn").click(function(){
+            	$(".sidebar").toggleClass("active")
+            	$(".menubtn").toggleClass("active")
+                $(".backbtn").toggleClass("active")
+                
+            })
             $(window).resize(function(){
                 if($(window).width() > 1249){
                     $(".sidebar").removeClass("active")
                     $(".content").removeClass("active")
-                    $(".menubtn").removeClass("active") 
+                    $(".menubtn").removeClass("active")
+                    $(".backbtn").removeClass("active")
                     setTimeout(function(){
                     	$(".content").removeClass("transition")
                     }, 300)
@@ -65,12 +73,24 @@
         z-index: 999;
         display: none;
         margin: 0px;
-        color: #f1e3c4;
+        color: black;
+        
     }
     .menubtn:hover{
     	text-shadow: 0px 0px 20px white;
-    	color: lime;
-    }	
+    	color: #726454;
+    }
+    .backbtn{
+    	position: fixed;
+    	display:none;
+    	width: 100%;
+    	height: 100%;
+    	background-color: rgba(0, 0, 0, 0.5);
+    	z-index: 998;
+    }
+    .backbtn.active{
+    	display: block;
+    }
     .admin-btn{
     	position:fixed;
     	top : 20px;
@@ -144,7 +164,7 @@
             display: block;
        }
        .menubtn.active{
-       		right: 0px; 
+       		display: none;
        }
        .sidebar.active{
            margin-left: 0px;
@@ -156,6 +176,7 @@
 </style>
 </head>
 <body>
+<div class="backbtn"></div>
 <div class="sidebar">
 <div>
 <div class="sidebar-list">
