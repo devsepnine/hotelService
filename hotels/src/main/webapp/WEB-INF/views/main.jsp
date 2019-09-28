@@ -357,10 +357,10 @@ $(function(){
 		<a href="${pageContext.request.contextPath}/direct/부산"><img style="width: 100%;height: 100%;" alt="부산" src="${pageContext.request.contextPath}/img/main/busan.png"></a>
 	</div>
 	<div class="left-offer-2">
-		<a href="${pageContext.request.contextPath}/direct/서울"><img style="width: 100%;height: 100%;" alt="서울" src="${pageContext.request.contextPath}/img/main/seoul.jpg"></a>
+		<a href="${pageContext.request.contextPath}/direct/서울"><img style="width: 100%;height: 100%;" alt="서울" src="${pageContext.request.contextPath}/img/main/seoul.png"></a>
 	</div>
 	<div class="left-offer-3">
-		<a href="${pageContext.request.contextPath}/direct/강원"><img style="width: 100%;height: 100%;" alt="강원" src="${pageContext.request.contextPath}/img/main/ganwon.jpg"></a>
+		<a href="${pageContext.request.contextPath}/direct/강원"><img style="width: 100%;height: 100%;" alt="강원" src="${pageContext.request.contextPath}/img/main/gangwon.png"></a>
 	</div>
 
 </div>

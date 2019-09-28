@@ -280,7 +280,6 @@ $(function(){
 		<input class="btn btn-danger" type="submit" value="호텔 검색">
 		<div style="flex-grow: 1"></div>
 </div>
-</form>
 
 <script type="text/javascript">
     $(function () {
