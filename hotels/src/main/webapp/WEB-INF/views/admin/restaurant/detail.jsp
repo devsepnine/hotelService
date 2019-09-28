@@ -144,7 +144,7 @@
 					주소&emsp; ${rdto.restaurant_addr1} ${rdto.restaurant_addr2}
 				</td>
 			</tr>
-			<tr height="500">
+			<tr height="300">
 				<td valign="top" colspan="2">
 				<c:if test="${not empty rfdtolist[0]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/2?img_name=${rfdtolist[0].restaurant_file_name}">

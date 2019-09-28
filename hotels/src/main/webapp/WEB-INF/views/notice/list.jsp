@@ -150,7 +150,7 @@
 				</a>
 				
 			</td>
-			<td>${ndto.notice_when.substring(0,16)}</td>
+			<td>${ndto.notice_when.substring(0,10)}</td>
 			<td>${ndto.notice_read}</td>
 		</tr>
 		</c:forEach>

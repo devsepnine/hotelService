@@ -139,7 +139,7 @@
 					[주소]&emsp; ${adto.attraction_addr1} ${adto.attraction_addr2}
 				</td>
 			</tr>
-			<tr height="500">
+			<tr height="300">
 				<td valign="top" colspan="2">
 				<c:if test="${not empty afdtolist[0]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/1?img_name=${afdtolist[0].attraction_file_name}">

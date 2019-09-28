@@ -33,8 +33,8 @@
 	
 <style>
 	.ck-editor__editable {
-		min-height:500px;
-		max-height:500px;
+		min-height:300px;
+		max-height:300px;
 	}
 </style>
 
@@ -115,7 +115,7 @@
 						<input type="text" style="width:400px;" name="notice_title" value="${ndto.notice_title}" required>
 					</td>
 				</tr>
-				<tr height="500">
+				<tr height="300">
 					<td valign="top" colspan="2">
 						<textarea id="editor1" name="notice_content">${ndto.notice_content}</textarea>				
 					</td>
@@ -133,7 +133,7 @@
 				<tr>
 					<td class="td-line" colspan="2" style="text-align: right;">
 						<input type="hidden" value="${ndto.notice_file_name}" name="delete_file">
-						<input type="submit" class="btn btn-danger" value="수정하기">
+						<input type="submit" class="btn btn-danger" value="수정">
 					</td>
 				</tr>
 			</tfoot>
