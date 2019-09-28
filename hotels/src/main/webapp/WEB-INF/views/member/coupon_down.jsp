@@ -31,7 +31,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 
 <div class="coupon-wrap">
-	<h1>다운로드 쿠폰함</h1>
+	<h1>다운로드 가능 쿠폰함</h1>
 	<div class="my-coupon-wrap">
 		<a href="coupon_list" class="btn btn-danger can_btn" >내 쿠폰함</a>
 	</div>

@@ -112,7 +112,7 @@
 					현재 승인 상태 : [ ${pdto.partner_type} ]
 				</td>
 			</tr>
-			<tr height="500">
+			<tr height="300">
 				<td valign="top" colspan="2">
 				<c:if test="${not empty pfdtolist[0]}">
 					<img height="100px;" src="${pageContext.request.contextPath}/img_v/5?img_name=${pfdtolist[0].p_file_name}">

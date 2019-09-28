@@ -127,7 +127,7 @@
 			<tfoot>
 				<tr>
 					<td class="td-line" colspan="2"  style="text-align: right;">
-						<input type="submit" class="btn btn-danger" value="글 등록">
+						<input type="submit" class="btn btn-danger" value="등록">
 					</td>
 				</tr>
 			</tfoot>

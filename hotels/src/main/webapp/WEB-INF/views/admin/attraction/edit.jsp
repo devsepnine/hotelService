@@ -135,8 +135,8 @@
 	
 <style>
 	.ck-editor__editable {
-		min-height:500px;
-		max-height:500px;
+		min-height:300px;
+		max-height:300px;
 	}
 </style>
 
@@ -231,7 +231,7 @@
 						<input class="form-control" type="text" name="attraction_addr2" value="${adto.attraction_addr2}" placeholder="상세주소">
 					</td>
 				</tr>
-				<tr height="500">
+				<tr height="300">
 					<td valign="top" colspan="2">
 						<textarea name="attraction_info">${adto.attraction_info}</textarea>
 					</td>	

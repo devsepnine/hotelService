@@ -259,7 +259,7 @@
 			</button>
 		</div>
 			<div class="modal-body">
-			비밀번호를 입력후 확인을 누르시면 삭제됩니다
+			비밀번호를 입력후 확인을 누르시면 탈퇴처리됩니다
 			<!--해당 글 삭제하는 주소값받는 input 태그-->
 				<input type="password" class="form-control" name="pw" id="pw" placeholder="PASSWORD를 입력하세요" required>
 				<img id="deleteUrl" src="">
