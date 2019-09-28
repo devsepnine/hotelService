@@ -174,6 +174,9 @@
 		.hotel-wrap{
 			display: flex;
 		}
+		.price-review{
+			text-align: center;
+		}
 	</style>
 <script>
 $(function(){
@@ -477,9 +480,10 @@ $(function(){
 				
 				<div class="price-review" style="width: 250px;display: inline-block;">
 					<div style="height: 20px;"></div>
-					<p style="font-size: 20px;">객실 수 : ${h_con.room_cnt }</p>
-				<font style="font-size: 24px;color: #4a433b;"><br><fmt:formatNumber value="${h_con.min_price }" pattern="#,###" />원~<br>
-					<fmt:formatNumber value="${h_con.max_price }" pattern="#,###" />원</font>
+					<p style="font-size: 20px;color: black;">남은 객실 ${h_con.room_cnt }개</p>
+					<hr>
+					<font style="font-size: 18px; color: #333; font-weight: bold;"><br><fmt:formatNumber value="${h_con.min_price }" pattern="#,###" />원</font><br>~<br>
+					<font style="font-size: 16px; color: #555;"><fmt:formatNumber value="${h_con.max_price }" pattern="#,###" />원</font>
 				</div>
 			</li>
 			</c:forEach>
