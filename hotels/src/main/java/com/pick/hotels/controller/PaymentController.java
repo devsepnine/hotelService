@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pick.hotels.entity.CouponDto;
 import com.pick.hotels.entity.HotelDto;
@@ -36,7 +33,6 @@ import com.pick.hotels.entity.Payment_VO;
 import com.pick.hotels.entity.ReserveDto;
 import com.pick.hotels.entity.RoomDto;
 import com.pick.hotels.entity.V_reserve;
-import com.pick.hotels.entity.kakaopay.KakaoPayCanceledAmount;
 import com.pick.hotels.entity.kakaopay.KakaoPayCanceledVo;
 import com.pick.hotels.entity.kakaopay.KakaoPayReturnVo;
 import com.pick.hotels.entity.kakaopay.KakaoPaySuccessVO;
@@ -56,14 +52,6 @@ public class PaymentController {
 	private @Autowired KakaoPayMentDao kakaoPayMentDao;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@Autowired
-	private Environment env;	
-	
-	
-//	컨트롤러에서 프로퍼티 데이터 가져옴
-	@Value("#{server['server.port']}")
-	private String server_port;
 	
 	@PostMapping("/order")
 	public String payment(@ModelAttribute Payment_VO payment_VO,
@@ -105,7 +93,6 @@ public class PaymentController {
 				headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 				
 				
-				System.out.println(server_port);
 				MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 				params.add("cid", "TC0ONETIME"); //가맹점 코드 10자
 				params.add("partner_order_id", String.valueOf(order_id));// 주문번호 최대 100자
@@ -114,16 +101,15 @@ public class PaymentController {
 				params.add("quantity", String.valueOf("1")); //상품 수량 integer
 				params.add("total_amount", String.valueOf(payment_VO.getReserve_price())); //상품총액 integer
 				params.add("tax_free_amount", "0"); //비과세 금액 integer
-				String url = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-				if(!server_port.isEmpty()) {
-					System.out.println("포트있음");
-					url = ServletUriComponentsBuilder.fromCurrentContextPath().port(server_port).toUriString();
-				}
-				logger.debug("호스트 주소 {}",url);
-				params.add("approval_url", url+"/payment/kakao/success");
-				params.add("cancel_url", url+"/payment/kakao/cancel");
-				params.add("fail_url", url+"/payment/kakao/fail");
 				
+				
+				String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+				logger.debug(url);
+				params.add("approval_url", url+"/hotels/payment/kakao/success");
+				params.add("cancel_url", String.valueOf(url+"/hotels/payment/kakao/cancel"));
+				params.add("fail_url", String.valueOf(url+"/hotels/payment/kakao/fail"));
+				
+				System.out.println(params);
 //				headers와 params를 합쳐서 전송할 객체를 생성
 				HttpEntity<MultiValueMap<String, String>> send = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -131,7 +117,6 @@ public class PaymentController {
 				
 //				전송:반환값을 저장할수 있는 객체가 필요
 				KakaoPayReturnVo kakaopay = template.postForObject(uri, send, KakaoPayReturnVo.class);
-				
 				//결제정보 최종승인때 사용하기 위해 저장
 				session.setAttribute("payment_VO", payment_VO); // 주문 정보
 				session.setAttribute("order_id", order_id); // 주문 번호
