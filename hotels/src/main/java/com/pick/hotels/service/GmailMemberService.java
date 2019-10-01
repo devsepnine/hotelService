@@ -40,7 +40,7 @@ public class GmailMemberService implements EmailService{
 	private SellerCertDao sellerCertDao;
 
 	@Override
-	public void find_pw(MemberDto mdto) throws MessagingException {
+	public void find_pw(MemberDto mdto, String url) throws MessagingException {
 //		인증번호 생성
 		String no = randomStringService.generate(128);
 		String email = mdto.getMember_email1()+"@"+mdto.getMember_email2();
@@ -55,13 +55,7 @@ public class GmailMemberService implements EmailService{
 		helper.setFrom("HOTEL");
 		helper.setTo(email);
 		helper.setSubject("[호텔 델꾸와] 비밀번호 변경 메일 입니다");
-		String address = ServletUriComponentsBuilder
-													.fromCurrentContextPath()
-													.port(8080)
-													.path("/member/new_pw")
-													.queryParam("member_no", mdto.getMember_no())
-													.queryParam("no", no)
-													.toUriString();
+		String address = url + "/hotels/member/new_pw?member_no="+mdto.getMember_no()+"&no="+no;
 		helper.setText("<h3><a href = '"+address+"'>이곳을 눌러 인증을 완료하세요</a></h3>", true);
 		sender.send(mail);
 	}
@@ -115,7 +109,7 @@ public class GmailMemberService implements EmailService{
 		}
 	}
 
-	public void find_pw(SellerDto sdto) throws MessagingException {
+	public void find_pw(SellerDto sdto, String url) throws MessagingException {
 //		인증번호 생성
 		String no = randomStringService.generate(128);
 		String email = sdto.getSeller_email_id()+"@"+sdto.getSeller_email_addr();
@@ -131,13 +125,7 @@ public class GmailMemberService implements EmailService{
 		helper.setFrom("HOTEL");
 		helper.setTo(email);
 		helper.setSubject("[호텔 델꾸와] 비밀번호 변경 메일 입니다");
-		String address = ServletUriComponentsBuilder
-													.fromCurrentContextPath()
-													.port(8080)
-													.path("/seller/new_pw")
-													.queryParam("seller_no", sdto.getSeller_no())
-													.queryParam("no", no)
-													.toUriString();
+		String address = url+"/hotels/seller/new_pw?seller_no="+sdto.getSeller_no()+"no="+no;
 		helper.setText("<h3><a href = '"+address+"'>이곳을 눌러 인증을 완료하세요</a></h3>", true);
 		sender.send(mail);
 

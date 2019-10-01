@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<head>
+	<link rel="icon" type="image/png"  href="${pageContext.request.contextPath}/img/ico/hotel_icon.png"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/bootstrap.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+	<title>호텔델꾸와 관리페이지</title>
+</head>
 <style>
    @font-face{
    		font-family: hotel;

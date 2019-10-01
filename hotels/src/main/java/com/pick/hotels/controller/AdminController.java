@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -787,13 +788,13 @@ public class AdminController {
 //	회원 비밀번호 변경 이메일 발송
 	@GetMapping("/member/new_pw")
 	@ResponseBody
-	public String new_pw_member(@RequestParam int no, Model model) throws MessagingException {
+	public String new_pw_member(@RequestParam int no, HttpServletRequest request, Model model) throws MessagingException {
 		
 		MemberDto memberDto = memberDao.get(no);
 		
 		model.addAttribute("mdto", memberDto);
-		
-		emailService.find_pw(memberDto);
+		String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		emailService.find_pw(memberDto, url);
 		
 		return "Y";
 	}
@@ -945,12 +946,12 @@ public class AdminController {
 //	판매자 비밀번호 변경 이메일 발송
 	@GetMapping("/seller/new_pw")
 	@ResponseBody
-	public String new_pw_seller(@RequestParam int no, Model model) throws MessagingException {
+	public String new_pw_seller(@RequestParam int no, HttpServletRequest request,Model model) throws MessagingException {
 		
 		SellerDto sellerDto = sellerDao.get(no);
 		model.addAttribute("sdto", sellerDto);
-		
-		emailService.find_pw(sellerDto);
+		String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		emailService.find_pw(sellerDto, url);
 		
 		return "Y";
 	}
