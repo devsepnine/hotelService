@@ -367,14 +367,7 @@ $(function(){
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
-<!-- 테스트 사용자 로그인 버튼 -->
-<c:if test="${ok eq null and s_ok eq null}">
-	<div style="position: fixed; top: 30px; right: 30px;z-index: 1060">
-		<a href="${pageContext.request.contextPath}/testlogin/0" class="btn btn-success">테스트 사용자</a>
-		<a href="${pageContext.request.contextPath}/testlogin/1" class="btn btn-info">테스트 판매자</a>
-		<a href="${pageContext.request.contextPath}/testlogin/2" class="btn btn-reserve">테스트 관리자</a>
-	</div>
-</c:if>
+
 
 <!-- 	팝업알림 -->
   <div class="toast hide" id="date-toast">
