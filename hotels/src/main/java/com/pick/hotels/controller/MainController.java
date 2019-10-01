@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +95,37 @@ public class MainController {
 	   model.addAttribute("region", region);
 	   String redirect = "redirect:/hotel/search?check_in="+check_in+"&check_out="+check_out+"&people=1";
 	   return redirect;
+   }
+   
+//   테스트 로그인 처리
+   @GetMapping("/testlogin/{type}")
+   public String testlogin(@PathVariable int type, HttpSession session) {
+	   session.removeAttribute("ok");
+	   session.removeAttribute("auth");
+	   session.removeAttribute("username");
+	   session.removeAttribute("s_ok");
+	   session.removeAttribute("s_no");
+	   switch (type) {
+	case 0:
+		session.setAttribute("ok", "n0chatt3r");
+		session.setAttribute("auth", "일반");
+		session.setAttribute("no", 166);
+		session.setAttribute("username", "노채터");
+		return "redirect:/";
+	case 1:
+		session.setAttribute("s_ok", "rlaskdus");
+		session.setAttribute("s_no", 93);
+		return "redirect:/seller/";
+	case 2:
+		session.setAttribute("ok", "admin");
+		session.setAttribute("auth", "관리자");
+		session.setAttribute("no", 163);
+		session.setAttribute("username", "김나연");
+		return "redirect:/admin/main";
+	default:
+		break;
+	}
+	   
+	   return "redirect:/";
    }
 }

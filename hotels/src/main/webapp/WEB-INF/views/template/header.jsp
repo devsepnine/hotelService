@@ -209,6 +209,13 @@
 	</a>
 </div>
 </c:if>
+<c:if test="${!(sessionScope.s_ok eq null) }">
+<div class="admin-btn">
+	<a href="${pageContext.request.contextPath}/seller/">
+		<span class="btn btn-danger admin-btn"><i class="fa fa-key"></i>&nbsp;&nbsp;호텔 관리</span>
+	</a>
+</div>
+</c:if>
 <div class="menubtn">
 <div style="width: 100%; background-color: none;">
 	<i class="fa fa-bars fa-3x"></i>
