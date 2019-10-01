@@ -32,7 +32,7 @@
                 
             })
             $(window).resize(function(){
-                if($(window).width() > 1249){
+                if($(window).width() > 1409){
                     $(".sidebar").removeClass("active")
                     $(".content").removeClass("active")
                     $(".menubtn").removeClass("active")
@@ -151,7 +151,7 @@
     	font-size: 25px;
     	color: black;
     }
-    @media (max-width:1250px) {
+    @media (max-width:1410px) {
        .sidebar {
          margin-left: -250px;
        }

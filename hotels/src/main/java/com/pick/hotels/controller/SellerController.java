@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -347,10 +348,11 @@ public class SellerController {
 	}
 	
 	@PostMapping("/find_pw")
-	public String findPassword(@ModelAttribute SellerDto sellerDto,Model model) throws MessagingException {
+	public String findPassword(@ModelAttribute SellerDto sellerDto,HttpServletRequest request,Model model) throws MessagingException {
 		SellerDto sdto = sellerDao.findPassword(sellerDto);
 		if(sdto != null) {
-			emailService.find_pw(sdto);
+			String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+			emailService.find_pw(sdto, url);
 			return "redirect:find_pw_result";
 		}
 		else {
@@ -386,7 +388,7 @@ public class SellerController {
 			model.addAttribute("seller_no", seller_no);
 			System.out.println("이프가 트루일때");
 			sellerCertDao.delete(sellerCertDto);
-			return "seller/new_pw";
+			return "seller/	";
 		}
 		else {
 			return "redirect:/seller/find_pw";

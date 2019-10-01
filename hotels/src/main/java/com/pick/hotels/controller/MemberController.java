@@ -207,10 +207,11 @@ public class MemberController {
 	}
 	
 	@PostMapping("/find_pw")
-	public String findPassword(@ModelAttribute MemberDto memberDto,Model model) throws MessagingException {
+	public String findPassword(@ModelAttribute MemberDto memberDto,HttpServletRequest request,Model model) throws MessagingException {
 		MemberDto mdto = memberDao.findPassword(memberDto);
 		if(mdto != null) {
-			emailService.find_pw(mdto);
+			String url = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+			emailService.find_pw(mdto, url);
 			return "redirect:find_pw_result";
 		}
 		else {
