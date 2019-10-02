@@ -225,7 +225,7 @@ form label {
 		if (result) {
 			div.innerHTML = ""
 		}
-		//s_email이 형식에 맞지 않으면 메세지 춮력
+		//s_email이 형식에 맞지 않으면 메세지 출력
 		else {
 			div.innerHTML = "<font color = 'gray' size = '2'>8~15자의 영문 소문자, 숫자로 입력해주세요</font>"
 		}
@@ -286,28 +286,46 @@ form label {
 	
 	$(function() {
 		$(".btn-cert_no_check").click(
-				function() {
-					$.ajax({
-						url : "email_cert_check",
-						data : {
-							seller_email_cert : $("input[name=seller_email_cert]").val()
-						},
-						dataType : "text",
-						success : function(resp) {
-							if (resp == "Y") {
-								window.alert("올바른 인증번호 입니다");
-								$("input[name=registbtn]").prop("disabled",
-										false).css("background-color",
-										"#726454");
-							}
-							else {
-								window.alert("인증번호가 올바르지 않습니다")
-								$("input[name=seller_email_cert]").select();
-							}
+			function() {
+				$.ajax({
+					url : "email_cert_check",
+					data : {
+						seller_email_cert : $("input[name=seller_email_cert]").val()
+					},
+					dataType : "text",
+					success : function(resp) {
+						if (resp == "Y") {
+							window.alert("올바른 인증번호 입니다");
+							$("input[name=registbtn]").prop("disabled",
+									false).css("background-color",
+									"#726454");
 						}
-					});
+						else {
+							window.alert("인증번호가 올바르지 않습니다")
+							$("input[name=seller_email_cert]").select();
+						}
+					}
 				});
+			});
 	});
+	
+	$(function(){
+		$(".birthdate").blur(function(){
+			var now = new Date();
+		    console.log(now)
+		    var birth = $(".birthdate");
+		    var birthdate = new Date(birth.val())
+		    console.log(birthdate);
+		    var gap = now - birthdate
+		    console.log(gap)
+		    if(gap<0){
+		    	alert("올바른 날짜를 입력해주세요")
+		    	$(".birthdate").val("");
+		    	birth.focus()
+		    }
+		});
+	});
+	
 	
 	
 </script>
@@ -366,7 +384,7 @@ form label {
 					</tr>
 					<tr>
 						<td><label for="s_birth">BIRTH</label></td>
-						<td><input class="form-control" type="date"
+						<td><input class="form-control birthdate" type="date"
 							name="seller_birth" id="s_birth" value="2019-07-08" required>
 						</td>
 					</tr>

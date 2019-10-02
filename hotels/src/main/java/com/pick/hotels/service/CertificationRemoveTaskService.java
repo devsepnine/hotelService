@@ -1,6 +1,7 @@
 package com.pick.hotels.service;
 
 public interface CertificationRemoveTaskService {
-	void run();
-	void run_cert();
+	void seller_run();
+	void seller_run_cert();
+	void member_run_cert();
 }
