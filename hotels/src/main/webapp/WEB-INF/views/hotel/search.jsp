@@ -441,7 +441,9 @@ $(function(){
 				
 				<div class="detail" style="width: 700px;display: inline-block;">
 					<div class="hotel-title-wrap">
+					<a href="view/${h_con.hotel_no}?region=${param.region}&check_in=${param.check_in}&check_out=${param.check_out}&people=${param.people}">
 						<font style="display: inline-block;font-size: 30px;width: 100%;">${h_con.hotel_name }</font>
+					</a>
 						<div class="hotel-star">
 					    	<div style="display: inline-block;" data-toggle="tooltip" title="${h_con.hotel_star}성급 호텔" class="star-wrap" data-star="${h_con.hotel_star}" >
 					        	<img src="${pageContext.request.contextPath}/img/star/star.png">        
@@ -449,6 +451,7 @@ $(function(){
 					    	</div>
 						</div>
 					</div>
+					
 					<div class="ico-wrap" style="display: inline-block;width: 100%;padding: 10px 0px;">
 						<c:if test="${h_con.hotel_bbq=='Y'}">
 						<img alt="" data-toggle="tooltip" data-placement="top" title="" data-original-title="바베큐" src="${pageContext.request.contextPath}/img/ico/bbq.png"></c:if>
@@ -471,6 +474,7 @@ $(function(){
 						<c:if test="${h_con.hotel_sauna=='Y'}">
 						<img alt="" data-toggle="tooltip" data-placement="top" title="사우나" src="${pageContext.request.contextPath}/img/ico/sauna.png"></c:if>
 					</div>
+					
 					<div class="hotel-desc-wrap">
 						<div class="hotel-desc-scroll">
 							<div class="hotel-desc-content">${h_con.hotel_content}</div>
@@ -480,7 +484,7 @@ $(function(){
 				
 				<div class="price-review" style="width: 250px;display: inline-block;">
 					<div style="height: 20px;"></div>
-					<p style="font-size: 20px;color: black;">남은 객실 ${h_con.room_cnt }개</p>
+					<a href="view/${h_con.hotel_no}?region=${param.region}&check_in=${param.check_in}&check_out=${param.check_out}&people=${param.people}" class="btn btn-reserve" style="color: white; border-radius: 10px;">예약하러가기</a>
 					<hr>
 					<font style="font-size: 18px; color: #333; font-weight: bold;"><br><fmt:formatNumber value="${h_con.min_price }" pattern="#,###" />원</font><br>~<br>
 					<font style="font-size: 16px; color: #555;"><fmt:formatNumber value="${h_con.max_price }" pattern="#,###" />원</font>
