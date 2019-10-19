@@ -66,6 +66,9 @@
     body{
         margin: 0;
     }
+    .test-login-box > a{
+    	border-radius: 5px;
+    }
     .menubtn{
     	position:fixed;
     	top : 20px;
@@ -218,7 +221,7 @@
 </c:if>
 <!-- 테스트 사용자 로그인 버튼 -->
 <c:if test="${ok eq null and s_ok eq null}">
-	<div style="position: fixed; top: 30px; right: 30px;z-index: 1060">
+	<div style="position: fixed; top: 30px; right: 30px;z-index: 1060" class="test-login-box">
 		<a href="${pageContext.request.contextPath}/testlogin/0" class="btn btn-success">테스트 사용자</a>
 		<a href="${pageContext.request.contextPath}/testlogin/1" class="btn btn-info">테스트 판매자</a>
 		<a href="${pageContext.request.contextPath}/testlogin/2" class="btn btn-reserve">테스트 관리자</a>

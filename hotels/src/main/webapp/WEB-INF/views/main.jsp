@@ -198,9 +198,9 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/1.jpg"></div>
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/2.jpg"></div>
-        <div class="swiper-slide"><img width="100%" src="${pageContext.request.contextPath }/img/3.jpg"></div>
+        <div class="swiper-slide"><a href="${pageContext.request.contextPath }/mainview/147"><img width="100%" src="${pageContext.request.contextPath }/img/1.jpg"></a></div>
+        <div class="swiper-slide"><a href="${pageContext.request.contextPath }/mainview/152"><img width="100%" src="${pageContext.request.contextPath }/img/2.jpg"></a></div>
+        <div class="swiper-slide"><a href="${pageContext.request.contextPath }/mainview/152"><img width="100%" src="${pageContext.request.contextPath }/img/3.jpg"></a></div>
     </div>
 </div>
 

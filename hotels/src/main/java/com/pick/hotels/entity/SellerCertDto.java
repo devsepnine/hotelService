@@ -1,7 +1,5 @@
 package com.pick.hotels.entity;
 
-import com.pick.hotels.entity.CertDto.CertDtoBuilder;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

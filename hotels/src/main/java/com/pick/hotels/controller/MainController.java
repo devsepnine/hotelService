@@ -85,7 +85,6 @@ public class MainController {
    
    @GetMapping("/direct/{region}")
    public String redirectsearch(@PathVariable String region, Model model) {
-	   
 	   Calendar now = Calendar.getInstance();
 	   now.add(Calendar.DATE, 1);
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,6 +93,18 @@ public class MainController {
 	   String check_out = sdf.format(now.getTime());
 	   model.addAttribute("region", region);
 	   String redirect = "redirect:/hotel/search?check_in="+check_in+"&check_out="+check_out+"&people=1";
+	   return redirect;
+   }
+   
+   @GetMapping("/mainview/{hotel}")
+   public String redirecthotel(@PathVariable String hotel, Model model) {
+	   Calendar now = Calendar.getInstance();
+	   now.add(Calendar.DATE, 1);
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	   String check_in = sdf.format(now.getTime());
+	   now.add(Calendar.DATE, 1);
+	   String check_out = sdf.format(now.getTime());
+	   String redirect = "redirect:/hotel/view/"+hotel+"?check_in="+check_in+"&check_out="+check_out+"&people=1";
 	   return redirect;
    }
    
